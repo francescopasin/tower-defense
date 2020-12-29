@@ -10,10 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    model/gamemodel.cpp \
+    controller/gamecontroller.cpp \
+    view/mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    model/gamemodel.h \
+    controller/gamecontroller.h \
+    view/mainwindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

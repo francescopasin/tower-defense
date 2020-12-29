@@ -1,7 +1,9 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef VIEW_MAINWINDOW_H_
+#define VIEW_MAINWINDOW_H_
 
 #include <QMainWindow>
+
+namespace view {
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -10,4 +12,7 @@ class MainWindow : public QMainWindow {
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 };
-#endif  // MAINWINDOW_H
+
+}  // namespace view
+
+#endif
