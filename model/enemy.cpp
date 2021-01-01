@@ -25,7 +25,7 @@ void Enemy::move() {
     }
 
     // Check if last cell
-    if (_currentCell == (int)_path.size()) {
+    if (_currentCell == static_cast<int>(_path.size())) {
         // TODO: remove enemy from Game's enemies list and delete this
         // TODO: remove life points from Game
     }
