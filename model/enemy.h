@@ -19,7 +19,7 @@ class Enemy {
     vector<PathCell> _path;
 
    public:
-    Enemy(vector<PathCell> path, float _health, float _speed);
+    Enemy(const vector<PathCell>& path, float _health, float _speed);
     void receiveAttack(float damage);
     void move();
 
