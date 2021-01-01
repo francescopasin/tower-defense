@@ -11,11 +11,15 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     model/gamemodel.cpp \
+    model/enemy.cpp \
     controller/gamecontroller.cpp \
     view/mainwindow.cpp
 
 HEADERS += \
+    model/pathcell.h \
+    model/position.h \
     model/gamemodel.h \
+    model/enemy.h \
     controller/gamecontroller.h \
     view/mainwindow.h
 
