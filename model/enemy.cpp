@@ -2,11 +2,11 @@
 
 namespace model {
 
-Enemy::Enemy(std::vector<PathCell> path, float health, float speed) : _currentCell(0),
-                                                                      _cellPosition(0),
-                                                                      _health(health),
-                                                                      _speed(speed),
-                                                                      _path(path) {}
+Enemy::Enemy(vector<PathCell> path, float health, float speed) : _currentCell(0),
+                                                                 _cellPosition(0),
+                                                                 _health(health),
+                                                                 _speed(speed),
+                                                                 _path(path) {}
 
 void Enemy::receiveAttack(float damage) {
     _health -= damage;

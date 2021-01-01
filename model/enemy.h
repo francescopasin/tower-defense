@@ -6,6 +6,8 @@
 #include "model/pathcell.h"
 #include "model/position.h"
 
+using std::vector;
+
 namespace model {
 
 class Enemy {
@@ -14,10 +16,10 @@ class Enemy {
     float _cellPosition;
     float _health;
     int _speed;
-    std::vector<PathCell> _path;
+    vector<PathCell> _path;
 
    public:
-    Enemy(std::vector<PathCell> path, float _health, float _speed);
+    Enemy(vector<PathCell> path, float _health, float _speed);
     void receiveAttack(float damage);
     void move();
 
