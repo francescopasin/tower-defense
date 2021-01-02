@@ -16,6 +16,7 @@ SOURCES += \
 
 HEADERS += \
     model/gamemodel.h \
+    model/deepptr.h \
     controller/gamecontroller.h \
     view/mainwindow.h
 
