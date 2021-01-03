@@ -12,7 +12,9 @@ SOURCES += \
     main.cpp \
     model/gamemodel.cpp \
     model/enemy.cpp \
-    model/turret.cpp \
+    model/turrets/turret.cpp \
+    model/turrets/singulartargetturret.cpp \
+    model/turrets/multipletargetturret.cpp \
     controller/gamecontroller.cpp \
     view/mainwindow.cpp
 
@@ -21,7 +23,9 @@ HEADERS += \
     model/position.h \
     model/gamemodel.h \
     model/enemy.h \
-    model/turret.h \
+    model/turrets/turret.h \
+    model/turrets/singulartargetturret.h \
+    model/turrets/multipletargetturret.h \
     controller/gamecontroller.h \
     view/mainwindow.h
 
