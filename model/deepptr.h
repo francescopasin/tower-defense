@@ -1,3 +1,8 @@
+#ifndef MODEL_DEEPPTR_H_
+#define MODEL_DEEPPTR_H_
+
+namespace model {
+
 template <class T>
 class DeepPtr {
    private:
@@ -81,3 +86,7 @@ template <class T>
 DeepPtr<T>::~DeepPtr() {
     delete _ptr;
 }
+
+}  // namespace model
+
+#endif
