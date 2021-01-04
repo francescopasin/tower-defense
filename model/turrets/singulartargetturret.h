@@ -13,7 +13,11 @@ namespace model {
 
 class SingularTargetTurret : public Turret {
    public:
-    SingularTargetTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies, U_INT attackRadius);
+    SingularTargetTurret(
+        const Position& position,
+        const SP<vector<SP<Enemy>>>& enemies,
+        U_INT attackRadius);
+
     virtual ~SingularTargetTurret() = default;
 
     virtual void attack() = 0;

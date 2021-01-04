@@ -15,6 +15,9 @@ SOURCES += \
     model/turrets/turret.cpp \
     model/turrets/singulartargetturret.cpp \
     model/turrets/multipletargetturret.cpp \
+    model/turrets/mitraturret.cpp \
+    model/turrets/weakturret.cpp \
+    model/turrets/granadeturret.cpp \
     controller/gamecontroller.cpp \
     view/mainwindow.cpp
 
@@ -26,6 +29,9 @@ HEADERS += \
     model/turrets/turret.h \
     model/turrets/singulartargetturret.h \
     model/turrets/multipletargetturret.h \
+    model/turrets/mitraturret.h \
+    model/turrets/weakturret.h \
+    model/turrets/granadeturret.h \
     controller/gamecontroller.h \
     view/mainwindow.h
 

@@ -17,7 +17,12 @@ class MultipleTargetTurret : public Turret {
     short int _targetsAmount;
 
    public:
-    MultipleTargetTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies, U_INT attackRadius, short int targetsAmount);
+    MultipleTargetTurret(
+        const Position& position,
+        const SP<vector<SP<Enemy>>>& enemies,
+        U_INT attackRadius,
+        short int targetsAmount);
+
     virtual ~MultipleTargetTurret() = default;
 
     virtual void attack() = 0;

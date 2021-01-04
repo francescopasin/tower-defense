@@ -26,6 +26,7 @@ class Turret {
 
    public:
     Turret(const Position& position, const SP<vector<SP<Enemy>>>& enemies, U_INT attackRadius);
+
     virtual ~Turret() = default;
 
     virtual void attack() = 0;

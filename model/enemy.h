@@ -20,6 +20,7 @@ class Enemy {
 
    public:
     Enemy(const vector<PathCell>& path, float _health, float _speed);
+
     void receiveAttack(float damage);
     void move();
 
