@@ -10,9 +10,9 @@ class DeepPtr {
 
    public:
     DeepPtr(T* ptr = nullptr);
-    DeepPtr(const DeepPtr<T>& deepPtr);
+    DeepPtr(const DeepPtr<T>& deepPtr);  // Takes control of deepPtr
 
-    DeepPtr<T>& operator=(const DeepPtr<T>& deepPtr);
+    DeepPtr<T>& operator=(const DeepPtr<T>& deepPtr);  // Takes control of deepPtr
     void swap(DeepPtr<T>& deepPtr);
 
     operator bool() const;
@@ -31,13 +31,15 @@ template <class T>
 DeepPtr<T>::DeepPtr(T* ptr) : _ptr(ptr) {}
 
 template <class T>
-DeepPtr<T>::DeepPtr(const DeepPtr<T>& deepPtr) : _ptr(new T(*deepPtr)) {}
+DeepPtr<T>::DeepPtr(const DeepPtr<T>& deepPtr) {
+    _ptr = deepPtr.release();
+}
 
 template <class T>
 DeepPtr<T>& DeepPtr<T>::operator=(const DeepPtr<T>& deepPtr) {
     if (this != &deepPtr) {
         delete _ptr;
-        _ptr = new T(*deepPtr);
+        _ptr = deepPtr.release();
     }
     return *this;
 }

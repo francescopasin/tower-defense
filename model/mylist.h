@@ -1,8 +1,6 @@
 #ifndef MODEL_MYLIST_H_
 #define MODEL_MYLIST_H_
 
-//TODO: INSERIRE PUNATORI SMART AL POSTO DI PUNTATORI NORMALI, NON DOOVREBBE CAMBIARE NIENTE
-
 namespace model {
 
 template <class T>
@@ -11,9 +9,9 @@ class MyList {
     class Node {
        public:
         T _info;
-        T *_prev, *_next;
+        Node *_prev, *_next;
 
-        Node(const T& info, T* prev, T* next);
+        Node(const T& info, Node* prev, Node* next);
         ~Node();
     };
 
@@ -42,8 +40,11 @@ class MyList {
 
     ~MyList();
 
+    class constIterator;
+
     class iterator {
         friend class MyList<T>;
+        friend class constIterator;
 
        private:
         Node* _ptr;
@@ -67,12 +68,41 @@ class MyList {
         bool operator!=(const iterator& x) const;
     };
 
+    class constIterator {
+        friend class MyList<T>;
+
+       private:
+        Node* _ptr;
+        bool _pastTheEnd;
+
+        constIterator(Node* n, bool pastTheEnd = false);
+
+       public:
+        constIterator();
+        constIterator(const iterator& it);  // convert iterator in constIterator
+
+        const T& operator*() const;
+
+        const T* operator->() const;
+
+        constIterator& operator++();
+
+        constIterator& operator--();
+
+        bool operator==(const constIterator& x) const;
+
+        bool operator!=(const constIterator& x) const;
+    };
+
     iterator begin() const;
     iterator end() const;
+
+    constIterator cbegin() const;
+    constIterator cend() const;
 };
 
 template <class T>
-MyList<T>::Node::Node(const T& info, T* prev, T* next) : _info(info), _prev(prev), _next(next) {}
+MyList<T>::Node::Node(const T& info, Node* prev, Node* next) : _info(info), _prev(prev), _next(next) {}
 
 template <class T>
 MyList<T>::Node::~Node() {
@@ -267,6 +297,71 @@ typename MyList<T>::iterator MyList<T>::end() const {
     if (_last == nullptr)
         return nullptr;
     return iterator(_last + 1, true);
+}
+
+template <class T>
+MyList<T>::constIterator::constIterator() : _ptr(nullptr), _pastTheEnd(false) {}
+
+template <class T>
+MyList<T>::constIterator::constIterator(Node* n, bool pastTheEnd) : _ptr(n), _pastTheEnd(pastTheEnd) {}
+
+template <class T>
+const T& MyList<T>::constIterator::operator*() const {
+    return _ptr->_info;
+}
+
+template <class T>
+const T* MyList<T>::constIterator::operator->() const {
+    return &(_ptr->_info);
+}
+
+template <class T>
+typename MyList<T>::constIterator& MyList<T>::constIterator::operator++() {
+    if (_ptr != nullptr) {
+        if (!_pastTheEnd) {
+            if (_ptr->next == nullptr) {
+                _ptr++;
+                _pastTheEnd = true;
+            } else {
+                _ptr = _ptr->_next;
+            }
+        }
+    }
+    return *this;
+}
+
+template <class T>
+typename MyList<T>::constIterator& MyList<T>::constIterator::operator--() {
+    if (_ptr != nullptr) {
+        if (_pastTheEnd) {
+            _ptr--;
+            _pastTheEnd = false;
+        } else
+            _ptr = _ptr->_prec;
+    }
+    return *this;
+}
+
+template <class T>
+bool MyList<T>::constIterator::operator==(const constIterator& x) const {
+    return _ptr == x._ptr;
+}
+
+template <class T>
+bool MyList<T>::constIterator::operator!=(const constIterator& x) const {
+    return _ptr != x._ptr;
+}
+
+template <class T>
+typename MyList<T>::constIterator MyList<T>::cbegin() const {
+    return _first;
+}
+
+template <class T>
+typename MyList<T>::constIterator MyList<T>::cend() const {
+    if (_last == nullptr)
+        return nullptr;
+    return constIterator(_last + 1, true);
 }
 
 }  // namespace model
