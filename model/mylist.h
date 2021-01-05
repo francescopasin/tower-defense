@@ -11,14 +11,14 @@ class MyList {
         T _info;
         Node *_prev, *_next;
 
-        Node(const T& info, Node* prev, Node* next);
+        Node(const T& info, Node* prev = nullptr, Node* next = nullptr);
         ~Node();
     };
 
     Node *_first, *_last;
     int _size;
 
-    static Node* ricCopy(Node* from, Node* prev, Node* last);
+    static Node* ricCopy(Node* from, Node* prev, Node*& last);
     static Node* ricGet(Node* from, int index, int size);
 
    public:
@@ -30,9 +30,9 @@ class MyList {
     void insert(const T& info, int index);
     void pushTop(const T& info);
 
-    T& popTop();
-    T& erease(int index);
-    T& popBack();
+    void popTop();
+    void erease(int index);
+    void popBack();
 
     T& operator[](int index) const;
 
@@ -113,14 +113,14 @@ template <class T>
 MyList<T>::MyList() : _size(0), _first(nullptr), _last(nullptr) {}
 
 template <class T>
-typename MyList<T>::Node* MyList<T>::ricCopy(Node* from, Node* prev, Node* last) {
+typename MyList<T>::Node* MyList<T>::ricCopy(Node* from, Node* prev, Node*& last) {
     if (from == nullptr) {
         last = prev;
         return nullptr;
     }
 
-    Node* temp = new Node(from->_key, from->_info);
-    temp->_prec = prev;
+    Node* temp = new Node(from->_info);
+    temp->_prev = prev;
     temp->_next = ricCopy(from->_next, temp, last);
     return temp;
 }
@@ -131,7 +131,7 @@ typename MyList<T>::Node* MyList<T>::ricGet(Node* from, int index, int size) {
         return nullptr;
     if (index == 0)
         return from;
-    return ricGet(from->_next, index--, size);
+    return ricGet(from->_next, --index, size);
 }
 
 template <class T>
@@ -147,7 +147,7 @@ MyList<T>& MyList<T>::operator=(const MyList<T>& list) {
         _first = ricCopy(list._first, _first, _last);
         _size = list._size;
     }
-    return this;
+    return *this;
 }
 
 template <class T>
@@ -157,14 +157,22 @@ MyList<T>::~MyList() {
 
 template <class T>
 void MyList<T>::pushBack(const T& info) {
+    if (_size != 0) {
+        _last->_next = new Node(info, _last, nullptr);
+        _last = _last->_next;
+    } else
+        _first = _last = new Node(info, nullptr, nullptr);
     _size++;
-    _last->_next = new Node(info, _last, nullptr);
 }
 
 template <class T>
 void MyList<T>::pushTop(const T& info) {
+    if (_size != 0) {
+        _first->_prev = new Node(info, nullptr, _first);
+        _first = _first->_prev;
+    } else
+        _first = _last = new Node(info, nullptr, nullptr);
     _size++;
-    _first->_prev = new Node(info, nullptr, _first);
 }
 
 template <class T>
@@ -174,7 +182,7 @@ void MyList<T>::insert(const T& info, int index) {
     else if (index == _size)
         pushBack(info);
     else if (index > 0 && index < _size) {
-        Node* temp = ricGet(_first, index, _size);
+        Node* temp = ricGet(_first, --index, _size);
         temp->_next = new Node(info, temp, temp->_next);
     } else {
         //! ERRORE!
@@ -182,25 +190,22 @@ void MyList<T>::insert(const T& info, int index) {
 }
 
 template <class T>
-T& MyList<T>::popBack() {
-    T* temp = new T(_last->_info);
+void MyList<T>::popBack() {
     Node* ultimo = _last;
     _last = _last->_prev;
     _last->_next = nullptr;
     delete ultimo;
     _size--;
-    return *temp;
 }
 
 template <class T>
-T& MyList<T>::popTop() {
-    T* temp = new T(_first->_info);
-    Node* second = _first->_next;
-    _first->_next = nullptr;
-    delete _first;
-    _first = second;
+void MyList<T>::popTop() {
+    Node* primo = _first;
+    _first = _first->_next;
+    _first->_prev = nullptr;
+    primo->_next = nullptr;
+    delete primo;
     _size--;
-    return *temp;
 }
 
 template <class T>
@@ -209,24 +214,19 @@ T& MyList<T>::operator[](int index) const {
 }
 
 template <class T>
-T& MyList<T>::erease(int index) {
+void MyList<T>::erease(int index) {
     if (index == 0)
-        return popTop();
-
-    if (index == _size)
-        return popBack();
-
-    if (index > 0 && index < _size) {
+        popTop();
+    else if (index == _size)
+        popBack();
+    else if (index > 0 && index < _size) {
         Node* temp = ricGet(_first, index, _size);
         temp->_prev->_next = temp->_next;
         temp->_next->_prev = temp->_prev;
-        T* info = new T(temp->_info);
+        temp->_next = temp->_prev = nullptr;
         delete temp;
         _size--;
-        return *info;
     }
-
-    return nullptr;
 }
 
 template <class T>
@@ -254,7 +254,7 @@ template <class T>
 typename MyList<T>::iterator& MyList<T>::iterator::operator++() {
     if (_ptr != nullptr) {
         if (!_pastTheEnd) {
-            if (_ptr->next == nullptr) {
+            if (_ptr->_next == nullptr) {
                 _ptr++;
                 _pastTheEnd = true;
             } else {
@@ -303,6 +303,9 @@ template <class T>
 MyList<T>::constIterator::constIterator() : _ptr(nullptr), _pastTheEnd(false) {}
 
 template <class T>
+MyList<T>::constIterator::constIterator(const iterator& it) : _pastTheEnd(it._pastTheEnd), _ptr(it._ptr) {}
+
+template <class T>
 MyList<T>::constIterator::constIterator(Node* n, bool pastTheEnd) : _ptr(n), _pastTheEnd(pastTheEnd) {}
 
 template <class T>
@@ -319,7 +322,7 @@ template <class T>
 typename MyList<T>::constIterator& MyList<T>::constIterator::operator++() {
     if (_ptr != nullptr) {
         if (!_pastTheEnd) {
-            if (_ptr->next == nullptr) {
+            if (_ptr->_next == nullptr) {
                 _ptr++;
                 _pastTheEnd = true;
             } else {
