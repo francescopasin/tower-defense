@@ -1,6 +1,9 @@
 #ifndef MODEL_MYLIST_H_
 #define MODEL_MYLIST_H_
 
+#define U_INT unsigned short int
+#include <stdexcept>
+
 namespace model {
 
 template <class T>
@@ -16,10 +19,10 @@ class MyList {
     };
 
     Node *_first, *_last;
-    int _size;
+    U_INT _size;
 
     static Node* ricCopy(Node* from, Node* prev, Node*& last);
-    static Node* ricGet(Node* from, int index, int size);
+    static Node* ricGet(Node* from, U_INT index, U_INT size);
 
    public:
     MyList();
@@ -27,16 +30,16 @@ class MyList {
     MyList<T>& operator=(const MyList<T>& list);
 
     void pushBack(const T& info);
-    void insert(const T& info, int index);
+    void insert(const T& info, U_INT index);
     void pushTop(const T& info);
 
     void popTop();
-    void erease(int index);
+    void erease(U_INT index);
     void popBack();
 
-    T& operator[](int index) const;
+    T& operator[](U_INT index) const;
 
-    int size() const;
+    U_INT size() const;
 
     ~MyList();
 
@@ -72,8 +75,7 @@ class MyList {
         friend class MyList<T>;
 
        private:
-        Node* _ptr;
-        bool _pastTheEnd;
+        iterator _it;
 
         constIterator(Node* n, bool pastTheEnd = false);
 
@@ -126,7 +128,7 @@ typename MyList<T>::Node* MyList<T>::ricCopy(Node* from, Node* prev, Node*& last
 }
 
 template <class T>
-typename MyList<T>::Node* MyList<T>::ricGet(Node* from, int index, int size) {
+typename MyList<T>::Node* MyList<T>::ricGet(Node* from, U_INT index, U_INT size) {
     if (index < 0 || index > size)
         return nullptr;
     if (index == 0)
@@ -176,7 +178,7 @@ void MyList<T>::pushTop(const T& info) {
 }
 
 template <class T>
-void MyList<T>::insert(const T& info, int index) {
+void MyList<T>::insert(const T& info, U_INT index) {
     if (index == 0)
         pushTop(info);
     else if (index == _size)
@@ -184,8 +186,9 @@ void MyList<T>::insert(const T& info, int index) {
     else if (index > 0 && index < _size) {
         Node* temp = ricGet(_first, --index, _size);
         temp->_next = new Node(info, temp, temp->_next);
+        temp->_next->_prev = temp;
     } else {
-        //! ERRORE!
+        throw std::out_of_range("Index must be >= 0 and <= of list size");
     }
 }
 
@@ -209,12 +212,12 @@ void MyList<T>::popTop() {
 }
 
 template <class T>
-T& MyList<T>::operator[](int index) const {
+T& MyList<T>::operator[](U_INT index) const {
     return ricGet(_first, index, _size);
 }
 
 template <class T>
-void MyList<T>::erease(int index) {
+void MyList<T>::erease(U_INT index) {
     if (index == 0)
         popTop();
     else if (index == _size)
@@ -230,7 +233,7 @@ void MyList<T>::erease(int index) {
 }
 
 template <class T>
-int MyList<T>::size() const {
+U_INT MyList<T>::size() const {
     return _size;
 }
 
@@ -300,59 +303,44 @@ typename MyList<T>::iterator MyList<T>::end() const {
 }
 
 template <class T>
-MyList<T>::constIterator::constIterator() : _ptr(nullptr), _pastTheEnd(false) {}
+MyList<T>::constIterator::constIterator() {}
 
 template <class T>
-MyList<T>::constIterator::constIterator(const iterator& it) : _pastTheEnd(it._pastTheEnd), _ptr(it._ptr) {}
+MyList<T>::constIterator::constIterator(const iterator& it) : _it(it) {}
 
 template <class T>
-MyList<T>::constIterator::constIterator(Node* n, bool pastTheEnd) : _ptr(n), _pastTheEnd(pastTheEnd) {}
+MyList<T>::constIterator::constIterator(Node* n, bool pastTheEnd) : _it(n, pastTheEnd) {}
 
 template <class T>
 const T& MyList<T>::constIterator::operator*() const {
-    return _ptr->_info;
+    return _it.operator*();
 }
 
 template <class T>
 const T* MyList<T>::constIterator::operator->() const {
-    return &(_ptr->_info);
+    return _it.operator->();
 }
 
 template <class T>
 typename MyList<T>::constIterator& MyList<T>::constIterator::operator++() {
-    if (_ptr != nullptr) {
-        if (!_pastTheEnd) {
-            if (_ptr->_next == nullptr) {
-                _ptr++;
-                _pastTheEnd = true;
-            } else {
-                _ptr = _ptr->_next;
-            }
-        }
-    }
+    ++_it;
     return *this;
 }
 
 template <class T>
 typename MyList<T>::constIterator& MyList<T>::constIterator::operator--() {
-    if (_ptr != nullptr) {
-        if (_pastTheEnd) {
-            _ptr--;
-            _pastTheEnd = false;
-        } else
-            _ptr = _ptr->_prec;
-    }
+    --_it;
     return *this;
 }
 
 template <class T>
 bool MyList<T>::constIterator::operator==(const constIterator& x) const {
-    return _ptr == x._ptr;
+    return _it == x._it;
 }
 
 template <class T>
 bool MyList<T>::constIterator::operator!=(const constIterator& x) const {
-    return _ptr != x._ptr;
+    return _it != x._it;
 }
 
 template <class T>
