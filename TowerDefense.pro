@@ -11,13 +11,28 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     model/gamemodel.cpp \
+    model/enemy.cpp \
+    model/turrets/turret.cpp \
+    model/turrets/singulartargetturret.cpp \
+    model/turrets/multipletargetturret.cpp \
+    model/turrets/comboturret.cpp \
+    model/turrets/splitturret.cpp \
     controller/gamecontroller.cpp \
     view/mainwindow.cpp
 
 HEADERS += \
+    model/pathcell.h \
+    model/position.h \
     model/gamemodel.h \
     model/deepptr.h \
     model/mylist.h \
+    model/enemy.h \
+    model/turrets/turret.h \
+    model/turrets/singulartargetturret.h \
+    model/turrets/multipletargetturret.h \
+    model/turrets/comboturret.h \
+    model/turrets/splitturret.h \
+    model/turrets/turrettype.h \
     controller/gamecontroller.h \
     view/mainwindow.h
 
