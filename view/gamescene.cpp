@@ -1,6 +1,5 @@
 #include "view/gamescene.h"
 
-#include <QDebug>
 #include <QGraphicsRectItem>
 #include <QRandomGenerator>
 
@@ -8,11 +7,11 @@
 
 namespace view {
 
-GameScene::GameScene(qreal width, qreal height) {
-    setSceneRect(0, 0, width, height);
-
+GameScene::GameScene() {
     // Performance optimization
     setItemIndexMethod(QGraphicsScene::NoIndex);
+
+    setSceneRect(0, 0, 1920, 1080);
 
     drawBackground();
     createGameGrid();
@@ -26,13 +25,10 @@ void GameScene::drawBackground() {
 void GameScene::createGameGrid() {
     // TODO: get info from model
 
-    qreal sizeW = width() / 15;
-    qreal sizeH = height() / 10;
+    qreal size = height() / 9;
 
-    qreal size = qMin<qreal>(sizeW, sizeH);
-
-    for (int i = 0; i < 15; i++) {
-        for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < 16; i++) {
+        for (int j = 0; j < 9; j++) {
             int value = QRandomGenerator::global()->bounded(2);
 
             GridCell *cell;
@@ -47,8 +43,6 @@ void GameScene::createGameGrid() {
             addItem(cell);
         }
     }
-
-    qDebug() << width() << " " << height();
 }
 
 }  // namespace view

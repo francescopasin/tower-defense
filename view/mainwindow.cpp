@@ -1,8 +1,11 @@
 #include "mainwindow.h"
 
+#include <QDebug>
+#include <QGraphicsRectItem>
 #include <QMenuBar>
 #include <QResizeEvent>
 #include <QSettings>
+#include <QVBoxLayout>
 
 namespace view {
 
@@ -18,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // Restore user settings
     readSettings();
 
-    gameView = new GameView(width(), height());
+    gameView = new GameView();
 
     setCentralWidget(gameView);
 }

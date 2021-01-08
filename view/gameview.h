@@ -10,12 +10,12 @@ namespace view {
 class GameView : public QGraphicsView {
    private:
     GameScene* scene;
-    /*
+
    protected:
     void resizeEvent(QResizeEvent* event) override;
-*/
+
    public:
-    GameView(qreal width, qreal height);
+    GameView();
 };
 
 }  // namespace view

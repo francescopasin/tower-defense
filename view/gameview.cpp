@@ -1,25 +1,24 @@
 #include "view/gameview.h"
 
+#include <QDebug>
 #include <QResizeEvent>
 
 namespace view {
 
-GameView::GameView(qreal width, qreal height) : scene(new GameScene(width, height)) {
+GameView::GameView() : scene(new GameScene()) {
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
-    setBaseSize(width, height);
-
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setScene(scene);
 }
-/*
-void GameView::resizeEvent(QResizeEvent *event) {
-    GameView::resizeEvent(event);
 
-    // Resize the game view
-    scene->setSceneRect(0, 0, event->size().width(), event->size().height());
-}*/
+void GameView::resizeEvent(QResizeEvent *event) {
+    auto newSize = event->size();
+
+    fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+    QGraphicsView::resizeEvent(event);
+}
 
 }  // namespace view

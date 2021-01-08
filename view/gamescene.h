@@ -11,7 +11,7 @@ class GameScene : public QGraphicsScene {
     void createGameGrid();
 
    public:
-    GameScene(qreal width, qreal height);
+    GameScene();
 };
 
 }  // namespace view
