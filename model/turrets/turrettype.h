@@ -8,6 +8,7 @@ enum class TurretType {
      * WeakTurret
      * MultipleTargetTurret
      * 
+     * cost = 10
      * attackDamage = 20
      * attackCooldown = 20
      * maxTargets = infinite
@@ -17,6 +18,7 @@ enum class TurretType {
      * MitraTurret
      * SingularTargetTurret
      * 
+     * cost = 25
      * attackDamage = 10
      * attackCooldown = 10
      */
@@ -25,6 +27,7 @@ enum class TurretType {
      * MitraTurret
      * MultipleTargetTurret
      * 
+     * cost = 30
      * attackDamage = 50
      * attackCooldown = 60
      * maxTargets = 5
@@ -34,6 +37,7 @@ enum class TurretType {
      * ComboTurret
      * SingularTargetTurret
      * 
+     * cost = 20
      * attackDamage = increment every attack (reset when changes targeted enemy)
      * attackCooldown = 15
      */
@@ -42,6 +46,7 @@ enum class TurretType {
      * SplitTurret
      * MultipleTargetTurret
      * 
+     * cost = 10
      * attackDamage = inversely proportional to targeted enemies count (equally divided between enemies)
      * attackCooldown = 20
      * maxTargets = infinite

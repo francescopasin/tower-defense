@@ -7,8 +7,7 @@ SplitTurret::SplitTurret(
     const SP<vector<SP<Enemy>>>& enemies,
     U_INT attackRadius,
     float attackDamage,
-    U_INT attackCooldown,
-    U_INT cost)
+    U_INT attackCooldown)
     : MultipleTargetTurret(
           position,
           enemies,
@@ -16,7 +15,7 @@ SplitTurret::SplitTurret(
           -1,
           attackDamage,
           attackCooldown,
-          cost),
+          10),
       _initialAttackDamage(attackDamage) {}
 
 void SplitTurret::attack() {

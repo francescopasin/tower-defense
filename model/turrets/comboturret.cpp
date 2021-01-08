@@ -7,14 +7,14 @@ ComboTurret::ComboTurret(
     const SP<vector<SP<Enemy>>>& enemies,
     U_INT attackRadius,
     float attackDamage,
-    U_INT attackCooldown,
-    U_INT cost)
+    U_INT attackCooldown)
     : SingularTargetTurret(
           position,
           enemies,
           attackRadius,
           attackDamage,
-          attackCooldown, cost),
+          attackCooldown,
+          20),
       _initialAttackDamage(attackDamage),
       _attackMultiplier(1) {}
 

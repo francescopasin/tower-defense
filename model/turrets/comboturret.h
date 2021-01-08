@@ -22,8 +22,7 @@ class ComboTurret : public SingularTargetTurret {
                 const SP<vector<SP<Enemy>>>& enemies,
                 U_INT attackRadius,
                 float attackDamage,
-                U_INT attackCooldown,
-                U_INT cost);
+                U_INT attackCooldown);
     virtual ~ComboTurret() = default;
 
     virtual void attack() override;
