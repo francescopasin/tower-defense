@@ -14,20 +14,19 @@ namespace model {
 class MultipleTargetTurret : public Turret {
    private:
     // Quantity of possible targets. Infinite if -1
-    short int _targetsAmount;
+    const short int _targetsAmount;
 
    public:
     MultipleTargetTurret(
         const Position& position,
         const SP<vector<SP<Enemy>>>& enemies,
         U_INT attackRadius,
-        short int targetsAmount);
-
+        short int targetsAmount,
+        float attackDamage,
+        U_INT attackCooldown,
+        U_INT cost);
     virtual ~MultipleTargetTurret() = default;
 
-    virtual void attack() = 0;
-
-    virtual int getCost() const = 0;
     virtual vector<SP<Enemy>> getTargetedEnemies() const override;
 };
 

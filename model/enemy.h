@@ -8,18 +8,20 @@
 
 using std::vector;
 
+#define U_INT unsigned short int
+
 namespace model {
 
 class Enemy {
    private:
-    int _currentCell;
+    U_INT _currentCell;
     float _cellPosition;
     float _health;
-    int _speed;
-    vector<PathCell> _path;
+    U_INT _speed;
+    const vector<PathCell> _path;
 
    public:
-    Enemy(const vector<PathCell>& path, float _health, float _speed);
+    Enemy(const vector<PathCell>& path, float _health, U_INT _speed);
 
     void receiveAttack(float damage);
     void move();

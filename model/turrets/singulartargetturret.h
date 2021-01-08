@@ -16,13 +16,12 @@ class SingularTargetTurret : public Turret {
     SingularTargetTurret(
         const Position& position,
         const SP<vector<SP<Enemy>>>& enemies,
-        U_INT attackRadius);
-
+        U_INT attackRadius,
+        float attackDamage,
+        U_INT attackCooldown,
+        U_INT cost);
     virtual ~SingularTargetTurret() = default;
 
-    virtual void attack() = 0;
-
-    virtual int getCost() const = 0;
     virtual vector<SP<Enemy>> getTargetedEnemies() const override;
 };
 

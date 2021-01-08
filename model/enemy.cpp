@@ -2,7 +2,7 @@
 
 namespace model {
 
-Enemy::Enemy(const vector<PathCell>& path, float health, float speed)
+Enemy::Enemy(const vector<PathCell>& path, float health, U_INT speed)
     : _currentCell(0),
       _cellPosition(0),
       _health(health),

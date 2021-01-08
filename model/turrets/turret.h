@@ -17,24 +17,35 @@ namespace model {
 
 class Turret {
    private:
-    Position _position;
+    const Position _position;
     SP<vector<SP<Enemy>>> _enemies;
-    U_INT _attackRadius;
+    const U_INT _attackRadius;
+    const U_INT _cost;
 
    protected:
-    vector<SP<Enemy>> getEnemiesInRadius() const;
+    float _attackDamage;
+    U_INT _attackCooldown;
+    U_INT _attackCooldownCounter;
+
+    vector<SP<Enemy>>
+    getEnemiesInRadius() const;
 
    public:
-    Turret(const Position& position, const SP<vector<SP<Enemy>>>& enemies, U_INT attackRadius);
-
+    Turret(
+        const Position& position,
+        const SP<vector<SP<Enemy>>>& enemies,
+        U_INT attackRadius,
+        float attackDamage,
+        U_INT attackCooldown,
+        U_INT cost);
     virtual ~Turret() = default;
 
-    virtual void attack() = 0;
+    virtual void attack();
 
-    virtual int getCost() const = 0;
     virtual vector<SP<Enemy>> getTargetedEnemies() const = 0;
 
     Position getPosition() const;
+    U_INT getCost() const;
 };
 
 }  // namespace model

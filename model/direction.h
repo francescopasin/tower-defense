@@ -3,7 +3,7 @@
 
 namespace model {
 
-enum Direction {
+enum class Direction {
     Up,
     Right,
     Down,
