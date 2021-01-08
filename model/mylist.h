@@ -34,7 +34,7 @@ class MyList {
     void pushTop(const T& info);
 
     void popTop();
-    void erease(U_INT index);
+    void erase(U_INT index);
     void popBack();
 
     T& operator[](U_INT index) const;
@@ -217,7 +217,7 @@ T& MyList<T>::operator[](U_INT index) const {
 }
 
 template <class T>
-void MyList<T>::erease(U_INT index) {
+void MyList<T>::erase(U_INT index) {
     if (index == 0)
         popTop();
     else if (index == _size)
