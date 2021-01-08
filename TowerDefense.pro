@@ -24,6 +24,8 @@ HEADERS += \
     model/pathcell.h \
     model/position.h \
     model/gamemodel.h \
+    model/deepptr.h \
+    model/mylist.h \
     model/enemy.h \
     model/turrets/turret.h \
     model/turrets/singulartargetturret.h \
