@@ -18,7 +18,10 @@ SOURCES += \
     model/turrets/comboturret.cpp \
     model/turrets/splitturret.cpp \
     controller/gamecontroller.cpp \
-    view/mainwindow.cpp
+    view/mainwindow.cpp \
+    view/gameview.cpp \
+    view/gamescene.cpp \
+    view/gridcell.cpp
 
 HEADERS += \
     model/pathcell.h \
@@ -34,7 +37,10 @@ HEADERS += \
     model/turrets/splitturret.h \
     model/turrets/turrettype.h \
     controller/gamecontroller.h \
-    view/mainwindow.h
+    view/mainwindow.h \
+    view/gameview.h \
+    view/gamescene.h \
+    view/gridcell.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
