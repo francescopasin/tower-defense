@@ -5,7 +5,7 @@ namespace model {
 Game::Game() : _tick(0), _currentWave(_waves.end()), _spawnCount(0), _currentState(State::Setup) {}
 
 void Game::addTurret(Turret& turret) {  //? NO Const Turret&? da ragionare cosa fa deepptr in costruzione di copia
-    _turrets.pushBack(&turret);
+    _turrets.pushBack(&turret);         //TODO: Passare enemies a turret
 }
 
 void Game::removeTurret(U_INT index) {
@@ -38,15 +38,15 @@ void Game::setMap(const vector<Position>& map) {
                     } else if ((i->x == next->x) && (i->y == next->y - 1)) {
                         _map.push_back(PathCell{i->x, i->y, Direction::Down});
                     } else {
-                        //! ERROR "This is not a correct path, some cells are disconnected"
+                        throw new path_error("This is not a correct path, some cells are disconnected");
                     }
                 }
             }
         } else {
-            //! ERROR "This is not a correct path, you can't go through the same cell twice"
+            throw new path_error("This is not a correct path, you can't go through the same cell twice");
         }
     } else {
-        //! ERROR "This game is already started, you can't set map now"
+        throw new state_error("This game is already started, you can't set map now");
     }
     toReady();
 }
@@ -58,7 +58,7 @@ void Game::addWave(const Wave& wave) {
             _currentWave = _waves.begin();
         }
     } else {
-        //! ERROR "This game is already started, you can't set map now"
+        throw new state_error("This game is already started, you can't set waves now");
     }
     toReady();
 }
@@ -75,8 +75,8 @@ void Game::spawnEnemy() {
     if (_currentWave != _waves.end()) {
         _spawnCount++;
         if (_currentWave->_enemyNumber > 0) {
-            if ((_spawnCount - _currentWave->_startAfter) % _currentWave->_enemyIntervalTick == 0 && _spawnCount >= _currentWave->_startAfter) {
-                _enemies.push_back(SP<Enemy>(new Enemy(_map, _currentWave->_health, _currentWave->_speed)));
+            if (_spawnCount >= _currentWave->_startAfter && (_spawnCount - _currentWave->_startAfter) % _currentWave->_enemyIntervalTick == 0) {
+                _enemies.push_back(SP<Enemy>(new Enemy(_map, _currentWave->_health, _currentWave->_speed, _currentWave->_attackDamage)));
                 _currentWave->_enemyNumber--;
             }
         } else {
