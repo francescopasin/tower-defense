@@ -2,22 +2,19 @@
 
 namespace model {
 
-Enemy::Enemy(const vector<PathCell>& path, float health, U_INT speed)
+Enemy::Enemy(const vector<PathCell>& path, float health, U_INT speed, float attackDamage)
     : _currentCell(0),
       _cellPosition(0),
       _health(health),
       _speed(speed),
+      _attackDamage(attackDamage),
       _path(path) {}
 
 void Enemy::receiveAttack(float damage) {
     _health -= damage;
-
-    if (_health <= 0) {
-        // TODO: remove enemy from Game's enemies list and delete this
-    }
 }
 
-void Enemy::move() {
+float Enemy::move() {
     _cellPosition += 100 / _speed;
 
     if (_cellPosition >= 99) {
@@ -25,11 +22,11 @@ void Enemy::move() {
         _currentCell++;
     }
 
-    // Check if last cell
+    // Check if last cell, then return the damage
     if (_currentCell == static_cast<int>(_path.size())) {
-        // TODO: remove enemy from Game's enemies list and delete this
-        // TODO: remove life points from Game
+        return _attackDamage;
     }
+    return 0;
 }
 
 Position Enemy::getPosition() const {
