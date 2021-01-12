@@ -17,6 +17,7 @@ SOURCES += \
     model/turrets/multipletargetturret.cpp \
     model/turrets/comboturret.cpp \
     model/turrets/splitturret.cpp \
+    model/exception.cpp \
     controller/gamecontroller.cpp \
     view/mainwindow.cpp
 
@@ -33,6 +34,7 @@ HEADERS += \
     model/turrets/comboturret.h \
     model/turrets/splitturret.h \
     model/turrets/turrettype.h \
+    model/exception.h \
     controller/gamecontroller.h \
     view/mainwindow.h
 
