@@ -11,8 +11,6 @@ struct Wave {
     U_INT _enemyNumber;
     U_INT _enemyIntervalTick;
     U_INT _startAfter;
-
-    Wave(float health, U_INT speed, U_INT enemyNumber, U_INT enemyIntervalTick, U_INT startAfter);
 };
 
 }  // namespace model
