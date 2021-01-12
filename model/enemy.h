@@ -18,13 +18,14 @@ class Enemy {
     float _cellPosition;
     float _health;
     U_INT _speed;
+    float _attackDamage;
     const vector<PathCell> _path;
 
    public:
-    Enemy(const vector<PathCell>& path, float _health, U_INT _speed);
+    Enemy(const vector<PathCell>& path, float _health, U_INT _speed, float _attackDamage);
 
     void receiveAttack(float damage);
-    void move();
+    float move();
 
     Position getPosition() const;
     float getCellPosition() const;
