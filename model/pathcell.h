@@ -14,7 +14,7 @@ struct PathCell {
     Direction d;
 
     Position getPosition() const {
-        Position p{.x = x, .y = y};
+        Position p{x, y};
         return p;
     }
 };
