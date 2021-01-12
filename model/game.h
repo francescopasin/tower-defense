@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include "deepptr.h"
+#include "exception.h"
 #include "mylist.h"
 #include "turrets/turret.h"
 #include "wave.h"

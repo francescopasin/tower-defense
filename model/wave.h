@@ -11,6 +11,7 @@ struct Wave {
     U_INT _enemyNumber;
     U_INT _enemyIntervalTick;
     U_INT _startAfter;
+    float _attackDamage;
 };
 
 }  // namespace model
