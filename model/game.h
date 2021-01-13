@@ -6,7 +6,11 @@
 #include "deepptr.h"
 #include "exception.h"
 #include "mylist.h"
-#include "turrets/turret.h"
+#include "turrets/comboturret.h"
+#include "turrets/multipletargetturret.h"
+#include "turrets/singulartargetturret.h"
+#include "turrets/splitturret.h"
+#include "turrets/turrettype.h"
 #include "wave.h"
 
 namespace model {
@@ -46,8 +50,9 @@ class Game {
     Game();
     State tick();
     void setMap(const vector<Position>& map);
+    void standardSetup();
     void addWave(const Wave& wave);
-    void addTurret(Turret& turret);
+    void addTurret(TurretType type, Position p);
     void removeTurret(U_INT index);
     float getCredit() const;
 };

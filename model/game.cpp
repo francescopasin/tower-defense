@@ -4,8 +4,34 @@ namespace model {
 
 Game::Game() : _tick(0), _currentWave(_waves.end()), _spawnCount(0), _currentState(State::Setup) {}
 
-void Game::addTurret(Turret& turret) {  //? NO Const Turret&? da ragionare cosa fa deepptr in costruzione di copia
-    _turrets.pushBack(&turret);         //TODO: Passare enemies a turret
+void Game::addTurret(TurretType type, Position p) {
+    Turret* temp;
+    switch (type) {
+        case TurretType::ComboTurret:
+            temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10);
+            break;
+        case TurretType::GranadeTurret:
+            temp = new MultipleTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 30, 10, 20, 10, 50);
+            break;
+        case TurretType::MitraTurret:
+            temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10, 50);
+            break;
+        case TurretType::SplitTurret:
+            temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10);
+            break;
+        default:  // Weak Turret
+            temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10);
+            break;
+    }
+    _turrets.pushBack(temp);
+}
+
+void Game::standardSetup() {
+    _waves.push_back(Wave{100, 120, 6, 15, 0, 10});
+    _waves.push_back(Wave{100, 120, 10, 15, 60, 10});
+    _waves.push_back(Wave{50, 30, 20, 5, 60, 10});
+    _waves.push_back(Wave{200, 60, 6, 15, 60, 30});
+    _waves.push_back(Wave{300, 60, 8, 10, 60, 50});
 }
 
 void Game::removeTurret(U_INT index) {
@@ -46,7 +72,7 @@ void Game::setMap(const vector<Position>& map) {
             throw new path_error("This is not a correct path, you can't go through the same cell twice");
         }
     } else {
-        throw new state_error("This game is already started, you can't set map now");
+        throw new state_error("This game is already started, you can't set map now");  //? forse no eccezioni per stato?
     }
     toReady();
 }
