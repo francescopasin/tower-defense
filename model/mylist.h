@@ -187,6 +187,7 @@ void MyList<T>::insert(const T& info, U_INT index) {
         Node* temp = ricGet(_first, --index, _size);
         temp->_next = new Node(info, temp, temp->_next);
         temp->_next->_prev = temp;
+        _size++;
     } else {
         throw std::out_of_range("Index must be >= 0 and <= of list size");
     }
@@ -213,7 +214,7 @@ void MyList<T>::popTop() {
 
 template <class T>
 T& MyList<T>::operator[](U_INT index) const {
-    return ricGet(_first, index, _size);
+    return ricGet(_first, index, _size)->_info;
 }
 
 template <class T>
