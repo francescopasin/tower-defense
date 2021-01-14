@@ -1,5 +1,9 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource>
         <file>assets/images/coin.png</file>
+        <file>assets/images/heart.png</file>
+        <file>assets/images/play.png</file>
+        <file>assets/images/pause.png</file>
+        <file>assets/images/fast-forward.png</file>
     </qresource>
 </RCC>
