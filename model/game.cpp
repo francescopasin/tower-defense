@@ -8,7 +8,7 @@ void Game::addTurret(TurretType type, Position p) {
     Turret* temp;
     switch (type) {
         case TurretType::ComboTurret:
-            temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10);
+            temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
             break;
         case TurretType::GranadeTurret:
             temp = new MultipleTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 30, 10, 20, 10, 50);
@@ -17,10 +17,10 @@ void Game::addTurret(TurretType type, Position p) {
             temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10, 50);
             break;
         case TurretType::SplitTurret:
-            temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10);
+            temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
             break;
         default:  // Weak Turret
-            temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10);
+            temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
             break;
     }
     _turrets.pushBack(temp);
