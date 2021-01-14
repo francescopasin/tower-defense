@@ -18,10 +18,7 @@ class SplitTurret : public MultipleTargetTurret {
 
    public:
     SplitTurret(const Position& position,
-                const SP<vector<SP<Enemy>>>& enemies,
-                U_INT attackRadius,
-                float attackDamage,
-                U_INT attackCooldown);
+                const SP<vector<SP<Enemy>>>& enemies);
     virtual ~SplitTurret() = default;
 
     virtual void attack() override;

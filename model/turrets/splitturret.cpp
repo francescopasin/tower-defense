@@ -4,19 +4,16 @@ namespace model {
 
 SplitTurret::SplitTurret(
     const Position& position,
-    const SP<vector<SP<Enemy>>>& enemies,
-    U_INT attackRadius,
-    float attackDamage,
-    U_INT attackCooldown)
+    const SP<vector<SP<Enemy>>>& enemies)
     : MultipleTargetTurret(
           position,
           enemies,
-          attackRadius,
+          5,
           -1,
-          attackDamage,
-          attackCooldown,
+          10,
+          20,
           10),
-      _initialAttackDamage(attackDamage) {}
+      _initialAttackDamage(10) {}
 
 void SplitTurret::attack() {
     vector<SP<Enemy>> enemies = getTargetedEnemies();
