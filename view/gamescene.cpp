@@ -4,6 +4,7 @@
 #include <QRandomGenerator>
 
 #include "view/gridcell.h"
+#include "view/hud/infobox.h"
 
 namespace view {
 
@@ -15,6 +16,7 @@ GameScene::GameScene() {
 
     drawBackground();
     createGameGrid();
+    createHUD();
 }
 
 void GameScene::drawBackground() {
@@ -32,7 +34,7 @@ void GameScene::createGameGrid() {
         for (int j = 0; j < 9; j++) {
             int value = QRandomGenerator::global()->bounded(2);
 
-            GridCell *cell;
+            GridCell* cell;
 
             if (value == 1) {
                 cell = new GridCell(size, true);
@@ -44,6 +46,16 @@ void GameScene::createGameGrid() {
             addItem(cell);
         }
     }
+}
+
+void GameScene::createHUD() {
+    InfoBox* infoBox = new InfoBox(":/assets/images/coin.png", "10");
+    infoBox->setPos(10, 15);
+    addItem(infoBox);
+
+    InfoBox* infoBox2 = new InfoBox(":/assets/images/heart.png", "90%");
+    infoBox2->setPos(10, 75);
+    addItem(infoBox2);
 }
 
 }  // namespace view

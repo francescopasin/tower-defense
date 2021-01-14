@@ -1,9 +1,11 @@
 <RCC>
-    <qresource>
+    <qresource prefix="/">
         <file>assets/images/coin.png</file>
         <file>assets/images/heart.png</file>
         <file>assets/images/play.png</file>
         <file>assets/images/pause.png</file>
         <file>assets/images/fast-forward.png</file>
+        <file>assets/fonts/RobotoMono-Regular.ttf</file>
+        <file>assets/fonts/RobotoMono-SemiBold.ttf</file>
     </qresource>
 </RCC>

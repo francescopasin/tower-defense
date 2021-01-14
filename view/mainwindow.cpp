@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 
 #include <QDebug>
+#include <QFontDatabase>
 #include <QGraphicsRectItem>
 #include <QMenuBar>
 #include <QResizeEvent>
@@ -20,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     // Restore user settings
     readSettings();
+
+    // Add fonts
+    QFontDatabase::addApplicationFont(":/assets/fonts/RobotoMono-Regular.ttf");
+    QFontDatabase::addApplicationFont(":/assets/fonts/RobotoMono-SemiBold.ttf");
 
     gameView = new GameView();
 

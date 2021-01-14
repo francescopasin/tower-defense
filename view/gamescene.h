@@ -9,6 +9,7 @@ class GameScene : public QGraphicsScene {
    private:
     void drawBackground();
     void createGameGrid();
+    void createHUD();
 
    public:
     GameScene();
