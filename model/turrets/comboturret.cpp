@@ -4,18 +4,15 @@ namespace model {
 
 ComboTurret::ComboTurret(
     const Position& position,
-    const SP<vector<SP<Enemy>>>& enemies,
-    U_INT attackRadius,
-    float attackDamage,
-    U_INT attackCooldown)
+    const SP<vector<SP<Enemy>>>& enemies)
     : SingularTargetTurret(
           position,
           enemies,
-          attackRadius,
-          attackDamage,
-          attackCooldown,
+          4,
+          5,
+          15,
           20),
-      _initialAttackDamage(attackDamage),
+      _initialAttackDamage(5),
       _attackMultiplier(1) {}
 
 void ComboTurret::attack() {
