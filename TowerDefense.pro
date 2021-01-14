@@ -21,7 +21,8 @@ SOURCES += \
     view/mainwindow.cpp \
     view/gameview.cpp \
     view/gamescene.cpp \
-    view/gridcell.cpp
+    view/gridcell.cpp \
+    view/hud/infobox.cpp
 
 HEADERS += \
     model/pathcell.h \
@@ -40,9 +41,13 @@ HEADERS += \
     view/mainwindow.h \
     view/gameview.h \
     view/gamescene.h \
-    view/gridcell.h
+    view/gridcell.h \ 
+    view/hud/infobox.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

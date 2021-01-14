@@ -24,8 +24,9 @@ void GameScene::drawBackground() {
 
 void GameScene::createGameGrid() {
     // TODO: get info from model
+    qreal toolbarHeight = 150;
 
-    qreal size = height() / 9;
+    qreal size = (height() - toolbarHeight) / 9;
 
     for (int i = 0; i < 16; i++) {
         for (int j = 0; j < 9; j++) {
@@ -39,7 +40,7 @@ void GameScene::createGameGrid() {
                 cell = new GridCell(size);
             }
 
-            cell->setPos(i * size, j * size);
+            cell->setPos(i * size, j * size + toolbarHeight);
             addItem(cell);
         }
     }
