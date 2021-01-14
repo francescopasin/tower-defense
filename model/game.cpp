@@ -133,8 +133,10 @@ void Game::checkWon() {
 }
 
 Game::State Game::tick() {
-    if (_currentState == State::Ready || _currentState == State::InExecution) {
+    if (_currentState == State::Ready)
         _currentState = State::InExecution;
+
+    if (_currentState == State::InExecution) {
         _tick++;
         moveEnemy();
         spawnEnemy();
