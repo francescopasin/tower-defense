@@ -2,10 +2,12 @@
     <qresource prefix="/">
         <file>assets/images/coin.png</file>
         <file>assets/images/heart.png</file>
-        <file>assets/images/play.png</file>
-        <file>assets/images/pause.png</file>
-        <file>assets/images/fast-forward.png</file>
-        <file>assets/fonts/RobotoMono-Regular.ttf</file>
-        <file>assets/fonts/RobotoMono-SemiBold.ttf</file>
+        <file>assets/images/play-button-idle.png</file>
+        <file>assets/images/play-button-pressed.png</file>
+        <file>assets/images/pause-button-idle.png</file>
+        <file>assets/images/pause-button-pressed.png</file>
+        <file>assets/images/fast-forward-button-idle.png</file>
+        <file>assets/images/fast-forward-button-pressed.png</file>
+        <file>assets/fonts/PressStart2P-Regular.ttf</file>
     </qresource>
 </RCC>
