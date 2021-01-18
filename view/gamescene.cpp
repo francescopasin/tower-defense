@@ -4,7 +4,7 @@
 #include <QRandomGenerator>
 
 #include "view/gridcell.h"
-#include "view/hud/iconbutton.h";
+#include "view/hud/iconbutton.h"
 #include "view/hud/infobox.h"
 
 namespace view {
@@ -33,14 +33,23 @@ void GameScene::createGameGrid() {
 
     for (int i = 0; i < 16; i++) {
         for (int j = 0; j < 9; j++) {
-            int value = QRandomGenerator::global()->bounded(2);
-
             GridCell* cell;
 
-            if (value == 1) {
-                cell = new GridCell(size, true);
+            if (j == 4) {
+                if (i == 0) {
+                    cell = new GridCell(size, GridCellType::PathStart);
+                } else if (i == 15) {
+                    cell = new GridCell(size, GridCellType::PathEnd);
+                } else {
+                    cell = new GridCell(size, GridCellType::Path);
+                }
+
             } else {
-                cell = new GridCell(size);
+                if (QRandomGenerator::global()->bounded(2) == 1) {
+                    cell = new GridCell(size, GridCellType::Blocked);
+                } else {
+                    cell = new GridCell(size);
+                }
             }
 
             cell->setPos(i * size, j * size + toolbarHeight);
@@ -50,6 +59,7 @@ void GameScene::createGameGrid() {
 }
 
 void GameScene::createHUD() {
+    // TODO: get info from model
     InfoBox* infoBox = new InfoBox(":/assets/images/coin.png", "10");
     infoBox->setPos(10, 15);
     addItem(infoBox);

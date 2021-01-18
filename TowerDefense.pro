@@ -42,6 +42,7 @@ HEADERS += \
     view/mainwindow.h \
     view/gameview.h \
     view/gamescene.h \
+    view/gridcelltype.h \
     view/gridcell.h \ 
     view/hud/infobox.h \
     view/hud/iconbutton.h

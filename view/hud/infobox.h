@@ -15,6 +15,8 @@ class InfoBox : public QGraphicsItem {
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    // TODO: add update method that get new infos from model
 };
 
 }  // namespace view
