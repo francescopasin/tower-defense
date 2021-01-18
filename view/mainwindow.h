@@ -13,20 +13,9 @@ class MainWindow : public QMainWindow {
    private:
     GameView *gameView;
 
-    // Menu entries
-    QMenu *fileMenu;
-
-    // Menu actions
-    QAction *closeAct;
-
     void closeEvent(QCloseEvent *event) override;
     void readSettings();
-    void createActions();
-    void createMenu();
-    /*
-   protected:
-    void resizeEvent(QResizeEvent *event) override;
-*/
+
    public:
     MainWindow(QWidget *parent = nullptr);
 };

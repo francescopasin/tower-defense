@@ -4,6 +4,7 @@
 #include <QRandomGenerator>
 
 #include "view/gridcell.h"
+#include "view/hud/iconbutton.h";
 #include "view/hud/infobox.h"
 
 namespace view {
@@ -56,6 +57,14 @@ void GameScene::createHUD() {
     InfoBox* infoBox2 = new InfoBox(":/assets/images/heart.png", "90%");
     infoBox2->setPos(10, 75);
     addItem(infoBox2);
+
+    IconButton* playPauseButton = new IconButton(":/assets/images/play-button-idle.png", ":/assets/images/play-button-pressed.png");
+    playPauseButton->setPos(1400, 25);
+    addItem(playPauseButton);
+
+    IconButton* fastForwardButton = new IconButton(":/assets/images/fast-forward-button-idle.png", ":/assets/images/fast-forward-button-pressed.png");
+    fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
+    addItem(fastForwardButton);
 }
 
 }  // namespace view

@@ -22,7 +22,8 @@ SOURCES += \
     view/gameview.cpp \
     view/gamescene.cpp \
     view/gridcell.cpp \
-    view/hud/infobox.cpp
+    view/hud/infobox.cpp \
+    view/hud/iconbutton.cpp
 
 HEADERS += \
     model/pathcell.h \
@@ -42,7 +43,8 @@ HEADERS += \
     view/gameview.h \
     view/gamescene.h \
     view/gridcell.h \ 
-    view/hud/infobox.h
+    view/hud/infobox.h \
+    view/hud/iconbutton.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

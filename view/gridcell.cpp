@@ -8,6 +8,7 @@ namespace view {
 GridCell::GridCell(qreal size, bool isPath) : _size(size), _isPath(isPath) {
     if (!isPath) {
         setAcceptHoverEvents(true);
+        setCursor(Qt::PointingHandCursor);
     }
 }
 
