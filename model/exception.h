@@ -18,6 +18,12 @@ class state_error : std::runtime_error {
     state_error(const char* what_arg = "You can't do this operation in this state") : runtime_error(what_arg) {}
 };
 
+class turret_error : std::runtime_error {
+   public:
+    turret_error(const std::string& what_arg) : runtime_error(what_arg) {}
+    turret_error(const char* what_arg = "An error occured in a turret operation") : runtime_error(what_arg) {}
+};
+
 }  // namespace model
 
 /*

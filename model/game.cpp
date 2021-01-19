@@ -5,7 +5,8 @@ namespace model {
 Game::Game(U_INT credits,
            float life,
            const vector<Position>& map,
-           const vector<Wave>& waves) : _credits(credits), _life(life), _tick(0), _currentWave(_waves.end()), _spawnCount(0), _currentState(State::Ready) {
+           const vector<Position>& noTurretMap,
+           const vector<Wave>& waves) : _noTurretMap(noTurretMap), _credits(credits), _life(life), _tick(0), _currentWave(_waves.end()), _spawnCount(0), _currentState(State::Ready) {
     setMap(map);
     for (auto i = waves.cbegin(); i != waves.cend(); ++i) {
         _waves.push_back(*i);
@@ -32,7 +33,16 @@ void Game::addTurret(TurretType type, Position p) {
             temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
             break;
     }
-    _turrets.pushBack(temp);
+    bool trovato = false;
+    for (auto i = _noTurretMap.cbegin(); i != _noTurretMap.cend() && !trovato; ++i)
+        trovato = (*i) == p;
+    for (auto i = _map.cbegin(); i != _map.cend() && !trovato; ++i)
+        trovato = i->getPosition() == p;
+    if (trovato) {
+        _turrets.pushBack(temp);
+    } else {
+        throw new turret_error("You can't insert a turret in this position");
+    }
 }
 
 void Game::removeTurret(U_INT index) {
@@ -46,21 +56,42 @@ float Game::getCredits() const {
 void Game::setMap(const vector<Position>& map) {
     auto it = std::unique(map.begin(), map.end());
     bool wasUnique = (it == map.end());
+    PathCell prev;
+    Direction from;
     if (wasUnique) {
         for (auto i = map.cbegin(); i != map.cend(); ++i) {
             auto next = i + 1;
+            if (i == map.cbegin()) {
+                from = Direction::Left
+            } else {
+                switch (prev.to) {
+                    case Direction::Up:
+                        from = Direction::Down;
+                        break;
+                    case Direction::Down:
+                        from = Direction::Up;
+                        break;
+                    case Direction::Left:
+                        from = Direction::Right;
+                        break;
+                    default:
+                        from = Direction::Left;
+                        break;
+                }
+            }
             if (next != map.cend()) {
                 if ((i->x == next->x + 1) && (i->y == next->y)) {
-                    _map.push_back(PathCell{i->x, i->y, Direction::Right});
+                    _map.push_back(PathCell{i->x, i->y, from, Direction::Right});
                 } else if ((i->x == next->x) && (i->y == next->y + 1)) {
-                    _map.push_back(PathCell{i->x, i->y, Direction::Up});
+                    _map.push_back(PathCell{i->x, i->y, from, Direction::Up});
                 } else if ((i->x == next->x - 1) && (i->y == next->y)) {
-                    _map.push_back(PathCell{i->x, i->y, Direction::Left});
+                    _map.push_back(PathCell{i->x, i->y, from, Direction::Left});
                 } else if ((i->x == next->x) && (i->y == next->y - 1)) {
-                    _map.push_back(PathCell{i->x, i->y, Direction::Down});
+                    _map.push_back(PathCell{i->x, i->y, from, Direction::Down});
                 } else {
                     throw new path_error("This is not a correct path, some cells are disconnected");
                 }
+                prev = _map.at(_map.size() - 1);
             }
         }
     } else {

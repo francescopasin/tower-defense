@@ -9,7 +9,7 @@ struct Position {
     U_INT x;
     U_INT y;
 
-    bool operator==(const Position& other) {
+    bool operator==(const Position& other) const {
         return x == other.x && y == other.y;
     }
 };
