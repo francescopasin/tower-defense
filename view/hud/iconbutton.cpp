@@ -1,4 +1,4 @@
-#include "view/hud/iconbutton.h";
+#include "view/hud/iconbutton.h"
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
