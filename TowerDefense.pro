@@ -23,7 +23,9 @@ SOURCES += \
     view/gamescene.cpp \
     view/gridcell.cpp \
     view/hud/infobox.cpp \
-    view/hud/iconbutton.cpp
+    view/hud/iconbutton.cpp \
+    view/hud/turretselector.cpp \
+    view/hud/turretselectoritem.cpp
 
 HEADERS += \
     model/pathcell.h \
@@ -45,7 +47,9 @@ HEADERS += \
     view/gridcelltype.h \
     view/gridcell.h \ 
     view/hud/infobox.h \
-    view/hud/iconbutton.h
+    view/hud/iconbutton.h \
+    view/hud/turretselector.h \
+    view/hud/turretselectoritem.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

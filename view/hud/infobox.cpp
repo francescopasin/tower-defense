@@ -4,7 +4,9 @@
 
 namespace view {
 
-InfoBox::InfoBox(QString imagePath, QString text) : _imagePath(imagePath), _text(text) {}
+InfoBox::InfoBox(QString imagePath, QString text) : _imagePath(imagePath), _text(text) {
+    setFlag(QGraphicsItem::ItemIgnoresTransformations);
+}
 
 QRectF InfoBox::boundingRect() const {
     return QRectF(0, 0, 250, 50);
@@ -14,12 +16,8 @@ void InfoBox::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    /*
     QPixmap pixmap = QPixmap(_imagePath);
-    painter->drawPixmap(QRect(0, 0, 50, 50), pixmap.scaled(50,50));
-    */
-    QImage image = QImage(_imagePath);
-    painter->drawImage(QRect(0, 0, 50, 50), image, QRect(0, 0, 16, 16));
+    painter->drawPixmap(QRect(0, 0, 48, 48), pixmap);
 
     QFont font = painter->font();
     font.setPixelSize(30);

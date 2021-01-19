@@ -6,6 +6,7 @@
 #include "view/gridcell.h"
 #include "view/hud/iconbutton.h"
 #include "view/hud/infobox.h"
+#include "view/hud/turretselector.h"
 
 namespace view {
 
@@ -75,6 +76,10 @@ void GameScene::createHUD() {
     IconButton* fastForwardButton = new IconButton(":/assets/images/fast-forward-button-idle.png", ":/assets/images/fast-forward-button-pressed.png");
     fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
     addItem(fastForwardButton);
+
+    TurretSelector* turretSelector = new TurretSelector();
+    turretSelector->setPos(1670, 150);  // 1670 = 1920 - 250
+    addItem(turretSelector);
 }
 
 }  // namespace view
