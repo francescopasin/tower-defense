@@ -7,13 +7,27 @@
 
 namespace view {
 
+enum class PathGridCellTile {
+    Horizontal,
+    Vertical,
+    TopRight,
+    TopLeft,
+    BottomRight,
+    BottomLeft,
+    Top,
+    Right,
+    Left,
+    Bottom
+};
+
 class GridCell : public QGraphicsItem {
    private:
     qreal _size;
     GridCellType _type;
+    PathGridCellTile _tile;
 
    public:
-    GridCell(qreal size, GridCellType type = GridCellType::Free);
+    GridCell(qreal size, GridCellType type = GridCellType::Free, PathGridCellTile tile = PathGridCellTile::Horizontal);
 
     QRectF boundingRect() const override;
 

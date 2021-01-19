@@ -28,9 +28,7 @@ void GameScene::drawBackground() {
 
 void GameScene::createGameGrid() {
     // TODO: get info from model
-    qreal toolbarHeight = 150;
-
-    qreal size = (height() - toolbarHeight) / 9;
+    qreal size = 96;
 
     for (int i = 0; i < 16; i++) {
         for (int j = 0; j < 9; j++) {
@@ -40,20 +38,21 @@ void GameScene::createGameGrid() {
                 if (i == 0) {
                     cell = new GridCell(size, GridCellType::PathStart);
                 } else if (i == 15) {
-                    cell = new GridCell(size, GridCellType::PathEnd);
+                    cell = new GridCell(size, GridCellType::PathEnd, PathGridCellTile::Right);
                 } else {
+                    // TODO set path tile type based on PathCell direction from and to
                     cell = new GridCell(size, GridCellType::Path);
                 }
 
             } else {
-                if (QRandomGenerator::global()->bounded(2) == 1) {
+                if (QRandomGenerator::global()->bounded(3) == 1) {
                     cell = new GridCell(size, GridCellType::Blocked);
                 } else {
                     cell = new GridCell(size);
                 }
             }
 
-            cell->setPos(i * size, j * size + toolbarHeight);
+            cell->setPos(i * size, j * size + (1080 - size * 9));
             addItem(cell);
         }
     }

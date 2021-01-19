@@ -15,8 +15,6 @@ GameView::GameView() : scene(new GameScene()) {
 }
 
 void GameView::resizeEvent(QResizeEvent *event) {
-    auto newSize = event->size();
-
     fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
     QGraphicsView::resizeEvent(event);
 }
