@@ -11,7 +11,8 @@ namespace model {
 struct PathCell {
     U_INT x;
     U_INT y;
-    Direction d;
+    Direction from;
+    Direction to;
 
     Position getPosition() const {
         Position p{x, y};
