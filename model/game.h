@@ -18,7 +18,6 @@ namespace model {
 class Game {
    public:
     enum State {
-        Setup,
         Ready,
         InExecution,
         Lost,
@@ -29,32 +28,29 @@ class Game {
     vector<PathCell> _map;
     MyList<DeepPtr<Turret>> _turrets;
     vector<SP<Enemy>> _enemies;
-    vector<Wave> _waves;  //? const
-
+    vector<Wave> _waves;
     vector<Wave>::iterator _currentWave;
     State _currentState;
 
-    float _credits;  //TODO:: unsigned int?
+    U_INT _credits;
     float _life;
     unsigned int _tick;
     U_INT _spawnCount;
 
     void spawnEnemy();
-    void moveEnemy();
+    void moveEnemies();
     void attack();
     void checkDeadEnemies();
     void checkWon();
-    void toReady();
+
+    void setMap(const vector<Position>& map);
 
    public:
-    Game();
+    Game(U_INT credits, float life, const vector<Position>& map, const vector<Wave>& waves);
     State tick();
-    void setMap(const vector<Position>& map);
-    void standardSetup();
-    void addWave(const Wave& wave);
     void addTurret(TurretType type, Position p);
     void removeTurret(U_INT index);
-    float getCredit() const;
+    float getCredits() const;
 };
 
 }  // namespace model
