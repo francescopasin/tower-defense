@@ -26,6 +26,7 @@ class Game {
 
    private:
     vector<PathCell> _map;
+    vector<Position> _noTurretMap;
     MyList<DeepPtr<Turret>> _turrets;
     vector<SP<Enemy>> _enemies;
     vector<Wave> _waves;
@@ -46,7 +47,7 @@ class Game {
     void setMap(const vector<Position>& map);
 
    public:
-    Game(U_INT credits, float life, const vector<Position>& map, const vector<Wave>& waves);
+    Game(U_INT credits, float life, const vector<Position>& map, const vector<Position>& noTurretMap, const vector<Wave>& waves);
     State tick();
     void addTurret(TurretType type, Position p);
     void removeTurret(U_INT index);
