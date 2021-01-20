@@ -10,7 +10,7 @@
 
 namespace view {
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+MainWindow::MainWindow(const SP<model::GameModel>& model, const SP<GameView>& gameView) {
     setWindowTitle("Tower Defense");
 
     setMinimumSize(QSize(1280, 720));
@@ -22,9 +22,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     // Add fonts
     QFontDatabase::addApplicationFont(":/assets/fonts/PressStart2P-Regular.ttf");
 
-    gameView = new GameView();
-
-    setCentralWidget(gameView);
+    setCentralWidget(gameView.get());
 }
 
 void MainWindow::readSettings() {
@@ -34,7 +32,7 @@ void MainWindow::readSettings() {
     restoreState(settings.value("windowState").toByteArray());
 }
 
-void MainWindow::closeEvent(QCloseEvent *event) {
+void MainWindow::closeEvent(QCloseEvent* event) {
     // Save window state (position, size)
     QSettings settings("TeamPlemento", "TowerDefense");
     settings.setValue("geometry", saveGeometry());

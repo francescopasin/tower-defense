@@ -11,13 +11,11 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
    private:
-    GameView *gameView;
-
     void closeEvent(QCloseEvent *event) override;
     void readSettings();
 
    public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(const SP<model::GameModel> &model, const SP<GameView> &gameView);
 };
 
 }  // namespace view
