@@ -4,10 +4,10 @@ namespace model {
 
 Game::Game(U_INT credits,
            float life,
-           const vector<Position>& map,
+           vector<Position>& map,
            const vector<Position>& blockedCellsMap,
            const vector<Wave>& waves,
-           Direction first) : _blockedCellsMap(blockedCellsMap), _credits(credits), _life(life), _tick(0), _currentWave(_waves.end()), _spawnCount(0), _currentState(State::Ready), _waves(waves) {
+           Direction first) : _blockedCellsMap(blockedCellsMap), _waves(waves), _currentWave(_waves.end()), _currentState(State::Ready), _credits(credits), _life(life), _tick(0), _spawnCount(0) {
     setMap(map, first);
     _currentWave = _waves.begin();
 }
@@ -51,7 +51,7 @@ float Game::getCredits() const {
     return _credits;
 }
 
-void Game::setMap(const vector<Position>& map, Direction first) {
+void Game::setMap(vector<Position>& map, Direction first) {
     auto it = std::unique(map.begin(), map.end());
     bool wasUnique = (it == map.end());
     PathCell prev;

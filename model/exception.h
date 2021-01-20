@@ -14,14 +14,14 @@ class path_error : std::domain_error {
 
 class state_error : std::runtime_error {
    public:
-    state_error(const std::string& what_arg) : runtime_error(what_arg) {}
-    state_error(const char* what_arg = "You can't do this operation in this state") : runtime_error(what_arg) {}
+    state_error(const std::string& what_arg);
+    state_error(const char* what_arg = "You can't do this operation in this state");
 };
 
 class turret_error : std::runtime_error {
    public:
-    turret_error(const std::string& what_arg) : runtime_error(what_arg) {}
-    turret_error(const char* what_arg = "An error occured in a turret operation") : runtime_error(what_arg) {}
+    turret_error(const std::string& what_arg);
+    turret_error(const char* what_arg = "An error occured in a turret operation");
 };
 
 }  // namespace model
@@ -32,7 +32,7 @@ class turret_error : std::runtime_error {
 try {
     throw new state_error("This is s state error");
 } catch (std::Exception* e) {
-    cout << e.What(); //* contains the error string
+    cout << e.What(); // contains the error string
 }
 
 */

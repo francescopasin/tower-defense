@@ -11,7 +11,7 @@ GameModel::GameModel() {
     map.push_back(Position{0, 1});
     map.push_back(Position{1, 1});
     map.push_back(Position{2, 1});
-    for (int i = 2; i < 7; i++)
+    for (U_INT i = 2; i < 7; i++)
         map.push_back(Position{i, 2});
     map.push_back(Position{6, 3});
     map.push_back(Position{6, 4});
@@ -21,9 +21,9 @@ GameModel::GameModel() {
     map.push_back(Position{3, 5});
     map.push_back(Position{2, 5});
     map.push_back(Position{2, 6});
-    for (int i = 2; i < 8; i++)
+    for (U_INT i = 2; i < 8; i++)
         map.push_back(Position{i, 7});
-    for (int i = 8; i < 15; i++)
+    for (U_INT i = 8; i < 15; i++)
         map.push_back(Position{7, i});
     map.push_back(Position{6, 14});
     map.push_back(Position{5, 14});
@@ -33,17 +33,17 @@ GameModel::GameModel() {
     map.push_back(Position{4, 11});
     map.push_back(Position{3, 11});
     map.push_back(Position{2, 11});
-    for (int i = 11; i < 16; i++)
+    for (U_INT i = 11; i < 16; i++)
         map.push_back(Position{1, i});
 
     vector<Position> blockTurret;
-    for (int i = 3; i < 11; i++)
+    for (U_INT i = 3; i < 11; i++)
         blockTurret.push_back(Position{0, i});
-    for (int i = 5; i < 9; i++)
+    for (U_INT i = 5; i < 9; i++)
         blockTurret.push_back(Position{i, 0});
-    for (int i = 3; i < 7; i++)
+    for (U_INT i = 3; i < 7; i++)
         blockTurret.push_back(Position{i, 9});
-    for (int i = 12; i < 16; i++)
+    for (U_INT i = 12; i < 16; i++)
         blockTurret.push_back(Position{8, i});
     blockTurret.push_back(Position{1, 0});
     blockTurret.push_back(Position{3, 1});

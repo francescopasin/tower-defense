@@ -44,10 +44,10 @@ class Game {
     void checkDeadEnemies();
     void checkWon();
 
-    void setMap(const vector<Position>& map, Direction first);
+    void setMap(vector<Position>& map, Direction first);
 
    public:
-    Game(U_INT credits, float life, const vector<Position>& map, const vector<Position>& blockedCellsMap, const vector<Wave>& waves, Direction first);
+    Game(U_INT credits, float life, vector<Position>& map, const vector<Position>& blockedCellsMap, const vector<Wave>& waves, Direction first);
     State tick();
     void addTurret(TurretType type, Position p);
     void removeTurret(U_INT index);
