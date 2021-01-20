@@ -10,7 +10,7 @@
 
 namespace view {
 
-GameScene::GameScene() {
+GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
     // Performance optimization
     setItemIndexMethod(QGraphicsScene::NoIndex);
 
@@ -71,14 +71,19 @@ void GameScene::createHUD() {
     IconButton* playPauseButton = new IconButton(":/assets/images/play-button-idle.png", ":/assets/images/play-button-pressed.png");
     playPauseButton->setPos(1400, 25);
     addItem(playPauseButton);
+    connect(playPauseButton, &IconButton::pressed, this, &GameScene::playPauseButtonPressed);
 
     IconButton* fastForwardButton = new IconButton(":/assets/images/fast-forward-button-idle.png", ":/assets/images/fast-forward-button-pressed.png");
     fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
     addItem(fastForwardButton);
+    connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardButtonPressed);
 
     TurretSelector* turretSelector = new TurretSelector();
     turretSelector->setPos(1670, 150);  // 1670 = 1920 - 250
     addItem(turretSelector);
+
+    // TODO: add addturret signal
+    // TODO: add removeturret signal
 }
 
 }  // namespace view

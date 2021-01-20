@@ -14,23 +14,14 @@ using std::shared_ptr;
 namespace view {
 
 class GameView : public QGraphicsView {
-    Q_OBJECT
-
    private:
-    SP<model::GameModel> _model;
-    GameScene* scene;
+    SP<GameScene> _scene;
 
    protected:
     void resizeEvent(QResizeEvent* event) override;
 
    public:
-    GameView(const SP<model::GameModel>& model);
-
-   signals:
-    void playPauseButtonPressed();
-    void fastForwardButtonPressed();
-    void addTurretSignal(model::Position position, model::TurretType turretType);
-    void removeTurretSignal(model::Position position);
+    GameView(const SP<GameScene>& scene);
 };
 
 }  // namespace view

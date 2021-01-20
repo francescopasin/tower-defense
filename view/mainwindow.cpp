@@ -10,7 +10,7 @@
 
 namespace view {
 
-MainWindow::MainWindow(const SP<GameView>& gameView) {
+MainWindow::MainWindow(GameView* gameView) {
     setWindowTitle("Tower Defense");
 
     setMinimumSize(QSize(1280, 720));
@@ -22,7 +22,7 @@ MainWindow::MainWindow(const SP<GameView>& gameView) {
     // Add fonts
     QFontDatabase::addApplicationFont(":/assets/fonts/PressStart2P-Regular.ttf");
 
-    setCentralWidget(gameView.get());
+    setCentralWidget(gameView);
 }
 
 void MainWindow::readSettings() {

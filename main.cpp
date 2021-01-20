@@ -10,11 +10,13 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
     auto model = make_shared<model::GameModel>();
-    auto gameView = make_shared<view::GameView>(model);
+    auto gameScene = make_shared<view::GameScene>(model);
 
-    auto controller = controller::GameController(model, gameView);
+    auto controller = controller::GameController(model, gameScene);
 
-    auto window = view::MainWindow(gameView);
+    view::GameView gameView(gameScene);
+
+    auto window = view::MainWindow(&gameView);
     window.show();
 
     return a.exec();

@@ -4,17 +4,17 @@
 
 namespace view {
 
-GameView::GameView(const SP<model::GameModel>& model) : _model(model), scene(new GameScene()) {
+GameView::GameView(const SP<GameScene>& scene) : _scene(scene) {
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    setScene(scene);
+    setScene(_scene.get());
 }
 
 void GameView::resizeEvent(QResizeEvent* event) {
-    fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+    fitInView(_scene->sceneRect(), Qt::KeepAspectRatio);
     QGraphicsView::resizeEvent(event);
 }
 

@@ -13,7 +13,7 @@ class MainWindow : public QMainWindow {
     void readSettings();
 
    public:
-    MainWindow(const SP<GameView> &gameView);
+    MainWindow(GameView *gameView);
 };
 
 }  // namespace view

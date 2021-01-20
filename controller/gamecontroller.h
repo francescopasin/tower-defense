@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "model/gamemodel.h"
-#include "view/gameview.h"
+#include "view/gamescene.h"
 
 using std::shared_ptr;
 
@@ -12,13 +12,19 @@ using std::shared_ptr;
 
 namespace controller {
 
-class GameController {
+class GameController : public QObject {
+    Q_OBJECT
+
    private:
     SP<model::GameModel> _model;
-    SP<view::GameView> _view;
+    SP<view::GameScene> _view;
 
    public:
-    GameController(const SP<model::GameModel>& model, const SP<view::GameView>& view);
+    GameController(const SP<model::GameModel>& model, const SP<view::GameScene>& view);
+
+   public slots:
+    void playPause();
+    void fastForward();
 };
 
 }  // namespace controller
