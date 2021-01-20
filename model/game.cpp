@@ -44,6 +44,7 @@ void Game::addTurret(TurretType type, Position p) {
 }
 
 void Game::removeTurret(U_INT index) {
+    // TODO: restore some credits
     _turrets.erase(index);
 }
 

@@ -14,6 +14,8 @@ using std::shared_ptr;
 namespace view {
 
 class GameView : public QGraphicsView {
+    Q_OBJECT
+
    private:
     SP<model::GameModel> _model;
     GameScene* scene;
@@ -23,6 +25,12 @@ class GameView : public QGraphicsView {
 
    public:
     GameView(const SP<model::GameModel>& model);
+
+   signals:
+    void playPauseButtonPressed();
+    void fastForwardButtonPressed();
+    void addTurretSignal(model::Position position, model::TurretType turretType);
+    void removeTurretSignal(model::Position position);
 };
 
 }  // namespace view
