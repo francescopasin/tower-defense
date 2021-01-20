@@ -6,12 +6,12 @@ namespace model {
 #define U_INT unsigned short int
 
 struct Wave {
-    float _health;
-    U_INT _speed;
-    U_INT _enemyNumber;
-    U_INT _enemyIntervalTick;
-    U_INT _startAfter;
-    float _attackDamage;
+    float enemiesHealth;
+    U_INT enemiesSpeed;
+    float enemiesAttackDamage;
+    U_INT enemiesNumber;
+    U_INT enemiesIntervalTick;
+    U_INT startsAfter;
 };
 
 }  // namespace model
