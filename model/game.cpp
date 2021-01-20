@@ -122,13 +122,13 @@ void Game::spawnEnemy() {
 }
 
 void Game::attack() {
-    for (MyList<DeepPtr<Turret>>::iterator i = _turrets.begin(); i != _turrets.end(); ++i) {
+    for (auto i = _turrets.begin(); i != _turrets.end(); ++i) {
         (*i)->attack();
     }
 }
 
 void Game::checkDeadEnemies() {
-    for (vector<SP<Enemy>>::iterator i = _enemies.begin(); i != _enemies.end(); ++i) {
+    for (auto i = _enemies.begin(); i != _enemies.end(); ++i) {
         if ((*i)->getHealth() <= 0) {
             i = _enemies.erase(i);
             i--;
