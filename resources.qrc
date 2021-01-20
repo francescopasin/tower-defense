@@ -25,6 +25,10 @@
         <file>assets/images/top-end-tile.png</file>
         <file>assets/images/bottom-end-tile.png</file>
         <file>assets/images/blocked-tile.png</file>
+        <file>assets/images/pointer.png</file>
+        <file>assets/images/pointer-interactive.png</file>
+        <file>assets/images/pointer-turret-place.png</file>
+        <file>assets/images/pointer-turret-remove.png</file>
         <file>assets/fonts/PressStart2P-Regular.ttf</file>
     </qresource>
 </RCC>
