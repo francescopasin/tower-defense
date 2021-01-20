@@ -112,7 +112,7 @@ MyList<T>::Node::~Node() {
 }
 
 template <class T>
-MyList<T>::MyList() : _size(0), _first(nullptr), _last(nullptr) {}
+MyList<T>::MyList() : _first(nullptr), _last(nullptr), _size(0) {}
 
 template <class T>
 typename MyList<T>::Node* MyList<T>::ricCopy(Node* from, Node* prev, Node*& last) {

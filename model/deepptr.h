@@ -32,14 +32,14 @@ DeepPtr<T>::DeepPtr(T* ptr) : _ptr(ptr) {}
 
 template <class T>
 DeepPtr<T>::DeepPtr(const DeepPtr<T>& deepPtr) {
-    _ptr = new T(*deepPtr);
+    _ptr = deepPtr->clone();
 }
 
 template <class T>
 DeepPtr<T>& DeepPtr<T>::operator=(const DeepPtr<T>& deepPtr) {
     if (this != &deepPtr) {
         delete _ptr;
-        _ptr = new T(*deepPtr);
+        _ptr = deepPtr->clone();
     }
     return *this;
 }
