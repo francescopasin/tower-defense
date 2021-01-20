@@ -10,7 +10,7 @@ class GameModel {
     Game* _game;
 
    public:
-    GameModel(U_INT credits, float life, const vector<Position>& map);
+    GameModel();
     Game::State tick();
     void addTurret(TurretType type, Position p);
     void removeTurret(U_INT index);

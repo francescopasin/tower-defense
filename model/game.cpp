@@ -5,12 +5,10 @@ namespace model {
 Game::Game(U_INT credits,
            float life,
            const vector<Position>& map,
-           const vector<Position>& noTurretMap,
-           const vector<Wave>& waves) : _noTurretMap(noTurretMap), _credits(credits), _life(life), _tick(0), _currentWave(_waves.end()), _spawnCount(0), _currentState(State::Ready) {
-    setMap(map);
-    for (auto i = waves.cbegin(); i != waves.cend(); ++i) {
-        _waves.push_back(*i);
-    }
+           const vector<Position>& blockedCellsMap,
+           const vector<Wave>& waves,
+           Direction first) : _blockedCellsMap(blockedCellsMap), _credits(credits), _life(life), _tick(0), _currentWave(_waves.end()), _spawnCount(0), _currentState(State::Ready), _waves(waves) {
+    setMap(map, first);
     _currentWave = _waves.begin();
 }
 
@@ -34,7 +32,7 @@ void Game::addTurret(TurretType type, Position p) {
             break;
     }
     bool trovato = false;
-    for (auto i = _noTurretMap.cbegin(); i != _noTurretMap.cend() && !trovato; ++i)
+    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !trovato; ++i)
         trovato = (*i) == p;
     for (auto i = _map.cbegin(); i != _map.cend() && !trovato; ++i)
         trovato = i->getPosition() == p;
@@ -53,7 +51,7 @@ float Game::getCredits() const {
     return _credits;
 }
 
-void Game::setMap(const vector<Position>& map) {
+void Game::setMap(const vector<Position>& map, Direction first) {
     auto it = std::unique(map.begin(), map.end());
     bool wasUnique = (it == map.end());
     PathCell prev;
@@ -62,7 +60,7 @@ void Game::setMap(const vector<Position>& map) {
         for (auto i = map.cbegin(); i != map.cend(); ++i) {
             auto next = i + 1;
             if (i == map.cbegin()) {
-                from = Direction::Left
+                from = first;
             } else {
                 switch (prev.to) {
                     case Direction::Up:
