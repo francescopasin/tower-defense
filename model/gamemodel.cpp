@@ -75,17 +75,34 @@ GameModel::GameModel() {
     wave.push_back(Wave{300, 60, 50, 8, 10, 60});
     _game = new Game(credits, life, map, blockTurret, wave, Direction::Left);
 }
+
 Game::State GameModel::tick() {
     return _game->tick();
 }
+
 void GameModel::addTurret(TurretType type, Position p) {
     return _game->addTurret(type, p);
 }
+
 void GameModel::removeTurret(U_INT index) {
     // TODO: can't remove with index. View can pass position or turret shared_pointer.
     return _game->removeTurret(index);
 }
-float GameModel::getCredits() const {
+
+U_INT GameModel::getCredits() const {
     return _game->getCredits();
 }
+
+float GameModel::getLife() const {
+    return _game->getLife();
+}
+
+vector<PathCell> GameModel::getMap() const {
+    return _game->getMap();
+}
+
+vector<Position> GameModel::getBlockedCellsMap() const {
+    return _game->getBlockedCellsMap();
+}
+
 }  // namespace model

@@ -51,7 +51,11 @@ class Game {
     State tick();
     void addTurret(TurretType type, Position p);
     void removeTurret(U_INT index);
-    float getCredits() const;
+
+    U_INT getCredits() const;
+    float getLife() const;
+    vector<PathCell> getMap() const;
+    vector<Position> getBlockedCellsMap() const;
 };
 
 }  // namespace model
