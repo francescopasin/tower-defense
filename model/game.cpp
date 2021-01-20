@@ -2,12 +2,21 @@
 
 namespace model {
 
-Game::Game(U_INT credits,
-           float life,
-           vector<Position>& map,
-           const vector<Position>& blockedCellsMap,
-           const vector<Wave>& waves,
-           Direction first) : _blockedCellsMap(blockedCellsMap), _waves(waves), _currentWave(_waves.end()), _currentState(State::Ready), _credits(credits), _life(life), _tick(0), _spawnCount(0) {
+Game::Game(
+    U_INT credits,
+    float life,
+    vector<Position>& map,
+    const vector<Position>& blockedCellsMap,
+    const vector<Wave>& waves,
+    Direction first)
+    : _blockedCellsMap(blockedCellsMap),
+      _waves(waves),
+      _currentWave(_waves.end()),
+      _currentState(State::Ready),
+      _credits(credits),
+      _life(life),
+      _tick(0),
+      _spawnCount(0) {
     setMap(map, first);
     _currentWave = _waves.begin();
 }
@@ -48,8 +57,20 @@ void Game::removeTurret(U_INT index) {
     _turrets.erase(index);
 }
 
-float Game::getCredits() const {
+U_INT Game::getCredits() const {
     return _credits;
+}
+
+float Game::getLife() const {
+    return _life;
+}
+
+vector<PathCell> Game::getMap() const {
+    return _map;
+}
+
+vector<Position> Game::getBlockedCellsMap() const {
+    return _blockedCellsMap;
 }
 
 void Game::setMap(vector<Position>& map, Direction first) {
