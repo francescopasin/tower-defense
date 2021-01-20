@@ -10,7 +10,7 @@
 
 namespace view {
 
-MainWindow::MainWindow(const SP<model::GameModel>& model, const SP<GameView>& gameView) {
+MainWindow::MainWindow(const SP<GameView>& gameView) {
     setWindowTitle("Tower Defense");
 
     setMinimumSize(QSize(1280, 720));

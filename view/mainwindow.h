@@ -8,14 +8,12 @@
 namespace view {
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
-
    private:
     void closeEvent(QCloseEvent *event) override;
     void readSettings();
 
    public:
-    MainWindow(const SP<model::GameModel> &model, const SP<GameView> &gameView);
+    MainWindow(const SP<GameView> &gameView);
 };
 
 }  // namespace view
