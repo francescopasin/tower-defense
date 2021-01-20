@@ -40,6 +40,8 @@ class Turret {
         U_INT cost);
     virtual ~Turret() = default;
 
+    virtual Turret* clone() const = 0;
+
     virtual void attack();
 
     virtual vector<SP<Enemy>> getTargetedEnemies() const = 0;

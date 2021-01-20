@@ -22,6 +22,8 @@ class ComboTurret : public SingularTargetTurret {
                 const SP<vector<SP<Enemy>>>& enemies);
     virtual ~ComboTurret() = default;
 
+    virtual ComboTurret* clone() const override;
+
     virtual void attack() override;
 };
 
