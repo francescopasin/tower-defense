@@ -76,11 +76,14 @@ vector<Position> Game::getBlockedCellsMap() const {
 void Game::setMap(vector<Position>& map, Direction first) {
     auto it = std::unique(map.begin(), map.end());
     bool wasUnique = (it == map.end());
+
     PathCell prev;
     Direction from;
+
     if (wasUnique) {
         for (auto i = map.cbegin(); i != map.cend(); ++i) {
             auto next = i + 1;
+
             if (i == map.cbegin()) {
                 from = first;
             } else {
@@ -101,11 +104,11 @@ void Game::setMap(vector<Position>& map, Direction first) {
             }
 
             if (next != map.cend()) {
-                if ((i->x == next->x + 1) && (i->y == next->y)) {
+                if ((i->x == next->x - 1) && (i->y == next->y)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Right});
                 } else if ((i->x == next->x) && (i->y == next->y + 1)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Up});
-                } else if ((i->x == next->x - 1) && (i->y == next->y)) {
+                } else if ((i->x == next->x + 1) && (i->y == next->y)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Left});
                 } else if ((i->x == next->x) && (i->y == next->y - 1)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Down});
@@ -113,6 +116,8 @@ void Game::setMap(vector<Position>& map, Direction first) {
                     throw new path_error("This is not a correct path, some cells are disconnected");
                 }
                 prev = _map.at(_map.size() - 1);
+            } else {
+                _map.push_back(PathCell{i->x, i->y, from, from});
             }
         }
     } else {

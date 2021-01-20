@@ -1,12 +1,14 @@
 #include "view/gamescene.h"
 
 #include <QGraphicsRectItem>
-#include <QRandomGenerator>
+#include <vector>
 
 #include "view/gridcell.h"
 #include "view/hud/iconbutton.h"
 #include "view/hud/infobox.h"
 #include "view/hud/turretselector.h"
+
+using std::vector;
 
 namespace view {
 
@@ -27,33 +29,157 @@ void GameScene::drawBackground() {
 }
 
 void GameScene::createGameGrid() {
-    // TODO: get info from model
+    vector<model::PathCell> path = _model->getMap();
+    vector<model::Position> blockedCells = _model->getBlockedCellsMap();
+
     qreal size = 96;
+
+    // Path Cells
+    // ========================================================================
+    for (auto i = path.begin(); i != path.end(); i++) {
+        GridCell* cell;
+
+        if (i == path.begin()) {
+            // First cell
+            PathGridCellTile tile;
+
+            switch (i->to) {
+                case model::Direction::Left:
+                    tile = PathGridCellTile::Right;
+                    break;
+                case model::Direction::Up:
+                    tile = PathGridCellTile::Bottom;
+                    break;
+                case model::Direction::Right:
+                    tile = PathGridCellTile::Left;
+                    break;
+                case model::Direction::Down:
+                    tile = PathGridCellTile::Top;
+                    break;
+            }
+
+            cell = new GridCell(size, GridCellType::PathStart, tile);
+        } else if (i == path.end() - 1) {
+            // Last cell
+            PathGridCellTile tile;
+
+            switch (i->from) {
+                case model::Direction::Left:
+                    tile = PathGridCellTile::Right;
+                    break;
+                case model::Direction::Up:
+                    tile = PathGridCellTile::Bottom;
+                    break;
+                case model::Direction::Right:
+                    tile = PathGridCellTile::Left;
+                    break;
+                case model::Direction::Down:
+                    tile = PathGridCellTile::Top;
+                    break;
+            }
+
+            cell = new GridCell(size, GridCellType::PathEnd, tile);
+        } else {
+            // Medium cell
+            PathGridCellTile tile;
+
+            switch (i->from) {
+                case model::Direction::Left:
+                    switch (i->to) {
+                        case model::Direction::Up:
+                            tile = PathGridCellTile::TopLeft;
+                            break;
+                        case model::Direction::Right:
+                            tile = PathGridCellTile::Horizontal;
+                            break;
+                        case model::Direction::Down:
+                            tile = PathGridCellTile::BottomLeft;
+                            break;
+                    }
+                    break;
+                case model::Direction::Up:
+                    switch (i->to) {
+                        case model::Direction::Left:
+                            tile = PathGridCellTile::TopLeft;
+                            break;
+                        case model::Direction::Right:
+                            tile = PathGridCellTile::TopRight;
+                            break;
+                        case model::Direction::Down:
+                            tile = PathGridCellTile::Vertical;
+                            break;
+                    }
+                    break;
+                case model::Direction::Right:
+                    switch (i->to) {
+                        case model::Direction::Left:
+                            tile = PathGridCellTile::Horizontal;
+                            break;
+                        case model::Direction::Up:
+                            tile = PathGridCellTile::TopRight;
+                            break;
+                        case model::Direction::Down:
+                            tile = PathGridCellTile::BottomRight;
+                            break;
+                    }
+                    break;
+                case model::Direction::Down:
+                    switch (i->to) {
+                        case model::Direction::Left:
+                            tile = PathGridCellTile::BottomLeft;
+                            break;
+                        case model::Direction::Up:
+                            tile = PathGridCellTile::Vertical;
+                            break;
+                        case model::Direction::Right:
+                            tile = PathGridCellTile::BottomRight;
+                            break;
+                    }
+                    break;
+            }
+
+            cell = new GridCell(size, GridCellType::Path, tile);
+        }
+
+        cell->setPos(i->x * size, i->y * size + (1080 - size * 9));
+        addItem(cell);
+    }
+
+    // Blocked Cells
+    // ========================================================================
+    for (auto i = blockedCells.begin(); i != blockedCells.end(); i++) {
+        GridCell* cell = new GridCell(size, GridCellType::Blocked);
+        cell->setPos(i->x * size, i->y * size + (1080 - size * 9));
+        addItem(cell);
+    }
+
+    // Free Cells
+    // ========================================================================
+    bool isFree = true;
 
     for (int i = 0; i < 16; i++) {
         for (int j = 0; j < 9; j++) {
-            GridCell* cell;
+            isFree = true;
 
-            if (j == 4) {
-                if (i == 0) {
-                    cell = new GridCell(size, GridCellType::PathStart);
-                } else if (i == 15) {
-                    cell = new GridCell(size, GridCellType::PathEnd, PathGridCellTile::Right);
-                } else {
-                    // TODO set path tile type based on PathCell direction from and to
-                    cell = new GridCell(size, GridCellType::Path);
-                }
-
-            } else {
-                if (QRandomGenerator::global()->bounded(3) == 1) {
-                    cell = new GridCell(size, GridCellType::Blocked);
-                } else {
-                    cell = new GridCell(size);
+            for (auto pathCell : path) {
+                if (pathCell.x == i && pathCell.y == j) {
+                    isFree = false;
+                    break;
                 }
             }
 
-            cell->setPos(i * size, j * size + (1080 - size * 9));
-            addItem(cell);
+            for (auto blockedCell : blockedCells) {
+                if (blockedCell.x == i && blockedCell.y == j) {
+                    isFree = false;
+                    break;
+                }
+            }
+
+            if (isFree) {
+                GridCell* cell = new GridCell(size, GridCellType::Free);
+                cell->setPos(i * size, j * size + (1080 - size * 9));
+                addItem(cell);
+            }
         }
     }
 }
