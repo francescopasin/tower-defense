@@ -1,11 +1,12 @@
-# tower-defense
+# CPP - Crush Poor Programmers
+## A c++ tower defense game
 
-Progetto programmazione ad oggetti Unipd.
+OOP project for Unipd.
 
 
-Libreria QT: https://www.qt.io/  
-Linee guida c++: https://google.github.io/styleguide/cppguide.html
+QT library: https://www.qt.io/  
+c++ guide lines: https://google.github.io/styleguide/cppguide.html
 
-### Autori
+### Authors
 [Simone Urbani](https://github.com/URBA22)  
 [Francesco Pasin](https://github.com/francescopasin)
