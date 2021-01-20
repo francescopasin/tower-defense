@@ -109,10 +109,10 @@ void Game::moveEnemies() {
 void Game::spawnEnemy() {
     if (_currentWave != _waves.end()) {
         _spawnCount++;
-        if (_currentWave->_enemyNumber > 0) {
-            if (_spawnCount >= _currentWave->_startAfter && (_spawnCount - _currentWave->_startAfter) % _currentWave->_enemyIntervalTick == 0) {
-                _enemies.push_back(SP<Enemy>(new Enemy(_map, _currentWave->_health, _currentWave->_speed, _currentWave->_attackDamage)));
-                _currentWave->_enemyNumber--;
+        if (_currentWave->enemiesNumber > 0) {
+            if (_spawnCount >= _currentWave->startsAfter && (_spawnCount - _currentWave->startsAfter) % _currentWave->enemiesIntervalTick == 0) {
+                _enemies.push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage)));
+                _currentWave->enemiesNumber--;
             }
         } else {
             _currentWave++;
