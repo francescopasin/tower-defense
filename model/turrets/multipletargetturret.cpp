@@ -13,6 +13,10 @@ MultipleTargetTurret::MultipleTargetTurret(
     : Turret(position, enemies, attackRadius, attackDamage, attackCooldown, cost),
       _targetsAmount(targetsAmount) {}
 
+MultipleTargetTurret* MultipleTargetTurret::clone() const {
+    return new MultipleTargetTurret(*this);
+}
+
 vector<SP<Enemy>> MultipleTargetTurret::getTargetedEnemies() const {
     vector<SP<Enemy>> enemiesInRadius = getEnemiesInRadius();
     vector<SP<Enemy>> targetedEnemies = vector<SP<Enemy>>();

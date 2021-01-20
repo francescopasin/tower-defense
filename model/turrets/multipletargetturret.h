@@ -27,6 +27,8 @@ class MultipleTargetTurret : public Turret {
         U_INT cost);
     virtual ~MultipleTargetTurret() = default;
 
+    virtual MultipleTargetTurret* clone() const override;
+
     virtual vector<SP<Enemy>> getTargetedEnemies() const override;
 };
 
