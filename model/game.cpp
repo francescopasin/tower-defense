@@ -99,6 +99,7 @@ void Game::setMap(vector<Position>& map, Direction first) {
                         break;
                 }
             }
+
             if (next != map.cend()) {
                 if ((i->x == next->x + 1) && (i->y == next->y)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Right});
