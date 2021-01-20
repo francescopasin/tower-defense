@@ -20,7 +20,14 @@ SOURCES += \
     model/turrets/splitturret.cpp \
     model/exception.cpp \
     controller/gamecontroller.cpp \
-    view/mainwindow.cpp
+    view/mainwindow.cpp \
+    view/gameview.cpp \
+    view/gamescene.cpp \
+    view/gridcell.cpp \
+    view/hud/infobox.cpp \
+    view/hud/iconbutton.cpp \
+    view/hud/turretselector.cpp \
+    view/hud/turretselectoritem.cpp
 
 HEADERS += \
     model/pathcell.h \
@@ -39,9 +46,21 @@ HEADERS += \
     model/exception.h \
     model/wave.h \
     controller/gamecontroller.h \
-    view/mainwindow.h
+    view/mainwindow.h \
+    view/gameview.h \
+    view/gamescene.h \
+    view/gridcelltype.h \
+    view/gridcell.h \ 
+    view/hud/infobox.h \
+    view/hud/iconbutton.h \
+    view/hud/turretselector.h \
+    view/hud/turretselectoritem.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc \
+    resources.qrc

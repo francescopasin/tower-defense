@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/images/coin.png</file>
+        <file>assets/images/heart.png</file>
+        <file>assets/images/play-button-idle.png</file>
+        <file>assets/images/play-button-pressed.png</file>
+        <file>assets/images/pause-button-idle.png</file>
+        <file>assets/images/pause-button-pressed.png</file>
+        <file>assets/images/fast-forward-button-idle.png</file>
+        <file>assets/images/fast-forward-button-pressed.png</file>
+        <file>assets/images/horizontal-tile.png</file>
+        <file>assets/images/vertical-tile.png</file>
+        <file>assets/images/bottom-left-tile.png</file>
+        <file>assets/images/bottom-right-tile.png</file>
+        <file>assets/images/top-left-tile.png</file>
+        <file>assets/images/top-right-tile.png</file>
+        <file>assets/images/free-tile.png</file>
+        <file>assets/images/free-tile-pressed.png</file>
+        <file>assets/images/left-start-tile.png</file>
+        <file>assets/images/right-start-tile.png</file>
+        <file>assets/images/top-start-tile.png</file>
+        <file>assets/images/bottom-start-tile.png</file>
+        <file>assets/images/left-end-tile.png</file>
+        <file>assets/images/right-end-tile.png</file>
+        <file>assets/images/top-end-tile.png</file>
+        <file>assets/images/bottom-end-tile.png</file>
+        <file>assets/images/blocked-tile.png</file>
+        <file>assets/fonts/PressStart2P-Regular.ttf</file>
+    </qresource>
+</RCC>

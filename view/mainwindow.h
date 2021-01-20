@@ -3,14 +3,21 @@
 
 #include <QMainWindow>
 
+#include "view/gameview.h"
+
 namespace view {
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
+   private:
+    GameView *gameView;
+
+    void closeEvent(QCloseEvent *event) override;
+    void readSettings();
+
    public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
 };
 
 }  // namespace view
