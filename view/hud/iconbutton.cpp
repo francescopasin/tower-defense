@@ -8,8 +8,10 @@ namespace view {
 
 IconButton::IconButton(QString imagePath, QString hoverImagePath) : _imagePath(imagePath), _hoverImagePath(hoverImagePath) {
     setAcceptHoverEvents(true);
-    setCursor(Qt::PointingHandCursor);
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
+
+    QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
+    setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
 QRectF IconButton::boundingRect() const {

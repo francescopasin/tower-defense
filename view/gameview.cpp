@@ -11,6 +11,9 @@ GameView::GameView(const SP<GameScene>& scene) : _scene(scene) {
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setScene(_scene.get());
+
+    QPixmap pixmap = QPixmap(":/assets/images/pointer.png");
+    setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
 void GameView::resizeEvent(QResizeEvent* event) {

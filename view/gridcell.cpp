@@ -11,7 +11,14 @@ GridCell::GridCell(qreal size, GridCellType type, PathGridCellTile tile) : _size
 
     if (type == GridCellType::Free || type == GridCellType::Occupied) {
         setAcceptHoverEvents(true);
-        setCursor(Qt::PointingHandCursor);
+
+        QPixmap pixmap;
+        if (type == GridCellType::Free) {
+            pixmap = QPixmap(":/assets/images/pointer-turret-place.png");
+        } else {
+            pixmap = QPixmap(":/assets/images/pointer-turret-remove.png");
+        }
+        setCursor(QCursor(pixmap.scaled(32, 32)));
     }
 }
 
