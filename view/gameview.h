@@ -2,20 +2,26 @@
 #define VIEW_GAMEVIEW_H_
 
 #include <QGraphicsView>
+#include <memory>
 
+#include "model/gamemodel.h"
 #include "view/gamescene.h"
+
+using std::shared_ptr;
+
+#define SP shared_ptr
 
 namespace view {
 
 class GameView : public QGraphicsView {
    private:
-    GameScene* scene;
+    SP<GameScene> _scene;
 
    protected:
     void resizeEvent(QResizeEvent* event) override;
 
    public:
-    GameView();
+    GameView(const SP<GameScene>& scene);
 };
 
 }  // namespace view

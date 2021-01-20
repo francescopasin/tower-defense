@@ -82,6 +82,7 @@ void GameModel::addTurret(TurretType type, Position p) {
     return _game->addTurret(type, p);
 }
 void GameModel::removeTurret(U_INT index) {
+    // TODO: can't remove with index. View can pass position or turret shared_pointer.
     return _game->removeTurret(index);
 }
 float GameModel::getCredits() const {

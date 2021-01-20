@@ -8,16 +8,12 @@
 namespace view {
 
 class MainWindow : public QMainWindow {
-    Q_OBJECT
-
    private:
-    GameView *gameView;
-
     void closeEvent(QCloseEvent *event) override;
     void readSettings();
 
    public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(GameView *gameView);
 };
 
 }  // namespace view

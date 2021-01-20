@@ -1,5 +1,6 @@
 #include "view/hud/iconbutton.h"
 
+#include <QDebug>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
@@ -25,6 +26,12 @@ void IconButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
         QImage image = QImage(_imagePath);
         painter->drawImage(QRect(2, 2, 96, 96), image, QRect(0, 0, 16, 16));
     }
+}
+
+void IconButton::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    Q_UNUSED(event);
+
+    emit pressed();
 }
 
 }  // namespace view
