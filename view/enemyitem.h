@@ -2,12 +2,23 @@
 #define HUD_ENEMY_H_
 
 #include <QGraphicsItem>
+#include <memory>
+
+#include "model/enemy.h"
+
+using std::shared_ptr;
+
+#define SP shared_ptr
 
 namespace view {
 
-class Enemy : public QGraphicsItem {
+class EnemyItem : public QGraphicsItem {
+   private:
+    SP<model::Enemy> enemyData;
+    qreal _cellSize;
+
    public:
-    Enemy();
+    EnemyItem(const SP<model::Enemy> &enemy, qreal cellSize);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

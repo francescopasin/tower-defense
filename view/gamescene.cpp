@@ -219,4 +219,10 @@ void GameScene::tick() {
     qDebug() << "View Tick";
 }
 
+void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
+    EnemyItem* en = new EnemyItem(enemy, 96);
+    enemies.push_back(en);
+    addItem(en);
+}
+
 }  // namespace view
