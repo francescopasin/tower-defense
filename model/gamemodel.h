@@ -1,7 +1,12 @@
 #ifndef MODEL_GAMEMODEL_H_
 #define MODEL_GAMEMODEL_H_
 
+#include <memory>
+
 #include "game.h"
+
+using std::shared_ptr;
+#define SP shared_ptr
 
 namespace model {
 
@@ -15,6 +20,8 @@ class GameModel {
     // TODO: return SP of the added turret, if we can use SP. Otherwhise create method getTurrets()
     void addTurret(TurretType type, Position p);
     void removeTurret(U_INT index);
+
+    SP<Enemy> lastTickSpawnedEnemy() const;
 
     U_INT getCredits() const;
     float getLife() const;

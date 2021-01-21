@@ -2,6 +2,7 @@
 #define MODEL_GAME_H_
 
 #include <algorithm>
+#include <memory>
 
 #include "deepptr.h"
 #include "exception.h"
@@ -12,6 +13,9 @@
 #include "turrets/splitturret.h"
 #include "turrets/turrettype.h"
 #include "wave.h"
+
+using std::shared_ptr;
+#define SP shared_ptr
 
 namespace model {
 
@@ -29,6 +33,7 @@ class Game {
     vector<Position> _blockedCellsMap;
     MyList<DeepPtr<Turret>> _turrets;
     vector<SP<Enemy>> _enemies;
+    SP<Enemy> _lastTickSpawnedEnemy;
     vector<Wave> _waves;
     vector<Wave>::iterator _currentWave;
     State _currentState;
@@ -51,6 +56,8 @@ class Game {
     State tick();
     void addTurret(TurretType type, Position p);
     void removeTurret(U_INT index);
+
+    SP<Enemy> lastTickSpawnedEnemy() const;
 
     U_INT getCredits() const;
     float getLife() const;

@@ -110,6 +110,10 @@ void GameModel::removeTurret(U_INT index) {
     return _game->removeTurret(index);
 }
 
+SP<Enemy> GameModel::lastTickSpawnedEnemy() const {
+    return _game->lastTickSpawnedEnemy();
+}
+
 U_INT GameModel::getCredits() const {
     return _game->getCredits();
 }

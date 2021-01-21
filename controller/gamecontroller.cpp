@@ -11,6 +11,11 @@ GameController::GameController(const SP<model::GameModel>& model, const SP<view:
 
 void GameController::gameTick() {
     _model->tick();
+
+    SP<model::Enemy> newEnemy = _model->lastTickSpawnedEnemy();
+    if (newEnemy.get()) {
+        _view->spawnEnemy(newEnemy);
+    }
 }
 
 void GameController::viewTick() {
@@ -35,6 +40,9 @@ void GameController::playPause() {
         gameTimer->stop();
         renderTimer->stop();
     } else {
+        // TODO: temp. remove this
+        start();
+
         gameTimer->start();
         renderTimer->start();
     }

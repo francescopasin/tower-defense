@@ -6,6 +6,7 @@ namespace view {
 
 EnemyItem::EnemyItem(const SP<model::Enemy> &enemy, qreal cellSize) : enemyData(enemy), _cellSize(cellSize) {
     // TODO: consider also enemyData::cellPosition
+    // TODO: fix position
     setPos(enemyData->getPosition().x * _cellSize, enemyData->getPosition().y * _cellSize);
 }
 

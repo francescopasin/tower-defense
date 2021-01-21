@@ -141,10 +141,20 @@ void Game::spawnEnemy() {
             if (_spawnCount >= _currentWave->startsAfter && (_spawnCount - _currentWave->startsAfter) % _currentWave->enemiesIntervalTick == 0) {
                 _enemies.push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage)));
                 _currentWave->enemiesNumber--;
+
+                _lastTickSpawnedEnemy = _enemies.back();
+            } else {
+                if (_lastTickSpawnedEnemy.get()) {
+                    _lastTickSpawnedEnemy.reset();
+                }
             }
         } else {
             _currentWave++;
             _spawnCount = 0;
+
+            if (_lastTickSpawnedEnemy.get()) {
+                _lastTickSpawnedEnemy.reset();
+            }
         }
     }
 }
@@ -182,6 +192,10 @@ Game::State Game::tick() {
         checkWon();
     }
     return _currentState;
+}
+
+SP<Enemy> Game::lastTickSpawnedEnemy() const {
+    return _lastTickSpawnedEnemy;
 }
 
 }  // namespace model
