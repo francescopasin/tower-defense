@@ -6,7 +6,6 @@
 
 #include "view/gridcell.h"
 #include "view/hud/iconbutton.h"
-#include "view/hud/infobox.h"
 #include "view/hud/turretselector.h"
 
 using std::vector;
@@ -186,14 +185,13 @@ void GameScene::createGameGrid() {
 }
 
 void GameScene::createHUD() {
-    // TODO: get info from model
-    InfoBox* infoBox = new InfoBox(":/assets/images/coin.png", "10");
-    infoBox->setPos(10, 15);
-    addItem(infoBox);
+    creditsInfo = new InfoBox(":/assets/images/coin.png", QString::number(_model->getCredits()));
+    creditsInfo->setPos(10, 15);
+    addItem(creditsInfo);
 
-    InfoBox* infoBox2 = new InfoBox(":/assets/images/heart.png", "90%");
-    infoBox2->setPos(10, 75);
-    addItem(infoBox2);
+    lifeInfo = new InfoBox(":/assets/images/heart.png", QString::number(_model->getLife()));
+    lifeInfo->setPos(10, 75);
+    addItem(lifeInfo);
 
     IconButton* playPauseButton = new IconButton(":/assets/images/play-button-idle.png", ":/assets/images/play-button-pressed.png");
     playPauseButton->setPos(1400, 25);
@@ -214,6 +212,10 @@ void GameScene::createHUD() {
 }
 
 void GameScene::tick() {
+    // Update info
+    creditsInfo->setText(QString::number(_model->getCredits()));
+    lifeInfo->setText(QString::number(_model->getLife()));
+
     qDebug() << "View Tick";
 }
 

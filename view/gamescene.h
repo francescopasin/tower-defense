@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 
 #include "model/gamemodel.h"
+#include "view/hud/infobox.h"
 
 using std::shared_ptr;
 
@@ -16,6 +17,9 @@ class GameScene : public QGraphicsScene {
 
    private:
     SP<const model::GameModel> _model;
+
+    InfoBox* creditsInfo;
+    InfoBox* lifeInfo;
 
     void drawBackground();
     void createGameGrid();
