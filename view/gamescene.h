@@ -24,6 +24,8 @@ class GameScene : public QGraphicsScene {
    public:
     GameScene(const SP<const model::GameModel>& model);
 
+    void tick();
+
    signals:
     void playPauseButtonPressed();
     void fastForwardButtonPressed();

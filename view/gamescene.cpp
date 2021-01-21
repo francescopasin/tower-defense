@@ -1,5 +1,6 @@
 #include "view/gamescene.h"
 
+#include <QDebug>
 #include <QGraphicsRectItem>
 #include <vector>
 
@@ -210,6 +211,10 @@ void GameScene::createHUD() {
 
     // TODO: add addturret signal
     // TODO: add removeturret signal
+}
+
+void GameScene::tick() {
+    qDebug() << "View Tick";
 }
 
 }  // namespace view
