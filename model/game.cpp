@@ -126,12 +126,15 @@ void Game::setMap(vector<Position>& map, Direction first) {
 }
 
 void Game::moveEnemies() {
+    int damage = 0;
     for (auto i = _enemies.begin(); i != _enemies.end(); ++i) {
-        _life -= (*i)->move();
-        i = _enemies.erase(i) - 1;
+        damage = (*i)->move();
+        if (damage > 0) {
+            _life -= damage;
+            i = _enemies.erase(i) - 1;
+        }
     }
-    if (_life <= 0)
-        _currentState = State::Lost;
+    if (_life <= 0) _currentState = State::Lost;
 }
 
 void Game::spawnEnemy() {

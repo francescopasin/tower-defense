@@ -216,7 +216,9 @@ void GameScene::tick() {
     creditsInfo->setText(QString::number(_model->getCredits()));
     lifeInfo->setText(QString::number(_model->getLife()));
 
-    qDebug() << "View Tick";
+    for (auto enemy : enemies) {
+        enemy->tick();
+    }
 }
 
 void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {

@@ -88,6 +88,7 @@ GameModel::GameModel() {
     blockTurret.push_back(Position{15, 7});
 
     vector<Wave> wave;
+
     wave.push_back(Wave{100, 120, 10, 6, 15, 0});
     wave.push_back(Wave{100, 120, 10, 10, 15, 60});
     wave.push_back(Wave{50, 30, 10, 20, 5, 60});
