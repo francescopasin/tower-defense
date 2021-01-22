@@ -34,7 +34,7 @@ void EnemyItem::setPosition() {
                 y += cellPosition * _cellSize / 100;
                 break;
             case model::Direction::Right:
-                x -= cellPosition * _cellSize / 100;
+                x -= cellPosition * _cellSize / 100 - _cellSize;
                 y += _cellSize / 2;
                 break;
             case model::Direction::Down:
@@ -45,7 +45,7 @@ void EnemyItem::setPosition() {
     } else {
         switch (currentCell.to) {
             case model::Direction::Left:
-                x -= cellPosition * _cellSize / 100;
+                x -= cellPosition * _cellSize / 100 - _cellSize;
                 y += _cellSize / 2;
                 break;
             case model::Direction::Up:
