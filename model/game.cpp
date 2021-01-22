@@ -127,7 +127,24 @@ void Game::setMap(vector<Position>& map, Direction first) {
                 }
                 prev = _map.at(_map.size() - 1);
             } else {
-                _map.push_back(PathCell{i->x, i->y, from, from});
+                // Calculate last cell to
+                Direction to;
+
+                switch (from) {
+                    case Direction::Left:
+                        to = Direction::Right;
+                        break;
+                    case Direction::Up:
+                        to = Direction::Down;
+                        break;
+                    case Direction::Right:
+                        to = Direction::Left;
+                        break;
+                    case Direction::Down:
+                        to = Direction::Up;
+                        break;
+                }
+                _map.push_back(PathCell{i->x, i->y, from, to});
             }
         }
     } else {
