@@ -1,6 +1,6 @@
 #include "view/gamescene.h"
 
-#include <QDebug>
+#include <algorithm>
 
 #include "view/gridfield.h"
 #include "view/hud/iconbutton.h"
@@ -61,8 +61,13 @@ void GameScene::tick() {
     creditsInfo->setText(QString::number(_model->getCredits()));
     lifeInfo->setText(QString::number(_model->getLife()));
 
-    for (auto enemy : enemies) {
-        enemy->tick();
+    for (auto i = enemies.begin(); i != enemies.end(); i++) {
+        if ((*i)->isDead()) {
+            removeItem(*i);
+            i = enemies.erase(i) - 1;
+        } else {
+            (*i)->tick();
+        }
     }
 }
 

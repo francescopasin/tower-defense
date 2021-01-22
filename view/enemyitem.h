@@ -26,6 +26,7 @@ class EnemyItem : public QGraphicsItem {
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     void tick();
+    bool isDead() const;
 };
 
 }  // namespace view
