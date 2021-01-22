@@ -40,11 +40,21 @@ void Game::addTurret(TurretType type, Position p) {
             temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
             break;
     }
+
     bool trovato = false;
-    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !trovato; ++i)
+
+    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !trovato; ++i) {
         trovato = (*i) == p;
-    for (auto i = _map.cbegin(); i != _map.cend() && !trovato; ++i)
+    }
+
+    for (auto i = _map.cbegin(); i != _map.cend() && !trovato; ++i) {
         trovato = i->getPosition() == p;
+    }
+
+    for (auto i = _turrets.cbegin(); i != _turrets.cend() && !trovato; ++i) {
+        trovato = (*i)->getPosition() == p;
+    }
+
     if (trovato) {
         _turrets.pushBack(temp);
     } else {

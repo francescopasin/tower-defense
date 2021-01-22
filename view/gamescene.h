@@ -6,6 +6,7 @@
 
 #include "model/gamemodel.h"
 #include "view/enemyitem.h"
+#include "view/gridfield.h"
 #include "view/hud/infobox.h"
 
 using std::shared_ptr;
@@ -21,13 +22,13 @@ class GameScene : public QGraphicsScene {
    private:
     SP<const model::GameModel> _model;
 
+    GridField* gridField;
     InfoBox* creditsInfo;
     InfoBox* lifeInfo;
 
     vector<EnemyItem*> enemies;
 
     void drawBackground();
-    void createGameGrid();
     void createHUD();
 
    public:

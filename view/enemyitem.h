@@ -20,7 +20,7 @@ class EnemyItem : public QGraphicsItem {
     void setPosition();
 
    public:
-    EnemyItem(const SP<model::Enemy> &enemy, qreal cellSize);
+    EnemyItem(QGraphicsItem *parent, const SP<model::Enemy> &enemy, qreal cellSize);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

@@ -4,7 +4,13 @@
 
 namespace view {
 
-EnemyItem::EnemyItem(const SP<model::Enemy> &enemy, qreal cellSize) : enemyData(enemy), _cellSize(cellSize) {
+EnemyItem::EnemyItem(
+    QGraphicsItem *parent,
+    const SP<model::Enemy> &enemy,
+    qreal cellSize)
+    : QGraphicsItem(parent),
+      enemyData(enemy),
+      _cellSize(cellSize) {
     setPosition();
 }
 
@@ -17,98 +23,55 @@ void EnemyItem::setPosition() {
     qreal y = currentCell.y * _cellSize;
 
     // Get direction
-    switch (currentCell.from) {
-        case model::Direction::Left:
-            switch (currentCell.to) {
-                case model::Direction::Up:
-                    if (firstHalf) {
-                        x += cellPosition * _cellSize / 100;
-                    } else {
-                        y -= cellPosition * _cellSize / 100;
-                    }
-                    break;
-                case model::Direction::Right:
-                    x += cellPosition * _cellSize / 100;
-                    break;
-                case model::Direction::Down:
-                    if (firstHalf) {
-                        x += cellPosition * _cellSize / 100;
-                    } else {
-                        y += cellPosition * _cellSize / 100;
-                    }
-                    break;
-            }
-            break;
-        case model::Direction::Up:
-            switch (currentCell.to) {
-                case model::Direction::Left:
-                    if (firstHalf) {
-                        y += cellPosition * _cellSize / 100;
-                    } else {
-                        x -= cellPosition * _cellSize / 100;
-                    }
-                    break;
-                case model::Direction::Right:
-                    if (firstHalf) {
-                        y += cellPosition * _cellSize / 100;
-                    } else {
-                        x += cellPosition * _cellSize / 100;
-                    }
-                    break;
-                case model::Direction::Down:
-                    y += cellPosition * _cellSize / 100;
-                    break;
-            }
-            break;
-        case model::Direction::Right:
-            switch (currentCell.to) {
-                case model::Direction::Left:
-                    x -= cellPosition * _cellSize / 100;
-                    break;
-                case model::Direction::Up:
-                    if (firstHalf) {
-                        x -= cellPosition * _cellSize / 100;
-                    } else {
-                        y -= cellPosition * _cellSize / 100;
-                    }
-                    break;
-                case model::Direction::Down:
-                    if (firstHalf) {
-                        x -= cellPosition * _cellSize / 100;
-                    } else {
-                        y += cellPosition * _cellSize / 100;
-                    }
-                    break;
-            }
-            break;
-        case model::Direction::Down:
-            switch (currentCell.to) {
-                case model::Direction::Left:
-                    if (firstHalf) {
-                        y -= cellPosition * _cellSize / 100;
-                    } else {
-                        x -= cellPosition * _cellSize / 100;
-                    }
-                    break;
-                case model::Direction::Up:
-                    y -= cellPosition * _cellSize / 100;
-                    break;
-                case model::Direction::Right:
-                    if (firstHalf) {
-                        y -= cellPosition * _cellSize / 100;
-                    } else {
-                        x += cellPosition * _cellSize / 100;
-                    }
-                    break;
-            }
-            break;
+    if (firstHalf) {
+        switch (currentCell.from) {
+            case model::Direction::Left:
+                x += cellPosition * _cellSize / 100;
+                y += _cellSize / 2;
+                break;
+            case model::Direction::Up:
+                x += _cellSize / 2;
+                y += cellPosition * _cellSize / 100;
+                break;
+            case model::Direction::Right:
+                x -= cellPosition * _cellSize / 100;
+                y += _cellSize / 2;
+                break;
+            case model::Direction::Down:
+                x += _cellSize / 2;
+                y -= cellPosition * _cellSize / 100 - _cellSize;
+                break;
+        }
+    } else {
+        switch (currentCell.to) {
+            case model::Direction::Left:
+                x -= cellPosition * _cellSize / 100;
+                y += _cellSize / 2;
+                break;
+            case model::Direction::Up:
+                x += _cellSize / 2;
+                y -= cellPosition * _cellSize / 100 - _cellSize;
+                break;
+            case model::Direction::Right:
+                x += cellPosition * _cellSize / 100;
+                y += _cellSize / 2;
+                break;
+            case model::Direction::Down:
+                x += _cellSize / 2;
+                y += cellPosition * _cellSize / 100;
+                break;
+        }
     }
+
+    // 15 = enemy size / 2 - align to center
+    x -= 15;
+    y -= 15;
 
     setPos(x, y);
 }
 
 QRectF EnemyItem::boundingRect() const {
-    return QRectF(0, 0, 50, 50);
+    return QRectF(0, 0, 30, 30);
 }
 
 void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -118,7 +81,7 @@ void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setPen(Qt::NoPen);
     painter->setBrush(Qt::red);
 
-    painter->drawRect(0, 0, 50, 50);
+    painter->drawRect(0, 0, 30, 30);
 }
 
 void EnemyItem::tick() {

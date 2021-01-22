@@ -89,11 +89,15 @@ GameModel::GameModel() {
 
     vector<Wave> wave;
 
+    // TODO: temp. only for debugging
+    wave.push_back(Wave{100, 20, 10, 1, 15, 0});
+    /*
     wave.push_back(Wave{100, 120, 10, 6, 15, 0});
     wave.push_back(Wave{100, 120, 10, 10, 15, 60});
     wave.push_back(Wave{50, 30, 10, 20, 5, 60});
     wave.push_back(Wave{200, 60, 30, 6, 15, 60});
     wave.push_back(Wave{300, 60, 50, 8, 10, 60});
+    */
 
     _game = new Game(credits, life, map, blockTurret, wave, Direction::Left);
 }

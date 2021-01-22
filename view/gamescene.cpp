@@ -1,10 +1,8 @@
 #include "view/gamescene.h"
 
 #include <QDebug>
-#include <QGraphicsRectItem>
-#include <vector>
 
-#include "view/gridcell.h"
+#include "view/gridfield.h"
 #include "view/hud/iconbutton.h"
 #include "view/hud/turretselector.h"
 
@@ -19,169 +17,16 @@ GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
     setSceneRect(0, 0, 1920, 1080);
 
     drawBackground();
-    createGameGrid();
     createHUD();
+
+    gridField = new GridField(QSize(96 * 16, 96 * 9), _model->getMap(), _model->getBlockedCellsMap());
+    gridField->setPos(0, 1080 - gridField->boundingRect().height());
+    addItem(gridField);
 }
 
 void GameScene::drawBackground() {
     QBrush brush = QBrush(QColor::fromRgb(50, 50, 50));
     setBackgroundBrush(brush);
-}
-
-void GameScene::createGameGrid() {
-    vector<model::PathCell> path = _model->getMap();
-    vector<model::Position> blockedCells = _model->getBlockedCellsMap();
-
-    qreal size = 96;
-
-    // Path Cells
-    // ========================================================================
-    for (auto i = path.begin(); i != path.end(); i++) {
-        GridCell* cell;
-
-        if (i == path.begin()) {
-            // First cell
-            PathGridCellTile tile;
-
-            switch (i->to) {
-                case model::Direction::Left:
-                    tile = PathGridCellTile::Right;
-                    break;
-                case model::Direction::Up:
-                    tile = PathGridCellTile::Bottom;
-                    break;
-                case model::Direction::Right:
-                    tile = PathGridCellTile::Left;
-                    break;
-                case model::Direction::Down:
-                    tile = PathGridCellTile::Top;
-                    break;
-            }
-
-            cell = new GridCell(size, GridCellType::PathStart, tile);
-        } else if (i == path.end() - 1) {
-            // Last cell
-            PathGridCellTile tile;
-
-            switch (i->from) {
-                case model::Direction::Left:
-                    tile = PathGridCellTile::Right;
-                    break;
-                case model::Direction::Up:
-                    tile = PathGridCellTile::Bottom;
-                    break;
-                case model::Direction::Right:
-                    tile = PathGridCellTile::Left;
-                    break;
-                case model::Direction::Down:
-                    tile = PathGridCellTile::Top;
-                    break;
-            }
-
-            cell = new GridCell(size, GridCellType::PathEnd, tile);
-        } else {
-            // Medium cell
-            PathGridCellTile tile;
-
-            switch (i->from) {
-                case model::Direction::Left:
-                    switch (i->to) {
-                        case model::Direction::Up:
-                            tile = PathGridCellTile::TopLeft;
-                            break;
-                        case model::Direction::Right:
-                            tile = PathGridCellTile::Horizontal;
-                            break;
-                        case model::Direction::Down:
-                            tile = PathGridCellTile::BottomLeft;
-                            break;
-                    }
-                    break;
-                case model::Direction::Up:
-                    switch (i->to) {
-                        case model::Direction::Left:
-                            tile = PathGridCellTile::TopLeft;
-                            break;
-                        case model::Direction::Right:
-                            tile = PathGridCellTile::TopRight;
-                            break;
-                        case model::Direction::Down:
-                            tile = PathGridCellTile::Vertical;
-                            break;
-                    }
-                    break;
-                case model::Direction::Right:
-                    switch (i->to) {
-                        case model::Direction::Left:
-                            tile = PathGridCellTile::Horizontal;
-                            break;
-                        case model::Direction::Up:
-                            tile = PathGridCellTile::TopRight;
-                            break;
-                        case model::Direction::Down:
-                            tile = PathGridCellTile::BottomRight;
-                            break;
-                    }
-                    break;
-                case model::Direction::Down:
-                    switch (i->to) {
-                        case model::Direction::Left:
-                            tile = PathGridCellTile::BottomLeft;
-                            break;
-                        case model::Direction::Up:
-                            tile = PathGridCellTile::Vertical;
-                            break;
-                        case model::Direction::Right:
-                            tile = PathGridCellTile::BottomRight;
-                            break;
-                    }
-                    break;
-            }
-
-            cell = new GridCell(size, GridCellType::Path, tile);
-        }
-
-        cell->setPos(i->x * size, i->y * size + (1080 - size * 9));
-        addItem(cell);
-    }
-
-    // Blocked Cells
-    // ========================================================================
-    for (auto i = blockedCells.begin(); i != blockedCells.end(); i++) {
-        GridCell* cell = new GridCell(size, GridCellType::Blocked);
-        cell->setPos(i->x * size, i->y * size + (1080 - size * 9));
-        addItem(cell);
-    }
-
-    // Free Cells
-    // ========================================================================
-    bool isFree = true;
-
-    for (int i = 0; i < 16; i++) {
-        for (int j = 0; j < 9; j++) {
-            isFree = true;
-
-            for (auto pathCell : path) {
-                if (pathCell.x == i && pathCell.y == j) {
-                    isFree = false;
-                    break;
-                }
-            }
-
-            for (auto blockedCell : blockedCells) {
-                if (blockedCell.x == i && blockedCell.y == j) {
-                    isFree = false;
-                    break;
-                }
-            }
-
-            if (isFree) {
-                GridCell* cell = new GridCell(size, GridCellType::Free);
-                cell->setPos(i * size, j * size + (1080 - size * 9));
-                addItem(cell);
-            }
-        }
-    }
 }
 
 void GameScene::createHUD() {
@@ -222,9 +67,8 @@ void GameScene::tick() {
 }
 
 void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
-    EnemyItem* en = new EnemyItem(enemy, 96);
+    EnemyItem* en = new EnemyItem(gridField, enemy, 96);
     enemies.push_back(en);
-    addItem(en);
 }
 
 }  // namespace view

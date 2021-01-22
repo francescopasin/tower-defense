@@ -27,12 +27,12 @@ void GameController::start() {
     connect(gameTimer, &QTimer::timeout, this, &GameController::gameTick);
     // 20 ticks per second
     // TODO: safe default tick in Game?
-    gameTimer->start(1 / 20 * 1000);
+    gameTimer->start(1 / 24.00 * 1000);
 
     renderTimer = new QTimer(this);
     connect(renderTimer, &QTimer::timeout, this, &GameController::viewTick);
-    // 24 ticks per second
-    renderTimer->start(1 / 24 * 1000);
+    // 20 ticks per second
+    renderTimer->start(1 / 24.00 * 1000);
 }
 
 void GameController::playPause() {
@@ -51,12 +51,12 @@ void GameController::playPause() {
 }
 
 void GameController::fastForward() {
-    if (gameTimer->interval() == 1 / 20 * 1000) {
-        // 40 ticks per second
-        gameTimer->setInterval(1 / 40 * 1000);
+    if (gameTimer->interval() == 1 / 24.00 * 1000) {
+        // 48 ticks per second
+        gameTimer->setInterval(1 / 48.00 * 1000);
     } else {
-        // 20 ticks per second
-        gameTimer->setInterval(1 / 20 * 1000);
+        // 24 ticks per second
+        gameTimer->setInterval(1 / 24.00 * 1000);
     }
 }
 
