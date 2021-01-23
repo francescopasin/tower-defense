@@ -47,7 +47,8 @@
 			"stdexcept": "cpp",
 			"streambuf": "cpp",
 			"typeinfo": "cpp",
-			"qgraphicsitem": "cpp"
+			"qgraphicsitem": "cpp",
+			"qdebug": "cpp"
 		}
 	}
 }

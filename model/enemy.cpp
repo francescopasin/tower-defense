@@ -15,7 +15,7 @@ void Enemy::receiveAttack(float damage) {
 }
 
 float Enemy::move() {
-    _cellPosition += 100 / _speed;
+    _cellPosition += 100 / static_cast<float>(_speed);
 
     if (_cellPosition >= 99) {
         _cellPosition = 0;
@@ -29,8 +29,8 @@ float Enemy::move() {
     return 0;
 }
 
-Position Enemy::getPosition() const {
-    return _path[_currentCell].getPosition();
+PathCell Enemy::getCurrentCell() const {
+    return _path[_currentCell];
 }
 
 float Enemy::getCellPosition() const {

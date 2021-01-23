@@ -27,7 +27,7 @@ class Enemy {
     void receiveAttack(float damage);
     float move();
 
-    Position getPosition() const;
+    PathCell getCurrentCell() const;
     float getCellPosition() const;
     float getHealth() const;
 };

@@ -4,7 +4,7 @@
 
 namespace view {
 
-InfoBox::InfoBox(QString imagePath, QString text) : _imagePath(imagePath), _text(text) {
+InfoBox::InfoBox(const QString &imagePath, const QString &text) : _imagePath(imagePath), _text(text) {
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
 }
 
@@ -28,6 +28,11 @@ void InfoBox::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     painter->setPen(pen);
 
     painter->drawText(QRect(60, 5, 160, 50), Qt::AlignVCenter, _text);
+}
+
+void InfoBox::setText(const QString &text) {
+    _text = text;
+    update();
 }
 
 }  // namespace view

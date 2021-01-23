@@ -27,7 +27,7 @@ class GridCell : public QGraphicsItem {
     PathGridCellTile _tile;
 
    public:
-    GridCell(qreal size, GridCellType type = GridCellType::Free, PathGridCellTile tile = PathGridCellTile::Horizontal);
+    GridCell(QGraphicsItem *parent, qreal size, GridCellType type = GridCellType::Free, PathGridCellTile tile = PathGridCellTile::Horizontal);
 
     QRectF boundingRect() const override;
 

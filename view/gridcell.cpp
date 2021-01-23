@@ -5,7 +5,15 @@
 
 namespace view {
 
-GridCell::GridCell(qreal size, GridCellType type, PathGridCellTile tile) : _size(size), _type(type), _tile(tile) {
+GridCell::GridCell(
+    QGraphicsItem *parent,
+    qreal size,
+    GridCellType type,
+    PathGridCellTile tile)
+    : QGraphicsItem(parent),
+      _size(size),
+      _type(type),
+      _tile(tile) {
     // TODO: understand why it doesn't work
     //setFlag(QGraphicsItem::ItemIgnoresTransformations);
 

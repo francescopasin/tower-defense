@@ -1,12 +1,12 @@
 #include "view/gamescene.h"
 
-#include <QGraphicsRectItem>
-#include <QRandomGenerator>
+#include <algorithm>
 
-#include "view/gridcell.h"
+#include "view/gridfield.h"
 #include "view/hud/iconbutton.h"
-#include "view/hud/infobox.h"
 #include "view/hud/turretselector.h"
+
+using std::vector;
 
 namespace view {
 
@@ -17,8 +17,11 @@ GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
     setSceneRect(0, 0, 1920, 1080);
 
     drawBackground();
-    createGameGrid();
     createHUD();
+
+    gridField = new GridField(QSize(96 * 16, 96 * 9), _model->getMap(), _model->getBlockedCellsMap());
+    gridField->setPos(0, 1080 - gridField->boundingRect().height());
+    addItem(gridField);
 }
 
 void GameScene::drawBackground() {
@@ -26,47 +29,14 @@ void GameScene::drawBackground() {
     setBackgroundBrush(brush);
 }
 
-void GameScene::createGameGrid() {
-    // TODO: get info from model
-    qreal size = 96;
-
-    for (int i = 0; i < 16; i++) {
-        for (int j = 0; j < 9; j++) {
-            GridCell* cell;
-
-            if (j == 4) {
-                if (i == 0) {
-                    cell = new GridCell(size, GridCellType::PathStart);
-                } else if (i == 15) {
-                    cell = new GridCell(size, GridCellType::PathEnd, PathGridCellTile::Right);
-                } else {
-                    // TODO set path tile type based on PathCell direction from and to
-                    cell = new GridCell(size, GridCellType::Path);
-                }
-
-            } else {
-                if (QRandomGenerator::global()->bounded(3) == 1) {
-                    cell = new GridCell(size, GridCellType::Blocked);
-                } else {
-                    cell = new GridCell(size);
-                }
-            }
-
-            cell->setPos(i * size, j * size + (1080 - size * 9));
-            addItem(cell);
-        }
-    }
-}
-
 void GameScene::createHUD() {
-    // TODO: get info from model
-    InfoBox* infoBox = new InfoBox(":/assets/images/coin.png", "10");
-    infoBox->setPos(10, 15);
-    addItem(infoBox);
+    creditsInfo = new InfoBox(":/assets/images/coin.png", QString::number(_model->getCredits()));
+    creditsInfo->setPos(10, 15);
+    addItem(creditsInfo);
 
-    InfoBox* infoBox2 = new InfoBox(":/assets/images/heart.png", "90%");
-    infoBox2->setPos(10, 75);
-    addItem(infoBox2);
+    lifeInfo = new InfoBox(":/assets/images/heart.png", QString::number(_model->getLife()));
+    lifeInfo->setPos(10, 75);
+    addItem(lifeInfo);
 
     IconButton* playPauseButton = new IconButton(":/assets/images/play-button-idle.png", ":/assets/images/play-button-pressed.png");
     playPauseButton->setPos(1400, 25);
@@ -84,6 +54,26 @@ void GameScene::createHUD() {
 
     // TODO: add addturret signal
     // TODO: add removeturret signal
+}
+
+void GameScene::tick() {
+    // Update info
+    creditsInfo->setText(QString::number(_model->getCredits()));
+    lifeInfo->setText(QString::number(_model->getLife()));
+
+    for (auto i = enemies.begin(); i != enemies.end(); i++) {
+        if ((*i)->isDead()) {
+            removeItem(*i);
+            i = enemies.erase(i) - 1;
+        } else {
+            (*i)->tick();
+        }
+    }
+}
+
+void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
+    EnemyItem* en = new EnemyItem(gridField, enemy, 96);
+    enemies.push_back(en);
 }
 
 }  // namespace view

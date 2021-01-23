@@ -40,11 +40,21 @@ void Game::addTurret(TurretType type, Position p) {
             temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
             break;
     }
+
     bool trovato = false;
-    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !trovato; ++i)
+
+    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !trovato; ++i) {
         trovato = (*i) == p;
-    for (auto i = _map.cbegin(); i != _map.cend() && !trovato; ++i)
+    }
+
+    for (auto i = _map.cbegin(); i != _map.cend() && !trovato; ++i) {
         trovato = i->getPosition() == p;
+    }
+
+    for (auto i = _turrets.cbegin(); i != _turrets.cend() && !trovato; ++i) {
+        trovato = (*i)->getPosition() == p;
+    }
+
     if (trovato) {
         _turrets.pushBack(temp);
     } else {
@@ -76,11 +86,14 @@ vector<Position> Game::getBlockedCellsMap() const {
 void Game::setMap(vector<Position>& map, Direction first) {
     auto it = std::unique(map.begin(), map.end());
     bool wasUnique = (it == map.end());
+
     PathCell prev;
     Direction from;
+
     if (wasUnique) {
         for (auto i = map.cbegin(); i != map.cend(); ++i) {
             auto next = i + 1;
+
             if (i == map.cbegin()) {
                 from = first;
             } else {
@@ -99,12 +112,13 @@ void Game::setMap(vector<Position>& map, Direction first) {
                         break;
                 }
             }
+
             if (next != map.cend()) {
-                if ((i->x == next->x + 1) && (i->y == next->y)) {
+                if ((i->x == next->x - 1) && (i->y == next->y)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Right});
                 } else if ((i->x == next->x) && (i->y == next->y + 1)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Up});
-                } else if ((i->x == next->x - 1) && (i->y == next->y)) {
+                } else if ((i->x == next->x + 1) && (i->y == next->y)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Left});
                 } else if ((i->x == next->x) && (i->y == next->y - 1)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Down});
@@ -112,6 +126,25 @@ void Game::setMap(vector<Position>& map, Direction first) {
                     throw new path_error("This is not a correct path, some cells are disconnected");
                 }
                 prev = _map.at(_map.size() - 1);
+            } else {
+                // Calculate last cell to
+                Direction to;
+
+                switch (from) {
+                    case Direction::Left:
+                        to = Direction::Right;
+                        break;
+                    case Direction::Up:
+                        to = Direction::Down;
+                        break;
+                    case Direction::Right:
+                        to = Direction::Left;
+                        break;
+                    case Direction::Down:
+                        to = Direction::Up;
+                        break;
+                }
+                _map.push_back(PathCell{i->x, i->y, from, to});
             }
         }
     } else {
@@ -120,12 +153,15 @@ void Game::setMap(vector<Position>& map, Direction first) {
 }
 
 void Game::moveEnemies() {
+    int damage = 0;
     for (auto i = _enemies.begin(); i != _enemies.end(); ++i) {
-        _life -= (*i)->move();
-        i = _enemies.erase(i) - 1;
+        damage = (*i)->move();
+        if (damage > 0) {
+            _life -= damage;
+            i = _enemies.erase(i) - 1;
+        }
     }
-    if (_life <= 0)
-        _currentState = State::Lost;
+    if (_life <= 0) _currentState = State::Lost;
 }
 
 void Game::spawnEnemy() {
@@ -135,10 +171,20 @@ void Game::spawnEnemy() {
             if (_spawnCount >= _currentWave->startsAfter && (_spawnCount - _currentWave->startsAfter) % _currentWave->enemiesIntervalTick == 0) {
                 _enemies.push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage)));
                 _currentWave->enemiesNumber--;
+
+                _lastTickSpawnedEnemy = _enemies.back();
+            } else {
+                if (_lastTickSpawnedEnemy) {
+                    _lastTickSpawnedEnemy.reset();
+                }
             }
         } else {
             _currentWave++;
             _spawnCount = 0;
+
+            if (_lastTickSpawnedEnemy) {
+                _lastTickSpawnedEnemy.reset();
+            }
         }
     }
 }
@@ -176,6 +222,10 @@ Game::State Game::tick() {
         checkWon();
     }
     return _currentState;
+}
+
+SP<Enemy> Game::lastTickSpawnedEnemy() const {
+    return _lastTickSpawnedEnemy;
 }
 
 }  // namespace model

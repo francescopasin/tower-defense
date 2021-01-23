@@ -2,10 +2,15 @@
 #define VIEW_GAMESCENE_H_
 
 #include <QGraphicsScene>
+#include <vector>
 
 #include "model/gamemodel.h"
+#include "view/enemyitem.h"
+#include "view/gridfield.h"
+#include "view/hud/infobox.h"
 
 using std::shared_ptr;
+using std::vector;
 
 #define SP shared_ptr
 
@@ -17,12 +22,20 @@ class GameScene : public QGraphicsScene {
    private:
     SP<const model::GameModel> _model;
 
+    GridField* gridField;
+    InfoBox* creditsInfo;
+    InfoBox* lifeInfo;
+
+    vector<EnemyItem*> enemies;
+
     void drawBackground();
-    void createGameGrid();
     void createHUD();
 
    public:
     GameScene(const SP<const model::GameModel>& model);
+
+    void tick();
+    void spawnEnemy(const SP<model::Enemy>& enemy);
 
    signals:
     void playPauseButtonPressed();

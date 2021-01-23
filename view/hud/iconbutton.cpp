@@ -22,6 +22,7 @@ void IconButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     Q_UNUSED(widget);
 
     if (option->state & QStyle::State_MouseOver) {
+        // TODO: change with pixmap
         QImage image = QImage(_hoverImagePath);
         painter->drawImage(QRect(2, 2, 96, 96), image, QRect(0, 0, 16, 16));
     } else {
