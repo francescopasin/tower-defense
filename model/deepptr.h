@@ -60,15 +60,17 @@ template <class T>
 void DeepPtr<T>::swap(DeepPtr<T>& deepPtr) {
     T* temp = _ptr;
     U_LINT* tempCount = _counter;
+
     _ptr = deepPtr._ptr;
     deepPtr._ptr = temp;
+
     _counter = deepPtr._counter;
     deepPtr._counter = tempCount;
 }
 
 template <class T>
 DeepPtr<T>::operator bool() const {
-    return _ptr;
+    return _ptr != nullptr;
 }
 
 template <class T>
