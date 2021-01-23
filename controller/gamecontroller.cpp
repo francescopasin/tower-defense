@@ -13,7 +13,7 @@ void GameController::gameTick() {
     _model->tick();
 
     SP<model::Enemy> newEnemy = _model->lastTickSpawnedEnemy();
-    if (newEnemy.get()) {
+    if (newEnemy) {
         _view->spawnEnemy(newEnemy);
     }
 }

@@ -174,7 +174,7 @@ void Game::spawnEnemy() {
 
                 _lastTickSpawnedEnemy = _enemies.back();
             } else {
-                if (_lastTickSpawnedEnemy.get()) {
+                if (_lastTickSpawnedEnemy) {
                     _lastTickSpawnedEnemy.reset();
                 }
             }
@@ -182,7 +182,7 @@ void Game::spawnEnemy() {
             _currentWave++;
             _spawnCount = 0;
 
-            if (_lastTickSpawnedEnemy.get()) {
+            if (_lastTickSpawnedEnemy) {
                 _lastTickSpawnedEnemy.reset();
             }
         }
