@@ -36,7 +36,7 @@ HEADERS += \
     model/position.h \
     model/gamemodel.h \
     model/game.h \
-    model/deepptr.h \
+    model/sharedptr.h \
     model/mylist.h \
     model/enemy.h \
     model/turrets/turret.h \
