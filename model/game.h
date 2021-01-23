@@ -4,9 +4,9 @@
 #include <algorithm>
 #include <memory>
 
-#include "deepptr.h"
 #include "exception.h"
 #include "mylist.h"
+#include "sharedptr.h"
 #include "turrets/comboturret.h"
 #include "turrets/multipletargetturret.h"
 #include "turrets/singulartargetturret.h"
@@ -31,7 +31,7 @@ class Game {
    private:
     vector<PathCell> _map;
     vector<Position> _blockedCellsMap;
-    MyList<DeepPtr<Turret>> _turrets;
+    MyList<SharedPtr<Turret>> _turrets;
     vector<SP<Enemy>> _enemies;
     SP<Enemy> _lastTickSpawnedEnemy;
     vector<Wave> _waves;
