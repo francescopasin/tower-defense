@@ -6,7 +6,19 @@
 namespace model {
 
 template <class T>
+class DeepPtr;  // Dichiarazione incompleta
+
+template <class T>
+bool operator==(const DeepPtr<T>& left, const DeepPtr<T>& right);  // Dichiarazione incompleta
+
+template <class T>
+bool operator!=(const DeepPtr<T>& left, const DeepPtr<T>& right);  // Dichiarazione incompleta
+
+template <class T>
 class DeepPtr {
+    friend bool operator==<T>(const DeepPtr& left, const DeepPtr& right);
+    friend bool operator!=<T>(const DeepPtr& left, const DeepPtr& right);
+
    private:
     T* _ptr;
     U_LINT* _counter;
@@ -25,13 +37,22 @@ class DeepPtr {
     T* operator->() const;
     T& operator[](U_LINT index) const;
 
-    void reset(const T* ptr = nullptr);
+    void reset(T* ptr = nullptr);
 
-    bool unique() const;
     U_LINT use_count() const;
 
     ~DeepPtr();
 };
+
+template <class T>
+bool operator==(const DeepPtr<T>& left, const DeepPtr<T>& right) {
+    return left._ptr == right._ptr;
+}
+
+template <class T>
+bool operator!=(const DeepPtr<T>& left, const DeepPtr<T>& right) {
+    return left._ptr != right._ptr;
+}
 
 template <class T>
 DeepPtr<T>::DeepPtr(T* ptr) : _ptr(ptr), _counter(new U_LINT(0)) {}
@@ -94,7 +115,7 @@ T& DeepPtr<T>::operator[](U_LINT index) const {
 }
 
 template <class T>
-void DeepPtr<T>::reset(const T* ptr) {
+void DeepPtr<T>::reset(T* ptr) {
     (*_counter)--;
     if (*_counter <= 0) {
         delete _ptr;
@@ -102,11 +123,6 @@ void DeepPtr<T>::reset(const T* ptr) {
     }
     _ptr = ptr;
     _counter = new U_LINT(0);
-}
-
-template <class T>
-bool DeepPtr<T>::unique() const {
-    return (_counter ? *_counter : 0) == 1;
 }
 
 template <class T>

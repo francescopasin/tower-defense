@@ -37,10 +37,12 @@ class MyList {
 
     void popTop();
     void erase(U_INT index);
+    void erase(const T& info);
     void popBack();
 
-    T* find(const T& info) const;  //? Ritorna T*, altrimenti se find fallisce cosa ritorna?
+    T* find(const T& info) const;
     MyList<T*>& findAll(const T& info) const;
+    U_INT indexOf(const T& info) const;
 
     T& operator[](U_INT index) const;
 
@@ -254,6 +256,36 @@ void MyList<T>::erase(U_INT index) {
         delete temp;
         _size--;
     }
+}
+
+template <class T>
+void MyList<T>::erase(const T& info) {
+    Node* del = ricFind(_first, info);
+    if (del == _first)
+        popTop();
+    else if (del == _last)
+        popBack();
+    else if (del != nullptr) {
+        del->_prev->_next = del->_next;
+        del->_next->_prev = del->_prev;
+        del->_next = del->_prev = nullptr;
+        delete del;
+        _size--;
+    }
+}
+
+template <class T>
+U_INT MyList<T>::indexOf(const T& info) const {
+    U_INT index = 0;
+    bool trovato = false;
+    for (auto i = cbegin(); i != cend() && !trovato; ++i) {
+        if (*i == info) {
+            trovato = true;
+        } else {
+            index++;
+        }
+    }
+    return index;  // return _size if not found
 }
 
 template <class T>
