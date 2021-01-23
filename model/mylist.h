@@ -23,6 +23,8 @@ class MyList {
 
     static Node* ricCopy(Node* from, Node* prev, Node*& last);
     static Node* ricGet(Node* from, U_INT index, U_INT size);
+    static Node* ricFind(Node* from, const T& find);
+    static void ricFindAll(Node* from, const T& find, MyList<T*>* list);
 
    public:
     MyList();
@@ -35,7 +37,12 @@ class MyList {
 
     void popTop();
     void erase(U_INT index);
+    void erase(const T& info);
     void popBack();
+
+    T* find(const T& info) const;
+    MyList<T*>& findAll(const T& info) const;
+    U_INT indexOf(const T& info) const;
 
     T& operator[](U_INT index) const;
 
@@ -137,6 +144,24 @@ typename MyList<T>::Node* MyList<T>::ricGet(Node* from, U_INT index, U_INT size)
 }
 
 template <class T>
+typename MyList<T>::Node* MyList<T>::ricFind(Node* from, const T& find) {
+    if (from == nullptr)
+        return nullptr;
+    if (from->_info == find)
+        return from;
+    return ricFind(from->_next, find);
+}
+
+template <class T>
+void MyList<T>::ricFindAll(Node* from, const T& find, MyList<T*>* lista) {
+    Node* temp = ricFind(from, find);
+    if (temp != nullptr) {
+        lista->pushBack(&temp->_info);
+        ricFindAll(temp->_next, find, lista);
+    }
+}
+
+template <class T>
 MyList<T>::MyList(const MyList<T>& list) {
     _first = ricCopy(list._first, _first, _last);
     _size = list._size;
@@ -234,6 +259,49 @@ void MyList<T>::erase(U_INT index) {
 }
 
 template <class T>
+void MyList<T>::erase(const T& info) {
+    Node* del = ricFind(_first, info);
+    if (del == _first)
+        popTop();
+    else if (del == _last)
+        popBack();
+    else if (del != nullptr) {
+        del->_prev->_next = del->_next;
+        del->_next->_prev = del->_prev;
+        del->_next = del->_prev = nullptr;
+        delete del;
+        _size--;
+    }
+}
+
+template <class T>
+U_INT MyList<T>::indexOf(const T& info) const {
+    U_INT index = 0;
+    bool trovato = false;
+    for (auto i = cbegin(); i != cend() && !trovato; ++i) {
+        if (*i == info) {
+            trovato = true;
+        } else {
+            index++;
+        }
+    }
+    return index;  // return _size if not found
+}
+
+template <class T>
+T* MyList<T>::find(const T& find) const {
+    Node* ret = ricFind(_first, find);
+    return (ret ? &ret->_info : nullptr);
+}
+
+template <class T>
+MyList<T*>& MyList<T>::findAll(const T& find) const {
+    MyList<T*>* ret = new MyList<T*>();
+    ricFindAll(_first, find, ret);
+    return *ret;
+}
+
+template <class T>
 U_INT MyList<T>::size() const {
     return _size;
 }
@@ -276,7 +344,7 @@ typename MyList<T>::iterator& MyList<T>::iterator::operator--() {
             _ptr--;
             _pastTheEnd = false;
         } else
-            _ptr = _ptr->_prec;
+            _ptr = _ptr->_prev;
     }
     return *this;
 }

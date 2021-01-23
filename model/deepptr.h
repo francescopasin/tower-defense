@@ -1,92 +1,142 @@
-#ifndef MODEL_DEEPPTR_H_
-#define MODEL_DEEPPTR_H_
+#ifndef MODEL_SHAREDPTR_H_
+#define MODEL_SHAREDPTR_H_
+
+#define U_LINT unsigned int
 
 namespace model {
 
 template <class T>
-class DeepPtr {
+class SharedPtr;  // Dichiarazione incompleta
+
+template <class T>
+bool operator==(const SharedPtr<T>& left, const SharedPtr<T>& right);  // Dichiarazione incompleta
+
+template <class T>
+bool operator!=(const SharedPtr<T>& left, const SharedPtr<T>& right);  // Dichiarazione incompleta
+
+template <class T>
+class SharedPtr {
+    friend bool operator==<T>(const SharedPtr& left, const SharedPtr& right);
+    friend bool operator!=<T>(const SharedPtr& left, const SharedPtr& right);
+
    private:
     T* _ptr;
+    U_LINT* _counter;
 
    public:
-    DeepPtr(T* ptr = nullptr);
-    DeepPtr(const DeepPtr<T>& deepPtr);
+    SharedPtr(T* ptr = nullptr);
+    SharedPtr(const SharedPtr<T>& SharedPtr);
 
-    DeepPtr<T>& operator=(const DeepPtr<T>& deepPtr);
-    void swap(DeepPtr<T>& deepPtr);
+    SharedPtr<T>& operator=(const SharedPtr<T>& SharedPtr);
+    void swap(SharedPtr<T>& SharedPtr);
 
     operator bool() const;
 
     T* get() const;
     T& operator*() const;
     T* operator->() const;
+    T& operator[](U_LINT index) const;
 
-    T* release();
-    void reset(const T* ptr = nullptr);
+    void reset(T* ptr = nullptr);
 
-    ~DeepPtr();
+    U_LINT use_count() const;
+
+    ~SharedPtr();
 };
 
 template <class T>
-DeepPtr<T>::DeepPtr(T* ptr) : _ptr(ptr) {}
-
-template <class T>
-DeepPtr<T>::DeepPtr(const DeepPtr<T>& deepPtr) {
-    _ptr = deepPtr->clone();
+bool operator==(const SharedPtr<T>& left, const SharedPtr<T>& right) {
+    return left._ptr == right._ptr;
 }
 
 template <class T>
-DeepPtr<T>& DeepPtr<T>::operator=(const DeepPtr<T>& deepPtr) {
-    if (this != &deepPtr) {
-        delete _ptr;
-        _ptr = deepPtr->clone();
+bool operator!=(const SharedPtr<T>& left, const SharedPtr<T>& right) {
+    return left._ptr != right._ptr;
+}
+
+template <class T>
+SharedPtr<T>::SharedPtr(T* ptr) : _ptr(ptr), _counter(new U_LINT(0)) {}
+
+template <class T>
+SharedPtr<T>::SharedPtr(const SharedPtr<T>& SharedPtr) : _ptr(SharedPtr._ptr), _counter(SharedPtr._counter) {
+    (*_counter)++;
+}
+
+template <class T>
+SharedPtr<T>& SharedPtr<T>::operator=(const SharedPtr<T>& SharedPtr) {
+    if (this != &SharedPtr) {
+        (*_counter)--;
+        if (*_counter <= 0) {
+            delete _ptr;
+            delete _counter;
+        }
+        _ptr = SharedPtr._ptr;
+        _counter = SharedPtr._counter;
+        (*_counter)++;
     }
     return *this;
 }
 
 template <class T>
-void DeepPtr<T>::swap(DeepPtr<T>& deepPtr) {
+void SharedPtr<T>::swap(SharedPtr<T>& SharedPtr) {
     T* temp = _ptr;
-    _ptr = deepPtr._ptr;
-    deepPtr._ptr = temp;
+    U_LINT* tempCount = _counter;
+
+    _ptr = SharedPtr._ptr;
+    SharedPtr._ptr = temp;
+
+    _counter = SharedPtr._counter;
+    SharedPtr._counter = tempCount;
 }
 
 template <class T>
-DeepPtr<T>::operator bool() const {
+SharedPtr<T>::operator bool() const {
+    return _ptr != nullptr;
+}
+
+template <class T>
+T* SharedPtr<T>::get() const {
     return _ptr;
 }
 
 template <class T>
-T* DeepPtr<T>::get() const {
-    return _ptr;
-}
-
-template <class T>
-T& DeepPtr<T>::operator*() const {
+T& SharedPtr<T>::operator*() const {
     return *_ptr;
 }
 
 template <class T>
-T* DeepPtr<T>::operator->() const {
+T* SharedPtr<T>::operator->() const {
     return _ptr;
 }
 
 template <class T>
-T* DeepPtr<T>::release() {
-    T* temp = _ptr;
-    _ptr = nullptr;
-    return temp;
+T& SharedPtr<T>::operator[](U_LINT index) const {
+    return _ptr[index];
 }
 
 template <class T>
-void DeepPtr<T>::reset(const T* ptr) {
-    delete _ptr;
+void SharedPtr<T>::reset(T* ptr) {
+    (*_counter)--;
+    if (*_counter <= 0) {
+        delete _ptr;
+        delete _counter;
+    }
     _ptr = ptr;
+    _counter = new U_LINT(0);
 }
 
 template <class T>
-DeepPtr<T>::~DeepPtr() {
-    delete _ptr;
+U_LINT SharedPtr<T>::use_count() const {
+    return (_counter ? *_counter : 0);
+}
+
+template <class T>
+SharedPtr<T>::~SharedPtr() {
+    (*_counter)--;
+    if (*_counter <= 0) {
+        delete _ptr;
+        delete _counter;
+    }
 }
 
 }  // namespace model
