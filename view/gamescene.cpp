@@ -54,6 +54,7 @@ void GameScene::createHUD() {
 
     // TODO: add addturret signal
     // TODO: add removeturret signal
+    // TODO: add menu (or back) button/signal
 }
 
 void GameScene::tick() {

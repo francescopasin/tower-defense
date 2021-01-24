@@ -15,7 +15,7 @@ InitialScreenView::InitialScreenView(const SP<InitialScreenScene>& scene) : _sce
 }
 
 void InitialScreenView::resizeEvent(QResizeEvent* event) {
-    //fitInView(_scene->sceneRect(), Qt::KeepAspectRatio);
+    fitInView(_scene->sceneRect(), Qt::KeepAspectRatio);
     QGraphicsView::resizeEvent(event);
 }
 

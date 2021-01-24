@@ -29,6 +29,7 @@ SOURCES += \
     view/hud/iconbutton.cpp \
     view/hud/turretselector.cpp \
     view/hud/turretselectoritem.cpp \
+    view/hud/standardbutton.cpp \
     view/enemyitem.cpp \
     view/gridfield.cpp \
     view/initialscreenview.cpp \
@@ -61,6 +62,7 @@ HEADERS += \
     view/hud/iconbutton.h \
     view/hud/turretselector.h \
     view/hud/turretselectoritem.h \
+    view/hud/standardbutton.h \
     view/enemyitem.h \
     view/gridfield.h \
     view/initialscreenview.h \

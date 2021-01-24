@@ -1,5 +1,7 @@
 #include "view/initialscreenscene.h"
 
+#include "view/hud/standardbutton.h"
+
 namespace view {
 
 InitialScreenScene::InitialScreenScene() {
@@ -18,9 +20,12 @@ void InitialScreenScene::drawBackground() {
 }
 
 void InitialScreenScene::createHUD() {
-    // TODO
-
-    // TODO: draw start button
+    StandardButton* startButton = new StandardButton("START");
+    startButton->setPos(
+        1920 / 2 - startButton->boundingRect().width() / 2,
+        1080 / 2 - startButton->boundingRect().height() / 2);
+    addItem(startButton);
+    connect(startButton, &StandardButton::pressed, this, &InitialScreenScene::startButtonPressed);
 }
 
 }  // namespace view

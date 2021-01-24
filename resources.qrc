@@ -29,6 +29,8 @@
         <file>assets/images/pointer-interactive.png</file>
         <file>assets/images/pointer-turret-place.png</file>
         <file>assets/images/pointer-turret-remove.png</file>
+        <file>assets/images/standard-button.png</file>
+        <file>assets/images/standard-button-pressed.png</file>
         <file>assets/fonts/PressStart2P-Regular.ttf</file>
     </qresource>
 </RCC>
