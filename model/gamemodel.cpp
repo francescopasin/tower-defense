@@ -1,4 +1,4 @@
-#include "gamemodel.h"
+#include "model/gamemodel.h"
 
 namespace model {
 

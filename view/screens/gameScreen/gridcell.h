@@ -3,7 +3,7 @@
 
 #include <QGraphicsItem>
 
-#include "view/gridcelltype.h"
+#include "view/screens/gameScreen/gridcelltype.h"
 
 namespace view {
 

@@ -1,6 +1,5 @@
 #include "view/hud/iconbutton.h"
 
-#include <QDebug>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 

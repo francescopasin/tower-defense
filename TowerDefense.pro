@@ -10,32 +10,41 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
+    \
     model/gamemodel.cpp \
     model/game.cpp \
     model/enemy.cpp \
+    model/exception.cpp \
+    \
     model/turrets/turret.cpp \
     model/turrets/singulartargetturret.cpp \
     model/turrets/multipletargetturret.cpp \
     model/turrets/comboturret.cpp \
     model/turrets/splitturret.cpp \
-    model/exception.cpp \
+    \
     controller/gamecontroller.cpp \
     controller/navigationcontroller.cpp \
+    \
     view/mainwindow.cpp \
-    view/gameview.cpp \
-    view/gamescene.cpp \
-    view/gridcell.cpp \
+    \
     view/hud/infobox.cpp \
     view/hud/iconbutton.cpp \
     view/hud/turretselector.cpp \
     view/hud/turretselectoritem.cpp \
     view/hud/standardbutton.cpp \
-    view/enemyitem.cpp \
-    view/gridfield.cpp \
-    view/initialscreenview.cpp \
-    view/initialscreenscene.cpp
+    \
+    view/screens/gameScreen/gameview.cpp \
+    view/screens/gameScreen/gamescene.cpp \
+    view/screens/gameScreen/gridcell.cpp \
+    view/screens/gameScreen/enemyitem.cpp \
+    view/screens/gameScreen/gridfield.cpp \
+    \
+    view/screens/initialScreen/initialscreenview.cpp \
+    view/screens/initialScreen/initialscreenscene.cpp
 
 HEADERS += \
+    app/routes.h \
+    \
     model/pathcell.h \
     model/position.h \
     model/gamemodel.h \
@@ -43,31 +52,38 @@ HEADERS += \
     model/sharedptr.h \
     model/mylist.h \
     model/enemy.h \
+    model/exception.h \
+    model/wave.h \
+    \
     model/turrets/turret.h \
     model/turrets/singulartargetturret.h \
     model/turrets/multipletargetturret.h \
     model/turrets/comboturret.h \
     model/turrets/splitturret.h \
     model/turrets/turrettype.h \
-    model/exception.h \
-    model/wave.h \
+    \
     controller/gamecontroller.h \
     controller/navigationcontroller.h \
+    \
     view/mainwindow.h \
-    view/gameview.h \
-    view/gamescene.h \
-    view/gridcelltype.h \
-    view/gridcell.h \ 
+    \
     view/hud/infobox.h \
     view/hud/iconbutton.h \
     view/hud/turretselector.h \
     view/hud/turretselectoritem.h \
     view/hud/standardbutton.h \
-    view/enemyitem.h \
-    view/gridfield.h \
-    view/initialscreenview.h \
-    view/initialscreenscene.h \
-    routes.h
+    \
+    view/screens/gameScreen/gameview.h \
+    view/screens/gameScreen/gamescene.h \
+    view/screens/gameScreen/gridcelltype.h \
+    view/screens/gameScreen/gridcell.h \ 
+    view/screens/gameScreen/enemyitem.h \
+    view/screens/gameScreen/gridfield.h \
+    \
+    view/screens/initialScreen/initialscreenview.h \
+    view/screens/initialScreen/initialscreenscene.h \
+
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

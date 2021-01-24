@@ -5,8 +5,8 @@
 #include <QStackedWidget>
 #include <vector>
 
-#include "routes.h"
-#include "view/gameview.h"
+#include "app/routes.h"
+#include "view/screens/gameScreen/gameview.h"
 
 using std::vector;
 
@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow {
    public:
     MainWindow(const vector<QWidget *> &screens);
 
-    void setScreen(Routes route);
+    void setScreen(app::Routes route);
 };
 
 }  // namespace view

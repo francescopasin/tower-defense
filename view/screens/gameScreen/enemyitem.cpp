@@ -1,4 +1,4 @@
-#include "view/enemyitem.h"
+#include "view/screens/gameScreen/enemyitem.h"
 
 #include <QPainter>
 

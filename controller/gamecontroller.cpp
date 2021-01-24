@@ -1,4 +1,4 @@
-#include "gamecontroller.h"
+#include "controller/gamecontroller.h"
 
 namespace controller {
 

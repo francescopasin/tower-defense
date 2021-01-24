@@ -1,4 +1,4 @@
-#include "view/initialscreenscene.h"
+#include "view/screens/initialScreen/initialscreenscene.h"
 
 #include "view/hud/standardbutton.h"
 

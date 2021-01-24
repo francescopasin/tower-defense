@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "view/mainwindow.h"
 
 #include <QFontDatabase>
 #include <QResizeEvent>
@@ -42,13 +42,13 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     QMainWindow::closeEvent(event);
 }
 
-void MainWindow::setScreen(Routes route) {
+void MainWindow::setScreen(app::Routes route) {
     switch (route) {
         default:
-        case Routes::InitialScreen:
+        case app::Routes::InitialScreen:
             stack->setCurrentIndex(0);
             break;
-        case Routes::GameScreen:
+        case app::Routes::GameScreen:
             stack->setCurrentIndex(1);
             break;
     }

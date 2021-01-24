@@ -4,7 +4,7 @@
 #include <QGraphicsView>
 #include <memory>
 
-#include "view/initialscreenscene.h"
+#include "view/screens/initialScreen/initialscreenscene.h"
 
 using std::shared_ptr;
 

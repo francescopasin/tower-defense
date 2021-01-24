@@ -1,5 +1,5 @@
-#ifndef TURRETS_COMBOTURRET_H_
-#define TURRETS_COMBOTURRET_H_
+#ifndef MODEL_COMBOTURRET_H_
+#define MODEL_COMBOTURRET_H_
 
 #include "model/turrets/singulartargetturret.h"
 

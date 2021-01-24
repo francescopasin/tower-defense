@@ -1,4 +1,4 @@
-#include "view/gridcell.h"
+#include "view/screens/gameScreen/gridcell.h"
 
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>

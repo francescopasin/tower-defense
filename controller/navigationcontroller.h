@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-#include "routes.h"
+#include "app/routes.h"
 #include "view/mainwindow.h"
 
 using std::shared_ptr;
@@ -16,15 +16,15 @@ class NavigationController : public QObject {
     Q_OBJECT
 
    private:
-    Routes _currentRoute;
-    Routes _lastRoute;
+    app::Routes _currentRoute;
+    app::Routes _lastRoute;
     SP<view::MainWindow> _mainWindow;
 
    public:
     NavigationController(const SP<view::MainWindow> mainWindow);
 
    public slots:
-    void navigateTo(Routes route);
+    void navigateTo(app::Routes route);
     void back();
 };
 

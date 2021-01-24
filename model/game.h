@@ -4,15 +4,15 @@
 #include <algorithm>
 #include <memory>
 
-#include "exception.h"
-#include "mylist.h"
-#include "sharedptr.h"
-#include "turrets/comboturret.h"
-#include "turrets/multipletargetturret.h"
-#include "turrets/singulartargetturret.h"
-#include "turrets/splitturret.h"
-#include "turrets/turrettype.h"
-#include "wave.h"
+#include "model/exception.h"
+#include "model/mylist.h"
+#include "model/sharedptr.h"
+#include "model/turrets/comboturret.h"
+#include "model/turrets/multipletargetturret.h"
+#include "model/turrets/singulartargetturret.h"
+#include "model/turrets/splitturret.h"
+#include "model/turrets/turrettype.h"
+#include "model/wave.h"
 
 using std::shared_ptr;
 #define SP shared_ptr

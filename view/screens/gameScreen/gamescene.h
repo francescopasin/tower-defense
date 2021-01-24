@@ -5,9 +5,9 @@
 #include <vector>
 
 #include "model/gamemodel.h"
-#include "view/enemyitem.h"
-#include "view/gridfield.h"
 #include "view/hud/infobox.h"
+#include "view/screens/gameScreen/enemyitem.h"
+#include "view/screens/gameScreen/gridfield.h"
 
 using std::shared_ptr;
 using std::vector;

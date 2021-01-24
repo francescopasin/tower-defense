@@ -3,11 +3,11 @@
 namespace controller {
 
 NavigationController::NavigationController(const SP<view::MainWindow> mainWindow)
-    : _currentRoute(Routes::InitialScreen),
+    : _currentRoute(app::Routes::InitialScreen),
       _lastRoute(_currentRoute),
       _mainWindow(mainWindow) {}
 
-void NavigationController::navigateTo(Routes route) {
+void NavigationController::navigateTo(app::Routes route) {
     _lastRoute = _currentRoute;
     _currentRoute = route;
 

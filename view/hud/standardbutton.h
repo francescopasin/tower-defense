@@ -1,5 +1,5 @@
-#ifndef HUD_STANDARDBUTTON_H_
-#define HUD_STANDARDBUTTON_H_
+#ifndef VIEW_STANDARDBUTTON_H_
+#define VIEW_STANDARDBUTTON_H_
 
 #include <QGraphicsItem>
 

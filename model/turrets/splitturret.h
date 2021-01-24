@@ -1,5 +1,5 @@
-#ifndef TURRETS_SPLITTURRET_H_
-#define TURRETS_SPLITTURRET_H_
+#ifndef MODEL_SPLITTURRET_H_
+#define MODEL_SPLITTURRET_H_
 
 #include "model/turrets/multipletargetturret.h"
 

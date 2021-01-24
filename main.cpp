@@ -2,14 +2,14 @@
 #include <memory>
 #include <vector>
 
+#include "app/routes.h"
 #include "controller/gamecontroller.h"
 #include "controller/navigationcontroller.h"
-#include "routes.h"
-#include "view/gamescene.h"
-#include "view/gameview.h"
-#include "view/initialscreenscene.h"
-#include "view/initialscreenview.h"
 #include "view/mainwindow.h"
+#include "view/screens/gameScreen/gamescene.h"
+#include "view/screens/gameScreen/gameview.h"
+#include "view/screens/initialScreen/initialscreenscene.h"
+#include "view/screens/initialScreen/initialscreenview.h"
 
 using std::make_shared;
 using std::vector;
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
         initialScreenScene.get(),
         &view::InitialScreenScene::startButtonPressed,
         navigationController,
-        [=]() { navigationController->navigateTo(Routes::GameScreen); });
+        [=]() { navigationController->navigateTo(app::Routes::GameScreen); });
 
     // TODO: connect start button to game controller start
 

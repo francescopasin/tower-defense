@@ -1,10 +1,8 @@
-#include "view/gameview.h"
-
-#include <QResizeEvent>
+#include "view/screens/initialScreen/initialscreenview.h"
 
 namespace view {
 
-GameView::GameView(const SP<GameScene>& scene) : _scene(scene) {
+InitialScreenView::InitialScreenView(const SP<InitialScreenScene>& scene) : _scene(scene) {
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -16,7 +14,7 @@ GameView::GameView(const SP<GameScene>& scene) : _scene(scene) {
     setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
-void GameView::resizeEvent(QResizeEvent* event) {
+void InitialScreenView::resizeEvent(QResizeEvent* event) {
     fitInView(_scene->sceneRect(), Qt::KeepAspectRatio);
     QGraphicsView::resizeEvent(event);
 }
