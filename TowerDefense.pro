@@ -20,6 +20,7 @@ SOURCES += \
     model/turrets/splitturret.cpp \
     model/exception.cpp \
     controller/gamecontroller.cpp \
+    controller/navigationcontroller.cpp \
     view/mainwindow.cpp \
     view/gameview.cpp \
     view/gamescene.cpp \
@@ -29,7 +30,9 @@ SOURCES += \
     view/hud/turretselector.cpp \
     view/hud/turretselectoritem.cpp \
     view/enemyitem.cpp \
-    view/gridfield.cpp
+    view/gridfield.cpp \
+    view/initialscreenview.cpp \
+    view/initialscreenscene.cpp
 
 HEADERS += \
     model/pathcell.h \
@@ -48,6 +51,7 @@ HEADERS += \
     model/exception.h \
     model/wave.h \
     controller/gamecontroller.h \
+    controller/navigationcontroller.h \
     view/mainwindow.h \
     view/gameview.h \
     view/gamescene.h \
@@ -58,7 +62,10 @@ HEADERS += \
     view/hud/turretselector.h \
     view/hud/turretselectoritem.h \
     view/enemyitem.h \
-    view/gridfield.h
+    view/gridfield.h \
+    view/initialscreenview.h \
+    view/initialscreenscene.h \
+    routes.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

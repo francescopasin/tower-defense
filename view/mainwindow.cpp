@@ -1,16 +1,12 @@
 #include "mainwindow.h"
 
-#include <QDebug>
 #include <QFontDatabase>
-#include <QGraphicsRectItem>
-#include <QMenuBar>
 #include <QResizeEvent>
 #include <QSettings>
-#include <QVBoxLayout>
 
 namespace view {
 
-MainWindow::MainWindow(GameView* gameView) {
+MainWindow::MainWindow(const vector<QWidget *> &screens) : stack(new QStackedWidget()) {
     setWindowTitle("Tower Defense");
 
     setMinimumSize(QSize(1280, 720));
@@ -22,7 +18,13 @@ MainWindow::MainWindow(GameView* gameView) {
     // Add fonts
     QFontDatabase::addApplicationFont(":/assets/fonts/PressStart2P-Regular.ttf");
 
-    setCentralWidget(gameView);
+    // Insert screens in stack
+
+    for (auto screen : screens) {
+        stack->addWidget(screen);
+    }
+
+    setCentralWidget(stack);
 }
 
 void MainWindow::readSettings() {
@@ -32,12 +34,24 @@ void MainWindow::readSettings() {
     restoreState(settings.value("windowState").toByteArray());
 }
 
-void MainWindow::closeEvent(QCloseEvent* event) {
+void MainWindow::closeEvent(QCloseEvent *event) {
     // Save window state (position, size)
     QSettings settings("TeamPlemento", "TowerDefense");
     settings.setValue("geometry", saveGeometry());
     settings.setValue("windowState", saveState());
     QMainWindow::closeEvent(event);
+}
+
+void MainWindow::setScreen(Routes route) {
+    switch (route) {
+        default:
+        case Routes::InitialScreen:
+            stack->setCurrentIndex(0);
+            break;
+        case Routes::GameScreen:
+            stack->setCurrentIndex(1);
+            break;
+    }
 }
 
 }  // namespace view

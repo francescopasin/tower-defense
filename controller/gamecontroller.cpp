@@ -2,12 +2,12 @@
 
 namespace controller {
 
-GameController::GameController(const SP<model::GameModel>& model, const SP<view::GameScene>& view)
-    : _model(model), _view(view), isRunning(false) {
-    // Connect view signals
-    connect(view.get(), &view::GameScene::playPauseButtonPressed, this, &GameController::playPause);
-    connect(view.get(), &view::GameScene::fastForwardButtonPressed, this, &GameController::fastForward);
-}
+GameController::GameController(
+    const SP<model::GameModel>& model,
+    const SP<view::GameScene>& view)
+    : _model(model),
+      _view(view),
+      isRunning(false) {}
 
 void GameController::gameTick() {
     _model->tick();
