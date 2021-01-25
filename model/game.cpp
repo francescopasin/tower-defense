@@ -22,7 +22,6 @@ Game::Game(
 }
 
 SharedPtr<Turret> Game::addTurret(TurretType type, Position p) {
-    // Puntatore a SharedPtr perché l'oggetto temp viene probabilmente eliminato alla fine della funzione, nonostante non venga eliminato il puntatore al suo interno
     SharedPtr<Turret> temp;
 
     switch (type) {
