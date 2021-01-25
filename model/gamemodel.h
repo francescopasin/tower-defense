@@ -18,7 +18,7 @@ class GameModel {
     GameModel();
     Game::State tick();
 
-    SharedPtr<Turret>& addTurret(TurretType type, Position p);
+    SharedPtr<Turret> addTurret(TurretType type, Position p);
     void removeTurret(Position p);
 
     SP<Enemy> lastTickSpawnedEnemy() const;

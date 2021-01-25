@@ -106,7 +106,7 @@ Game::State GameModel::tick() {
     return _game->tick();
 }
 
-SharedPtr<Turret>& GameModel::addTurret(TurretType type, Position p) {
+SharedPtr<Turret> GameModel::addTurret(TurretType type, Position p) {
     return _game->addTurret(type, p);
 }
 

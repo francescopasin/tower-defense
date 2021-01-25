@@ -21,25 +21,25 @@ Game::Game(
     _currentWave = _waves.begin();
 }
 
-SharedPtr<Turret>& Game::addTurret(TurretType type, Position p) {
+SharedPtr<Turret> Game::addTurret(TurretType type, Position p) {
     // Puntatore a SharedPtr perché l'oggetto temp viene probabilmente eliminato alla fine della funzione, nonostante non venga eliminato il puntatore al suo interno
-    SharedPtr<Turret>* temp = new SharedPtr<Turret>();
+    SharedPtr<Turret> temp;
 
     switch (type) {
         case TurretType::ComboTurret:
-            *temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
+            temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
             break;
         case TurretType::GranadeTurret:
-            *temp = new MultipleTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 30, 10, 20, 10, 50);
+            temp = new MultipleTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 30, 10, 20, 10, 50);
             break;
         case TurretType::MitraTurret:
-            *temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10, 50);
+            temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10, 50);
             break;
         case TurretType::SplitTurret:
-            *temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
+            temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
             break;
         default:  // Weak Turret
-            *temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
+            temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
             break;
     }
 
@@ -58,12 +58,12 @@ SharedPtr<Turret>& Game::addTurret(TurretType type, Position p) {
     }
 
     if (trovato) {
-        _turrets.pushBack(*temp);
+        _turrets.pushBack(temp);
     } else {
         throw new turret_error("You can't insert a turret in this position");
     }
 
-    return *temp;
+    return temp;
 }
 
 void Game::removeTurret(Position p) {
