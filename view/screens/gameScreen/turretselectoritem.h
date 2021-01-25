@@ -3,11 +3,18 @@
 
 #include <QGraphicsItem>
 
+#include "model/turrets/turrettype.h"
+
 namespace view {
 
-class TurretSelectorItem : public QGraphicsItem {
+class TurretSelectorItem : public QObject, public QGraphicsItem {
+    Q_OBJECT
+
+   private:
+    model::TurretType _turretType;
+
    public:
-    TurretSelectorItem(QGraphicsItem *parent);
+    TurretSelectorItem(QGraphicsItem *parent, model::TurretType turretType);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
