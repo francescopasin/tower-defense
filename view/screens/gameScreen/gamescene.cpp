@@ -74,11 +74,11 @@ void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
     enemies.push_back(en);
 }
 
-void GameScene::gridCellPressed(GridCellType cellType, const QPointF& clickCoordinates) {
+void GameScene::gridCellPressed(GridCellType cellType, const QPointF& coordinates) {
     if (cellType == GridCellType::Free) {
         turretSelector->setPos(
-            qMax(clickCoordinates.x() + 48 - turretSelector->boundingRect().width() / 2, 0.0),
-            clickCoordinates.y() - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
+            qMax(coordinates.x() + 48 - turretSelector->boundingRect().width() / 2, 0.0),
+            coordinates.y() - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
 
         addItem(turretSelector);
     }

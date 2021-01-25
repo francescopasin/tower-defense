@@ -14,7 +14,8 @@ GridCell::GridCell(
     : QGraphicsItem(parent),
       _size(size),
       _type(type),
-      _tile(tile) {
+      _tile(tile),
+      _selected(false) {
     // TODO: understand why it doesn't work
     //setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
@@ -44,7 +45,7 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         case GridCellType::Free:
             imagePath = ":/assets/images/free-tile.png";
 
-            if (option->state & QStyle::State_MouseOver) {
+            if (option->state & QStyle::State_MouseOver || _selected) {
                 imagePath = ":/assets/images/free-tile-pressed.png";
             }
             break;
@@ -120,8 +121,20 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 void GridCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     Q_UNUSED(event);
-    // TODO: use click coordinates ?
-    emit pressed(_type, pos());
+    emit pressed(this);
+}
+
+bool GridCell::isSelected() const {
+    return _selected;
+}
+
+void GridCell::setSelected(bool selected) {
+    _selected = selected;
+    update();
+}
+
+GridCellType GridCell::getType() const {
+    return _type;
 }
 
 }  // namespace view

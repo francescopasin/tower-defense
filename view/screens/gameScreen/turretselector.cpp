@@ -8,6 +8,8 @@
 namespace view {
 
 TurretSelector::TurretSelector() {
+    setAcceptHoverEvents(true);
+
     TurretSelectorItem *selectorItem1 = new TurretSelectorItem(this, model::TurretType::WeakTurret);
     selectorItem1->setPos(10, 10);
 

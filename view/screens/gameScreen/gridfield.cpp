@@ -1,7 +1,5 @@
 #include "view/screens/gameScreen/gridfield.h"
 
-#include "view/screens/gameScreen/gridcell.h"
-
 namespace view {
 
 GridField::GridField(
@@ -143,7 +141,6 @@ void GridField::createGameGrid() {
     // ========================================================================
     for (auto i = _blockedCells.begin(); i != _blockedCells.end(); i++) {
         GridCell *cell = new GridCell(this, size, GridCellType::Blocked);
-        connect(cell, &GridCell::pressed, this, &GridField::cellPressed);
         cell->setPos(i->x * size, i->y * size);
     }
 
@@ -171,11 +168,26 @@ void GridField::createGameGrid() {
 
             if (isFree) {
                 GridCell *cell = new GridCell(this, size, GridCellType::Free);
-                connect(cell, &GridCell::pressed, this, &GridField::cellPressed);
+                interactiveCells.push_back(cell);
+                connect(cell, &GridCell::pressed, this, &GridField::selectCell);
                 cell->setPos(i * size, j * size);
             }
+
+            // TODO: handle occupied cells
         }
     }
+}
+
+void GridField::selectCell(GridCell *cell) {
+    for (auto c : interactiveCells) {
+        if (c->isSelected()) {
+            c->setSelected(false);
+        }
+    }
+
+    cell->setSelected(true);
+
+    emit cellPressed(cell->getType(), cell->pos());
 }
 
 }  // namespace view

@@ -41,7 +41,7 @@ class GameScene : public QGraphicsScene {
     void spawnEnemy(const SP<model::Enemy>& enemy);
 
    public slots:
-    void gridCellPressed(GridCellType cellType, const QPointF& clickCoordinates);
+    void gridCellPressed(GridCellType cellType, const QPointF& coordinates);
 
    signals:
     void playPauseButtonPressed();

@@ -27,6 +27,7 @@ class GridCell : public QObject, public QGraphicsItem {
     qreal _size;
     GridCellType _type;
     PathGridCellTile _tile;
+    bool _selected;
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -35,11 +36,15 @@ class GridCell : public QObject, public QGraphicsItem {
     GridCell(QGraphicsItem *parent, qreal size, GridCellType type = GridCellType::Free, PathGridCellTile tile = PathGridCellTile::Horizontal);
 
     QRectF boundingRect() const override;
-
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    bool isSelected() const;
+    void setSelected(bool selected);
+
+    GridCellType getType() const;
+
    signals:
-    void pressed(GridCellType cellType, const QPointF &clickCoordinates);
+    void pressed(GridCell *cell);
 };
 
 }  // namespace view

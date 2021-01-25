@@ -6,6 +6,7 @@
 
 #include "model/pathcell.h"
 #include "model/position.h"
+#include "view/screens/gameScreen/gridcell.h"
 #include "view/screens/gameScreen/gridcelltype.h"
 
 using std::vector;
@@ -19,6 +20,7 @@ class GridField : public QObject, public QGraphicsItem {
     QSize _size;
     vector<model::PathCell> _path;
     vector<model::Position> _blockedCells;
+    vector<GridCell *> interactiveCells;
 
     void createGameGrid();
 
@@ -28,8 +30,11 @@ class GridField : public QObject, public QGraphicsItem {
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+   public slots:
+    void selectCell(GridCell *cell);
+
    signals:
-    void cellPressed(GridCellType cellType, const QPointF &clickCoordinates);
+    void cellPressed(GridCellType cellType, const QPointF &coordinates);
 };
 
 }  // namespace view
