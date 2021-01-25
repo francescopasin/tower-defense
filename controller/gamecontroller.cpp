@@ -7,7 +7,8 @@ GameController::GameController(
     const SP<view::GameScene>& view)
     : _model(model),
       _view(view),
-      isRunning(false) {}
+      isRunning(false),
+      isFastForward(false) {}
 
 void GameController::gameTick() {
     _model->tick();
@@ -51,13 +52,18 @@ void GameController::playPause() {
 }
 
 void GameController::fastForward() {
-    if (gameTimer->interval() == 1 / 24.00 * 1000) {
+    gameTimer->stop();
+
+    if (!isFastForward) {
         // 48 ticks per second
         gameTimer->setInterval(1 / 48.00 * 1000);
     } else {
         // 24 ticks per second
         gameTimer->setInterval(1 / 24.00 * 1000);
     }
+
+    isFastForward = !isFastForward;
+    gameTimer->start();
 }
 
 }  // namespace controller
