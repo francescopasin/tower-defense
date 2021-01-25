@@ -15,10 +15,6 @@ SplitTurret::SplitTurret(
           10),
       _initialAttackDamage(10) {}
 
-SplitTurret* SplitTurret::clone() const {
-    return new SplitTurret(*this);
-}
-
 void SplitTurret::attack() {
     vector<SP<Enemy>> enemies = getTargetedEnemies();
 
