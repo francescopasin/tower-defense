@@ -23,6 +23,7 @@ class GameController : public QObject {
     QTimer* gameTimer;
     QTimer* renderTimer;
     bool isRunning;
+    bool isFastForward;
 
    public:
     GameController(const SP<model::GameModel>& model, const SP<view::GameScene>& view);
