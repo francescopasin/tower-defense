@@ -51,7 +51,7 @@ void GridField::createGameGrid() {
                     break;
             }
 
-            cell = new GridCell(this, size, GridCellType::PathStart, tile);
+            cell = new GridCell(this, i->getPosition(), size, GridCellType::PathStart, tile);
         } else if (i == _path.end() - 1) {
             // Last cell
             PathGridCellTile tile;
@@ -71,7 +71,7 @@ void GridField::createGameGrid() {
                     break;
             }
 
-            cell = new GridCell(this, size, GridCellType::PathEnd, tile);
+            cell = new GridCell(this, i->getPosition(), size, GridCellType::PathEnd, tile);
         } else {
             // Medium cell
             PathGridCellTile tile;
@@ -131,7 +131,7 @@ void GridField::createGameGrid() {
                     break;
             }
 
-            cell = new GridCell(this, size, GridCellType::Path, tile);
+            cell = new GridCell(this, i->getPosition(), size, GridCellType::Path, tile);
         }
 
         cell->setPos(i->x * size, i->y * size);
@@ -140,7 +140,7 @@ void GridField::createGameGrid() {
     // Blocked Cells
     // ========================================================================
     for (auto i = _blockedCells.begin(); i != _blockedCells.end(); i++) {
-        GridCell *cell = new GridCell(this, size, GridCellType::Blocked);
+        GridCell *cell = new GridCell(this, *i, size, GridCellType::Blocked);
         cell->setPos(i->x * size, i->y * size);
     }
 
@@ -167,7 +167,7 @@ void GridField::createGameGrid() {
             }
 
             if (isFree) {
-                GridCell *cell = new GridCell(this, size, GridCellType::Free);
+                GridCell *cell = new GridCell(this, model::Position{i, j}, size, GridCellType::Free);
                 interactiveCells.push_back(cell);
                 connect(cell, &GridCell::pressed, this, &GridField::selectCell);
                 cell->setPos(i * size, j * size);
@@ -190,4 +190,13 @@ void GridField::selectCell(GridCell *cell) {
     emit cellPressed(cell->getType(), cell->pos());
 }
 
+model::Position GridField::getSelectedCellPosition() const {
+    for (auto c : interactiveCells) {
+        if (c->isSelected()) {
+            return c->getGridPosition();
+        }
+    }
+
+    // TODO: handle no cell selected (shouldn't happen)
+}
 }  // namespace view

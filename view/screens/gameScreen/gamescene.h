@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "model/gamemodel.h"
+#include "model/turrets/turrettype.h"
 #include "view/hud/infobox.h"
 #include "view/screens/gameScreen/enemyitem.h"
 #include "view/screens/gameScreen/gridcelltype.h"
@@ -42,6 +43,7 @@ class GameScene : public QGraphicsScene {
 
    public slots:
     void gridCellPressed(GridCellType cellType, const QPointF& coordinates);
+    void addTurret(model::TurretType turretType);
 
    signals:
     void playPauseButtonPressed();

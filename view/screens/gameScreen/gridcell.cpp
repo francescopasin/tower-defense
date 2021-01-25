@@ -8,10 +8,12 @@ namespace view {
 
 GridCell::GridCell(
     QGraphicsItem *parent,
+    model::Position gridPosition,
     qreal size,
     GridCellType type,
     PathGridCellTile tile)
     : QGraphicsItem(parent),
+      _gridPosition(gridPosition),
       _size(size),
       _type(type),
       _tile(tile),
@@ -135,6 +137,10 @@ void GridCell::setSelected(bool selected) {
 
 GridCellType GridCell::getType() const {
     return _type;
+}
+
+model::Position GridCell::getGridPosition() const {
+    return _gridPosition;
 }
 
 }  // namespace view

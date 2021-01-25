@@ -30,6 +30,8 @@ class GridField : public QObject, public QGraphicsItem {
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    model::Position getSelectedCellPosition() const;
+
    public slots:
     void selectCell(GridCell *cell);
 

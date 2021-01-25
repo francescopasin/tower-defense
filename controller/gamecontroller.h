@@ -5,6 +5,8 @@
 #include <memory>
 
 #include "model/gamemodel.h"
+#include "model/position.h"
+#include "model/turrets/turrettype.h"
 #include "view/screens/gameScreen/gamescene.h"
 
 using std::shared_ptr;
@@ -35,6 +37,8 @@ class GameController : public QObject {
     void start();
     void playPause();
     void fastForward();
+
+    void addTurret(model::Position position, model::TurretType turretType);
 };
 
 }  // namespace controller

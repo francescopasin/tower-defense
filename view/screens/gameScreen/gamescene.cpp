@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <algorithm>
 
+#include "model/position.h"
 #include "view/hud/iconbutton.h"
 #include "view/screens/gameScreen/gridfield.h"
 
@@ -10,7 +11,7 @@ using std::vector;
 
 namespace view {
 
-GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model), turretSelector(new TurretSelector()) {
+GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
     // Performance optimization
     setItemIndexMethod(QGraphicsScene::NoIndex);
 
@@ -23,6 +24,9 @@ GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model), t
     gridField->setPos(0, 1080 - gridField->boundingRect().height());
     addItem(gridField);
     connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
+
+    turretSelector = new TurretSelector();
+    connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
 }
 
 void GameScene::drawBackground() {
@@ -82,6 +86,13 @@ void GameScene::gridCellPressed(GridCellType cellType, const QPointF& coordinate
 
         addItem(turretSelector);
     }
+}
+
+void GameScene::addTurret(model::TurretType turretType) {
+    // Get selected cell position
+    model::Position position = gridField->getSelectedCellPosition();
+
+    emit addTurretSignal(position, turretType);
 }
 
 }  // namespace view

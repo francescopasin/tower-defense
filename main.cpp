@@ -53,6 +53,12 @@ int main(int argc, char *argv[]) {
         &controller::GameController::fastForward);
 
     QObject::connect(
+        gameScene.get(),
+        &view::GameScene::addTurretSignal,
+        gameController,
+        &controller::GameController::addTurret);
+
+    QObject::connect(
         initialScreenScene.get(),
         &view::InitialScreenScene::startButtonPressed,
         navigationController,

@@ -1,5 +1,7 @@
 #include "controller/gamecontroller.h"
 
+#include <QDebug>
+
 namespace controller {
 
 GameController::GameController(
@@ -64,6 +66,11 @@ void GameController::fastForward() {
 
     isFastForward = !isFastForward;
     gameTimer->start();
+}
+
+void GameController::addTurret(model::Position position, model::TurretType turretType) {
+    qDebug() << "Add turret";
+    // TODO
 }
 
 }  // namespace controller

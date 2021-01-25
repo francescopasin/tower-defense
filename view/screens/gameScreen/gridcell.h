@@ -3,6 +3,7 @@
 
 #include <QGraphicsItem>
 
+#include "model/position.h"
 #include "view/screens/gameScreen/gridcelltype.h"
 
 namespace view {
@@ -24,6 +25,7 @@ class GridCell : public QObject, public QGraphicsItem {
     Q_OBJECT
 
    private:
+    model::Position _gridPosition;
     qreal _size;
     GridCellType _type;
     PathGridCellTile _tile;
@@ -33,7 +35,12 @@ class GridCell : public QObject, public QGraphicsItem {
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
    public:
-    GridCell(QGraphicsItem *parent, qreal size, GridCellType type = GridCellType::Free, PathGridCellTile tile = PathGridCellTile::Horizontal);
+    GridCell(
+        QGraphicsItem *parent,
+        model::Position gridPosition,
+        qreal size,
+        GridCellType type = GridCellType::Free,
+        PathGridCellTile tile = PathGridCellTile::Horizontal);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -42,6 +49,7 @@ class GridCell : public QObject, public QGraphicsItem {
     void setSelected(bool selected);
 
     GridCellType getType() const;
+    model::Position getGridPosition() const;
 
    signals:
     void pressed(GridCell *cell);

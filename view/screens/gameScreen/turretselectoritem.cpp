@@ -71,4 +71,10 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->drawRect(0, 0, 80, 80);
 }
 
+void TurretSelectorItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    Q_UNUSED(event);
+
+    emit pressed();
+}
+
 }  // namespace view

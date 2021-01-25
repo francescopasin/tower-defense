@@ -10,20 +10,25 @@ namespace view {
 TurretSelector::TurretSelector() {
     setAcceptHoverEvents(true);
 
-    TurretSelectorItem *selectorItem1 = new TurretSelectorItem(this, model::TurretType::WeakTurret);
-    selectorItem1->setPos(10, 10);
+    TurretSelectorItem *weakTurretSelector = new TurretSelectorItem(this, model::TurretType::WeakTurret);
+    weakTurretSelector->setPos(10, 10);
+    connect(weakTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::WeakTurret); });
 
-    TurretSelectorItem *selectorItem2 = new TurretSelectorItem(this, model::TurretType::MitraTurret);
-    selectorItem2->setPos(110, 10);
+    TurretSelectorItem *mitraTurretSelector = new TurretSelectorItem(this, model::TurretType::MitraTurret);
+    mitraTurretSelector->setPos(110, 10);
+    connect(mitraTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::MitraTurret); });
 
-    TurretSelectorItem *selectorItem3 = new TurretSelectorItem(this, model::TurretType::GranadeTurret);
-    selectorItem3->setPos(210, 10);
+    TurretSelectorItem *granadeTurretSelector = new TurretSelectorItem(this, model::TurretType::GranadeTurret);
+    granadeTurretSelector->setPos(210, 10);
+    connect(granadeTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::GranadeTurret); });
 
-    TurretSelectorItem *selectorItem4 = new TurretSelectorItem(this, model::TurretType::ComboTurret);
-    selectorItem4->setPos(310, 10);
+    TurretSelectorItem *comboTurretSelector = new TurretSelectorItem(this, model::TurretType::ComboTurret);
+    comboTurretSelector->setPos(310, 10);
+    connect(comboTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::ComboTurret); });
 
-    TurretSelectorItem *selectorItem5 = new TurretSelectorItem(this, model::TurretType::SplitTurret);
-    selectorItem5->setPos(410, 10);
+    TurretSelectorItem *splitTurretSelector = new TurretSelectorItem(this, model::TurretType::SplitTurret);
+    splitTurretSelector->setPos(410, 10);
+    connect(splitTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SplitTurret); });
 }
 
 QRectF TurretSelector::boundingRect() const {
