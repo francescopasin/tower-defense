@@ -77,7 +77,7 @@ void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
 void GameScene::gridCellPressed(GridCellType cellType, const QPointF& clickCoordinates) {
     if (cellType == GridCellType::Free) {
         turretSelector->setPos(
-            clickCoordinates.x() + 48 - turretSelector->boundingRect().width() / 2,
+            qMax(clickCoordinates.x() + 48 - turretSelector->boundingRect().width() / 2, 0.0),
             clickCoordinates.y() - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
 
         addItem(turretSelector);
