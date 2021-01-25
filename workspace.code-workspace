@@ -48,7 +48,8 @@
 			"streambuf": "cpp",
 			"typeinfo": "cpp",
 			"qgraphicsitem": "cpp",
-			"qdebug": "cpp"
+			"qdebug": "cpp",
+			"qstackedwidget": "cpp"
 		}
 	}
 }

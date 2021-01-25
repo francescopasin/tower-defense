@@ -1,22 +1,21 @@
-#ifndef VIEW_ICONBUTTON_H_
-#define VIEW_ICONBUTTON_H_
+#ifndef VIEW_STANDARDBUTTON_H_
+#define VIEW_STANDARDBUTTON_H_
 
 #include <QGraphicsItem>
 
 namespace view {
 
-class IconButton : public QObject, public QGraphicsItem {
+class StandardButton : public QObject, public QGraphicsItem {
     Q_OBJECT
 
    private:
-    QString _imagePath;
-    QString _hoverImagePath;
+    QString _text;
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
    public:
-    IconButton(QString imagePath, QString hoverImagePath);
+    StandardButton(const QString &text);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

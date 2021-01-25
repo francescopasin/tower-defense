@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "model/gamemodel.h"
-#include "view/gamescene.h"
+#include "view/screens/gameScreen/gamescene.h"
 
 using std::shared_ptr;
 

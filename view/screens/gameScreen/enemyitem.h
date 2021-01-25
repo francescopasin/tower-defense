@@ -1,5 +1,5 @@
-#ifndef HUD_ENEMY_H_
-#define HUD_ENEMY_H_
+#ifndef VIEW_ENEMY_H_
+#define VIEW_ENEMY_H_
 
 #include <QGraphicsItem>
 #include <memory>

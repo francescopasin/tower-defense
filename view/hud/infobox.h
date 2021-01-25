@@ -1,5 +1,5 @@
-#ifndef HUD_INFOBOX_H_
-#define HUD_INFOBOX_H_
+#ifndef VIEW_INFOBOX_H_
+#define VIEW_INFOBOX_H_
 
 #include <QGraphicsItem>
 

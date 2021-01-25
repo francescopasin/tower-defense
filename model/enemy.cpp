@@ -1,4 +1,4 @@
-#include "enemy.h"
+#include "model/enemy.h"
 
 namespace model {
 

@@ -1,5 +1,5 @@
-#ifndef TURRETS_TURRETTYPE_H_
-#define TURRETS_TURRETTYPE_H_
+#ifndef MODEL_TURRETTYPE_H_
+#define MODEL_TURRETTYPE_H_
 
 namespace model {
 

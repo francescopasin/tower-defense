@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "game.h"
+#include "model/game.h"
 
 using std::shared_ptr;
 #define SP shared_ptr

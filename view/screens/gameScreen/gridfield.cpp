@@ -1,6 +1,6 @@
-#include "view/gridfield.h"
+#include "view/screens/gameScreen/gridfield.h"
 
-#include "view/gridcell.h"
+#include "view/screens/gameScreen/gridcell.h"
 
 namespace view {
 

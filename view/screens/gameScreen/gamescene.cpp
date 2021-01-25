@@ -1,10 +1,10 @@
-#include "view/gamescene.h"
+#include "view/screens/gameScreen/gamescene.h"
 
 #include <algorithm>
 
-#include "view/gridfield.h"
 #include "view/hud/iconbutton.h"
 #include "view/hud/turretselector.h"
+#include "view/screens/gameScreen/gridfield.h"
 
 using std::vector;
 
@@ -54,6 +54,7 @@ void GameScene::createHUD() {
 
     // TODO: add addturret signal
     // TODO: add removeturret signal
+    // TODO: add menu (or back) button/signal
 }
 
 void GameScene::tick() {

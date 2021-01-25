@@ -1,4 +1,4 @@
-#include "exception.h"
+#include "model/exception.h"
 
 namespace model {
 

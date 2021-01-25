@@ -1,5 +1,5 @@
-#ifndef HUD_TURRETSELECTOR_H_
-#define HUD_TURRETSELECTOR_H_
+#ifndef VIEW_TURRETSELECTOR_H_
+#define VIEW_TURRETSELECTOR_H_
 
 #include <QGraphicsItem>
 
