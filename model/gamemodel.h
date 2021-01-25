@@ -17,9 +17,9 @@ class GameModel {
    public:
     GameModel();
     Game::State tick();
-    // TODO: return SP of the added turret, if we can use SP. Otherwhise create method getTurrets()
-    void addTurret(TurretType type, Position p);
-    void removeTurret(U_INT index);
+
+    SharedPtr<Turret> addTurret(TurretType type, Position p);
+    void removeTurret(Position p);
 
     SP<Enemy> lastTickSpawnedEnemy() const;
 

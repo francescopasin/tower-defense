@@ -15,10 +15,6 @@ ComboTurret::ComboTurret(
       _initialAttackDamage(5),
       _attackMultiplier(1) {}
 
-ComboTurret* ComboTurret::clone() const {
-    return new ComboTurret(*this);
-}
-
 void ComboTurret::attack() {
     vector<SP<Enemy>> enemies = getTargetedEnemies();
 

@@ -21,8 +21,9 @@ Game::Game(
     _currentWave = _waves.begin();
 }
 
-void Game::addTurret(TurretType type, Position p) {
-    Turret* temp;
+SharedPtr<Turret> Game::addTurret(TurretType type, Position p) {
+    SharedPtr<Turret> temp;
+
     switch (type) {
         case TurretType::ComboTurret:
             temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
@@ -60,11 +61,17 @@ void Game::addTurret(TurretType type, Position p) {
     } else {
         throw new turret_error("You can't insert a turret in this position");
     }
+
+    return temp;
 }
 
-void Game::removeTurret(U_INT index) {
-    // TODO: restore some credits
-    _turrets.erase(index);
+void Game::removeTurret(Position p) {
+    for (auto i = _turrets.cbegin(); i != _turrets.cend(); ++i) {
+        if ((*i)->getPosition() == p) {
+            _credits += (*i)->getCost() / 2;
+            _turrets.erase(*i);
+        }
+    }
 }
 
 U_INT Game::getCredits() const {

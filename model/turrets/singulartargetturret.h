@@ -22,8 +22,6 @@ class SingularTargetTurret : public Turret {
         U_INT cost);
     virtual ~SingularTargetTurret() = default;
 
-    virtual SingularTargetTurret* clone() const;
-
     virtual vector<SP<Enemy>> getTargetedEnemies() const override;
 };
 

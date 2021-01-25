@@ -21,8 +21,6 @@ class SplitTurret : public MultipleTargetTurret {
                 const SP<vector<SP<Enemy>>>& enemies);
     virtual ~SplitTurret() = default;
 
-    virtual SplitTurret* clone() const override;
-
     virtual void attack() override;
 };
 

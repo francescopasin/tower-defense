@@ -11,10 +11,6 @@ SingularTargetTurret::SingularTargetTurret(
     U_INT cost)
     : Turret(position, enemies, attackRadius, attackDamage, attackCooldown, cost) {}
 
-SingularTargetTurret* SingularTargetTurret::clone() const {
-    return new SingularTargetTurret(*this);
-}
-
 vector<SP<Enemy>> SingularTargetTurret::getTargetedEnemies() const {
     vector<SP<Enemy>> enemiesInRadius = getEnemiesInRadius();
     vector<SP<Enemy>> targetedEnemies = vector<SP<Enemy>>();
