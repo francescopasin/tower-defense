@@ -21,23 +21,25 @@ Game::Game(
     _currentWave = _waves.begin();
 }
 
-void Game::addTurret(TurretType type, Position p) {
-    Turret* temp;
+SharedPtr<Turret>& Game::addTurret(TurretType type, Position p) {
+    // Puntatore a SharedPtr perché l'oggetto temp viene probabilmente eliminato alla fine della funzione, nonostante non venga eliminato il puntatore al suo interno
+    SharedPtr<Turret>* temp = new SharedPtr<Turret>();
+
     switch (type) {
         case TurretType::ComboTurret:
-            temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
+            *temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
             break;
         case TurretType::GranadeTurret:
-            temp = new MultipleTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 30, 10, 20, 10, 50);
+            *temp = new MultipleTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 30, 10, 20, 10, 50);
             break;
         case TurretType::MitraTurret:
-            temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10, 50);
+            *temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10, 50);
             break;
         case TurretType::SplitTurret:
-            temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
+            *temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
             break;
         default:  // Weak Turret
-            temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
+            *temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
             break;
     }
 
@@ -56,15 +58,21 @@ void Game::addTurret(TurretType type, Position p) {
     }
 
     if (trovato) {
-        _turrets.pushBack(temp);
+        _turrets.pushBack(*temp);
     } else {
         throw new turret_error("You can't insert a turret in this position");
     }
+
+    return *temp;
 }
 
-void Game::removeTurret(U_INT index) {
-    // TODO: restore some credits
-    _turrets.erase(index);
+void Game::removeTurret(Position p) {
+    for (auto i = _turrets.cbegin(); i != _turrets.cend(); ++i) {
+        if ((*i)->getPosition() == p) {
+            _credits += (*i)->getCost() / 2;
+            _turrets.erase(*i);
+        }
+    }
 }
 
 U_INT Game::getCredits() const {

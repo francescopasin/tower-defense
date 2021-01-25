@@ -54,8 +54,8 @@ class Game {
    public:
     Game(U_INT credits, float life, vector<Position>& map, const vector<Position>& blockedCellsMap, const vector<Wave>& waves, Direction first);
     State tick();
-    void addTurret(TurretType type, Position p);
-    void removeTurret(U_INT index);
+    SharedPtr<Turret>& addTurret(TurretType type, Position p);
+    void removeTurret(Position p);
 
     SP<Enemy> lastTickSpawnedEnemy() const;
 

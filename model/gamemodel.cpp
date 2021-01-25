@@ -106,13 +106,12 @@ Game::State GameModel::tick() {
     return _game->tick();
 }
 
-void GameModel::addTurret(TurretType type, Position p) {
+SharedPtr<Turret>& GameModel::addTurret(TurretType type, Position p) {
     return _game->addTurret(type, p);
 }
 
-void GameModel::removeTurret(U_INT index) {
-    // TODO: can't remove with index. View can pass position or turret shared_pointer.
-    return _game->removeTurret(index);
+void GameModel::removeTurret(Position p) {
+    return _game->removeTurret(p);
 }
 
 SP<Enemy> GameModel::lastTickSpawnedEnemy() const {
