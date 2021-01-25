@@ -20,11 +20,16 @@ enum class PathGridCellTile {
     Bottom
 };
 
-class GridCell : public QGraphicsItem {
+class GridCell : public QObject, public QGraphicsItem {
+    Q_OBJECT
+
    private:
     qreal _size;
     GridCellType _type;
     PathGridCellTile _tile;
+
+   protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
    public:
     GridCell(QGraphicsItem *parent, qreal size, GridCellType type = GridCellType::Free, PathGridCellTile tile = PathGridCellTile::Horizontal);
@@ -32,6 +37,9 @@ class GridCell : public QGraphicsItem {
     QRectF boundingRect() const override;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+   signals:
+    void pressed(GridCellType cellType, const QPointF &clickCoordinates);
 };
 
 }  // namespace view

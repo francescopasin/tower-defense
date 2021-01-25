@@ -143,6 +143,7 @@ void GridField::createGameGrid() {
     // ========================================================================
     for (auto i = _blockedCells.begin(); i != _blockedCells.end(); i++) {
         GridCell *cell = new GridCell(this, size, GridCellType::Blocked);
+        connect(cell, &GridCell::pressed, this, &GridField::cellPressed);
         cell->setPos(i->x * size, i->y * size);
     }
 
@@ -170,6 +171,7 @@ void GridField::createGameGrid() {
 
             if (isFree) {
                 GridCell *cell = new GridCell(this, size, GridCellType::Free);
+                connect(cell, &GridCell::pressed, this, &GridField::cellPressed);
                 cell->setPos(i * size, j * size);
             }
         }

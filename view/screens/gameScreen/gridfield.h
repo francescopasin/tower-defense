@@ -6,12 +6,15 @@
 
 #include "model/pathcell.h"
 #include "model/position.h"
+#include "view/screens/gameScreen/gridcelltype.h"
 
 using std::vector;
 
 namespace view {
 
-class GridField : public QGraphicsItem {
+class GridField : public QObject, public QGraphicsItem {
+    Q_OBJECT
+
    private:
     QSize _size;
     vector<model::PathCell> _path;
@@ -24,6 +27,9 @@ class GridField : public QGraphicsItem {
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+   signals:
+    void cellPressed(GridCellType cellType, const QPointF &clickCoordinates);
 };
 
 }  // namespace view

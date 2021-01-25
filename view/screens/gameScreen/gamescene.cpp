@@ -1,16 +1,16 @@
 #include "view/screens/gameScreen/gamescene.h"
 
+#include <QDebug>
 #include <algorithm>
 
 #include "view/hud/iconbutton.h"
-#include "view/hud/turretselector.h"
 #include "view/screens/gameScreen/gridfield.h"
 
 using std::vector;
 
 namespace view {
 
-GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
+GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model), turretSelector(new TurretSelector()) {
     // Performance optimization
     setItemIndexMethod(QGraphicsScene::NoIndex);
 
@@ -22,6 +22,7 @@ GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
     gridField = new GridField(QSize(96 * 16, 96 * 9), _model->getMap(), _model->getBlockedCellsMap());
     gridField->setPos(0, 1080 - gridField->boundingRect().height());
     addItem(gridField);
+    connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
 }
 
 void GameScene::drawBackground() {
@@ -48,10 +49,6 @@ void GameScene::createHUD() {
     addItem(fastForwardButton);
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardButtonPressed);
 
-    TurretSelector* turretSelector = new TurretSelector();
-    turretSelector->setPos(1670, 150);  // 1670 = 1920 - 250
-    addItem(turretSelector);
-
     // TODO: add addturret signal
     // TODO: add removeturret signal
     // TODO: add menu (or back) button/signal
@@ -75,6 +72,16 @@ void GameScene::tick() {
 void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
     EnemyItem* en = new EnemyItem(gridField, enemy, 96);
     enemies.push_back(en);
+}
+
+void GameScene::gridCellPressed(GridCellType cellType, const QPointF& clickCoordinates) {
+    if (cellType == GridCellType::Free) {
+        turretSelector->setPos(
+            clickCoordinates.x() + 48 - turretSelector->boundingRect().width() / 2,
+            clickCoordinates.y() - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
+
+        addItem(turretSelector);
+    }
 }
 
 }  // namespace view

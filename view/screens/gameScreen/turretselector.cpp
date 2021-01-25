@@ -1,8 +1,8 @@
-#include "view/hud/turretselector.h"
+#include "view/screens/gameScreen/turretselector.h"
 
 #include <QPainter>
 
-#include "view/hud/turretselectoritem.h"
+#include "view/screens/gameScreen/turretselectoritem.h"
 
 namespace view {
 
@@ -12,16 +12,20 @@ TurretSelector::TurretSelector() {
 }
 
 QRectF TurretSelector::boundingRect() const {
-    return QRectF(0, 0, 250, 930);
+    return QRectF(0, 0, 300, 100);
 }
 
 void TurretSelector::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->setPen(Qt::NoPen);
+    QPen pen;
+    pen.setColor(Qt::black);
+    pen.setWidth(5);
+
+    painter->setPen(pen);
     painter->setBrush(QBrush(QColor::fromRgb(70, 70, 70)));
-    painter->drawRect(0, 0, 250, 930);
+    painter->drawRect(0, 0, 300, 100);
 }
 
 }  // namespace view

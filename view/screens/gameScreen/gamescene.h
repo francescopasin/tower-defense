@@ -7,7 +7,9 @@
 #include "model/gamemodel.h"
 #include "view/hud/infobox.h"
 #include "view/screens/gameScreen/enemyitem.h"
+#include "view/screens/gameScreen/gridcelltype.h"
 #include "view/screens/gameScreen/gridfield.h"
+#include "view/screens/gameScreen/turretselector.h"
 
 using std::shared_ptr;
 using std::vector;
@@ -25,6 +27,7 @@ class GameScene : public QGraphicsScene {
     GridField* gridField;
     InfoBox* creditsInfo;
     InfoBox* lifeInfo;
+    TurretSelector* turretSelector;
 
     vector<EnemyItem*> enemies;
 
@@ -36,6 +39,9 @@ class GameScene : public QGraphicsScene {
 
     void tick();
     void spawnEnemy(const SP<model::Enemy>& enemy);
+
+   public slots:
+    void gridCellPressed(GridCellType cellType, const QPointF& clickCoordinates);
 
    signals:
     void playPauseButtonPressed();

@@ -1,5 +1,6 @@
 #include "view/screens/gameScreen/gridcell.h"
 
+#include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
@@ -115,6 +116,12 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
     QPixmap pixmap = QPixmap(imagePath);
     painter->drawPixmap(QRect(0, 0, _size, _size), pixmap);
+}
+
+void GridCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    Q_UNUSED(event);
+    // TODO: use click coordinates ?
+    emit pressed(_type, pos());
 }
 
 }  // namespace view
