@@ -70,7 +70,7 @@ void GameController::fastForward() {
 
 void GameController::addTurret(model::Position position, model::TurretType turretType) {
     qDebug() << "Add turret";
-    // TODO
+    // TODO: call gameModel addTurret and then gameScene addTurretItem (connected with Turret pointer)
 }
 
 }  // namespace controller

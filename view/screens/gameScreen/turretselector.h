@@ -10,6 +10,10 @@ namespace view {
 class TurretSelector : public QObject, public QGraphicsItem {
     Q_OBJECT
 
+   protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
+
    public:
     TurretSelector();
 
@@ -18,6 +22,7 @@ class TurretSelector : public QObject, public QGraphicsItem {
 
    signals:
     void turretSelected(model::TurretType turretType);
+    void losedFocusSignal();
 };
 
 }  // namespace view

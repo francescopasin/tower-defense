@@ -43,6 +43,7 @@ class GameScene : public QGraphicsScene {
 
    public slots:
     void gridCellPressed(GridCellType cellType, const QPointF& coordinates);
+    void closeTurretSelector();
     void addTurret(model::TurretType turretType);
 
    signals:

@@ -1,5 +1,6 @@
 #include "view/screens/gameScreen/turretselector.h"
 
+#include <QCursor>
 #include <QPainter>
 
 #include "model/turrets/turrettype.h"
@@ -8,7 +9,10 @@
 namespace view {
 
 TurretSelector::TurretSelector() {
-    setAcceptHoverEvents(true);
+    setFlag(QGraphicsItem::ItemIsFocusable);
+
+    QPixmap pixmap = QPixmap(":/assets/images/pointer.png");
+    setCursor(QCursor(pixmap.scaled(32, 32)));
 
     TurretSelectorItem *weakTurretSelector = new TurretSelectorItem(this, model::TurretType::WeakTurret);
     weakTurretSelector->setPos(10, 10);
@@ -46,6 +50,14 @@ void TurretSelector::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     painter->setPen(pen);
     painter->setBrush(QBrush(QColor::fromRgb(70, 70, 70)));
     painter->drawRect(0, 0, 500, 100);
+}
+
+void TurretSelector::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    // To prevent clicks below
+}
+
+void TurretSelector::focusOutEvent(QFocusEvent *event) {
+    emit losedFocusSignal();
 }
 
 }  // namespace view
