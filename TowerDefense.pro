@@ -35,6 +35,7 @@ SOURCES += \
     view/screens/gameScreen/gamescene.cpp \
     view/screens/gameScreen/gridcell.cpp \
     view/screens/gameScreen/enemyitem.cpp \
+    view/screens/gameScreen/turretitem.cpp \
     view/screens/gameScreen/gridfield.cpp \
     view/screens/gameScreen/turretselector.cpp \
     view/screens/gameScreen/turretselectoritem.cpp \
@@ -76,6 +77,7 @@ HEADERS += \
     view/screens/gameScreen/gridcelltype.h \
     view/screens/gameScreen/gridcell.h \ 
     view/screens/gameScreen/enemyitem.h \
+    view/screens/gameScreen/turretitem.h \
     view/screens/gameScreen/gridfield.h \
     view/screens/gameScreen/turretselector.h \
     view/screens/gameScreen/turretselectoritem.h \

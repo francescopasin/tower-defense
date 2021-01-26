@@ -113,7 +113,8 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
             imagePath = ":/assets/images/blocked-tile.png";
             break;
         case GridCellType::Occupied:
-            //
+            // TODO: create occupied image
+            imagePath = ":/assets/images/blocked-tile.png";
             break;
     }
 
@@ -132,6 +133,11 @@ bool GridCell::isSelected() const {
 
 void GridCell::setSelected(bool selected) {
     _selected = selected;
+    update();
+}
+
+void GridCell::setType(GridCellType type) {
+    _type = type;
     update();
 }
 

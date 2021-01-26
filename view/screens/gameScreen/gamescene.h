@@ -5,6 +5,8 @@
 #include <vector>
 
 #include "model/gamemodel.h"
+#include "model/sharedptr.h"
+#include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
 #include "view/hud/infobox.h"
 #include "view/screens/gameScreen/enemyitem.h"
@@ -40,6 +42,7 @@ class GameScene : public QGraphicsScene {
 
     void tick();
     void spawnEnemy(const SP<model::Enemy>& enemy);
+    void addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType);
 
    public slots:
     void gridCellPressed(GridCellType cellType, const QPointF& coordinates);

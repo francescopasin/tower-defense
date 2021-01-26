@@ -48,6 +48,7 @@ class GridCell : public QObject, public QGraphicsItem {
     bool isSelected() const;
     void setSelected(bool selected);
 
+    void setType(GridCellType type);
     GridCellType getType() const;
     model::Position getGridPosition() const;
 

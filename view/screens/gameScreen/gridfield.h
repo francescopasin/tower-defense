@@ -6,6 +6,9 @@
 
 #include "model/pathcell.h"
 #include "model/position.h"
+#include "model/sharedptr.h"
+#include "model/turrets/turret.h"
+#include "model/turrets/turrettype.h"
 #include "view/screens/gameScreen/gridcell.h"
 #include "view/screens/gameScreen/gridcelltype.h"
 
@@ -31,6 +34,8 @@ class GridField : public QObject, public QGraphicsItem {
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     model::Position getSelectedCellPosition() const;
+
+    void addTurretItem(const model::SharedPtr<model::Turret> &turret, model::TurretType turretType);
 
    public slots:
     void selectCell(GridCell *cell);

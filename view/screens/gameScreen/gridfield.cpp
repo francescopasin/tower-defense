@@ -1,5 +1,7 @@
 #include "view/screens/gameScreen/gridfield.h"
 
+#include "view/screens/gameScreen/turretitem.h"
+
 namespace view {
 
 GridField::GridField(
@@ -172,8 +174,6 @@ void GridField::createGameGrid() {
                 connect(cell, &GridCell::pressed, this, &GridField::selectCell);
                 cell->setPos(i * size, j * size);
             }
-
-            // TODO: handle occupied cells
         }
     }
 }
@@ -185,9 +185,24 @@ void GridField::selectCell(GridCell *cell) {
         }
     }
 
-    cell->setSelected(true);
+    if (cell != nullptr) {
+        cell->setSelected(true);
 
-    emit cellPressed(cell->getType(), cell->pos());
+        emit cellPressed(cell->getType(), cell->pos());
+    }
+}
+
+void GridField::addTurretItem(const model::SharedPtr<model::Turret> &turret, model::TurretType turretType) {
+    // Set cell as occupied
+    for (auto c : interactiveCells) {
+        if (c->getGridPosition() == turret->getPosition()) {
+            c->setType(GridCellType::Occupied);
+        }
+    }
+
+    // Create turret
+    TurretItem *turretItem = new TurretItem(this, turret, turretType, 96);  // TODO: fix all cell sizes (dynamics)
+    // TODO: add tick event
 }
 
 model::Position GridField::getSelectedCellPosition() const {

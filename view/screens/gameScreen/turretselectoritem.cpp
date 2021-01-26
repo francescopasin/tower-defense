@@ -13,6 +13,8 @@ TurretSelectorItem::TurretSelectorItem(
       _turretType(turretType) {
     QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
+
+    // TODO: check credits to see if the turret can be added
 }
 
 QRectF TurretSelectorItem::boundingRect() const {

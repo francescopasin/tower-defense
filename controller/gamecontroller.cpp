@@ -1,6 +1,7 @@
 #include "controller/gamecontroller.h"
 
-#include <QDebug>
+#include "model/sharedptr.h"
+#include "model/turrets/turret.h"
 
 namespace controller {
 
@@ -69,8 +70,9 @@ void GameController::fastForward() {
 }
 
 void GameController::addTurret(model::Position position, model::TurretType turretType) {
-    qDebug() << "Add turret";
-    // TODO: call gameModel addTurret and then gameScene addTurretItem (connected with Turret pointer)
+    model::SharedPtr<model::Turret> turret = _model->addTurret(turretType, position);
+
+    _view->addTurretItem(turret, turretType);
 }
 
 }  // namespace controller

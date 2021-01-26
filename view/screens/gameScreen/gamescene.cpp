@@ -79,6 +79,11 @@ void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
     enemies.push_back(en);
 }
 
+void GameScene::addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType) {
+    closeTurretSelector();
+    gridField->addTurretItem(turret, turretType);
+}
+
 void GameScene::gridCellPressed(GridCellType cellType, const QPointF& coordinates) {
     if (cellType == GridCellType::Free) {
         turretSelector->setPos(
@@ -92,6 +97,7 @@ void GameScene::gridCellPressed(GridCellType cellType, const QPointF& coordinate
 
 void GameScene::closeTurretSelector() {
     removeItem(turretSelector);
+    gridField->selectCell(nullptr);
 }
 
 void GameScene::addTurret(model::TurretType turretType) {

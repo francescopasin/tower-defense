@@ -18,6 +18,11 @@ Game::Game(
       _tick(0),
       _spawnCount(0) {
     setMap(map, first);
+
+    vector<SP<Enemy>> v;
+    _enemies = std::make_shared<vector<SP<Enemy>>>(v);
+    // TODO: controllare ?
+
     _currentWave = _waves.begin();
 }
 
@@ -26,19 +31,19 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position p) {
 
     switch (type) {
         case TurretType::ComboTurret:
-            temp = new ComboTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
+            temp.reset(new ComboTurret(p, _enemies));
             break;
         case TurretType::GranadeTurret:
-            temp = new MultipleTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 30, 10, 20, 10, 50);
+             temp.reset(new MultipleTargetTurret(p, _enemies, 30, 10, 20, 10, 50));
             break;
         case TurretType::MitraTurret:
-            temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 10, 20, 10, 50);
+             temp.reset(new SingularTargetTurret(p, _enemies, 10, 20, 10, 50));
             break;
         case TurretType::SplitTurret:
-            temp = new SplitTurret(p, SP<vector<SP<Enemy>>>(&_enemies));
+             temp.reset(new SplitTurret(p, _enemies));
             break;
         default:  // Weak Turret
-            temp = new SingularTargetTurret(p, SP<vector<SP<Enemy>>>(&_enemies), 5, 10, 5, 25);
+             temp.reset(new SingularTargetTurret(p, _enemies, 5, 10, 5, 25));
             break;
     }
 
@@ -56,7 +61,7 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position p) {
         trovato = (*i)->getPosition() == p;
     }
 
-    if (trovato) {
+    if (!trovato) {
         _turrets.pushBack(temp);
     } else {
         throw new turret_error("You can't insert a turret in this position");
@@ -161,11 +166,11 @@ void Game::setMap(vector<Position>& map, Direction first) {
 
 void Game::moveEnemies() {
     int damage = 0;
-    for (auto i = _enemies.begin(); i != _enemies.end(); ++i) {
+    for (auto i = _enemies->begin(); i != _enemies->end(); ++i) {
         damage = (*i)->move();
         if (damage > 0) {
             _life -= damage;
-            i = _enemies.erase(i) - 1;
+            i = _enemies->erase(i) - 1;
         }
     }
     if (_life <= 0) _currentState = State::Lost;
@@ -176,10 +181,10 @@ void Game::spawnEnemy() {
         _spawnCount++;
         if (_currentWave->enemiesNumber > 0) {
             if (_spawnCount >= _currentWave->startsAfter && (_spawnCount - _currentWave->startsAfter) % _currentWave->enemiesIntervalTick == 0) {
-                _enemies.push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage)));
+                _enemies->push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage)));
                 _currentWave->enemiesNumber--;
 
-                _lastTickSpawnedEnemy = _enemies.back();
+                _lastTickSpawnedEnemy = _enemies->back();
             } else {
                 if (_lastTickSpawnedEnemy) {
                     _lastTickSpawnedEnemy.reset();
@@ -203,16 +208,16 @@ void Game::attack() {
 }
 
 void Game::checkDeadEnemies() {
-    for (auto i = _enemies.begin(); i != _enemies.end(); ++i) {
+    for (auto i = _enemies->begin(); i != _enemies->end(); ++i) {
         if ((*i)->getHealth() <= 0) {
-            i = _enemies.erase(i);
+            i = _enemies->erase(i);
             i--;
         }
     }
 }
 
 void Game::checkWon() {
-    if (_enemies.size() == 0 && _currentWave == _waves.end())
+    if (_enemies->size() == 0 && _currentWave == _waves.end())
         _currentState = State::Won;
 }
 
