@@ -236,6 +236,8 @@ SP<Enemy> Game::lastTickSpawnedEnemy() const {
 }
 
 std::string Game::validateMap(vector<Position>& map) {
+    std::string err;
+
     auto it = std::unique(map.begin(), map.end());
     bool wasUnique = (it == map.end());
 
@@ -251,13 +253,15 @@ std::string Game::validateMap(vector<Position>& map) {
                       ((i->x == next->x) && (i->y == next->y + 1)) ||
                       ((i->x == next->x + 1) && (i->y == next->y)) ||
                       ((i->x == next->x) && (i->y == next->y - 1)))) {
-                    throw new path_error("This is not a correct path, some cells are disconnected");
+                    err = "This is not a correct path, some cells are disconnected";
                 }
             }
         }
     } else {
-        throw new path_error("This is not a correct path, you can't go through the same cell twice");
+        err = "This is not a correct path, you can't go through the same cell twice";
     }
+
+    return err;
 }
 
 }  // namespace model

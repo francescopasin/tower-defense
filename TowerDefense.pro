@@ -40,7 +40,12 @@ SOURCES += \
     view/screens/gameScreen/gridfield.cpp \
     \
     view/screens/initialScreen/initialscreenview.cpp \
-    view/screens/initialScreen/initialscreenscene.cpp
+    view/screens/initialScreen/initialscreenscene.cpp \
+    \
+    view/screens/setMapScreen/setmapgrid.cpp \
+    view/screens/setMapScreen/setmapview.cpp \
+    view/screens/setMapScreen/setmapscene.cpp \
+    view/screens/setMapScreen/setmapcell.cpp
 
 HEADERS += \
     app/routes.h \
@@ -76,12 +81,18 @@ HEADERS += \
     view/screens/gameScreen/gameview.h \
     view/screens/gameScreen/gamescene.h \
     view/screens/gameScreen/gridcelltype.h \
-    view/screens/gameScreen/gridcell.h \ 
+    view/screens/gameScreen/gridcell.h \  \
     view/screens/gameScreen/enemyitem.h \
     view/screens/gameScreen/gridfield.h \
     \
     view/screens/initialScreen/initialscreenview.h \
     view/screens/initialScreen/initialscreenscene.h \
+    \
+    view/screens/setMapScreen/setmapview.h \
+    view/screens/setMapScreen/setmapscene.h \
+    view/screens/setMapScreen/setmapgrid.h \
+    view/screens/setMapScreen/setmapcell.h
+
 
 
 

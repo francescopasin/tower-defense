@@ -17,6 +17,8 @@ class InitialScreenScene : public QGraphicsScene {
 
    signals:
     void startButtonPressed();
+    void setMapButtonPressed();
+    void uploadMapButtonPressed();
 };
 
 }  // namespace view
