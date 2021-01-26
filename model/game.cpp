@@ -240,4 +240,33 @@ SP<Enemy> Game::lastTickSpawnedEnemy() const {
     return _lastTickSpawnedEnemy;
 }
 
+std::string Game::validateMap(vector<Position>& map) {
+    std::string err;
+
+    auto it = std::unique(map.begin(), map.end());
+    bool wasUnique = (it == map.end());
+
+    PathCell prev;
+    Direction from;
+
+    if (wasUnique) {
+        for (auto i = map.cbegin(); i != map.cend(); ++i) {
+            auto next = i + 1;
+
+            if (next != map.cend()) {
+                if (!(((i->x == next->x - 1) && (i->y == next->y)) ||
+                      ((i->x == next->x) && (i->y == next->y + 1)) ||
+                      ((i->x == next->x + 1) && (i->y == next->y)) ||
+                      ((i->x == next->x) && (i->y == next->y - 1)))) {
+                    err = "This is not a correct path, some cells are disconnected";
+                }
+            }
+        }
+    } else {
+        err = "This is not a correct path, you can't go through the same cell twice";
+    }
+
+    return err;
+}
+
 }  // namespace model

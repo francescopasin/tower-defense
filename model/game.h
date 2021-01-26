@@ -66,6 +66,8 @@ class Game {
     float getLife() const;
     vector<PathCell> getMap() const;
     vector<Position> getBlockedCellsMap() const;
+
+    static std::string validateMap(vector<Position>& map);
 };
 
 }  // namespace model

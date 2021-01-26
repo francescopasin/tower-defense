@@ -21,11 +21,28 @@ void InitialScreenScene::drawBackground() {
 
 void InitialScreenScene::createHUD() {
     StandardButton* startButton = new StandardButton("START");
+    StandardButton* setMapButton = new StandardButton("SET MAP");
+    StandardButton* uploadMapButton = new StandardButton("UPLOAD MAP");
+
+    qreal size = startButton->boundingRect().width() + 10 + setMapButton->boundingRect().width() + 10 + uploadMapButton->boundingRect().width();
+
     startButton->setPos(
-        1920 / 2 - startButton->boundingRect().width() / 2,
+        1920 / 2 - size / 2,
         1080 / 2 - startButton->boundingRect().height() / 2);
+    setMapButton->setPos(
+        1920 / 2 - (size / 2) + startButton->boundingRect().width() + 10,
+        1080 / 2 - setMapButton->boundingRect().height() / 2);
+    uploadMapButton->setPos(
+        1920 / 2 + size / 2 - uploadMapButton->boundingRect().width(),
+        1080 / 2 - uploadMapButton->boundingRect().height() / 2);
+
     addItem(startButton);
+    addItem(setMapButton);
+    addItem(uploadMapButton);
+
     connect(startButton, &StandardButton::pressed, this, &InitialScreenScene::startButtonPressed);
+    connect(setMapButton, &StandardButton::pressed, this, &InitialScreenScene::setMapButtonPressed);
+    connect(uploadMapButton, &StandardButton::pressed, this, &InitialScreenScene::uploadMapButtonPressed);
 }
 
 }  // namespace view

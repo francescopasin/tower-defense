@@ -51,6 +51,9 @@ void MainWindow::setScreen(app::Routes route) {
         case app::Routes::GameScreen:
             stack->setCurrentIndex(1);
             break;
+        case app::Routes::SetMapScreen:
+            stack->setCurrentIndex(2);
+            break;
     }
 }
 

@@ -10,6 +10,9 @@
 #include "view/screens/gameScreen/gameview.h"
 #include "view/screens/initialScreen/initialscreenscene.h"
 #include "view/screens/initialScreen/initialscreenview.h"
+#include "view/screens/setMapScreen/setmapscene.h"
+#include "view/screens/setMapScreen/setmapview.h"
+
 
 using std::make_shared;
 using std::vector;
@@ -29,7 +32,11 @@ int main(int argc, char *argv[]) {
     auto gameScene = make_shared<view::GameScene>(model);
     auto gameView = new view::GameView(gameScene);
 
-    vector<QWidget *> screens{initialScreenView, gameView};
+    auto setMapScene = make_shared<view::SetMapScene>();
+    auto setMapView = new view::SetMapView(setMapScene);
+
+
+    vector<QWidget *> screens{initialScreenView, gameView, setMapView};
 
     auto window = make_shared<view::MainWindow>(screens);
 
@@ -63,6 +70,12 @@ int main(int argc, char *argv[]) {
         &view::InitialScreenScene::startButtonPressed,
         navigationController,
         [=]() { navigationController->navigateTo(app::Routes::GameScreen); });
+
+    QObject::connect(
+        initialScreenScene.get(),
+        &view::InitialScreenScene::setMapButtonPressed,
+        navigationController,
+        [=]() { navigationController->navigateTo(app::Routes::SetMapScreen); });
 
     // TODO: connect start button to game controller start
 
