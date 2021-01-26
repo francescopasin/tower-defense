@@ -1,5 +1,6 @@
 #include "view/screens/gameScreen/gridcell.h"
 
+#include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
@@ -7,13 +8,16 @@ namespace view {
 
 GridCell::GridCell(
     QGraphicsItem *parent,
+    model::Position gridPosition,
     qreal size,
     GridCellType type,
     PathGridCellTile tile)
     : QGraphicsItem(parent),
+      _gridPosition(gridPosition),
       _size(size),
       _type(type),
-      _tile(tile) {
+      _tile(tile),
+      _selected(false) {
     // TODO: understand why it doesn't work
     //setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
@@ -43,7 +47,7 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         case GridCellType::Free:
             imagePath = ":/assets/images/free-tile.png";
 
-            if (option->state & QStyle::State_MouseOver) {
+            if (option->state & QStyle::State_MouseOver || _selected) {
                 imagePath = ":/assets/images/free-tile-pressed.png";
             }
             break;
@@ -109,12 +113,40 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
             imagePath = ":/assets/images/blocked-tile.png";
             break;
         case GridCellType::Occupied:
-            //
+            // TODO: create occupied image
+            imagePath = ":/assets/images/blocked-tile.png";
             break;
     }
 
     QPixmap pixmap = QPixmap(imagePath);
     painter->drawPixmap(QRect(0, 0, _size, _size), pixmap);
+}
+
+void GridCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    Q_UNUSED(event);
+    emit pressed(this);
+}
+
+bool GridCell::isSelected() const {
+    return _selected;
+}
+
+void GridCell::setSelected(bool selected) {
+    _selected = selected;
+    update();
+}
+
+void GridCell::setType(GridCellType type) {
+    _type = type;
+    update();
+}
+
+GridCellType GridCell::getType() const {
+    return _type;
+}
+
+model::Position GridCell::getGridPosition() const {
+    return _gridPosition;
 }
 
 }  // namespace view

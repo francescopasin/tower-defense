@@ -29,15 +29,16 @@ SOURCES += \
     \
     view/hud/infobox.cpp \
     view/hud/iconbutton.cpp \
-    view/hud/turretselector.cpp \
-    view/hud/turretselectoritem.cpp \
     view/hud/standardbutton.cpp \
     \
     view/screens/gameScreen/gameview.cpp \
     view/screens/gameScreen/gamescene.cpp \
     view/screens/gameScreen/gridcell.cpp \
     view/screens/gameScreen/enemyitem.cpp \
+    view/screens/gameScreen/turretitem.cpp \
     view/screens/gameScreen/gridfield.cpp \
+    view/screens/gameScreen/turretselector.cpp \
+    view/screens/gameScreen/turretselectoritem.cpp \
     \
     view/screens/initialScreen/initialscreenview.cpp \
     view/screens/initialScreen/initialscreenscene.cpp
@@ -69,8 +70,6 @@ HEADERS += \
     \
     view/hud/infobox.h \
     view/hud/iconbutton.h \
-    view/hud/turretselector.h \
-    view/hud/turretselectoritem.h \
     view/hud/standardbutton.h \
     \
     view/screens/gameScreen/gameview.h \
@@ -78,7 +77,10 @@ HEADERS += \
     view/screens/gameScreen/gridcelltype.h \
     view/screens/gameScreen/gridcell.h \ 
     view/screens/gameScreen/enemyitem.h \
+    view/screens/gameScreen/turretitem.h \
     view/screens/gameScreen/gridfield.h \
+    view/screens/gameScreen/turretselector.h \
+    view/screens/gameScreen/turretselectoritem.h \
     \
     view/screens/initialScreen/initialscreenview.h \
     view/screens/initialScreen/initialscreenscene.h \

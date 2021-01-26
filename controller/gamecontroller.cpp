@@ -1,5 +1,8 @@
 #include "controller/gamecontroller.h"
 
+#include "model/sharedptr.h"
+#include "model/turrets/turret.h"
+
 namespace controller {
 
 GameController::GameController(
@@ -64,6 +67,12 @@ void GameController::fastForward() {
 
     isFastForward = !isFastForward;
     gameTimer->start();
+}
+
+void GameController::addTurret(model::Position position, model::TurretType turretType) {
+    model::SharedPtr<model::Turret> turret = _model->addTurret(turretType, position);
+
+    _view->addTurretItem(turret, turretType);
 }
 
 }  // namespace controller

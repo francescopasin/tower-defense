@@ -6,16 +6,24 @@
 
 #include "model/pathcell.h"
 #include "model/position.h"
+#include "model/sharedptr.h"
+#include "model/turrets/turret.h"
+#include "model/turrets/turrettype.h"
+#include "view/screens/gameScreen/gridcell.h"
+#include "view/screens/gameScreen/gridcelltype.h"
 
 using std::vector;
 
 namespace view {
 
-class GridField : public QGraphicsItem {
+class GridField : public QObject, public QGraphicsItem {
+    Q_OBJECT
+
    private:
     QSize _size;
     vector<model::PathCell> _path;
     vector<model::Position> _blockedCells;
+    vector<GridCell *> interactiveCells;
 
     void createGameGrid();
 
@@ -24,6 +32,16 @@ class GridField : public QGraphicsItem {
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    model::Position getSelectedCellPosition() const;
+
+    void addTurretItem(const model::SharedPtr<model::Turret> &turret, model::TurretType turretType);
+
+   public slots:
+    void selectCell(GridCell *cell);
+
+   signals:
+    void cellPressed(GridCellType cellType, const QPointF &coordinates);
 };
 
 }  // namespace view

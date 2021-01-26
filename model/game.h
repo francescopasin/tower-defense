@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <vector>
 
 #include "model/exception.h"
 #include "model/mylist.h"
@@ -15,6 +16,8 @@
 #include "model/wave.h"
 
 using std::shared_ptr;
+using std::vector;
+
 #define SP shared_ptr
 
 namespace model {
@@ -32,7 +35,7 @@ class Game {
     vector<PathCell> _map;
     vector<Position> _blockedCellsMap;
     MyList<SharedPtr<Turret>> _turrets;
-    vector<SP<Enemy>> _enemies;
+    SP<vector<SP<Enemy>>> _enemies;
     SP<Enemy> _lastTickSpawnedEnemy;
     vector<Wave> _waves;
     vector<Wave>::iterator _currentWave;
