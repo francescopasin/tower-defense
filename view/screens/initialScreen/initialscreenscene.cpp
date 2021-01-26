@@ -43,7 +43,6 @@ void InitialScreenScene::createHUD() {
     connect(startButton, &StandardButton::pressed, this, &InitialScreenScene::startButtonPressed);
     connect(setMapButton, &StandardButton::pressed, this, &InitialScreenScene::setMapButtonPressed);
     connect(uploadMapButton, &StandardButton::pressed, this, &InitialScreenScene::uploadMapButtonPressed);
-
 }
 
 }  // namespace view
