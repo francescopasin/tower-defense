@@ -134,4 +134,8 @@ vector<Position> GameModel::getBlockedCellsMap() const {
     return _game->getBlockedCellsMap();
 }
 
+std::string GameModel::validateMap(vector<Position>& map) {
+    Game::validateMap(map);
+}
+
 }  // namespace model
