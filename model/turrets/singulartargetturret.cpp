@@ -3,13 +3,10 @@
 namespace model {
 
 SingularTargetTurret::SingularTargetTurret(
+    const TurretType& type,
     const Position& position,
-    const SP<vector<SP<Enemy>>>& enemies,
-    U_INT attackRadius,
-    float attackDamage,
-    U_INT attackCooldown,
-    U_INT cost)
-    : Turret(position, enemies, attackRadius, attackDamage, attackCooldown, cost) {}
+    const SP<vector<SP<Enemy>>>& enemies)
+    : Turret(type, position, enemies) {}
 
 vector<SP<Enemy>> SingularTargetTurret::getTargetedEnemies() const {
     vector<SP<Enemy>> enemiesInRadius = getEnemiesInRadius();

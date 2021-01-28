@@ -6,6 +6,7 @@
 
 #include "model/enemy.h"
 #include "model/position.h"
+#include "model/turrets/turrettype.h"
 
 using std::shared_ptr;
 using std::vector;
@@ -19,12 +20,9 @@ class Turret {
    private:
     const Position _position;
     SP<vector<SP<Enemy>>> _enemies;
-    const U_INT _attackRadius;
-    const U_INT _cost;
 
    protected:
-    float _attackDamage;
-    U_INT _attackCooldown;
+    const TurretStats _stats;
     U_INT _attackCooldownCounter;
 
     vector<SP<Enemy>>
@@ -32,12 +30,9 @@ class Turret {
 
    public:
     Turret(
+        const TurretType& type,
         const Position& position,
-        const SP<vector<SP<Enemy>>>& enemies,
-        U_INT attackRadius,
-        float attackDamage,
-        U_INT attackCooldown,
-        U_INT cost);
+        const SP<vector<SP<Enemy>>>& enemies);
     virtual ~Turret() = default;
 
     virtual void attack();
@@ -45,6 +40,7 @@ class Turret {
     virtual vector<SP<Enemy>> getTargetedEnemies() const = 0;
 
     Position getPosition() const;
+
     U_INT getCost() const;
 };
 

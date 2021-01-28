@@ -26,46 +26,49 @@ Game::Game(
     _currentWave = _waves.begin();
 }
 
-SharedPtr<Turret> Game::addTurret(TurretType type, Position p) {
+SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
+    // Check if turret can be placed
+    bool cellIsOccupied = false;
+
+    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !cellIsOccupied; ++i) {
+        cellIsOccupied = (*i) == position;
+    }
+
+    for (auto i = _map.cbegin(); i != _map.cend() && !cellIsOccupied; ++i) {
+        cellIsOccupied = i->getPosition() == position;
+    }
+
+    for (auto i = _turrets.cbegin(); i != _turrets.cend() && !cellIsOccupied; ++i) {
+        cellIsOccupied = (*i)->getPosition() == position;
+    }
+
+    if (cellIsOccupied) {
+        throw new turret_error("You can't insert a turret in this position");
+    }
+
+    // Otherwise create turret
     SharedPtr<Turret> temp;
 
     switch (type) {
         case TurretType::ComboTurret:
-            temp.reset(new ComboTurret(p, _enemies));
+            temp.reset(new ComboTurret(position, _enemies));
             break;
         case TurretType::GranadeTurret:
-             temp.reset(new MultipleTargetTurret(p, _enemies, 30, 10, 20, 10, 50));
+            temp.reset(new MultipleTargetTurret(TurretType::GranadeTurret, position, _enemies));
             break;
         case TurretType::MitraTurret:
-             temp.reset(new SingularTargetTurret(p, _enemies, 10, 20, 10, 50));
+            temp.reset(new SingularTargetTurret(TurretType::MitraTurret, position, _enemies));
             break;
         case TurretType::SplitTurret:
-             temp.reset(new SplitTurret(p, _enemies));
+            temp.reset(new SplitTurret(position, _enemies));
             break;
-        default:  // Weak Turret
-             temp.reset(new SingularTargetTurret(p, _enemies, 5, 10, 5, 25));
+        case TurretType::WeakTurret:
+        default:
+            temp.reset(new SingularTargetTurret(TurretType::WeakTurret, position, _enemies));
             break;
     }
 
-    bool trovato = false;
-
-    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !trovato; ++i) {
-        trovato = (*i) == p;
-    }
-
-    for (auto i = _map.cbegin(); i != _map.cend() && !trovato; ++i) {
-        trovato = i->getPosition() == p;
-    }
-
-    for (auto i = _turrets.cbegin(); i != _turrets.cend() && !trovato; ++i) {
-        trovato = (*i)->getPosition() == p;
-    }
-
-    if (!trovato) {
-        _turrets.pushBack(temp);
-    } else {
-        throw new turret_error("You can't insert a turret in this position");
-    }
+    _turrets.pushBack(temp);
 
     return temp;
 }
@@ -158,7 +161,7 @@ void Game::setMap(vector<Position>& map, Direction first) {
                 }
                 _map.push_back(PathCell{i->x, i->y, from, to});
             }
-        }
+        }  // namespace model
     } else {
         throw new path_error("This is not a correct path, you can't go through the same cell twice");
     }

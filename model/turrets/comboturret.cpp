@@ -1,18 +1,15 @@
 #include "model/turrets/comboturret.h"
 
+#include "model/turrets/turrettype.h"
+
 namespace model {
 
-ComboTurret::ComboTurret(
-    const Position& position,
-    const SP<vector<SP<Enemy>>>& enemies)
+ComboTurret::ComboTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies)
     : SingularTargetTurret(
+          TurretType::ComboTurret,
           position,
-          enemies,
-          4,
-          5,
-          15,
-          20),
-      _initialAttackDamage(5),
+          enemies),
+      _attackDamage(_stats.initialAttackDamage),
       _attackMultiplier(1) {}
 
 void ComboTurret::attack() {
@@ -22,7 +19,7 @@ void ComboTurret::attack() {
         SP<Enemy> targetedEnemy = enemies[0];
         if (targetedEnemy != _lastTargetedEnemy) {
             _attackMultiplier = 1;
-            _attackDamage = _initialAttackDamage;
+            _attackDamage = _stats.initialAttackDamage;
             _lastTargetedEnemy = targetedEnemy;
         } else {
             _attackDamage = _attackDamage * _attackMultiplier;
