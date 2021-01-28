@@ -3,7 +3,6 @@
 #include <QDebug>
 #include <algorithm>
 
-#include "model/position.h"
 #include "view/hud/iconbutton.h"
 #include "view/screens/gameScreen/gridfield.h"
 
@@ -84,14 +83,18 @@ void GameScene::addTurretItem(const model::SharedPtr<model::Turret>& turret, mod
     gridField->addTurretItem(turret, turretType);
 }
 
-void GameScene::gridCellPressed(GridCellType cellType, const QPointF& coordinates) {
+void GameScene::gridCellPressed(GridCellType cellType, model::Position cellPosition) {
     if (cellType == GridCellType::Free) {
         turretSelector->setPos(
-            qMax(coordinates.x() + 48 - turretSelector->boundingRect().width() / 2, 0.0),
-            coordinates.y() - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
+            qMax(cellPosition.x * 96 + 48 - turretSelector->boundingRect().width() / 2, 0.0),
+            cellPosition.y * 96 - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
+
+        // TODO: set fixed cell size
 
         addItem(turretSelector);
         turretSelector->added(_model->getCredits());
+    } else if (cellType == GridCellType::Occupied) {
+        emit removeTurretSignal(cellPosition);
     }
 }
 

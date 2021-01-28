@@ -1,5 +1,7 @@
 #include "controller/gamecontroller.h"
 
+#include <QDebug>
+
 #include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 
@@ -73,6 +75,10 @@ void GameController::addTurret(model::Position position, model::TurretType turre
     model::SharedPtr<model::Turret> turret = _model->addTurret(turretType, position);
 
     _view->addTurretItem(turret, turretType);
+}
+
+void GameController::removeTurret(model::Position position) {
+    qDebug() << "Remove turret " << position.x << " " << position.y;
 }
 
 }  // namespace controller

@@ -13,7 +13,6 @@
 #include "view/screens/setMapScreen/setmapscene.h"
 #include "view/screens/setMapScreen/setmapview.h"
 
-
 using std::make_shared;
 using std::vector;
 
@@ -34,7 +33,6 @@ int main(int argc, char *argv[]) {
 
     auto setMapScene = make_shared<view::SetMapScene>();
     auto setMapView = new view::SetMapView(setMapScene);
-
 
     vector<QWidget *> screens{initialScreenView, gameView, setMapView};
 
@@ -64,6 +62,12 @@ int main(int argc, char *argv[]) {
         &view::GameScene::addTurretSignal,
         gameController,
         &controller::GameController::addTurret);
+
+    QObject::connect(
+        gameScene.get(),
+        &view::GameScene::removeTurretSignal,
+        gameController,
+        &controller::GameController::removeTurret);
 
     QObject::connect(
         initialScreenScene.get(),

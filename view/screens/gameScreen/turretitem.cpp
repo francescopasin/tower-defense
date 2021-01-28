@@ -2,7 +2,6 @@
 
 #include <QPainter>
 
-#include "model/position.h"
 #include "model/turrets/turrettype.h"
 
 namespace view {
@@ -58,6 +57,10 @@ void TurretItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->setBrush(brush);
 
     painter->drawRect(0, 0, _cellSize - 10, _cellSize - 10);
+}
+
+model::Position TurretItem::getGridPosition() const {
+    return turretData->getPosition();
 }
 
 void TurretItem::tick() {

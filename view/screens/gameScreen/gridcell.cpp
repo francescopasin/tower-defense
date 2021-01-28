@@ -131,7 +131,9 @@ void GridCell::updateCursor() {
 
 void GridCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     Q_UNUSED(event);
-    emit pressed(this);
+    if (_type == GridCellType::Free || _type == GridCellType::Occupied) {
+        emit pressed(this);
+    }
 }
 
 bool GridCell::isSelected() const {

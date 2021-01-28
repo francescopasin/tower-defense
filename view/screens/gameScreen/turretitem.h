@@ -3,6 +3,7 @@
 
 #include <QGraphicsItem>
 
+#include "model/position.h"
 #include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
@@ -27,6 +28,7 @@ class TurretItem : public QGraphicsItem {
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    model::Position getGridPosition() const;
     void tick();
 };
 

@@ -1,6 +1,6 @@
 #include "view/screens/gameScreen/gridfield.h"
 
-#include "view/screens/gameScreen/turretitem.h"
+#include <QGraphicsScene>
 
 namespace view {
 
@@ -186,9 +186,25 @@ void GridField::selectCell(GridCell *cell) {
     }
 
     if (cell != nullptr) {
-        cell->setSelected(true);
+        GridCellType cellType = cell->getType();
+        model::Position cellPosition = cell->getGridPosition();
 
-        emit cellPressed(cell->getType(), cell->pos());
+        if (cellType == GridCellType::Occupied) {
+            // If cell is occupied remove it
+            for (auto i = turrets.begin(); i != turrets.end(); i++) {
+                if ((*i)->getGridPosition() == cellPosition) {
+                    cell->setType(GridCellType::Free);
+                    scene()->removeItem(*i);
+                    turrets.erase(i);
+                    break;
+                }
+            }
+        } else {
+            // If the cell is free simply select it
+            cell->setSelected(true);
+        }
+
+        emit cellPressed(cellType, cellPosition);
     }
 }
 
@@ -202,6 +218,7 @@ void GridField::addTurretItem(const model::SharedPtr<model::Turret> &turret, mod
 
     // Create turret
     TurretItem *turretItem = new TurretItem(this, turret, turretType, 96);  // TODO: fix all cell sizes (dynamics)
+    turrets.push_back(turretItem);
     // TODO: add tick event
 }
 
