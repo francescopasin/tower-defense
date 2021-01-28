@@ -3,24 +3,21 @@
 namespace model {
 
 MultipleTargetTurret::MultipleTargetTurret(
+    const TurretType& type,
     const Position& position,
-    const SP<vector<SP<Enemy>>>& enemies,
-    U_INT attackRadius,
-    short int targetsAmount,
-    float attackDamage,
-    U_INT attackCooldown,
-    U_INT cost)
-    : Turret(position, enemies, attackRadius, attackDamage, attackCooldown, cost),
-      _targetsAmount(targetsAmount) {}
+    const SP<vector<SP<Enemy>>>& enemies)
+    : Turret(type, position, enemies) {}
 
 vector<SP<Enemy>> MultipleTargetTurret::getTargetedEnemies() const {
     vector<SP<Enemy>> enemiesInRadius = getEnemiesInRadius();
     vector<SP<Enemy>> targetedEnemies = vector<SP<Enemy>>();
 
-    U_INT targetsAmount = _targetsAmount;
+    U_INT targetsAmount;
 
-    if (_targetsAmount == -1) {
+    if (_stats.maxTargets == -1) {
         targetsAmount = enemiesInRadius.size();
+    } else {
+        targetsAmount = _stats.maxTargets;
     }
 
     for (U_INT i = 0; i < targetsAmount; i++) {

@@ -91,7 +91,7 @@ void GameScene::gridCellPressed(GridCellType cellType, const QPointF& coordinate
             coordinates.y() - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
 
         addItem(turretSelector);
-        turretSelector->setFocus();
+        turretSelector->added(_model->getCredits());
     }
 }
 

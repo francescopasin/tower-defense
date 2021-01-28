@@ -3,9 +3,6 @@
 #include <QCursor>
 #include <QPainter>
 
-#include "model/turrets/turrettype.h"
-#include "view/screens/gameScreen/turretselectoritem.h"
-
 namespace view {
 
 TurretSelector::TurretSelector() {
@@ -14,23 +11,23 @@ TurretSelector::TurretSelector() {
     QPixmap pixmap = QPixmap(":/assets/images/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 
-    TurretSelectorItem *weakTurretSelector = new TurretSelectorItem(this, model::TurretType::WeakTurret);
+    weakTurretSelector = new TurretSelectorItem(this, model::TurretType::WeakTurret);
     weakTurretSelector->setPos(10, 10);
     connect(weakTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::WeakTurret); });
 
-    TurretSelectorItem *mitraTurretSelector = new TurretSelectorItem(this, model::TurretType::MitraTurret);
+    mitraTurretSelector = new TurretSelectorItem(this, model::TurretType::MitraTurret);
     mitraTurretSelector->setPos(110, 10);
     connect(mitraTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::MitraTurret); });
 
-    TurretSelectorItem *granadeTurretSelector = new TurretSelectorItem(this, model::TurretType::GranadeTurret);
+    granadeTurretSelector = new TurretSelectorItem(this, model::TurretType::GranadeTurret);
     granadeTurretSelector->setPos(210, 10);
     connect(granadeTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::GranadeTurret); });
 
-    TurretSelectorItem *comboTurretSelector = new TurretSelectorItem(this, model::TurretType::ComboTurret);
+    comboTurretSelector = new TurretSelectorItem(this, model::TurretType::ComboTurret);
     comboTurretSelector->setPos(310, 10);
     connect(comboTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::ComboTurret); });
 
-    TurretSelectorItem *splitTurretSelector = new TurretSelectorItem(this, model::TurretType::SplitTurret);
+    splitTurretSelector = new TurretSelectorItem(this, model::TurretType::SplitTurret);
     splitTurretSelector->setPos(410, 10);
     connect(splitTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SplitTurret); });
 }
@@ -54,6 +51,16 @@ void TurretSelector::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
 void TurretSelector::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     // To prevent clicks below
+}
+
+void TurretSelector::added(U_INT gameCredits) {
+    setFocus();
+
+    weakTurretSelector->updateAvailability(gameCredits);
+    mitraTurretSelector->updateAvailability(gameCredits);
+    granadeTurretSelector->updateAvailability(gameCredits);
+    comboTurretSelector->updateAvailability(gameCredits);
+    splitTurretSelector->updateAvailability(gameCredits);
 }
 
 void TurretSelector::focusOutEvent(QFocusEvent *event) {
