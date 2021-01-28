@@ -46,6 +46,11 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
         throw new turret_error("You can't insert a turret in this position");
     }
 
+    // Check if enough credit
+    if (_credits < turretTypes.at(type).cost) {
+        throw new turret_error("You don't have enough credits to insert this turret");
+    }
+
     // Otherwise create turret
     SharedPtr<Turret> temp;
 
@@ -67,6 +72,8 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
             temp.reset(new SingularTargetTurret(TurretType::WeakTurret, position, _enemies));
             break;
     }
+
+    _credits -= temp->getCost();
 
     _turrets.pushBack(temp);
 
