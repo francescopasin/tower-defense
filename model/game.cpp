@@ -85,6 +85,7 @@ void Game::removeTurret(Position p) {
         if ((*i)->getPosition() == p) {
             _credits += (*i)->getCost() / 2;
             _turrets.erase(*i);
+            break;
         }
     }
 }
