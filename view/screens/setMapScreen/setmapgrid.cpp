@@ -78,7 +78,7 @@ void SetMapGrid::addCell(model::Position pos, SetMapCell::Type type) {
                 type == SetMapCell::Type::Blocked) {
                 c->setType(type);
             } else {
-                //TODO: ERRORE!
+                //TODO: ERROR MODAL
             }
         }
     }

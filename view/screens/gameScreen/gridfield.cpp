@@ -1,7 +1,5 @@
 #include "view/screens/gameScreen/gridfield.h"
 
-#include <QDebug>
-
 #include "view/screens/gameScreen/turretitem.h"
 
 namespace view {
@@ -32,10 +30,6 @@ void GridField::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 void GridField::updateGrid() {
-    qDebug() << "UPDATE";
-    for (auto j : _path) {
-        qDebug() << j.getPosition().x << "," << j.getPosition().y;
-    }
     // Path Cells
     // ========================================================================
     for (auto i = _path.begin(); i != _path.end(); i++) {

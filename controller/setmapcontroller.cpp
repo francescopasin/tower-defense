@@ -24,7 +24,7 @@ void SetMapController::saveToFile(const vector<view::SetMapCell*>* cells) {
     else {
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly)) {
-            QMessageBox::information(nullptr, tr("Unable to open file"), file.errorString());
+            QMessageBox::information(nullptr, tr("Unable to open file"), file.errorString());  // TODO: ERROR MODAL
             return;
         }
 
@@ -83,7 +83,7 @@ void SetMapController::saveToFile(const vector<view::SetMapCell*>* cells) {
 
             emit saved();
         } else {
-            QMessageBox::information(nullptr, tr("Error"), error);  // TODO: ERROR MESSAGE
+            QMessageBox::information(nullptr, tr("Error"), error);  // TODO: ERROR MODAL
         }
     }
 }
@@ -98,9 +98,9 @@ vector<model::Position> SetMapController::createPath(model::Position start, cons
     while (current.x >= 0 && current.x < 16 && current.y >= 0 && current.y < 10) {
         for (auto i : *cells) {
             if (i->getPos() == current) {
-                // qDebug() << "Current: " << current.x << "," << current.y << "   Previus:" << prev.x << "," << prev.y;
                 temp = current;
                 vett.push_back(current);
+
                 switch (i->getType()) {
                     case view::SetMapCell::Type::Start:
                         current.x++;
@@ -111,56 +111,43 @@ vector<model::Position> SetMapController::createPath(model::Position start, cons
                     case view::SetMapCell::Type::Vert:
                         if (prev.y == current.y - 1) {  // arrivo dall'alto
                             current.y++;
-                            // qDebug() << "Vert: basso";
                         } else {
                             current.y--;
-                            // qDebug() << "Vert: alto";
                         }
                         break;
                     case view::SetMapCell::Type::Orizz:
-                        // qDebug() << i->getPos().x << "," << i->getPos().y;
                         if (prev.x == current.x - 1) {  // arrivo da sinistra
                             current.x++;
-                            // qDebug() << "Orizz: destra";
                         } else {
                             current.x--;
-                            // qDebug() << "orizz: sinistra";
                         }
                         break;
                     case view::SetMapCell::Type::SxUp:
                         if (prev.y == current.y - 1) {  // arrivo dall'alto
                             current.x--;
-                            // qDebug() << "SxUp: sinistra";
                         } else {
                             current.y--;
-                            // qDebug() << "SxUp: alto";
                         }
                         break;
                     case view::SetMapCell::Type::DxUp:
                         if (prev.y == current.y - 1) {  // arrivo dall'alto
                             current.x++;
-                            // qDebug() << "DxUp: destra";
                         } else {
                             current.y--;
-                            // qDebug() << "DxUp: alto";
                         }
                         break;
                     case view::SetMapCell::Type::SxDw:
                         if (prev.y == current.y + 1) {  // arrivo dal basso
                             current.x--;
-                            // qDebug() << "SxDw: sinistra";
                         } else {
                             current.y++;
-                            // qDebug() << "SxDw: basso";
                         }
                         break;
                     case view::SetMapCell::Type::DxDw:
                         if (prev.y == current.y + 1) {  // arrivo dal basso
                             current.x++;
-                            // qDebug() << "DxDw: destra";
                         } else {
                             current.y++;
-                            // qDebug() << "DxDw: basso";
                         }
                         break;
                     default:
@@ -204,26 +191,19 @@ void SetMapController::uploadFromFile() {
             QJsonArray pathJson = json["pathPosition"].toArray();
             for (auto i : pathJson) {
                 pathPosition.push_back(model::Position{(i.toObject())["x"].toInt(), (i.toObject())["y"].toInt()});
-                // qDebug() << i.toString() << " path: " << (i.toObject())["x"].toInt() << " " << (i.toObject())["y"].toInt();
             }
             QJsonArray blockedJson = json["blockedPosition"].toArray();
             for (auto i : blockedJson) {
                 blockedPosition.push_back(model::Position{(i.toObject())["x"].toInt(), (i.toObject())["y"].toInt()});
-                // qDebug() << "block: " << (i.toObject())["x"].toInt() << " " << (i.toObject())["y"].toInt();
             }
 
             try {
-                qDebug() << "UPLOAD";
-                for (auto j : pathPosition) {
-                    qDebug() << j.x << "," << j.y;
-                }
-
                 _model->setMap(pathPosition, model::Direction::Left);
                 _model->setBlocked(blockedPosition);
 
                 emit mapChanged();
             } catch (std::exception* e) {
-                QMessageBox::information(nullptr, tr("Path Error"), e->what());
+                QMessageBox::information(nullptr, tr("Path Error"), e->what());  // TODO: ERROR MODAL
             }
         }
     }

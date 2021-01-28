@@ -66,12 +66,17 @@ void SetMapScene::gridCellPressed(SetMapCell::Type cellType, const QPointF& coor
         qMax(coordinates.x() + 48 - cellSelector->boundingRect().width() / 2 + (1920 - 96 * 16) / 2, 0.0),
         coordinates.y() - cellSelector->boundingRect().height() + 1080 - grid->boundingRect().height());  // TODO: temp
 
+    if (cellSelector->scene() != nullptr) {
+        removeItem(cellSelector);
+    }
     addItem(cellSelector);
     cellSelector->setFocus();
 }
 
 void SetMapScene::closeCellSelector() {
-    removeItem(cellSelector);
+    if (cellSelector->scene() != nullptr) {
+        removeItem(cellSelector);
+    }
     grid->selectCell(nullptr);
     grid->reDrawPath();
 }
@@ -87,7 +92,6 @@ void SetMapScene::addCell(view::SetMapCell::Type type) {
     auto pos = grid->getSelectedCellPosition();
 
     grid->addCell(pos, type);
-    removeItem(cellSelector);
     grid->selectCell(nullptr);
 }
 

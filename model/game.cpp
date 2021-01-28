@@ -1,7 +1,5 @@
 #include "model/game.h"
 
-#include <QDebug>
-
 namespace model {
 
 Game::Game(
@@ -164,10 +162,6 @@ void Game::setMap(vector<Position>& map, Direction first) {
         }
     } else {
         throw new state_error("You can't set the map if the game already started");
-    }
-    qDebug() << "SETMAP";
-    for (auto j : _map) {
-        qDebug() << j.getPosition().x << "," << j.getPosition().y;
     }
 }
 
