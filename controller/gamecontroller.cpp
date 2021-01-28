@@ -75,4 +75,8 @@ void GameController::addTurret(model::Position position, model::TurretType turre
     _view->addTurretItem(turret, turretType);
 }
 
+void GameController::removeTurret(model::Position position) {
+    _model->removeTurret(position);
+}
+
 }  // namespace controller

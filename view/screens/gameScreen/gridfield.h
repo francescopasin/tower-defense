@@ -11,6 +11,7 @@
 #include "model/turrets/turrettype.h"
 #include "view/screens/gameScreen/gridcell.h"
 #include "view/screens/gameScreen/gridcelltype.h"
+#include "view/screens/gameScreen/turretitem.h"
 
 using std::vector;
 
@@ -24,6 +25,7 @@ class GridField : public QObject, public QGraphicsItem {
     vector<model::PathCell> _path;
     vector<model::Position> _blockedCells;
     vector<GridCell *> interactiveCells;
+    vector<TurretItem *> turrets;
 
     void createGameGrid();
 
@@ -41,7 +43,7 @@ class GridField : public QObject, public QGraphicsItem {
     void selectCell(GridCell *cell);
 
    signals:
-    void cellPressed(GridCellType cellType, const QPointF &coordinates);
+    void cellPressed(GridCellType cellType, model::Position cellPosition);
 };
 
 }  // namespace view

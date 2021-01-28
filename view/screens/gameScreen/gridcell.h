@@ -31,6 +31,8 @@ class GridCell : public QObject, public QGraphicsItem {
     PathGridCellTile _tile;
     bool _selected;
 
+    void updateCursor();
+
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
