@@ -1,5 +1,7 @@
 #include "model/game.h"
 
+#include <QDebug>
+
 namespace model {
 
 Game::Game(
@@ -34,16 +36,16 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position p) {
             temp.reset(new ComboTurret(p, _enemies));
             break;
         case TurretType::GranadeTurret:
-             temp.reset(new MultipleTargetTurret(p, _enemies, 30, 10, 20, 10, 50));
+            temp.reset(new MultipleTargetTurret(p, _enemies, 30, 10, 20, 10, 50));
             break;
         case TurretType::MitraTurret:
-             temp.reset(new SingularTargetTurret(p, _enemies, 10, 20, 10, 50));
+            temp.reset(new SingularTargetTurret(p, _enemies, 10, 20, 10, 50));
             break;
         case TurretType::SplitTurret:
-             temp.reset(new SplitTurret(p, _enemies));
+            temp.reset(new SplitTurret(p, _enemies));
             break;
         default:  // Weak Turret
-             temp.reset(new SingularTargetTurret(p, _enemies, 5, 10, 5, 25));
+            temp.reset(new SingularTargetTurret(p, _enemies, 5, 10, 5, 25));
             break;
     }
 
@@ -87,22 +89,25 @@ float Game::getLife() const {
     return _life;
 }
 
-vector<PathCell> Game::getMap() const {
+const vector<PathCell>& Game::getMap() const {
     return _map;
 }
 
-vector<Position> Game::getBlockedCellsMap() const {
+const vector<Position>& Game::getBlockedCellsMap() const {
     return _blockedCellsMap;
 }
 
 void Game::setMap(vector<Position>& map, Direction first) {
-    auto it = std::unique(map.begin(), map.end());
-    bool wasUnique = (it == map.end());
+    if (_currentState == State::Ready) {
+        std::string error = validateMap(map);
+        if (error != "")
+            throw new path_error(error);
 
-    PathCell prev;
-    Direction from;
+        _map.clear();
 
-    if (wasUnique) {
+        PathCell prev;
+        Direction from;
+
         for (auto i = map.cbegin(); i != map.cend(); ++i) {
             auto next = i + 1;
 
@@ -134,8 +139,6 @@ void Game::setMap(vector<Position>& map, Direction first) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Left});
                 } else if ((i->x == next->x) && (i->y == next->y - 1)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Down});
-                } else {
-                    throw new path_error("This is not a correct path, some cells are disconnected");
                 }
                 prev = _map.at(_map.size() - 1);
             } else {
@@ -160,7 +163,11 @@ void Game::setMap(vector<Position>& map, Direction first) {
             }
         }
     } else {
-        throw new path_error("This is not a correct path, you can't go through the same cell twice");
+        throw new state_error("You can't set the map if the game already started");
+    }
+    qDebug() << "SETMAP";
+    for (auto j : _map) {
+        qDebug() << j.getPosition().x << "," << j.getPosition().y;
     }
 }
 
@@ -267,6 +274,10 @@ std::string Game::validateMap(vector<Position>& map) {
     }
 
     return err;
+}
+
+void Game::setBlocked(vector<Position>& map) {
+    _blockedCellsMap = map;
 }
 
 }  // namespace model

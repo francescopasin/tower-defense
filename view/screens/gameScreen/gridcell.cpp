@@ -141,6 +141,11 @@ void GridCell::setType(GridCellType type) {
     update();
 }
 
+void GridCell::setTile(PathGridCellTile tile) {
+    _tile = tile;
+    update();
+}
+
 GridCellType GridCell::getType() const {
     return _type;
 }

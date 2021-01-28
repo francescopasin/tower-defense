@@ -35,6 +35,7 @@ class SetMapScene : public QGraphicsScene {
 
    signals:
     void saveButtonPressed(const vector<SetMapCell*>* cells);
+    void backButtonPressed();
 
     void cellPressed(SetMapCell::Type cellType, const QPointF& coordinates);
     void addCellSignal(SetMapCell* cell, view::SetMapCell::Type type);

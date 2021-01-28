@@ -5,6 +5,7 @@
 #include "app/routes.h"
 #include "controller/gamecontroller.h"
 #include "controller/navigationcontroller.h"
+#include "controller/setmapcontroller.h"
 #include "view/mainwindow.h"
 #include "view/screens/gameScreen/gamescene.h"
 #include "view/screens/gameScreen/gameview.h"
@@ -12,7 +13,6 @@
 #include "view/screens/initialScreen/initialscreenview.h"
 #include "view/screens/setMapScreen/setmapscene.h"
 #include "view/screens/setMapScreen/setmapview.h"
-
 
 using std::make_shared;
 using std::vector;
@@ -35,7 +35,6 @@ int main(int argc, char *argv[]) {
     auto setMapScene = make_shared<view::SetMapScene>();
     auto setMapView = new view::SetMapView(setMapScene);
 
-
     vector<QWidget *> screens{initialScreenView, gameView, setMapView};
 
     auto window = make_shared<view::MainWindow>(screens);
@@ -44,6 +43,7 @@ int main(int argc, char *argv[]) {
     // ========================================================================
     auto navigationController = new controller::NavigationController(window);
     auto gameController = new controller::GameController(model, gameScene);
+    auto setMapController = new controller::SetMapController(model, setMapScene);
 
     // Views - Controllers association
     // ========================================================================
@@ -76,6 +76,30 @@ int main(int argc, char *argv[]) {
         &view::InitialScreenScene::setMapButtonPressed,
         navigationController,
         [=]() { navigationController->navigateTo(app::Routes::SetMapScreen); });
+
+    QObject::connect(
+        setMapScene.get(),
+        &view::SetMapScene::saveButtonPressed,
+        setMapController,
+        &controller::SetMapController::saveToFile);
+
+    QObject::connect(
+        initialScreenScene.get(),
+        &view::InitialScreenScene::uploadMapButtonPressed,
+        setMapController,
+        &controller::SetMapController::uploadFromFile);
+
+    QObject::connect(
+        setMapScene.get(),
+        &view::SetMapScene::backButtonPressed,
+        navigationController,
+        [=]() { navigationController->back(); });
+
+    QObject::connect(
+        setMapController,
+        &controller::SetMapController::mapChanged,
+        gameScene.get(),
+        &view::GameScene::updateGrid);
 
     // TODO: connect start button to game controller start
 

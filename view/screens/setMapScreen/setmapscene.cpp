@@ -40,6 +40,7 @@ void SetMapScene::drawBackground() {
 void SetMapScene::createHUD() {
     StandardButton* saveButton = new StandardButton("SAVE");
     StandardButton* clearButton = new StandardButton("CLEAR");
+    StandardButton* backButton = new StandardButton("BACK");
 
     saveButton->setPos(
         1920 / 2 - (saveButton->boundingRect().width() + 10 + clearButton->boundingRect().width()) / 2,
@@ -49,11 +50,15 @@ void SetMapScene::createHUD() {
         1920 / 2 - (saveButton->boundingRect().width() + 10 + clearButton->boundingRect().width()) / 2 + 10 + saveButton->boundingRect().width(),
         30);
 
+    backButton->setPos(5, 5);
+
     connect(saveButton, &StandardButton::pressed, this, [=]() { emit saveButtonPressed(grid->getCells()); });
     connect(clearButton, &StandardButton::pressed, this, &SetMapScene::clearAll);
+    connect(backButton, &StandardButton::pressed, this, &SetMapScene::backButtonPressed);
 
     addItem(saveButton);
     addItem(clearButton);
+    addItem(backButton);
 }
 
 void SetMapScene::gridCellPressed(SetMapCell::Type cellType, const QPointF& coordinates) {
