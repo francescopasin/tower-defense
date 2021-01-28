@@ -10,7 +10,8 @@ TurretSelectorItem::TurretSelectorItem(
     QGraphicsItem *parent,
     model::TurretType turretType)
     : QGraphicsItem(parent),
-      _turretType(turretType) {
+      _turretType(turretType),
+      isAvailable(true) {
     QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 
@@ -24,7 +25,15 @@ QRectF TurretSelectorItem::boundingRect() const {
 void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(widget);
 
-    painter->setPen(Qt::NoPen);
+    if (isAvailable) {
+        painter->setPen(Qt::NoPen);
+    } else {
+        // TODO: TEMP: find a better indicator
+        QPen pen;
+        pen.setColor(Qt::red);
+        pen.setWidth(5);
+        painter->setPen(pen);
+    }
 
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
@@ -76,7 +85,15 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 void TurretSelectorItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     Q_UNUSED(event);
 
-    emit pressed();
+    if (isAvailable) {
+        emit pressed();
+    }
+}
+
+void TurretSelectorItem::updateAvailability(U_INT gameCredits) {
+    isAvailable = gameCredits >= model::turretTypes.at(_turretType).cost;
+    // TODO: add not available cursor
+    update();
 }
 
 }  // namespace view

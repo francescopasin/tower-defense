@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "model/gamemodel.h"
+#include "model/position.h"
 #include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
@@ -45,7 +46,7 @@ class GameScene : public QGraphicsScene {
     void addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType);
 
    public slots:
-    void gridCellPressed(GridCellType cellType, const QPointF& coordinates);
+    void gridCellPressed(GridCellType cellType, model::Position cellPosition);
     void closeTurretSelector();
     void addTurret(model::TurretType turretType);
     void updateGrid();

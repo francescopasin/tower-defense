@@ -13,13 +13,12 @@ namespace model {
 
 class ComboTurret : public SingularTargetTurret {
    private:
-    const float _initialAttackDamage;
+    float _attackDamage;
     float _attackMultiplier;
     SP<Enemy> _lastTargetedEnemy;
 
    public:
-    ComboTurret(const Position& position,
-                const SP<vector<SP<Enemy>>>& enemies);
+    ComboTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies);
     virtual ~ComboTurret() = default;
 
     virtual void attack() override;

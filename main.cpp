@@ -66,6 +66,12 @@ int main(int argc, char *argv[]) {
         &controller::GameController::addTurret);
 
     QObject::connect(
+        gameScene.get(),
+        &view::GameScene::removeTurretSignal,
+        gameController,
+        &controller::GameController::removeTurret);
+
+    QObject::connect(
         initialScreenScene.get(),
         &view::InitialScreenScene::startButtonPressed,
         navigationController,

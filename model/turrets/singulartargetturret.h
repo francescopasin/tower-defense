@@ -2,6 +2,7 @@
 #define MODEL_SINGULARTARGETTURRET_H_
 
 #include "model/turrets/turret.h"
+#include "model/turrets/turrettype.h"
 
 using std::shared_ptr;
 using std::vector;
@@ -14,12 +15,9 @@ namespace model {
 class SingularTargetTurret : public Turret {
    public:
     SingularTargetTurret(
+        const TurretType& type,
         const Position& position,
-        const SP<vector<SP<Enemy>>>& enemies,
-        U_INT attackRadius,
-        float attackDamage,
-        U_INT attackCooldown,
-        U_INT cost);
+        const SP<vector<SP<Enemy>>>& enemies);
     virtual ~SingularTargetTurret() = default;
 
     virtual vector<SP<Enemy>> getTargetedEnemies() const override;

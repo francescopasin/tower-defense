@@ -4,11 +4,21 @@
 #include <QGraphicsItem>
 
 #include "model/turrets/turrettype.h"
+#include "view/screens/gameScreen/turretselectoritem.h"
+
+#define U_INT unsigned short int
 
 namespace view {
 
 class TurretSelector : public QObject, public QGraphicsItem {
     Q_OBJECT
+
+   private:
+    TurretSelectorItem *weakTurretSelector;
+    TurretSelectorItem *mitraTurretSelector;
+    TurretSelectorItem *granadeTurretSelector;
+    TurretSelectorItem *comboTurretSelector;
+    TurretSelectorItem *splitTurretSelector;
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -19,6 +29,9 @@ class TurretSelector : public QObject, public QGraphicsItem {
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    // Called when the item is shown, to recalculate which turrets can be added
+    void added(U_INT gameCredits);
 
    signals:
     void turretSelected(model::TurretType turretType);

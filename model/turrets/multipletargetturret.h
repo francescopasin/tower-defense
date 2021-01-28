@@ -2,6 +2,7 @@
 #define MODEL_MULTIPLETARGETTURRET_H_
 
 #include "model/turrets/turret.h"
+#include "model/turrets/turrettype.h"
 
 using std::shared_ptr;
 using std::vector;
@@ -12,19 +13,11 @@ using std::vector;
 namespace model {
 
 class MultipleTargetTurret : public Turret {
-   private:
-    // Quantity of possible targets. Infinite if -1
-    const short int _targetsAmount;
-
    public:
     MultipleTargetTurret(
+        const TurretType& type,
         const Position& position,
-        const SP<vector<SP<Enemy>>>& enemies,
-        U_INT attackRadius,
-        short int targetsAmount,
-        float attackDamage,
-        U_INT attackCooldown,
-        U_INT cost);
+        const SP<vector<SP<Enemy>>>& enemies);
     virtual ~MultipleTargetTurret() = default;
 
     virtual vector<SP<Enemy>> getTargetedEnemies() const override;

@@ -3,29 +3,23 @@
 namespace model {
 
 Turret::Turret(
+    const TurretType& type,
     const Position& position,
-    const SP<vector<SP<Enemy>>>& enemies,
-    U_INT attackRadius,
-    float attackDamage,
-    U_INT attackCooldown,
-    U_INT cost)
-    : _position(position),
+    const SP<vector<SP<Enemy>>>& enemies)
+    : _stats(turretTypes.at(type)),
+      _position(position),
       _enemies(enemies),
-      _attackRadius(attackRadius),
-      _cost(cost),
-      _attackDamage(attackDamage),
-      _attackCooldown(attackCooldown),
-      _attackCooldownCounter(attackCooldown) {}
+      _attackCooldownCounter(_stats.initialAttackCooldown) {}
 
 vector<SP<Enemy>> Turret::getEnemiesInRadius() const {
     vector<SP<Enemy>> enemies = vector<SP<Enemy>>();
 
     for (auto& enemy : *_enemies) {
         Position enemyPosition = enemy->getCurrentCell().getPosition();
-        if (enemyPosition.x >= _position.x - _attackRadius &&
-            enemyPosition.x <= _position.x + _attackRadius &&
-            enemyPosition.y >= _position.y - _attackRadius &&
-            enemyPosition.y <= _position.y + _attackRadius) {
+        if (enemyPosition.x >= _position.x - _stats.attackRadius &&
+            enemyPosition.x <= _position.x + _stats.attackRadius &&
+            enemyPosition.y >= _position.y - _stats.attackRadius &&
+            enemyPosition.y <= _position.y + _stats.attackRadius) {
             enemies.push_back(enemy);
         }
     }
@@ -40,10 +34,10 @@ void Turret::attack() {
         // There is at least one enemy to attack
         if (_attackCooldownCounter == 0) {
             for (auto& enemy : enemies) {
-                enemy->receiveAttack(_attackDamage);
+                enemy->receiveAttack(_stats.initialAttackDamage);
             }
             // Reset cooldown
-            _attackCooldownCounter = _attackCooldown;
+            _attackCooldownCounter = _stats.initialAttackCooldown;
         } else {
             _attackCooldownCounter--;
         }
@@ -55,7 +49,7 @@ Position Turret::getPosition() const {
 }
 
 U_INT Turret::getCost() const {
-    return _cost;
+    return _stats.cost;
 }
 
 }  // namespace model

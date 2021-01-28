@@ -1,6 +1,10 @@
 #ifndef MODEL_TURRETTYPE_H_
 #define MODEL_TURRETTYPE_H_
 
+#include <unordered_map>
+
+#define U_INT unsigned short int
+
 namespace model {
 
 enum class TurretType {
@@ -26,7 +30,7 @@ enum class TurretType {
      */
     MitraTurret,
     /**
-     * MitraTurret
+     * Granade
      * MultipleTargetTurret
      * 
      * cost = 30
@@ -62,6 +66,25 @@ enum class TurretType {
     // TODO: SlowTimeTurret, MissileTurret, come Granade ma singola e più potente
 };
 
-}
+struct TurretStats {
+    U_INT cost;
+    float initialAttackDamage;
+    float initialAttackCooldown;
+    U_INT attackRadius;
+    // Ignored if SingularTargetTurret
+    // Infinite if -1
+    short int maxTargets;
+};
+
+const std::unordered_map<TurretType, TurretStats> turretTypes =
+    {
+        {TurretType::WeakTurret, TurretStats{10, 20, 20, 1, -1}},
+        {TurretType::MitraTurret, TurretStats{25, 10, 10, 3, 0}},
+        {TurretType::GranadeTurret, TurretStats{30, 50, 60, 3, 5}},
+        {TurretType::ComboTurret, TurretStats{20, 5, 15, 4, 0}},
+        {TurretType::SplitTurret, TurretStats{10, 10, 20, 5, -1}},
+};
+
+}  // namespace model
 
 #endif
