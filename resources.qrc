@@ -16,6 +16,8 @@
         <file>assets/images/top-right-tile.png</file>
         <file>assets/images/free-tile.png</file>
         <file>assets/images/free-tile-pressed.png</file>
+        <file>assets/images/occupied-tile.png</file>
+        <file>assets/images/occupied-tile-pressed.png</file>
         <file>assets/images/left-start-tile.png</file>
         <file>assets/images/right-start-tile.png</file>
         <file>assets/images/top-start-tile.png</file>

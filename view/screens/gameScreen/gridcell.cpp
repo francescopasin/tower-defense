@@ -21,16 +21,9 @@ GridCell::GridCell(
     // TODO: understand why it doesn't work
     //setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
-    if (type == GridCellType::Free || type == GridCellType::Occupied) {
+    if (type == GridCellType::Free) {
         setAcceptHoverEvents(true);
-
-        QPixmap pixmap;
-        if (type == GridCellType::Free) {
-            pixmap = QPixmap(":/assets/images/pointer-turret-place.png");
-        } else {
-            pixmap = QPixmap(":/assets/images/pointer-turret-remove.png");
-        }
-        setCursor(QCursor(pixmap.scaled(32, 32)));
+        updateCursor();
     }
 }
 
@@ -113,13 +106,27 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
             imagePath = ":/assets/images/blocked-tile.png";
             break;
         case GridCellType::Occupied:
-            // TODO: create occupied image
-            imagePath = ":/assets/images/blocked-tile.png";
+            imagePath = ":/assets/images/occupied-tile.png";
+
+            if (option->state & QStyle::State_MouseOver || _selected) {
+                imagePath = ":/assets/images/occupied-tile-pressed.png";
+            }
             break;
     }
 
     QPixmap pixmap = QPixmap(imagePath);
     painter->drawPixmap(QRect(0, 0, _size, _size), pixmap);
+}
+
+void GridCell::updateCursor() {
+    QPixmap pixmap;
+    if (_type == GridCellType::Free) {
+        pixmap = QPixmap(":/assets/images/pointer-turret-place.png");
+    } else {
+        pixmap = QPixmap(":/assets/images/pointer-turret-remove.png");
+    }
+
+    setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
 void GridCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
@@ -138,6 +145,7 @@ void GridCell::setSelected(bool selected) {
 
 void GridCell::setType(GridCellType type) {
     _type = type;
+    updateCursor();
     update();
 }
 
