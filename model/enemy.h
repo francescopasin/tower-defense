@@ -20,9 +20,10 @@ class Enemy {
     U_INT _speed;
     float _attackDamage;
     const vector<PathCell> _path;
+    U_INT _reward;
 
    public:
-    Enemy(const vector<PathCell>& path, float _health, U_INT _speed, float _attackDamage);
+    Enemy(const vector<PathCell>& path, float _health, U_INT _speed, float _attackDamage, U_INT reward);
 
     void receiveAttack(float damage);
     float move();
@@ -30,6 +31,7 @@ class Enemy {
     PathCell getCurrentCell() const;
     float getCellPosition() const;
     float getHealth() const;
+    U_INT getReward() const;
 };
 
 }  // namespace model

@@ -90,7 +90,7 @@ GameModel::GameModel() {
     vector<Wave> wave;
 
     // TODO: temp. only for debugging
-    wave.push_back(Wave{100, 20, 10, 10, 30, 0});
+    wave.push_back(Wave{100, 20, 10, 10, 30, 0, 10});
     /*
     wave.push_back(Wave{100, 120, 10, 6, 15, 0});
     wave.push_back(Wave{100, 120, 10, 10, 15, 60});

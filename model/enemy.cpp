@@ -2,13 +2,14 @@
 
 namespace model {
 
-Enemy::Enemy(const vector<PathCell>& path, float health, U_INT speed, float attackDamage)
+Enemy::Enemy(const vector<PathCell>& path, float health, U_INT speed, float attackDamage, U_INT reward)
     : _currentCell(0),
       _cellPosition(0),
       _health(health),
       _speed(speed),
       _attackDamage(attackDamage),
-      _path(path) {}
+      _path(path),
+      _reward(reward) {}
 
 void Enemy::receiveAttack(float damage) {
     _health -= damage;
@@ -24,7 +25,7 @@ float Enemy::move() {
 
     // Check if last cell, then return the damage
     if (_currentCell == static_cast<int>(_path.size())) {
-        _health = 0; //! KAMIKAZE!
+        _health = 0;  //! KAMIKAZE!
         return _attackDamage;
     }
     return 0;
@@ -40,6 +41,10 @@ float Enemy::getCellPosition() const {
 
 float Enemy::getHealth() const {
     return _health;
+}
+
+U_INT Enemy::getReward() const {
+    return _reward;
 }
 
 }  // namespace model

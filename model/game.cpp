@@ -1,5 +1,7 @@
 #include "model/game.h"
 
+#include "model/enemy.h"
+
 namespace model {
 
 Game::Game(
@@ -196,7 +198,7 @@ void Game::spawnEnemy() {
         _spawnCount++;
         if (_currentWave->enemiesNumber > 0) {
             if (_spawnCount >= _currentWave->startsAfter && ((_spawnCount - _currentWave->startsAfter) % _currentWave->enemiesIntervalTick == 0 || (_spawnCount - _currentWave->startsAfter) == 0)) {
-                _enemies->push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage)));
+                _enemies->push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage, _currentWave->reward)));
                 _currentWave->enemiesNumber--;
 
                 _lastTickSpawnedEnemy = _enemies->back();
@@ -226,6 +228,7 @@ void Game::checkDeadEnemies() {
     auto i = _enemies->begin();
     while (i != _enemies->end()) {
         if ((*i)->getHealth() <= 0) {
+            _credits += (*i)->getReward();
             i = _enemies->erase(i);
         } else {
             ++i;
