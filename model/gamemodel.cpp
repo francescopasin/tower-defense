@@ -126,16 +126,24 @@ float GameModel::getLife() const {
     return _game->getLife();
 }
 
-vector<PathCell> GameModel::getMap() const {
+const vector<PathCell>& GameModel::getMap() const {
     return _game->getMap();
 }
 
-vector<Position> GameModel::getBlockedCellsMap() const {
+const vector<Position>& GameModel::getBlockedCellsMap() const {
     return _game->getBlockedCellsMap();
 }
 
 std::string GameModel::validateMap(vector<Position>& map) {
     return Game::validateMap(map);
+}
+
+void GameModel::setMap(vector<Position>& map, Direction first) {
+    _game->setMap(map, first);
+}
+
+void GameModel::setBlocked(vector<Position>& map) {
+    _game->setBlocked(map);
 }
 
 }  // namespace model

@@ -98,22 +98,25 @@ float Game::getLife() const {
     return _life;
 }
 
-vector<PathCell> Game::getMap() const {
+const vector<PathCell>& Game::getMap() const {
     return _map;
 }
 
-vector<Position> Game::getBlockedCellsMap() const {
+const vector<Position>& Game::getBlockedCellsMap() const {
     return _blockedCellsMap;
 }
 
 void Game::setMap(vector<Position>& map, Direction first) {
-    auto it = std::unique(map.begin(), map.end());
-    bool wasUnique = (it == map.end());
+    if (_currentState == State::Ready) {
+        std::string error = validateMap(map);
+        if (error != "")
+            throw new path_error(error);
 
-    PathCell prev;
-    Direction from;
+        _map.clear();
 
-    if (wasUnique) {
+        PathCell prev;
+        Direction from;
+
         for (auto i = map.cbegin(); i != map.cend(); ++i) {
             auto next = i + 1;
 
@@ -145,8 +148,6 @@ void Game::setMap(vector<Position>& map, Direction first) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Left});
                 } else if ((i->x == next->x) && (i->y == next->y - 1)) {
                     _map.push_back(PathCell{i->x, i->y, from, Direction::Down});
-                } else {
-                    throw new path_error("This is not a correct path, some cells are disconnected");
                 }
                 prev = _map.at(_map.size() - 1);
             } else {
@@ -171,7 +172,7 @@ void Game::setMap(vector<Position>& map, Direction first) {
             }
         }  // namespace model
     } else {
-        throw new path_error("This is not a correct path, you can't go through the same cell twice");
+        throw new state_error("You can't set the map if the game already started");
     }
 }
 
@@ -278,6 +279,10 @@ std::string Game::validateMap(vector<Position>& map) {
     }
 
     return err;
+}
+
+void Game::setBlocked(vector<Position>& map) {
+    _blockedCellsMap = map;
 }
 
 }  // namespace model

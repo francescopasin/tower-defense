@@ -5,6 +5,7 @@
 #include "app/routes.h"
 #include "controller/gamecontroller.h"
 #include "controller/navigationcontroller.h"
+#include "controller/setmapcontroller.h"
 #include "view/mainwindow.h"
 #include "view/screens/gameScreen/gamescene.h"
 #include "view/screens/gameScreen/gameview.h"
@@ -42,6 +43,7 @@ int main(int argc, char *argv[]) {
     // ========================================================================
     auto navigationController = new controller::NavigationController(window);
     auto gameController = new controller::GameController(model, gameScene);
+    auto setMapController = new controller::SetMapController(model, setMapScene, gameScene);
 
     // Views - Controllers association
     // ========================================================================
@@ -80,6 +82,24 @@ int main(int argc, char *argv[]) {
         &view::InitialScreenScene::setMapButtonPressed,
         navigationController,
         [=]() { navigationController->navigateTo(app::Routes::SetMapScreen); });
+
+    QObject::connect(
+        setMapScene.get(),
+        &view::SetMapScene::saveButtonPressed,
+        setMapController,
+        &controller::SetMapController::saveToFile);
+
+    QObject::connect(
+        initialScreenScene.get(),
+        &view::InitialScreenScene::uploadMapButtonPressed,
+        setMapController,
+        &controller::SetMapController::uploadFromFile);
+
+    QObject::connect(
+        setMapScene.get(),
+        &view::SetMapScene::backButtonPressed,
+        navigationController,
+        [=]() { navigationController->back(); });
 
     // TODO: connect start button to game controller start
 

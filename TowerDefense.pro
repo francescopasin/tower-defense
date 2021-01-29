@@ -24,6 +24,7 @@ SOURCES += \
     \
     controller/gamecontroller.cpp \
     controller/navigationcontroller.cpp \
+    controller/setmapcontroller.cpp \
     \
     view/mainwindow.cpp \
     \
@@ -46,7 +47,9 @@ SOURCES += \
     view/screens/setMapScreen/setmapgrid.cpp \
     view/screens/setMapScreen/setmapview.cpp \
     view/screens/setMapScreen/setmapscene.cpp \
-    view/screens/setMapScreen/setmapcell.cpp
+    view/screens/setMapScreen/setmapcell.cpp \
+    view/screens/setMapScreen/cellselectoritem.cpp \
+    view/screens/setMapScreen/cellselector.cpp 
 
 HEADERS += \
     app/routes.h \
@@ -70,6 +73,7 @@ HEADERS += \
     \
     controller/gamecontroller.h \
     controller/navigationcontroller.h \
+    controller/setmapcontroller.h \
     \
     view/mainwindow.h \
     \
@@ -93,7 +97,9 @@ HEADERS += \
     view/screens/setMapScreen/setmapview.h \
     view/screens/setMapScreen/setmapscene.h \
     view/screens/setMapScreen/setmapgrid.h \
-    view/screens/setMapScreen/setmapcell.h
+    view/screens/setMapScreen/setmapcell.h \
+    view/screens/setMapScreen/cellselectoritem.h \
+    view/screens/setMapScreen/cellselector.h 
 
 
 

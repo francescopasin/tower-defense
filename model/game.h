@@ -52,8 +52,6 @@ class Game {
     void checkDeadEnemies();
     void checkWon();
 
-    void setMap(vector<Position>& map, Direction first);
-
    public:
     Game(U_INT credits, float life, vector<Position>& map, const vector<Position>& blockedCellsMap, const vector<Wave>& waves, Direction first);
     State tick();
@@ -62,10 +60,13 @@ class Game {
 
     SP<Enemy> lastTickSpawnedEnemy() const;
 
+    void setMap(vector<Position>& map, Direction first);
+    void setBlocked(vector<Position>& map);
+
     U_INT getCredits() const;
     float getLife() const;
-    vector<PathCell> getMap() const;
-    vector<Position> getBlockedCellsMap() const;
+    const vector<PathCell>& getMap() const;
+    const vector<Position>& getBlockedCellsMap() const;
 
     static std::string validateMap(vector<Position>& map);
 };

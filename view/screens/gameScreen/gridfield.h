@@ -22,15 +22,15 @@ class GridField : public QObject, public QGraphicsItem {
 
    private:
     QSize _size;
-    vector<model::PathCell> _path;
-    vector<model::Position> _blockedCells;
+    const vector<model::PathCell> &_path;
+    const vector<model::Position> &_blockedCells;
     vector<GridCell *> interactiveCells;
     vector<TurretItem *> turrets;
 
     void createGameGrid();
 
    public:
-    GridField(const QSize &size, const vector<model::PathCell> &path, const vector<model::Position> blockedCells);
+    GridField(const QSize &size, const vector<model::PathCell> &path, const vector<model::Position> &blockedCells);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -41,6 +41,7 @@ class GridField : public QObject, public QGraphicsItem {
 
    public slots:
     void selectCell(GridCell *cell);
+    void updateGrid();
 
    signals:
     void cellPressed(GridCellType cellType, model::Position cellPosition);

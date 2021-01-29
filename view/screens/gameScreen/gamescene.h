@@ -49,6 +49,7 @@ class GameScene : public QGraphicsScene {
     void gridCellPressed(GridCellType cellType, model::Position cellPosition);
     void closeTurretSelector();
     void addTurret(model::TurretType turretType);
+    void updateGrid();
 
    signals:
     void playPauseButtonPressed();

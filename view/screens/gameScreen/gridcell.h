@@ -51,6 +51,7 @@ class GridCell : public QObject, public QGraphicsItem {
     void setSelected(bool selected);
 
     void setType(GridCellType type);
+    void setTile(PathGridCellTile tile);
     GridCellType getType() const;
     model::Position getGridPosition() const;
 

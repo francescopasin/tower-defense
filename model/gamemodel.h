@@ -23,10 +23,14 @@ class GameModel {
 
     SP<Enemy> lastTickSpawnedEnemy() const;
 
-    U_INT getCredits() const;
+    void setMap(vector<Position>& map, Direction first);
+    void setBlocked(vector<Position>& map);
+
+    U_INT
+    getCredits() const;
     float getLife() const;
-    vector<PathCell> getMap() const;
-    vector<Position> getBlockedCellsMap() const;
+    const vector<PathCell>& getMap() const;
+    const vector<Position>& getBlockedCellsMap() const;
 
     static std::string validateMap(vector<Position>& map);
 };

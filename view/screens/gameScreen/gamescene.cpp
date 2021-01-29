@@ -110,4 +110,8 @@ void GameScene::addTurret(model::TurretType turretType) {
     emit addTurretSignal(position, turretType);
 }
 
+void GameScene::updateGrid() {
+    gridField->updateGrid();
+}
+
 }  // namespace view
