@@ -80,6 +80,30 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 
     painter->setBrush(brush);
     painter->drawRect(0, 0, 80, 80);
+
+    // TODO: temp. For debugging
+    QFont font = painter->font();
+    font.setPixelSize(25);
+    painter->setFont(font);
+    painter->setPen(Qt::white);
+
+    switch (_turretType) {
+        case model::TurretType::WeakTurret:
+            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "WEAK");
+            break;
+        case model::TurretType::MitraTurret:
+            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "MITRA");
+            break;
+        case model::TurretType::GranadeTurret:
+            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "GRAN");
+            break;
+        case model::TurretType::ComboTurret:
+            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "COMBO");
+            break;
+        case model::TurretType::SplitTurret:
+            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "SPLIT");
+            break;
+    }
 }
 
 void TurretSelectorItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
