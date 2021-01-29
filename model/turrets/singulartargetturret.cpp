@@ -13,7 +13,9 @@ vector<SP<Enemy>> SingularTargetTurret::getTargetedEnemies() const {
     vector<SP<Enemy>> targetedEnemies = vector<SP<Enemy>>();
 
     // Targets the first enemy in radius
-    targetedEnemies.push_back(enemiesInRadius[0]);
+    if (enemiesInRadius.size() > 0) {
+        targetedEnemies.push_back(enemiesInRadius[0]);
+    }
 
     return targetedEnemies;
 }

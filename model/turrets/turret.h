@@ -21,6 +21,8 @@ class Turret {
     const Position _position;
     SP<vector<SP<Enemy>>> _enemies;
 
+    // TODO: FIX ATTACK METHOD
+
    protected:
     const TurretStats _stats;
     U_INT _attackCooldownCounter;
