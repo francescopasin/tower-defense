@@ -188,11 +188,11 @@ void SetMapController::uploadFromFile() {
         } else {
             QJsonArray pathJson = json["pathPosition"].toArray();
             for (auto i : pathJson) {
-                pathPosition.push_back(model::Position{(i.toObject())["x"].toInt(), (i.toObject())["y"].toInt()});
+                pathPosition.push_back(model::Position{static_cast<U_INT>((i.toObject())["x"].toInt()), static_cast<U_INT>((i.toObject())["y"].toInt())});
             }
             QJsonArray blockedJson = json["blockedPosition"].toArray();
             for (auto i : blockedJson) {
-                blockedPosition.push_back(model::Position{(i.toObject())["x"].toInt(), (i.toObject())["y"].toInt()});
+                blockedPosition.push_back(model::Position{static_cast<U_INT>((i.toObject())["x"].toInt()), static_cast<U_INT>((i.toObject())["y"].toInt())});
             }
 
             try {
