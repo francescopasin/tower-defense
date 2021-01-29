@@ -39,6 +39,7 @@ class GameController : public QObject {
     void fastForward();
 
     void addTurret(model::Position position, model::TurretType turretType);
+    void removeTurret(model::Position position);
 };
 
 }  // namespace controller

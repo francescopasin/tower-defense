@@ -230,9 +230,13 @@ void MyList<T>::popBack() {
 template <class T>
 void MyList<T>::popTop() {
     Node* primo = _first;
-    _first = _first->_next;
-    _first->_prev = nullptr;
-    primo->_next = nullptr;
+    if (_size == 1) {
+        _first = _last = nullptr;
+    } else {
+        _first = _first->_next;
+        _first->_prev = nullptr;
+        primo->_next = nullptr;
+    }
     delete primo;
     _size--;
 }
