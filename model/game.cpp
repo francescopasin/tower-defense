@@ -178,11 +178,14 @@ void Game::setMap(vector<Position>& map, Direction first) {
 
 void Game::moveEnemies() {
     int damage = 0;
-    for (auto i = _enemies->begin(); i != _enemies->end(); ++i) {
+    auto i = _enemies->begin();
+    while (i != _enemies->end()) {
         damage = (*i)->move();
         if (damage > 0) {
             _life -= damage;
-            i = _enemies->erase(i) - 1;
+            i = _enemies->erase(i);
+        } else {
+            ++i;
         }
     }
     if (_life <= 0) _currentState = State::Lost;
@@ -220,10 +223,12 @@ void Game::attack() {
 }
 
 void Game::checkDeadEnemies() {
-    for (auto i = _enemies->begin(); i != _enemies->end(); ++i) {
+    auto i = _enemies->begin();
+    while (i != _enemies->end()) {
         if ((*i)->getHealth() <= 0) {
             i = _enemies->erase(i);
-            i--;
+        } else {
+            ++i;
         }
     }
 }

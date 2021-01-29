@@ -24,6 +24,7 @@ float Enemy::move() {
 
     // Check if last cell, then return the damage
     if (_currentCell == static_cast<int>(_path.size())) {
+        _health = 0; //! KAMIKAZE!
         return _attackDamage;
     }
     return 0;

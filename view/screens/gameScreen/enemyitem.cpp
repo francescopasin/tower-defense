@@ -102,7 +102,7 @@ void EnemyItem::tick() {
 
 bool EnemyItem::isDead() const {
     // Check if the enemyData has been deleted from the model
-    if (enemyData.use_count() == 1) {
+    if (enemyData->getHealth() <= 0) {
         return true;
     }
 
