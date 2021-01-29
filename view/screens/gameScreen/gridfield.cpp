@@ -201,8 +201,8 @@ void GridField::createGameGrid() {
 
     // Free Cells
     // ========================================================================
-    for (int i = 0; i < 16; i++) {
-        for (int j = 0; j < 9; j++) {
+    for (U_INT i = 0; i < 16; i++) {
+        for (U_INT j = 0; j < 9; j++) {
             GridCell *cell = new GridCell(this, model::Position{i, j}, size, GridCellType::Free);
             interactiveCells.push_back(cell);
             connect(cell, &GridCell::pressed, this, &GridField::selectCell);

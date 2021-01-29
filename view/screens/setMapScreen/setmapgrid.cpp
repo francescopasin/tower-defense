@@ -28,8 +28,8 @@ void SetMapGrid::reDrawPath() {
 void SetMapGrid::createSetMapGrid() {
     qreal size = _size.height() / 9;
 
-    for (int i = 0; i < 16; i++) {
-        for (int j = 0; j < 9; j++) {
+    for (U_INT i = 0; i < 16; i++) {
+        for (U_INT j = 0; j < 9; j++) {
             SetMapCell *cell = new SetMapCell(this, size, model::Position{i, j}, SetMapCell::Type::Free);
             cell->setPos(i * size, j * size);
             _cells.push_back(cell);
