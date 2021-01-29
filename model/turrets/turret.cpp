@@ -16,7 +16,7 @@ Turret::Turret(
 vector<SP<Enemy>> Turret::getEnemiesInRadius() const {
     vector<SP<Enemy>> enemies = vector<SP<Enemy>>();
 
-    for (auto& enemy : *_enemies) {
+    for (auto enemy : *_enemies) {
         Position enemyPosition = enemy->getCurrentCell().getPosition();
         if (enemyPosition.x >= _position.x - _stats.attackRadius &&
             enemyPosition.x <= _position.x + _stats.attackRadius &&
