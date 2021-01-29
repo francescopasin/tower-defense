@@ -122,8 +122,10 @@ void GridCell::updateCursor() {
     QPixmap pixmap;
     if (_type == GridCellType::Free) {
         pixmap = QPixmap(":/assets/images/pointer-turret-place.png");
-    } else {
+    } else if (_type == GridCellType::Occupied) {
         pixmap = QPixmap(":/assets/images/pointer-turret-remove.png");
+    } else {
+        pixmap = QPixmap(":/assets/images/pointer.png");
     }
 
     setCursor(QCursor(pixmap.scaled(32, 32)));
