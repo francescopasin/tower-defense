@@ -13,7 +13,6 @@ namespace model {
 
 class ComboTurret : public SingularTargetTurret {
    private:
-    float _attackDamage;
     float _attackMultiplier;
     SP<Enemy> _lastTargetedEnemy;
 

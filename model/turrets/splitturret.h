@@ -13,7 +13,6 @@ namespace model {
 
 class SplitTurret : public MultipleTargetTurret {
    private:
-    float _attackDamage;
     SP<Enemy> _lastTargetedEnemy;
 
    public:
