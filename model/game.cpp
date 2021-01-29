@@ -258,9 +258,6 @@ std::string Game::validateMap(vector<Position>& map) {
     auto it = std::unique(map.begin(), map.end());
     bool wasUnique = (it == map.end());
 
-    PathCell prev;
-    Direction from;
-
     if (wasUnique) {
         for (auto i = map.cbegin(); i != map.cend(); ++i) {
             auto next = i + 1;

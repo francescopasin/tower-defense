@@ -20,7 +20,7 @@ vector<SP<Enemy>> MultipleTargetTurret::getTargetedEnemies() const {
         targetsAmount = _stats.maxTargets;
     }
 
-    for (U_INT i = 0; i < targetsAmount; i++) {
+    for (U_INT i = 0; i < targetsAmount && i < enemiesInRadius.size(); i++) {
         targetedEnemies.push_back(enemiesInRadius[i]);
     }
 

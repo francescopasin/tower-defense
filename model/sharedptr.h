@@ -65,7 +65,9 @@ SharedPtr<T>::SharedPtr(const SharedPtr<T>& SharedPtr) : _ptr(SharedPtr._ptr), _
 template <class T>
 SharedPtr<T>& SharedPtr<T>::operator=(const SharedPtr<T>& SharedPtr) {
     if (this != &SharedPtr) {
-        (*_counter)--;
+        if (*_counter > 0) {
+            (*_counter)--;
+        }
         if (*_counter <= 0) {
             delete _ptr;
             delete _counter;
@@ -116,13 +118,15 @@ T& SharedPtr<T>::operator[](U_LINT index) const {
 
 template <class T>
 void SharedPtr<T>::reset(T* ptr) {
-    (*_counter)--;
+    if (*_counter > 0) {
+        (*_counter)--;
+    }
     if (*_counter <= 0) {
         delete _ptr;
         delete _counter;
     }
     _ptr = ptr;
-    _counter = new U_LINT(0);
+    _counter = new U_LINT(1);
 }
 
 template <class T>
@@ -132,7 +136,9 @@ U_LINT SharedPtr<T>::use_count() const {
 
 template <class T>
 SharedPtr<T>::~SharedPtr() {
-    (*_counter)--;
+    if (*_counter > 0) {
+        (*_counter)--;
+    }
     if (*_counter <= 0) {
         delete _ptr;
         delete _counter;
