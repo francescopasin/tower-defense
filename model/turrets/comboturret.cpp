@@ -5,12 +5,7 @@
 namespace model {
 
 ComboTurret::ComboTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies)
-    : SingularTargetTurret(
-          TurretType::ComboTurret,
-          position,
-          enemies),
-      _attackDamage(_stats.initialAttackDamage),
-      _attackMultiplier(1) {}
+    : SingularTargetTurret(TurretType::ComboTurret, position, enemies), _attackMultiplier(1) {}
 
 void ComboTurret::attack() {
     vector<SP<Enemy>> enemies = getTargetedEnemies();
@@ -21,8 +16,8 @@ void ComboTurret::attack() {
             _attackMultiplier = 1;
             _attackDamage = _stats.initialAttackDamage;
             _lastTargetedEnemy = targetedEnemy;
-        } else {
-            _attackDamage = _attackDamage * _attackMultiplier;
+        } else if (_attackCooldownCounter == 0) {
+            _attackDamage *= _attackMultiplier;
             _attackMultiplier += 0.1;
         }
 

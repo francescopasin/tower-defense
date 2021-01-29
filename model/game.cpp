@@ -69,7 +69,7 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
             break;
         case TurretType::WeakTurret:
         default:
-            temp.reset(new SingularTargetTurret(TurretType::WeakTurret, position, _enemies));
+            temp.reset(new MultipleTargetTurret(TurretType::WeakTurret, position, _enemies));
             break;
     }
 
@@ -192,7 +192,7 @@ void Game::spawnEnemy() {
     if (_currentWave != _waves.end()) {
         _spawnCount++;
         if (_currentWave->enemiesNumber > 0) {
-            if (_spawnCount >= _currentWave->startsAfter && (_spawnCount - _currentWave->startsAfter) % _currentWave->enemiesIntervalTick == 0) {
+            if (_spawnCount >= _currentWave->startsAfter && ((_spawnCount - _currentWave->startsAfter) % _currentWave->enemiesIntervalTick == 0 || (_spawnCount - _currentWave->startsAfter) == 0)) {
                 _enemies->push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage)));
                 _currentWave->enemiesNumber--;
 
