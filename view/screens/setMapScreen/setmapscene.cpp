@@ -93,6 +93,10 @@ void SetMapScene::addCell(view::SetMapCell::Type type) {
 
     grid->addCell(pos, type);
     grid->selectCell(nullptr);
+
+    if (cellSelector->scene() != nullptr) {
+        removeItem(cellSelector);
+    }
 }
 
 }  // namespace view

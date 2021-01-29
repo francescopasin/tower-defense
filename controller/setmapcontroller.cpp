@@ -14,7 +14,7 @@
 
 namespace controller {
 
-SetMapController::SetMapController(const SP<model::GameModel>& model, const SP<view::SetMapScene>& view) : _model(model), _view(view) {}
+SetMapController::SetMapController(const SP<model::GameModel>& model, const SP<view::SetMapScene>& viewSetMap, const SP<view::GameScene>& viewGamme) : _model(model), _viewSetMap(viewSetMap), _viewGame(viewGamme) {}
 
 void SetMapController::saveToFile(const vector<view::SetMapCell*>* cells) {
     QString fileName = QFileDialog::getSaveFileName(nullptr, tr("Save Game Path"), "", tr("CPP Game Path(*.cppmap)"));
@@ -80,8 +80,6 @@ void SetMapController::saveToFile(const vector<view::SetMapCell*>* cells) {
             QDataStream out(&file);
             out.setVersion(QDataStream::Qt_4_5);
             out << json;
-
-            emit saved();
         } else {
             QMessageBox::information(nullptr, tr("Error"), error);  // TODO: ERROR MODAL
         }
@@ -201,7 +199,7 @@ void SetMapController::uploadFromFile() {
                 _model->setMap(pathPosition, model::Direction::Left);
                 _model->setBlocked(blockedPosition);
 
-                emit mapChanged();
+                _viewGame->updateGrid();
             } catch (std::exception* e) {
                 QMessageBox::information(nullptr, tr("Path Error"), e->what());  // TODO: ERROR MODAL
             }

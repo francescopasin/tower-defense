@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     // ========================================================================
     auto navigationController = new controller::NavigationController(window);
     auto gameController = new controller::GameController(model, gameScene);
-    auto setMapController = new controller::SetMapController(model, setMapScene);
+    auto setMapController = new controller::SetMapController(model, setMapScene, gameScene);
 
     // Views - Controllers association
     // ========================================================================
@@ -94,12 +94,6 @@ int main(int argc, char *argv[]) {
         &view::SetMapScene::backButtonPressed,
         navigationController,
         [=]() { navigationController->back(); });
-
-    QObject::connect(
-        setMapController,
-        &controller::SetMapController::mapChanged,
-        gameScene.get(),
-        &view::GameScene::updateGrid);
 
     // TODO: connect start button to game controller start
 
