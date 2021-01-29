@@ -21,10 +21,11 @@ class Turret {
     const Position _position;
     SP<vector<SP<Enemy>>> _enemies;
 
-    // TODO: FIX ATTACK METHOD
-
    protected:
     const TurretStats _stats;
+    // Attack damage and cooldown are protected in order to let child turrets do specials attack
+    float _attackDamage;
+    float _attackCooldown;
     U_INT _attackCooldownCounter;
 
     vector<SP<Enemy>>
