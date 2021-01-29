@@ -64,14 +64,14 @@ void EnemyItem::setPosition() {
     }
 
     // 15 = enemy size / 2 - align to center
-    x -= 15;
-    y -= 15;
+    x -= 25;
+    y -= 25;
 
     setPos(x, y);
 }
 
 QRectF EnemyItem::boundingRect() const {
-    return QRectF(0, 0, 30, 30);
+    return QRectF(0, 0, 50, 50);
 }
 
 void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -81,7 +81,14 @@ void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setPen(Qt::NoPen);
     painter->setBrush(Qt::red);
 
-    painter->drawRect(0, 0, 30, 30);
+    painter->drawRect(0, 0, 50, 50);
+
+    // TODO: temp. For debugging
+    QFont font = painter->font();
+    font.setPixelSize(25);
+    painter->setFont(font);
+    painter->setPen(Qt::white);
+    painter->drawText(QRect(0, 0, 50, 50), Qt::AlignCenter, QString::number(enemyData->getHealth()));
 }
 
 void EnemyItem::tick() {
