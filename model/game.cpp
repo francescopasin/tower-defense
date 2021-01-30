@@ -29,57 +29,60 @@ Game::Game(
 }
 
 SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
-    // Check if turret can be placed
-    bool cellIsOccupied = false;
+    if (_currentState == State::InExecution) {
+        // Check if turret can be placed
+        bool cellIsOccupied = false;
 
-    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !cellIsOccupied; ++i) {
-        cellIsOccupied = (*i) == position;
+        for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !cellIsOccupied; ++i) {
+            cellIsOccupied = (*i) == position;
+        }
+
+        for (auto i = _map.cbegin(); i != _map.cend() && !cellIsOccupied; ++i) {
+            cellIsOccupied = i->getPosition() == position;
+        }
+
+        for (auto i = _turrets.cbegin(); i != _turrets.cend() && !cellIsOccupied; ++i) {
+            cellIsOccupied = (*i)->getPosition() == position;
+        }
+
+        if (cellIsOccupied) {
+            throw new turret_error("You can't insert a turret in this position");
+        }
+
+        // Check if enough credit
+        if (_credits < turretTypes.at(type).cost) {
+            throw new turret_error("You don't have enough credits to insert this turret");
+        }
+
+        // Otherwise create turret
+        SharedPtr<Turret> temp;
+
+        switch (type) {
+            case TurretType::ComboTurret:
+                temp.reset(new ComboTurret(position, _enemies));
+                break;
+            case TurretType::GranadeTurret:
+                temp.reset(new MultipleTargetTurret(TurretType::GranadeTurret, position, _enemies));
+                break;
+            case TurretType::MitraTurret:
+                temp.reset(new SingularTargetTurret(TurretType::MitraTurret, position, _enemies));
+                break;
+            case TurretType::SplitTurret:
+                temp.reset(new SplitTurret(position, _enemies));
+                break;
+            case TurretType::WeakTurret:
+            default:
+                temp.reset(new MultipleTargetTurret(TurretType::WeakTurret, position, _enemies));
+                break;
+        }
+
+        _credits -= temp->getCost();
+
+        _turrets.pushBack(temp);
+
+        return temp;
     }
-
-    for (auto i = _map.cbegin(); i != _map.cend() && !cellIsOccupied; ++i) {
-        cellIsOccupied = i->getPosition() == position;
-    }
-
-    for (auto i = _turrets.cbegin(); i != _turrets.cend() && !cellIsOccupied; ++i) {
-        cellIsOccupied = (*i)->getPosition() == position;
-    }
-
-    if (cellIsOccupied) {
-        throw new turret_error("You can't insert a turret in this position");
-    }
-
-    // Check if enough credit
-    if (_credits < turretTypes.at(type).cost) {
-        throw new turret_error("You don't have enough credits to insert this turret");
-    }
-
-    // Otherwise create turret
-    SharedPtr<Turret> temp;
-
-    switch (type) {
-        case TurretType::ComboTurret:
-            temp.reset(new ComboTurret(position, _enemies));
-            break;
-        case TurretType::GranadeTurret:
-            temp.reset(new MultipleTargetTurret(TurretType::GranadeTurret, position, _enemies));
-            break;
-        case TurretType::MitraTurret:
-            temp.reset(new SingularTargetTurret(TurretType::MitraTurret, position, _enemies));
-            break;
-        case TurretType::SplitTurret:
-            temp.reset(new SplitTurret(position, _enemies));
-            break;
-        case TurretType::WeakTurret:
-        default:
-            temp.reset(new MultipleTargetTurret(TurretType::WeakTurret, position, _enemies));
-            break;
-    }
-
-    _credits -= temp->getCost();
-
-    _turrets.pushBack(temp);
-
-    return temp;
+    return nullptr;
 }
 
 void Game::removeTurret(Position p) {
