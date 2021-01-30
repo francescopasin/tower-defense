@@ -12,6 +12,7 @@ struct Wave {
     U_INT enemiesNumber;
     U_INT enemiesIntervalTick;
     U_INT startsAfter;
+    U_INT reward;
 };
 
 }  // namespace model

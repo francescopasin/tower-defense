@@ -1,5 +1,7 @@
 #include "model/game.h"
 
+#include "model/enemy.h"
+
 namespace model {
 
 Game::Game(
@@ -27,57 +29,60 @@ Game::Game(
 }
 
 SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
-    // Check if turret can be placed
-    bool cellIsOccupied = false;
+    if (_currentState == State::InExecution) {
+        // Check if turret can be placed
+        bool cellIsOccupied = false;
 
-    for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !cellIsOccupied; ++i) {
-        cellIsOccupied = (*i) == position;
+        for (auto i = _blockedCellsMap.cbegin(); i != _blockedCellsMap.cend() && !cellIsOccupied; ++i) {
+            cellIsOccupied = (*i) == position;
+        }
+
+        for (auto i = _map.cbegin(); i != _map.cend() && !cellIsOccupied; ++i) {
+            cellIsOccupied = i->getPosition() == position;
+        }
+
+        for (auto i = _turrets.cbegin(); i != _turrets.cend() && !cellIsOccupied; ++i) {
+            cellIsOccupied = (*i)->getPosition() == position;
+        }
+
+        if (cellIsOccupied) {
+            throw new turret_error("You can't insert a turret in this position");
+        }
+
+        // Check if enough credit
+        if (_credits < turretTypes.at(type).cost) {
+            throw new turret_error("You don't have enough credits to insert this turret");
+        }
+
+        // Otherwise create turret
+        SharedPtr<Turret> temp;
+
+        switch (type) {
+            case TurretType::ComboTurret:
+                temp.reset(new ComboTurret(position, _enemies));
+                break;
+            case TurretType::GranadeTurret:
+                temp.reset(new MultipleTargetTurret(TurretType::GranadeTurret, position, _enemies));
+                break;
+            case TurretType::MitraTurret:
+                temp.reset(new SingularTargetTurret(TurretType::MitraTurret, position, _enemies));
+                break;
+            case TurretType::SplitTurret:
+                temp.reset(new SplitTurret(position, _enemies));
+                break;
+            case TurretType::WeakTurret:
+            default:
+                temp.reset(new MultipleTargetTurret(TurretType::WeakTurret, position, _enemies));
+                break;
+        }
+
+        _credits -= temp->getCost();
+
+        _turrets.pushBack(temp);
+
+        return temp;
     }
-
-    for (auto i = _map.cbegin(); i != _map.cend() && !cellIsOccupied; ++i) {
-        cellIsOccupied = i->getPosition() == position;
-    }
-
-    for (auto i = _turrets.cbegin(); i != _turrets.cend() && !cellIsOccupied; ++i) {
-        cellIsOccupied = (*i)->getPosition() == position;
-    }
-
-    if (cellIsOccupied) {
-        throw new turret_error("You can't insert a turret in this position");
-    }
-
-    // Check if enough credit
-    if (_credits < turretTypes.at(type).cost) {
-        throw new turret_error("You don't have enough credits to insert this turret");
-    }
-
-    // Otherwise create turret
-    SharedPtr<Turret> temp;
-
-    switch (type) {
-        case TurretType::ComboTurret:
-            temp.reset(new ComboTurret(position, _enemies));
-            break;
-        case TurretType::GranadeTurret:
-            temp.reset(new MultipleTargetTurret(TurretType::GranadeTurret, position, _enemies));
-            break;
-        case TurretType::MitraTurret:
-            temp.reset(new SingularTargetTurret(TurretType::MitraTurret, position, _enemies));
-            break;
-        case TurretType::SplitTurret:
-            temp.reset(new SplitTurret(position, _enemies));
-            break;
-        case TurretType::WeakTurret:
-        default:
-            temp.reset(new MultipleTargetTurret(TurretType::WeakTurret, position, _enemies));
-            break;
-    }
-
-    _credits -= temp->getCost();
-
-    _turrets.pushBack(temp);
-
-    return temp;
+    return nullptr;
 }
 
 void Game::removeTurret(Position p) {
@@ -178,11 +183,14 @@ void Game::setMap(vector<Position>& map, Direction first) {
 
 void Game::moveEnemies() {
     int damage = 0;
-    for (auto i = _enemies->begin(); i != _enemies->end(); ++i) {
+    auto i = _enemies->begin();
+    while (i != _enemies->end()) {
         damage = (*i)->move();
         if (damage > 0) {
             _life -= damage;
-            i = _enemies->erase(i) - 1;
+            i = _enemies->erase(i);
+        } else {
+            ++i;
         }
     }
     if (_life <= 0) _currentState = State::Lost;
@@ -193,7 +201,7 @@ void Game::spawnEnemy() {
         _spawnCount++;
         if (_currentWave->enemiesNumber > 0) {
             if (_spawnCount >= _currentWave->startsAfter && ((_spawnCount - _currentWave->startsAfter) % _currentWave->enemiesIntervalTick == 0 || (_spawnCount - _currentWave->startsAfter) == 0)) {
-                _enemies->push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage)));
+                _enemies->push_back(SP<Enemy>(new Enemy(_map, _currentWave->enemiesHealth, _currentWave->enemiesSpeed, _currentWave->enemiesAttackDamage, _currentWave->reward)));
                 _currentWave->enemiesNumber--;
 
                 _lastTickSpawnedEnemy = _enemies->back();
@@ -220,10 +228,13 @@ void Game::attack() {
 }
 
 void Game::checkDeadEnemies() {
-    for (auto i = _enemies->begin(); i != _enemies->end(); ++i) {
+    auto i = _enemies->begin();
+    while (i != _enemies->end()) {
         if ((*i)->getHealth() <= 0) {
+            _credits += (*i)->getReward();
             i = _enemies->erase(i);
-            i--;
+        } else {
+            ++i;
         }
     }
 }

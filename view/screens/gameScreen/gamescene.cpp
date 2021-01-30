@@ -63,12 +63,14 @@ void GameScene::tick() {
     creditsInfo->setText(QString::number(_model->getCredits()));
     lifeInfo->setText(QString::number(_model->getLife()));
 
-    for (auto i = enemies.begin(); i != enemies.end(); i++) {
+    auto i = enemies.begin();
+    while (i != enemies.end()) {
         if ((*i)->isDead()) {
             removeItem(*i);
-            i = enemies.erase(i) - 1;
+            i = enemies.erase(i);
         } else {
             (*i)->tick();
+            ++i;
         }
     }
 }
