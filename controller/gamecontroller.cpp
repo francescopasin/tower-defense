@@ -22,7 +22,7 @@ void GameController::gameTick() {
     }
 }
 
-void resetGame() {
+void GameController::resetGame() {
     _model->reset();
 }
 
