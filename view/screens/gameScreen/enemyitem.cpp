@@ -71,24 +71,46 @@ void EnemyItem::setPosition() {
 }
 
 QRectF EnemyItem::boundingRect() const {
-    return QRectF(0, 0, 50, 50);
+    return QRectF(0, 0, 50, 55);
 }
 
 void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(Qt::red);
+    painter->setPen(Qt::black);
+    painter->setBrush(QColor::fromRgb(255, 51, 204));
 
     painter->drawRect(0, 0, 50, 50);
 
-    // TODO: temp. For debugging
-    QFont font = painter->font();
-    font.setPixelSize(25);
-    painter->setFont(font);
-    painter->setPen(Qt::white);
-    painter->drawText(QRect(0, 0, 50, 50), Qt::AlignCenter, QString::number(enemyData->getHealth()));
+    painter->setPen(Qt::black);
+    painter->setBrush(Qt::white);
+
+    painter->drawRect(0, 50, 50, 5);
+
+    float currentHealt = enemyData->getHealth();
+    if (currentHealt < 0) {
+        currentHealt = 0;
+    }
+    float initialtHealt = enemyData->getInitialHealt();
+
+    float widthAdvance = (50 * currentHealt) / initialtHealt;
+    painter->setPen(Qt::NoPen);
+
+    if (widthAdvance <= 15) {
+        painter->setBrush(Qt::red);
+    } else {
+        painter->setBrush(Qt::green);
+    }
+
+    painter->drawRect(1, 51, widthAdvance - 1, 3);
+
+    // // TODO: temp. For debugging
+    // QFont font = painter->font();
+    // font.setPixelSize(25);
+    // painter->setFont(font);
+    // painter->setPen(Qt::white);
+    // painter->drawText(QRect(0, 0, 50, 50), Qt::AlignCenter, QString::number(enemyData->getHealth()));
 }
 
 void EnemyItem::tick() {
