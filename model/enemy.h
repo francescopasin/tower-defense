@@ -21,7 +21,7 @@ class Enemy {
     float _attackDamage;
     const vector<PathCell> _path;
     U_INT _reward;
-    float _initialHealt;
+    float _initialHealth;
 
    public:
     Enemy(const vector<PathCell>& path, float _health, U_INT _speed, float _attackDamage, U_INT reward);
@@ -33,7 +33,7 @@ class Enemy {
     float getCellPosition() const;
     float getHealth() const;
     U_INT getReward() const;
-    float getInitialHealt() const;
+    float getInitialHealth() const;
 };
 
 }  // namespace model

@@ -88,13 +88,13 @@ void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     painter->drawRect(0, 50, 50, 5);
 
-    float currentHealt = enemyData->getHealth();
-    if (currentHealt < 0) {
-        currentHealt = 0;
+    float currentHealth = enemyData->getHealth();
+    if (currentHealth < 0) {
+        currentHealth = 0;
     }
-    float initialtHealt = enemyData->getInitialHealt();
+    float initialtHealth = enemyData->getInitialHealth();
 
-    float widthAdvance = (50 * currentHealt) / initialtHealt;
+    float widthAdvance = (50 * currentHealth) / initialtHealth;
     painter->setPen(Qt::NoPen);
 
     if (widthAdvance <= 15) {

@@ -10,7 +10,7 @@ Enemy::Enemy(const vector<PathCell>& path, float health, U_INT speed, float atta
       _attackDamage(attackDamage),
       _path(path),
       _reward(reward),
-      _initialHealt(health) {}
+      _initialHealth(health) {}
 
 void Enemy::receiveAttack(float damage) {
     _health -= damage;
@@ -48,8 +48,8 @@ U_INT Enemy::getReward() const {
     return _reward;
 }
 
-float Enemy::getInitialHealt() const {
-    return _initialHealt;
+float Enemy::getInitialHealth() const {
+    return _initialHealth;
 }
 
 }  // namespace model
