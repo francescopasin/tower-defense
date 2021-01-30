@@ -74,6 +74,12 @@ int main(int argc, char *argv[]) {
     QObject::connect(
         initialScreenScene.get(),
         &view::InitialScreenScene::startButtonPressed,
+        gameController,
+        &controller::GameController::playPause);
+
+    QObject::connect(
+        initialScreenScene.get(),
+        &view::InitialScreenScene::startButtonPressed,
         navigationController,
         [=]() { navigationController->navigateTo(app::Routes::GameScreen); });
 
@@ -100,8 +106,6 @@ int main(int argc, char *argv[]) {
         &view::SetMapScene::backButtonPressed,
         navigationController,
         [=]() { navigationController->back(); });
-
-    // TODO: connect start button to game controller start
 
     // Start application
     window->show();
