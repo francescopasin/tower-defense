@@ -43,10 +43,10 @@ void GameScene::createHUD() {
     lifeInfo->setPos(10, 75);
     addItem(lifeInfo);
 
-    IconButton* playPauseButton = new IconButton(":/assets/images/play-button-idle.png", ":/assets/images/play-button-pressed.png");
-    playPauseButton->setPos(1400, 25);
-    addItem(playPauseButton);
-    connect(playPauseButton, &IconButton::pressed, this, &GameScene::playPauseButtonPressed);
+    IconButton* pauseButton = new IconButton(":/assets/images/pause-button-idle.png", ":/assets/images/pause-button-pressed.png");
+    pauseButton->setPos(1400, 25);
+    addItem(pauseButton);
+    connect(pauseButton, &IconButton::pressed, this, &GameScene::playPauseButtonPressed);
 
     IconButton* fastForwardButton = new IconButton(":/assets/images/fast-forward-button-idle.png", ":/assets/images/fast-forward-button-pressed.png");
     fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
