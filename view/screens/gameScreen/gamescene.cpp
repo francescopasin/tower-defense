@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include "view/hud/iconbutton.h"
+#include "view/hud/modal.h"
 #include "view/screens/gameScreen/gridfield.h"
 
 using std::vector;
@@ -53,9 +54,12 @@ void GameScene::createHUD() {
     addItem(fastForwardButton);
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardButtonPressed);
 
-    // TODO: add addturret signal
-    // TODO: add removeturret signal
     // TODO: add menu (or back) button/signal
+
+    // TODO: TEMP
+    Modal* modal = new Modal(width(), height(), true);
+    addItem(modal);
+    connect(modal, &Modal::close, this, [=]() {removeItem(modal); delete modal; });
 }
 
 void GameScene::tick() {

@@ -31,6 +31,7 @@ SOURCES += \
     view/hud/infobox.cpp \
     view/hud/iconbutton.cpp \
     view/hud/standardbutton.cpp \
+    view/hud/modal.cpp \
     \
     view/screens/gameScreen/gameview.cpp \
     view/screens/gameScreen/gamescene.cpp \
@@ -80,6 +81,7 @@ HEADERS += \
     view/hud/infobox.h \
     view/hud/iconbutton.h \
     view/hud/standardbutton.h \
+    view/hud/modal.h \
     \
     view/screens/gameScreen/gameview.h \
     view/screens/gameScreen/gamescene.h \
