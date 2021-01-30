@@ -11,7 +11,7 @@ using std::vector;
 
 namespace view {
 
-GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
+GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model), gridField(nullptr) {
     // Performance optimization
     setItemIndexMethod(QGraphicsScene::NoIndex);
 
@@ -20,14 +20,11 @@ GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
     drawBackground();
     createHUD();
 
-    gridField = new GridField(QSize(96 * 16, 96 * 9), _model->getMap(), _model->getBlockedCellsMap());
-    gridField->setPos(0, 1080 - gridField->boundingRect().height());
-    addItem(gridField);
-    connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
-
     turretSelector = new TurretSelector();
     connect(turretSelector, &TurretSelector::losedFocusSignal, this, &GameScene::closeTurretSelector);
     connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
+
+    resetField();
 }
 
 void GameScene::drawBackground() {
@@ -55,6 +52,20 @@ void GameScene::createHUD() {
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);
 
     // TODO: add menu (or back) button/signal
+}
+
+void GameScene::resetField() {
+    // TODO: TEMP. Navigation should rebuild every view every time
+
+    if (gridField) {
+        removeItem(gridField);
+        delete gridField;
+    }
+
+    gridField = new GridField(QSize(96 * 16, 96 * 9), _model->getMap(), _model->getBlockedCellsMap());
+    gridField->setPos(0, 1080 - gridField->boundingRect().height());
+    addItem(gridField);
+    connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
 }
 
 void GameScene::tick() {
@@ -126,7 +137,12 @@ void GameScene::pauseButtonPressed() {
         emit playPauseGame();
     });
 
-    connect(modal, &PauseModal::returnToMenu, this, &GameScene::returnToMenu);
+    connect(modal, &PauseModal::returnToMenu, this, [=]() {
+        removeItem(modal);
+        delete modal;
+        enemies.clear();
+        emit returnToMenu();
+    });
 
     // TODO: choose if create and delete modal everytime or add and remove it
 }

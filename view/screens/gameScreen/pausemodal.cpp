@@ -20,7 +20,6 @@ PauseModal::PauseModal(qreal width, qreal height) : Modal(width, height) {
         size.width() / 2 - menuButton->boundingRect().width() / 2,
         size.height() / 2 - menuButton->boundingRect().height() / 2 + 200);
     connect(menuButton, &StandardButton::pressed, this, &PauseModal::returnToMenu);
-    connect(menuButton, &StandardButton::pressed, this, &Modal::close);
 
     // TODO: add sound and music buttons
 

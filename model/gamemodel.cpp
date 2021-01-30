@@ -15,85 +15,95 @@ void GameModel::reset() {
     float life = 150;
 
     vector<Position> map;
+    vector<Position> blockedCellsMap;
 
-    map.push_back(Position{0, 0});
-    map.push_back(Position{1, 0});
-    map.push_back(Position{1, 1});
-    map.push_back(Position{1, 2});
+    if (_game) {
+        // Get current game map
 
-    for (U_INT i = 2; i < 7; i++) {
-        map.push_back(Position{2, i});
+        // TODO: not necessary when level selection is included
+        for (auto cell : _game->getMap()) {
+            map.push_back(cell.getPosition());
+        }
+
+        blockedCellsMap = _game->getBlockedCellsMap();
+    } else {
+        map.push_back(Position{0, 0});
+        map.push_back(Position{1, 0});
+        map.push_back(Position{1, 1});
+        map.push_back(Position{1, 2});
+
+        for (U_INT i = 2; i < 7; i++) {
+            map.push_back(Position{2, i});
+        }
+
+        map.push_back(Position{3, 6});
+        map.push_back(Position{4, 6});
+        map.push_back(Position{4, 5});
+        map.push_back(Position{4, 4});
+        map.push_back(Position{5, 4});
+        map.push_back(Position{5, 3});
+        map.push_back(Position{5, 2});
+        map.push_back(Position{6, 2});
+
+        for (U_INT i = 2; i < 8; i++) {
+            map.push_back(Position{7, i});
+        }
+
+        for (U_INT i = 8; i < 15; i++) {
+            map.push_back(Position{i, 7});
+        }
+
+        map.push_back(Position{14, 6});
+        map.push_back(Position{14, 5});
+        map.push_back(Position{14, 4});
+        map.push_back(Position{13, 4});
+        map.push_back(Position{12, 4});
+        map.push_back(Position{11, 4});
+        map.push_back(Position{11, 3});
+        map.push_back(Position{11, 2});
+
+        for (U_INT i = 11; i < 16; i++) {
+            map.push_back(Position{i, 1});
+        }
+
+        for (U_INT i = 3; i < 11; i++) {
+            blockedCellsMap.push_back(Position{i, 0});
+        }
+
+        for (U_INT i = 5; i < 9; i++) {
+            blockedCellsMap.push_back(Position{0, i});
+        }
+
+        for (U_INT i = 3; i < 7; i++) {
+            blockedCellsMap.push_back(Position{9, i});
+        }
+
+        for (U_INT i = 12; i < 16; i++) {
+            blockedCellsMap.push_back(Position{i, 8});
+        }
+
+        blockedCellsMap.push_back(Position{0, 1});
+        blockedCellsMap.push_back(Position{1, 3});
+        blockedCellsMap.push_back(Position{1, 8});
+        blockedCellsMap.push_back(Position{2, 8});
+        blockedCellsMap.push_back(Position{3, 4});
+        blockedCellsMap.push_back(Position{3, 7});
+        blockedCellsMap.push_back(Position{4, 2});
+        blockedCellsMap.push_back(Position{6, 1});
+        blockedCellsMap.push_back(Position{6, 7});
+        blockedCellsMap.push_back(Position{6, 3});
+        blockedCellsMap.push_back(Position{7, 1});
+        blockedCellsMap.push_back(Position{8, 2});
+        blockedCellsMap.push_back(Position{8, 3});
+        blockedCellsMap.push_back(Position{10, 6});
+        blockedCellsMap.push_back(Position{12, 2});
+        blockedCellsMap.push_back(Position{12, 5});
+        blockedCellsMap.push_back(Position{14, 3});
+        blockedCellsMap.push_back(Position{15, 0});
+        blockedCellsMap.push_back(Position{15, 2});
+        blockedCellsMap.push_back(Position{15, 3});
+        blockedCellsMap.push_back(Position{15, 7});
     }
-
-    map.push_back(Position{3, 6});
-    map.push_back(Position{4, 6});
-    map.push_back(Position{4, 5});
-    map.push_back(Position{4, 4});
-    map.push_back(Position{5, 4});
-    map.push_back(Position{5, 3});
-    map.push_back(Position{5, 2});
-    map.push_back(Position{6, 2});
-
-    for (U_INT i = 2; i < 8; i++) {
-        map.push_back(Position{7, i});
-    }
-
-    for (U_INT i = 8; i < 15; i++) {
-        map.push_back(Position{i, 7});
-    }
-
-    map.push_back(Position{14, 6});
-    map.push_back(Position{14, 5});
-    map.push_back(Position{14, 4});
-    map.push_back(Position{13, 4});
-    map.push_back(Position{12, 4});
-    map.push_back(Position{11, 4});
-    map.push_back(Position{11, 3});
-    map.push_back(Position{11, 2});
-
-    for (U_INT i = 11; i < 16; i++) {
-        map.push_back(Position{i, 1});
-    }
-
-    vector<Position> blockTurret;
-
-    for (U_INT i = 3; i < 11; i++) {
-        blockTurret.push_back(Position{i, 0});
-    }
-
-    for (U_INT i = 5; i < 9; i++) {
-        blockTurret.push_back(Position{0, i});
-    }
-
-    for (U_INT i = 3; i < 7; i++) {
-        blockTurret.push_back(Position{9, i});
-    }
-
-    for (U_INT i = 12; i < 16; i++) {
-        blockTurret.push_back(Position{i, 8});
-    }
-
-    blockTurret.push_back(Position{0, 1});
-    blockTurret.push_back(Position{1, 3});
-    blockTurret.push_back(Position{1, 8});
-    blockTurret.push_back(Position{2, 8});
-    blockTurret.push_back(Position{3, 4});
-    blockTurret.push_back(Position{3, 7});
-    blockTurret.push_back(Position{4, 2});
-    blockTurret.push_back(Position{6, 1});
-    blockTurret.push_back(Position{6, 7});
-    blockTurret.push_back(Position{6, 3});
-    blockTurret.push_back(Position{7, 1});
-    blockTurret.push_back(Position{8, 2});
-    blockTurret.push_back(Position{8, 3});
-    blockTurret.push_back(Position{10, 6});
-    blockTurret.push_back(Position{12, 2});
-    blockTurret.push_back(Position{12, 5});
-    blockTurret.push_back(Position{14, 3});
-    blockTurret.push_back(Position{15, 0});
-    blockTurret.push_back(Position{15, 2});
-    blockTurret.push_back(Position{15, 3});
-    blockTurret.push_back(Position{15, 7});
 
     vector<Wave> wave;
 
@@ -111,7 +121,7 @@ void GameModel::reset() {
         delete _game;
     }
 
-    _game = new Game(credits, life, map, blockTurret, wave, Direction::Left);
+    _game = new Game(credits, life, map, blockedCellsMap, wave, Direction::Left);
 }
 
 SharedPtr<Turret> GameModel::addTurret(TurretType type, Position p) {
