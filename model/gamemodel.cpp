@@ -2,7 +2,15 @@
 
 namespace model {
 
-GameModel::GameModel() {
+GameModel::GameModel() : _game(nullptr) {
+    reset();
+}
+
+Game::State GameModel::tick() {
+    return _game->tick();
+}
+
+void GameModel::reset() {
     U_INT credits = 500;
     float life = 150;
 
@@ -99,15 +107,11 @@ GameModel::GameModel() {
     wave.push_back(Wave{300, 60, 50, 8, 10, 60});
     */
 
+    if (_game) {
+        delete _game;
+    }
+
     _game = new Game(credits, life, map, blockTurret, wave, Direction::Left);
-}
-
-Game::State GameModel::tick() {
-    return _game->tick();
-}
-
-void GameModel::reset() {
-    // TODO
 }
 
 SharedPtr<Turret> GameModel::addTurret(TurretType type, Position p) {

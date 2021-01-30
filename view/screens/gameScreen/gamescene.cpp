@@ -120,7 +120,7 @@ void GameScene::pauseButtonPressed() {
 
     PauseModal* modal = new PauseModal(width(), height());
     addItem(modal);
-    connect(modal, &PauseModal::close, this, [=]() {
+    connect(modal, &Modal::close, this, [=]() {
         removeItem(modal);
         delete modal;
         emit playPauseGame();

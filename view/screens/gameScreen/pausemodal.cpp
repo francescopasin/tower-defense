@@ -15,14 +15,16 @@ PauseModal::PauseModal(qreal width, qreal height) : Modal(width, height) {
         size.height() / 2 - resumeButton->boundingRect().height() / 2);
     connect(resumeButton, &StandardButton::pressed, this, &Modal::close);
 
-    StandardButton *menu = new StandardButton("MENU", this);
-    menu->setPos(
-        size.width() / 2 - menu->boundingRect().width() / 2,
-        size.height() / 2 - menu->boundingRect().height() / 2 + 100);
-    connect(menu, &StandardButton::pressed, this, &Modal::close);
-    connect(menu, &StandardButton::pressed, this, &PauseModal::returnToMenu);
+    StandardButton *menuButton = new StandardButton("MENU", this);
+    menuButton->setPos(
+        size.width() / 2 - menuButton->boundingRect().width() / 2,
+        size.height() / 2 - menuButton->boundingRect().height() / 2 + 200);
+    connect(menuButton, &StandardButton::pressed, this, &PauseModal::returnToMenu);
+    connect(menuButton, &StandardButton::pressed, this, &Modal::close);
 
     // TODO: add sound and music buttons
+
+    // TODO: fix buttons transforms
 }
 
 void PauseModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {

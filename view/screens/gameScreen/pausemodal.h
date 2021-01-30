@@ -1,11 +1,13 @@
-#ifndef VIEW_PauseModal_H_
-#define VIEW_PauseModal_H_
+#ifndef VIEW_PAUSEMODAL_H_
+#define VIEW_PAUSEMODAL_H_
 
 #include "view/hud/modal.h"
 
 namespace view {
 
 class PauseModal : public Modal {
+    Q_OBJECT
+
    protected:
     virtual void paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
