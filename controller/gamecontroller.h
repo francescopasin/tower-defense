@@ -31,6 +31,8 @@ class GameController : public QObject {
     GameController(const SP<model::GameModel>& model, const SP<view::GameScene>& view);
 
    public slots:
+    void resetGame();
+
     void gameTick();
     void viewTick();
 

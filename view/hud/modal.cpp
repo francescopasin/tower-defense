@@ -11,6 +11,7 @@ Modal::Modal(qreal width, qreal height, bool closeOnClick) : _closeOnClick(close
     size.setHeight(height);
 
     setZValue(9999);
+    setAcceptHoverEvents(true);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
@@ -21,15 +22,14 @@ QRectF Modal::boundingRect() const {
 }
 
 void Modal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
     QBrush brush(QColor::fromRgb(0, 0, 0, 200));
 
     painter->setPen(Qt::NoPen);
     painter->setBrush(brush);
 
     painter->drawRect(0, 0, size.width(), size.height());
+
+    paintContent(painter, option, widget);
 }
 
 void Modal::mousePressEvent(QGraphicsSceneMouseEvent *event) {

@@ -9,11 +9,13 @@ class Modal : public QObject, public QGraphicsItem {
     Q_OBJECT
 
    private:
-    QSizeF size;
     bool _closeOnClick;
 
    protected:
+    QSizeF size;
+
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    virtual void paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
 
    public:
     Modal(qreal width, qreal height, bool closeOnClick = false);

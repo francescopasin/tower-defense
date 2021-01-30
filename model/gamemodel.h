@@ -18,6 +18,8 @@ class GameModel {
     GameModel();
     Game::State tick();
 
+    void reset();
+
     SharedPtr<Turret> addTurret(TurretType type, Position p);
     void removeTurret(Position p);
 

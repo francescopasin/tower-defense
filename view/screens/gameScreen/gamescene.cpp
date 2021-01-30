@@ -4,8 +4,8 @@
 #include <algorithm>
 
 #include "view/hud/iconbutton.h"
-#include "view/hud/modal.h"
 #include "view/screens/gameScreen/gridfield.h"
+#include "view/screens/gameScreen/pausemodal.h"
 
 using std::vector;
 
@@ -47,19 +47,14 @@ void GameScene::createHUD() {
     IconButton* pauseButton = new IconButton(":/assets/images/pause-button-idle.png", ":/assets/images/pause-button-pressed.png");
     pauseButton->setPos(1400, 25);
     addItem(pauseButton);
-    connect(pauseButton, &IconButton::pressed, this, &GameScene::playPauseButtonPressed);
+    connect(pauseButton, &IconButton::pressed, this, &GameScene::pauseButtonPressed);
 
     IconButton* fastForwardButton = new IconButton(":/assets/images/fast-forward-button-idle.png", ":/assets/images/fast-forward-button-pressed.png");
     fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
     addItem(fastForwardButton);
-    connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardButtonPressed);
+    connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);
 
     // TODO: add menu (or back) button/signal
-
-    // TODO: TEMP
-    Modal* modal = new Modal(width(), height(), true);
-    addItem(modal);
-    connect(modal, &Modal::close, this, [=]() {removeItem(modal); delete modal; });
 }
 
 void GameScene::tick() {
@@ -118,6 +113,22 @@ void GameScene::addTurret(model::TurretType turretType) {
 
 void GameScene::updateGrid() {
     gridField->updateGrid();
+}
+
+void GameScene::pauseButtonPressed() {
+    emit playPauseGame();
+
+    PauseModal* modal = new PauseModal(width(), height());
+    addItem(modal);
+    connect(modal, &PauseModal::close, this, [=]() {
+        removeItem(modal);
+        delete modal;
+        emit playPauseGame();
+    });
+
+    connect(modal, &PauseModal::returnToMenu, this, &GameScene::returnToMenu);
+
+    // TODO: choose if create and delete modal everytime or add and remove it
 }
 
 }  // namespace view

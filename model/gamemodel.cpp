@@ -106,6 +106,10 @@ Game::State GameModel::tick() {
     return _game->tick();
 }
 
+void GameModel::reset() {
+    // TODO
+}
+
 SharedPtr<Turret> GameModel::addTurret(TurretType type, Position p) {
     return _game->addTurret(type, p);
 }

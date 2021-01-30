@@ -41,6 +41,7 @@ SOURCES += \
     view/screens/gameScreen/gridfield.cpp \
     view/screens/gameScreen/turretselector.cpp \
     view/screens/gameScreen/turretselectoritem.cpp \
+    view/screens/gameScreen/pausemodal.cpp \
     \
     view/screens/initialScreen/initialscreenview.cpp \
     view/screens/initialScreen/initialscreenscene.cpp \
@@ -92,6 +93,7 @@ HEADERS += \
     view/screens/gameScreen/gridfield.h \
     view/screens/gameScreen/turretselector.h \
     view/screens/gameScreen/turretselectoritem.h \
+    view/screens/gameScreen/pausemodal.h \
     \
     view/screens/initialScreen/initialscreenview.h \
     view/screens/initialScreen/initialscreenscene.h \

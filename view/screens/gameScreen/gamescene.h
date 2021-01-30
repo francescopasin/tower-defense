@@ -50,12 +50,14 @@ class GameScene : public QGraphicsScene {
     void closeTurretSelector();
     void addTurret(model::TurretType turretType);
     void updateGrid();
+    void pauseButtonPressed();
 
    signals:
-    void playPauseButtonPressed();
-    void fastForwardButtonPressed();
+    void playPauseGame();
+    void fastForwardGame();
     void addTurretSignal(model::Position position, model::TurretType turretType);
     void removeTurretSignal(model::Position position);
+    void returnToMenu();
 };
 
 }  // namespace view

@@ -16,7 +16,7 @@ class StandardButton : public QObject, public QGraphicsItem {
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
    public:
-    StandardButton(const QString &text);
+    StandardButton(const QString &text, QGraphicsItem *parent = nullptr);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
