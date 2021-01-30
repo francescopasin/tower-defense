@@ -22,6 +22,11 @@ void GameController::gameTick() {
     }
 }
 
+void GameController::resetGame() {
+    _model->reset();
+    _view->resetField();
+}
+
 void GameController::viewTick() {
     _view->tick();
 }

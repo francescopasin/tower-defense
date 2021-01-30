@@ -49,13 +49,27 @@ int main(int argc, char *argv[]) {
     // ========================================================================
     QObject::connect(
         gameScene.get(),
-        &view::GameScene::playPauseButtonPressed,
+        &view::GameScene::playPauseGame,
         gameController,
         &controller::GameController::playPause);
 
     QObject::connect(
         gameScene.get(),
-        &view::GameScene::fastForwardButtonPressed,
+        &view::GameScene::returnToMenu,
+        navigationController,
+        [=]() { navigationController->navigateTo(app::Routes::InitialScreen); });
+
+    QObject::connect(
+        gameScene.get(),
+        &view::GameScene::returnToMenu,
+        gameController,
+        &controller::GameController::resetGame);
+
+    // TODO: reset game scene
+
+    QObject::connect(
+        gameScene.get(),
+        &view::GameScene::fastForwardGame,
         gameController,
         &controller::GameController::fastForward);
 
@@ -70,6 +84,12 @@ int main(int argc, char *argv[]) {
         &view::GameScene::removeTurretSignal,
         gameController,
         &controller::GameController::removeTurret);
+
+    QObject::connect(
+        initialScreenScene.get(),
+        &view::InitialScreenScene::startButtonPressed,
+        gameController,
+        &controller::GameController::playPause);
 
     QObject::connect(
         initialScreenScene.get(),
@@ -100,8 +120,6 @@ int main(int argc, char *argv[]) {
         &view::SetMapScene::backButtonPressed,
         navigationController,
         [=]() { navigationController->back(); });
-
-    // TODO: connect start button to game controller start
 
     // Start application
     window->show();

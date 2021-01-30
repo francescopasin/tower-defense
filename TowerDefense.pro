@@ -31,6 +31,7 @@ SOURCES += \
     view/hud/infobox.cpp \
     view/hud/iconbutton.cpp \
     view/hud/standardbutton.cpp \
+    view/hud/modal.cpp \
     \
     view/screens/gameScreen/gameview.cpp \
     view/screens/gameScreen/gamescene.cpp \
@@ -40,6 +41,7 @@ SOURCES += \
     view/screens/gameScreen/gridfield.cpp \
     view/screens/gameScreen/turretselector.cpp \
     view/screens/gameScreen/turretselectoritem.cpp \
+    view/screens/gameScreen/pausemodal.cpp \
     \
     view/screens/initialScreen/initialscreenview.cpp \
     view/screens/initialScreen/initialscreenscene.cpp \
@@ -80,6 +82,7 @@ HEADERS += \
     view/hud/infobox.h \
     view/hud/iconbutton.h \
     view/hud/standardbutton.h \
+    view/hud/modal.h \
     \
     view/screens/gameScreen/gameview.h \
     view/screens/gameScreen/gamescene.h \
@@ -90,6 +93,7 @@ HEADERS += \
     view/screens/gameScreen/gridfield.h \
     view/screens/gameScreen/turretselector.h \
     view/screens/gameScreen/turretselectoritem.h \
+    view/screens/gameScreen/pausemodal.h \
     \
     view/screens/initialScreen/initialscreenview.h \
     view/screens/initialScreen/initialscreenscene.h \

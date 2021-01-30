@@ -5,12 +5,13 @@
 
 #include "view/hud/iconbutton.h"
 #include "view/screens/gameScreen/gridfield.h"
+#include "view/screens/gameScreen/pausemodal.h"
 
 using std::vector;
 
 namespace view {
 
-GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
+GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model), gridField(nullptr) {
     // Performance optimization
     setItemIndexMethod(QGraphicsScene::NoIndex);
 
@@ -19,14 +20,11 @@ GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
     drawBackground();
     createHUD();
 
-    gridField = new GridField(QSize(96 * 16, 96 * 9), _model->getMap(), _model->getBlockedCellsMap());
-    gridField->setPos(0, 1080 - gridField->boundingRect().height());
-    addItem(gridField);
-    connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
-
     turretSelector = new TurretSelector();
     connect(turretSelector, &TurretSelector::losedFocusSignal, this, &GameScene::closeTurretSelector);
     connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
+
+    resetField();
 }
 
 void GameScene::drawBackground() {
@@ -43,19 +41,31 @@ void GameScene::createHUD() {
     lifeInfo->setPos(10, 75);
     addItem(lifeInfo);
 
-    IconButton* playPauseButton = new IconButton(":/assets/images/play-button-idle.png", ":/assets/images/play-button-pressed.png");
-    playPauseButton->setPos(1400, 25);
-    addItem(playPauseButton);
-    connect(playPauseButton, &IconButton::pressed, this, &GameScene::playPauseButtonPressed);
+    IconButton* pauseButton = new IconButton(":/assets/images/pause-button-idle.png", ":/assets/images/pause-button-pressed.png");
+    pauseButton->setPos(1400, 25);
+    addItem(pauseButton);
+    connect(pauseButton, &IconButton::pressed, this, &GameScene::pauseButtonPressed);
 
     IconButton* fastForwardButton = new IconButton(":/assets/images/fast-forward-button-idle.png", ":/assets/images/fast-forward-button-pressed.png");
     fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
     addItem(fastForwardButton);
-    connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardButtonPressed);
+    connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);
 
-    // TODO: add addturret signal
-    // TODO: add removeturret signal
     // TODO: add menu (or back) button/signal
+}
+
+void GameScene::resetField() {
+    // TODO: TEMP. Navigation should rebuild every view every time
+
+    if (gridField) {
+        removeItem(gridField);
+        delete gridField;
+    }
+
+    gridField = new GridField(QSize(96 * 16, 96 * 9), _model->getMap(), _model->getBlockedCellsMap());
+    gridField->setPos(0, 1080 - gridField->boundingRect().height());
+    addItem(gridField);
+    connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
 }
 
 void GameScene::tick() {
@@ -114,6 +124,27 @@ void GameScene::addTurret(model::TurretType turretType) {
 
 void GameScene::updateGrid() {
     gridField->updateGrid();
+}
+
+void GameScene::pauseButtonPressed() {
+    emit playPauseGame();
+
+    PauseModal* modal = new PauseModal(width(), height());
+    addItem(modal);
+    connect(modal, &Modal::close, this, [=]() {
+        removeItem(modal);
+        delete modal;
+        emit playPauseGame();
+    });
+
+    connect(modal, &PauseModal::returnToMenu, this, [=]() {
+        removeItem(modal);
+        delete modal;
+        enemies.clear();
+        emit returnToMenu();
+    });
+
+    // TODO: choose if create and delete modal everytime or add and remove it
 }
 
 }  // namespace view
