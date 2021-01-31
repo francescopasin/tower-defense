@@ -1,4 +1,4 @@
-#include "controller/setmapcontroller.h"
+#include "controller/setmapscreencontroller.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -9,14 +9,31 @@
 #include <QMessageBox>
 #include <exception>
 
+#include "app/routes.h"
 #include "model/gamemodel.h"
 #include "view/hud/standardbutton.h"
+#include "view/screens/setMapScreen/setmapview.h"
 
 namespace controller {
 
-SetMapController::SetMapController(const SP<model::GameModel>& model, const SP<view::SetMapScene>& viewSetMap, const SP<view::GameScene>& viewGamme) : _model(model), _viewSetMap(viewSetMap), _viewGame(viewGamme) {}
+SetMapScreenController::SetMapScreenController(const SP<model::GameModel>& model) : Controller(model) {
+    _scene = new view::SetMapScene();
+    _view = new view::SetMapView(_scene);
 
-void SetMapController::saveToFile(const vector<view::SetMapCell*>* cells) {
+    connect(
+        _scene,
+        &view::SetMapScene::saveButtonPressed,
+        this,
+        &controller::SetMapScreenController::saveToFile);
+
+    connect(
+        _scene,
+        &view::SetMapScene::backButtonPressed,
+        this,
+        [=]() { emit navigateTo(app::Routes::InitialScreen); });
+}
+
+void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) {
     QString fileName = QFileDialog::getSaveFileName(nullptr, tr("Save Game Path"), "", tr("CPP Game Path(*.cppmap)"));
 
     if (fileName.isEmpty())
@@ -86,7 +103,7 @@ void SetMapController::saveToFile(const vector<view::SetMapCell*>* cells) {
     }
 }
 
-vector<model::Position> SetMapController::createPath(model::Position start, const vector<view::SetMapCell*>* cells) {
+vector<model::Position> SetMapScreenController::createPath(model::Position start, const vector<view::SetMapCell*>* cells) {
     vector<model::Position> vett;
 
     model::Position current = start;
@@ -159,52 +176,6 @@ vector<model::Position> SetMapController::createPath(model::Position start, cons
         }
     }
     return vett;
-}
-
-void SetMapController::uploadFromFile() {
-    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Load a Game Path"), "", tr("CPP Game Path(*.cppmap)"));
-    vector<model::Position> pathPosition;
-    vector<model::Position> blockedPosition;
-
-    if (fileName.isEmpty())
-        return;
-    else {
-        QFile file(fileName);
-
-        if (!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(nullptr, tr("Unable to open file"), file.errorString());
-            return;
-        }
-
-        QDataStream in(&file);
-        in.setVersion(QDataStream::Qt_4_5);
-
-        QJsonObject json;
-
-        in >> json;
-
-        if (json.isEmpty()) {
-            QMessageBox::information(nullptr, tr("No positions in file"), tr("The file you are attempting to open contains no position."));
-        } else {
-            QJsonArray pathJson = json["pathPosition"].toArray();
-            for (auto i : pathJson) {
-                pathPosition.push_back(model::Position{static_cast<U_INT>((i.toObject())["x"].toInt()), static_cast<U_INT>((i.toObject())["y"].toInt())});
-            }
-            QJsonArray blockedJson = json["blockedPosition"].toArray();
-            for (auto i : blockedJson) {
-                blockedPosition.push_back(model::Position{static_cast<U_INT>((i.toObject())["x"].toInt()), static_cast<U_INT>((i.toObject())["y"].toInt())});
-            }
-
-            try {
-                _model->setMap(pathPosition, model::Direction::Left);
-                _model->setBlocked(blockedPosition);
-
-                _viewGame->updateGrid();
-            } catch (std::exception* e) {
-                QMessageBox::information(nullptr, tr("Path Error"), e->what());  // TODO: ERROR MODAL
-            }
-        }
-    }
 }
 
 }  // namespace controller

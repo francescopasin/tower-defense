@@ -3,25 +3,37 @@
 
 #include <QMainWindow>
 #include <QStackedWidget>
+#include <QVBoxLayout>
+#include <memory>
 #include <vector>
 
 #include "app/routes.h"
-#include "view/screens/gameScreen/gameview.h"
+#include "controller/controller.h"
+#include "model/gamemodel.h"
 
+using std::shared_ptr;
 using std::vector;
+
+#define SP shared_ptr
 
 namespace view {
 
 class MainWindow : public QMainWindow {
+    Q_OBJECT
+
    private:
-    QStackedWidget *stack;
+    SP<model::GameModel> _model;
+    QWidget *central;
+    QVBoxLayout *centralLayout;
+    controller::Controller *currentViewController;
 
     void closeEvent(QCloseEvent *event) override;
     void readSettings();
 
    public:
-    MainWindow(const vector<QWidget *> &screens);
+    MainWindow(SP<model::GameModel> model);
 
+   public slots:
     void setScreen(app::Routes route);
 };
 

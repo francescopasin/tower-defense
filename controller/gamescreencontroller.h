@@ -4,39 +4,39 @@
 #include <QTimer>
 #include <memory>
 
-#include "model/gamemodel.h"
+#include "controller/controller.h"
 #include "model/position.h"
 #include "model/turrets/turrettype.h"
 #include "view/screens/gameScreen/gamescene.h"
 
 using std::shared_ptr;
-
 #define SP shared_ptr
 
 namespace controller {
 
-class GameController : public QObject {
+class GameScreenController : public Controller {
     Q_OBJECT
 
    private:
-    SP<model::GameModel> _model;
-    SP<view::GameScene> _view;
+    view::GameScene* _scene;
 
     QTimer* gameTimer;
     QTimer* renderTimer;
     bool isRunning;
     bool isFastForward;
 
+    void start();
+
    public:
-    GameController(const SP<model::GameModel>& model, const SP<view::GameScene>& view);
+    GameScreenController(const SP<model::GameModel>& model);
+    virtual ~GameScreenController() = default;
 
    public slots:
-    void resetGame();
+    void returnToMenu();
 
     void gameTick();
     void viewTick();
 
-    void start();
     void playPause();
     void fastForward();
 

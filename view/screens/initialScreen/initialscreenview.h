@@ -2,22 +2,17 @@
 #define VIEW_INITIALSCREENVIEW_H_
 
 #include <QGraphicsView>
-#include <memory>
 
 #include "view/screens/initialScreen/initialscreenscene.h"
-
-using std::shared_ptr;
-
-#define SP shared_ptr
 
 namespace view {
 
 class InitialScreenView : public QGraphicsView {
    private:
-    SP<InitialScreenScene> _scene;
+    InitialScreenScene* _scene;
 
    public:
-    InitialScreenView(const SP<InitialScreenScene>& scene);
+    InitialScreenView(InitialScreenScene* scene);
 
    protected:
     void resizeEvent(QResizeEvent* event) override;

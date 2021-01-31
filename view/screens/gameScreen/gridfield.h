@@ -41,7 +41,6 @@ class GridField : public QObject, public QGraphicsItem {
 
    public slots:
     void selectCell(GridCell *cell);
-    void updateGrid();
 
    signals:
     void cellPressed(GridCellType cellType, model::Position cellPosition);

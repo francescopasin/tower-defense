@@ -41,7 +41,6 @@ class GameScene : public QGraphicsScene {
    public:
     GameScene(const SP<const model::GameModel>& model);
 
-    void resetField();
     void tick();
     void spawnEnemy(const SP<model::Enemy>& enemy);
     void addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType);
@@ -50,7 +49,6 @@ class GameScene : public QGraphicsScene {
     void gridCellPressed(GridCellType cellType, model::Position cellPosition);
     void closeTurretSelector();
     void addTurret(model::TurretType turretType);
-    void updateGrid();
     void pauseButtonPressed();
 
    signals:
