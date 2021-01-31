@@ -29,7 +29,9 @@ class TurretItem : public QGraphicsItem {
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     model::Position getGridPosition() const;
-    void tick();
+    void attack();
+
+    bool hasTurretData(const model::SharedPtr<model::Turret> &turret) const;
 };
 
 }  // namespace view

@@ -28,6 +28,8 @@ class Turret {
     float _attackCooldown;
     U_INT _attackCooldownCounter;
 
+    bool _hasAttackedLastTick;
+
     vector<SP<Enemy>>
     getEnemiesInRadius() const;
 
@@ -38,13 +40,14 @@ class Turret {
         const SP<vector<SP<Enemy>>>& enemies);
     virtual ~Turret() = default;
 
-    virtual void attack();
+    virtual bool attack();
 
     virtual vector<SP<Enemy>> getTargetedEnemies() const = 0;
 
     Position getPosition() const;
 
     U_INT getCost() const;
+    bool hasAttackedLastTick() const;
 };
 
 }  // namespace model

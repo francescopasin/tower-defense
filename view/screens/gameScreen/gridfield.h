@@ -37,6 +37,7 @@ class GridField : public QObject, public QGraphicsItem {
 
     model::Position getSelectedCellPosition() const;
 
+    void turretsAttack(const vector<model::SharedPtr<model::Turret>> &attackingTurrets);
     void addTurretItem(const model::SharedPtr<model::Turret> &turret, model::TurretType turretType);
 
    public slots:

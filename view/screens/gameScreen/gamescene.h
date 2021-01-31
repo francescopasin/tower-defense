@@ -43,6 +43,7 @@ class GameScene : public QGraphicsScene {
 
     void tick();
     void spawnEnemy(const SP<model::Enemy>& enemy);
+    void turretsAttack(const vector<model::SharedPtr<model::Turret>>& attackingTurrets);
     void addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType);
 
    public slots:

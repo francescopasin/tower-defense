@@ -1,5 +1,6 @@
 #include "view/screens/gameScreen/turretitem.h"
 
+#include <QDebug>
 #include <QPainter>
 
 #include "model/turrets/turrettype.h"
@@ -87,10 +88,13 @@ model::Position TurretItem::getGridPosition() const {
     return turretData->getPosition();
 }
 
-void TurretItem::tick() {
-    // TODO: attack
+void TurretItem::attack() {
+    // TODO
+    qDebug() << "ATTACK";
+}
 
-    //update();
+bool TurretItem::hasTurretData(const model::SharedPtr<model::Turret> &turret) const {
+    return turret == turretData;
 }
 
 }  // namespace view

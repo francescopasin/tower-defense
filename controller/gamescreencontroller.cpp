@@ -1,8 +1,12 @@
 #include "controller/gamescreencontroller.h"
 
+#include <vector>
+
 #include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 #include "view/screens/gameScreen/gameview.h"
+
+using std::vector;
 
 namespace controller {
 
@@ -63,8 +67,14 @@ void GameScreenController::gameTick() {
     _model->tick();
 
     SP<model::Enemy> newEnemy = _model->lastTickSpawnedEnemy();
+    vector<model::SharedPtr<model::Turret>> lastTickAttackingTurrets = _model->lastTickAttackingTurrets();
+
     if (newEnemy) {
         _scene->spawnEnemy(newEnemy);
+    }
+
+    if (lastTickAttackingTurrets.size() > 0) {
+        _scene->turretsAttack(lastTickAttackingTurrets);
     }
 }
 

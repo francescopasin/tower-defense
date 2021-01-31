@@ -79,6 +79,10 @@ void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
     enemies.push_back(en);
 }
 
+void GameScene::turretsAttack(const vector<model::SharedPtr<model::Turret>>& attackingTurrets) {
+    gridField->turretsAttack(attackingTurrets);
+}
+
 void GameScene::addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType) {
     closeTurretSelector();
     gridField->addTurretItem(turret, turretType);

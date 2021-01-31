@@ -208,6 +208,18 @@ void GridField::selectCell(GridCell *cell) {
     }
 }
 
+void GridField::turretsAttack(const vector<model::SharedPtr<model::Turret>> &attackingTurrets) {
+    for (auto turret : attackingTurrets) {
+        // Find associated TurretItem
+        for (auto turretItem : turrets) {
+            if (turretItem->hasTurretData(turret)) {
+                // Attack
+                turretItem->attack();
+            }
+        }
+    }
+}
+
 void GridField::addTurretItem(const model::SharedPtr<model::Turret> &turret, model::TurretType turretType) {
     // Set cell as occupied
     for (auto c : interactiveCells) {
