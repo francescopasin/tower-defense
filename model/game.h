@@ -36,7 +36,10 @@ class Game {
     vector<Position> _blockedCellsMap;
     MyList<SharedPtr<Turret>> _turrets;
     SP<vector<SP<Enemy>>> _enemies;
+
     SP<Enemy> _lastTickSpawnedEnemy;
+    vector<SharedPtr<Turret>> _lastTickAttackingTurrets;
+
     vector<Wave> _waves;
     vector<Wave>::iterator _currentWave;
     State _currentState;
@@ -59,6 +62,7 @@ class Game {
     void removeTurret(Position p);
 
     SP<Enemy> lastTickSpawnedEnemy() const;
+    vector<SharedPtr<Turret>> lastTickAttackingTurrets() const;
 
     void setMap(vector<Position>& map, Direction first);
     void setBlocked(vector<Position>& map);

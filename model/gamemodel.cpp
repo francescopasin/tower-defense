@@ -136,6 +136,10 @@ SP<Enemy> GameModel::lastTickSpawnedEnemy() const {
     return _game->lastTickSpawnedEnemy();
 }
 
+vector<SharedPtr<Turret>> GameModel::lastTickAttackingTurrets() const {
+    return _game->lastTickAttackingTurrets();
+}
+
 U_INT GameModel::getCredits() const {
     return _game->getCredits();
 }

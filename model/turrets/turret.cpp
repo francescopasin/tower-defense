@@ -11,7 +11,8 @@ Turret::Turret(
       _enemies(enemies),
       _attackDamage(_stats.initialAttackDamage),
       _attackCooldown(_stats.initialAttackCooldown),
-      _attackCooldownCounter(_stats.initialAttackCooldown) {}
+      _attackCooldownCounter(_stats.initialAttackCooldown),
+      _hasAttackedLastTick(false) {}
 
 vector<SP<Enemy>> Turret::getEnemiesInRadius() const {
     vector<SP<Enemy>> enemies = vector<SP<Enemy>>();
@@ -29,7 +30,8 @@ vector<SP<Enemy>> Turret::getEnemiesInRadius() const {
     return enemies;
 }
 
-void Turret::attack() {
+// Return if the turret has attacked or not
+bool Turret::attack() {
     vector<SP<Enemy>> enemies = getTargetedEnemies();
 
     if (enemies.size() != 0) {
@@ -40,10 +42,16 @@ void Turret::attack() {
             }
             // Reset cooldown
             _attackCooldownCounter = _attackCooldown;
+            _hasAttackedLastTick = true;
+
+            return true;
         } else {
             _attackCooldownCounter--;
+            _hasAttackedLastTick = false;
         }
     }
+
+    return false;
 }
 
 Position Turret::getPosition() const {
@@ -52,6 +60,10 @@ Position Turret::getPosition() const {
 
 U_INT Turret::getCost() const {
     return _stats.cost;
+}
+
+bool Turret::hasAttackedLastTick() const {
+    return _hasAttackedLastTick;
 }
 
 }  // namespace model

@@ -20,7 +20,7 @@ class ComboTurret : public SingularTargetTurret {
     ComboTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies);
     virtual ~ComboTurret() = default;
 
-    virtual void attack() override;
+    virtual bool attack() override;
 };
 
 }  // namespace model

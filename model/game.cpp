@@ -222,8 +222,16 @@ void Game::spawnEnemy() {
 }
 
 void Game::attack() {
+    bool hasAttacked;
+
+    _lastTickAttackingTurrets.clear();
+
     for (auto i = _turrets.begin(); i != _turrets.end(); ++i) {
-        (*i)->attack();
+        hasAttacked = (*i)->attack();
+
+        if (hasAttacked) {
+            _lastTickAttackingTurrets.push_back(*i);
+        }
     }
 }
 
@@ -261,6 +269,10 @@ Game::State Game::tick() {
 
 SP<Enemy> Game::lastTickSpawnedEnemy() const {
     return _lastTickSpawnedEnemy;
+}
+
+vector<SharedPtr<Turret>> Game::lastTickAttackingTurrets() const {
+    return _lastTickAttackingTurrets;
 }
 
 std::string Game::validateMap(vector<Position>& map) {

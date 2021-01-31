@@ -131,4 +131,8 @@ bool EnemyItem::isDead() const {
     return false;
 }
 
+bool EnemyItem::hasEnemyData(const SP<model::Enemy> &enemy) const {
+    return enemy == enemyData;
+}
+
 }  // namespace view

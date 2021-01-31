@@ -19,7 +19,7 @@ class SplitTurret : public MultipleTargetTurret {
     SplitTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies);
     virtual ~SplitTurret() = default;
 
-    virtual void attack() override;
+    virtual bool attack() override;
 };
 
 }  // namespace model

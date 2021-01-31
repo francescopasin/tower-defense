@@ -7,7 +7,7 @@ namespace model {
 ComboTurret::ComboTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies)
     : SingularTargetTurret(TurretType::ComboTurret, position, enemies), _attackMultiplier(1) {}
 
-void ComboTurret::attack() {
+bool ComboTurret::attack() {
     vector<SP<Enemy>> enemies = getTargetedEnemies();
 
     if (enemies.size() != 0) {
@@ -21,8 +21,10 @@ void ComboTurret::attack() {
             _attackMultiplier += 0.1;
         }
 
-        Turret::attack();
+        return Turret::attack();
     }
+
+    return false;
 }
 
 }  // namespace model

@@ -1,8 +1,12 @@
 #include "view/screens/gameScreen/turretitem.h"
 
 #include <QPainter>
+#include <memory>
 
 #include "model/turrets/turrettype.h"
+
+using std::shared_ptr;
+#define SP shared_ptr
 
 namespace view {
 
@@ -87,10 +91,31 @@ model::Position TurretItem::getGridPosition() const {
     return turretData->getPosition();
 }
 
-void TurretItem::tick() {
-    // TODO: attack
+void TurretItem::attack(const vector<EnemyItem *> &enemies) {
+    vector<SP<model::Enemy>> targetedEnemies = turretData->getTargetedEnemies();
 
-    //update();
+    for (auto enemy : targetedEnemies) {
+        // Find associated EnemyItem
+        for (auto enemyItem : enemies) {
+            if (enemyItem->hasEnemyData(enemy)) {
+                // Spawn projectile
+
+                // TODO: mapFromScene not working - calculate enemy pos relative to gridfield
+                //QPointF enemyPos = mapToParent(mapFromScene(enemyItem->pos()));
+
+                // TODO: TEMP
+                QPointF enemyPos(enemyItem->pos().x() + 50, enemyItem->pos().y() + 50);  // 50: MAGIC NUMBER
+
+                emit spawnProjectile(
+                    QPointF(pos().x() + ((_cellSize - 10) / 2), pos().y() + ((_cellSize - 10) / 2)),
+                    QPointF(enemyPos.x() + enemyItem->boundingRect().x() / 2, enemyPos.y() + enemyItem->boundingRect().y() / 2));
+            }
+        }
+    }
+}
+
+bool TurretItem::hasTurretData(const model::SharedPtr<model::Turret> &turret) const {
+    return turret == turretData;
 }
 
 }  // namespace view
