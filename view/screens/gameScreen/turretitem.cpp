@@ -99,7 +99,16 @@ void TurretItem::attack(const vector<EnemyItem *> &enemies) {
         for (auto enemyItem : enemies) {
             if (enemyItem->hasEnemyData(enemy)) {
                 // Spawn projectile
-                emit spawnProjectile(pos(), enemyItem->pos());
+
+                // TODO: mapFromScene not working - calculate enemy pos relative to gridfield
+                //QPointF enemyPos = mapToParent(mapFromScene(enemyItem->pos()));
+
+                // TODO: TEMP
+                QPointF enemyPos(enemyItem->pos().x() + 50, enemyItem->pos().y() + 50);  // 50: MAGIC NUMBER
+
+                emit spawnProjectile(
+                    QPointF(pos().x() + ((_cellSize - 10) / 2), pos().y() + ((_cellSize - 10) / 2)),
+                    QPointF(enemyPos.x() + enemyItem->boundingRect().x() / 2, enemyPos.y() + enemyItem->boundingRect().y() / 2));
             }
         }
     }

@@ -245,11 +245,13 @@ model::Position GridField::getSelectedCellPosition() const {
 }
 
 void GridField::moveProjectiles() {
-    for (auto i = projectiles.begin(); i != projectiles.end(); i++) {
+    auto i = projectiles.begin();
+    while (i != projectiles.end()) {
         if ((*i)->move()) {
             scene()->removeItem(*i);
-            projectiles.erase(i);
-            i--;
+            i = projectiles.erase(i);
+        } else {
+            i++;
         }
     }
 }

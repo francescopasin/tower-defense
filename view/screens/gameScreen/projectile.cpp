@@ -6,10 +6,12 @@ namespace view {
 
 Projectile::Projectile(QGraphicsItem *parent, const QPointF &startingPos, const QPointF &endingPos)
     : QGraphicsItem(parent), currentStep(1) {
-    setPos(startingPos);
+    QPointF realStartingPos(startingPos.x() - 5, startingPos.y() - 5);
 
-    deltaX = 1.0 / speed * (endingPos.x() - startingPos.x());
-    deltaY = 1.0 / speed * (endingPos.y() - startingPos.y());
+    setPos(realStartingPos);
+
+    deltaX = 1.0 / speed * (endingPos.x() - realStartingPos.x());
+    deltaY = 1.0 / speed * (endingPos.y() - realStartingPos.y());
 }
 
 QRectF Projectile::boundingRect() const {
@@ -20,8 +22,9 @@ void Projectile::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    painter->setPen(Qt::NoPen);
     painter->setBrush(Qt::red);
-    painter->drawRect(0, 0, 10, 10);
+    painter->drawEllipse(0, 0, 10, 10);
 }
 
 bool Projectile::move() {
@@ -29,7 +32,7 @@ bool Projectile::move() {
     QPointF currentPos = pos();
     QPointF nextPos(currentPos.x() + deltaX, currentPos.y() + deltaY);
 
-    if (currentStep == speed) {
+    if (currentStep == speed + 1) {
         // Return true if arrived
         return true;
     }
