@@ -9,8 +9,10 @@
 #include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
+#include "view/screens/gameScreen/enemyitem.h"
 #include "view/screens/gameScreen/gridcell.h"
 #include "view/screens/gameScreen/gridcelltype.h"
+#include "view/screens/gameScreen/projectile.h"
 #include "view/screens/gameScreen/turretitem.h"
 
 using std::vector;
@@ -26,6 +28,7 @@ class GridField : public QObject, public QGraphicsItem {
     const vector<model::Position> &_blockedCells;
     vector<GridCell *> interactiveCells;
     vector<TurretItem *> turrets;
+    vector<Projectile *> projectiles;
 
     void createGameGrid();
 
@@ -37,11 +40,14 @@ class GridField : public QObject, public QGraphicsItem {
 
     model::Position getSelectedCellPosition() const;
 
-    void turretsAttack(const vector<model::SharedPtr<model::Turret>> &attackingTurrets);
+    void turretsAttack(const vector<model::SharedPtr<model::Turret>> &attackingTurrets, const vector<EnemyItem *> &enemies);
     void addTurretItem(const model::SharedPtr<model::Turret> &turret, model::TurretType turretType);
+
+    void moveProjectiles();
 
    public slots:
     void selectCell(GridCell *cell);
+    void spawnProjectile(const QPointF &startingPos, const QPointF &endingPos);
 
    signals:
     void cellPressed(GridCellType cellType, model::Position cellPosition);

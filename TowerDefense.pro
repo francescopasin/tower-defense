@@ -43,6 +43,7 @@ SOURCES += \
     view/screens/gameScreen/turretselector.cpp \
     view/screens/gameScreen/turretselectoritem.cpp \
     view/screens/gameScreen/pausemodal.cpp \
+    view/screens/gameScreen/projectile.cpp \
     \
     view/screens/initialScreen/initialscreenview.cpp \
     view/screens/initialScreen/initialscreenscene.cpp \
@@ -96,6 +97,7 @@ HEADERS += \
     view/screens/gameScreen/turretselector.h \
     view/screens/gameScreen/turretselectoritem.h \
     view/screens/gameScreen/pausemodal.h \
+    view/screens/gameScreen/projectile.h \
     \
     view/screens/initialScreen/initialscreenview.h \
     view/screens/initialScreen/initialscreenscene.h \

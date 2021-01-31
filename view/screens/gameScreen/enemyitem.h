@@ -27,6 +27,8 @@ class EnemyItem : public QGraphicsItem {
 
     void tick();
     bool isDead() const;
+
+    bool hasEnemyData(const SP<model::Enemy> &enemy) const;
 };
 
 }  // namespace view

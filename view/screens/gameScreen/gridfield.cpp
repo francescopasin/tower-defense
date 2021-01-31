@@ -208,13 +208,13 @@ void GridField::selectCell(GridCell *cell) {
     }
 }
 
-void GridField::turretsAttack(const vector<model::SharedPtr<model::Turret>> &attackingTurrets) {
+void GridField::turretsAttack(const vector<model::SharedPtr<model::Turret>> &attackingTurrets, const vector<EnemyItem *> &enemies) {
     for (auto turret : attackingTurrets) {
         // Find associated TurretItem
         for (auto turretItem : turrets) {
             if (turretItem->hasTurretData(turret)) {
                 // Attack
-                turretItem->attack();
+                turretItem->attack(enemies);
             }
         }
     }
@@ -231,7 +231,7 @@ void GridField::addTurretItem(const model::SharedPtr<model::Turret> &turret, mod
     // Create turret
     TurretItem *turretItem = new TurretItem(this, turret, turretType, 96);  // TODO: fix all cell sizes (dynamics)
     turrets.push_back(turretItem);
-    // TODO: add tick event
+    connect(turretItem, &TurretItem::spawnProjectile, this, &GridField::spawnProjectile);
 }
 
 model::Position GridField::getSelectedCellPosition() const {
@@ -243,4 +243,20 @@ model::Position GridField::getSelectedCellPosition() const {
 
     // TODO: handle no cell selected (shouldn't happen)
 }
+
+void GridField::moveProjectiles() {
+    for (auto i = projectiles.begin(); i != projectiles.end(); i++) {
+        if ((*i)->move()) {
+            scene()->removeItem(*i);
+            projectiles.erase(i);
+            i--;
+        }
+    }
+}
+
+void GridField::spawnProjectile(const QPointF &startingPos, const QPointF &endingPos) {
+    Projectile *projectile = new Projectile(this, startingPos, endingPos);
+    projectiles.push_back(projectile);
+}
+
 }  // namespace view

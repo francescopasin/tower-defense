@@ -1,9 +1,12 @@
 #include "view/screens/gameScreen/turretitem.h"
 
-#include <QDebug>
 #include <QPainter>
+#include <memory>
 
 #include "model/turrets/turrettype.h"
+
+using std::shared_ptr;
+#define SP shared_ptr
 
 namespace view {
 
@@ -88,9 +91,18 @@ model::Position TurretItem::getGridPosition() const {
     return turretData->getPosition();
 }
 
-void TurretItem::attack() {
-    // TODO
-    qDebug() << "ATTACK";
+void TurretItem::attack(const vector<EnemyItem *> &enemies) {
+    vector<SP<model::Enemy>> targetedEnemies = turretData->getTargetedEnemies();
+
+    for (auto enemy : targetedEnemies) {
+        // Find associated EnemyItem
+        for (auto enemyItem : enemies) {
+            if (enemyItem->hasEnemyData(enemy)) {
+                // Spawn projectile
+                emit spawnProjectile(pos(), enemyItem->pos());
+            }
+        }
+    }
 }
 
 bool TurretItem::hasTurretData(const model::SharedPtr<model::Turret> &turret) const {

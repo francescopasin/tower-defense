@@ -62,6 +62,8 @@ void GameScene::tick() {
     creditsInfo->setText(QString::number(_model->getCredits()));
     lifeInfo->setText(QString::number(_model->getLife()));
 
+    gridField->moveProjectiles();
+
     auto i = enemies.begin();
     while (i != enemies.end()) {
         if ((*i)->isDead()) {
@@ -80,7 +82,7 @@ void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
 }
 
 void GameScene::turretsAttack(const vector<model::SharedPtr<model::Turret>>& attackingTurrets) {
-    gridField->turretsAttack(attackingTurrets);
+    gridField->turretsAttack(attackingTurrets, enemies);
 }
 
 void GameScene::addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType) {
