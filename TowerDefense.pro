@@ -22,9 +22,10 @@ SOURCES += \
     model/turrets/comboturret.cpp \
     model/turrets/splitturret.cpp \
     \
-    controller/gamecontroller.cpp \
-    controller/navigationcontroller.cpp \
-    controller/setmapcontroller.cpp \
+    controller/controller.cpp \
+    controller/initialscreencontroller.cpp \
+    controller/gamescreencontroller.cpp \
+    controller/setmapscreencontroller.cpp \
     \
     view/mainwindow.cpp \
     \
@@ -73,9 +74,10 @@ HEADERS += \
     model/turrets/splitturret.h \
     model/turrets/turrettype.h \
     \
-    controller/gamecontroller.h \
-    controller/navigationcontroller.h \
-    controller/setmapcontroller.h \
+    controller/controller.h \
+    controller/initialscreencontroller.h \
+    controller/gamescreencontroller.h \
+    controller/setmapscreencontroller.h \
     \
     view/mainwindow.h \
     \

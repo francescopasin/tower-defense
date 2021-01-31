@@ -1,12 +1,17 @@
 #include "view/mainwindow.h"
 
+#include <QApplication>
 #include <QFontDatabase>
 #include <QResizeEvent>
 #include <QSettings>
 
+#include "controller/gamescreencontroller.h"
+#include "controller/initialscreencontroller.h"
+#include "controller/setmapscreencontroller.h"
+
 namespace view {
 
-MainWindow::MainWindow(const vector<QWidget *> &screens) : stack(new QStackedWidget()) {
+MainWindow::MainWindow(SP<model::GameModel> model) : _model(model), central(new QWidget()), centralLayout(new QVBoxLayout()), currentViewController(nullptr) {
     setWindowTitle("Tower Defense");
 
     setMinimumSize(QSize(1280, 720));
@@ -18,13 +23,12 @@ MainWindow::MainWindow(const vector<QWidget *> &screens) : stack(new QStackedWid
     // Add fonts
     QFontDatabase::addApplicationFont(":/assets/fonts/PressStart2P-Regular.ttf");
 
-    // Insert screens in stack
+    central->setLayout(centralLayout);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
 
-    for (auto screen : screens) {
-        stack->addWidget(screen);
-    }
+    setCentralWidget(central);
 
-    setCentralWidget(stack);
+    setScreen(app::Routes::InitialScreen);
 }
 
 void MainWindow::readSettings() {
@@ -34,7 +38,7 @@ void MainWindow::readSettings() {
     restoreState(settings.value("windowState").toByteArray());
 }
 
-void MainWindow::closeEvent(QCloseEvent *event) {
+void MainWindow::closeEvent(QCloseEvent* event) {
     // Save window state (position, size)
     QSettings settings("TeamPlemento", "TowerDefense");
     settings.setValue("geometry", saveGeometry());
@@ -43,18 +47,28 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::setScreen(app::Routes route) {
+    if (currentViewController) {
+        centralLayout->removeWidget(currentViewController->getView());
+
+        delete currentViewController;
+    }
+
     switch (route) {
         default:
         case app::Routes::InitialScreen:
-            stack->setCurrentIndex(0);
+            currentViewController = new controller::InitialScreenController(_model);
             break;
         case app::Routes::GameScreen:
-            stack->setCurrentIndex(1);
+            currentViewController = new controller::GameScreenController(_model);
             break;
         case app::Routes::SetMapScreen:
-            stack->setCurrentIndex(2);
+            currentViewController = new controller::SetMapScreenController(_model);
             break;
     }
+
+    connect(currentViewController, &controller::Controller::navigateTo, this, &MainWindow::setScreen);
+
+    centralLayout->addWidget(currentViewController->getView());
 }
 
 }  // namespace view

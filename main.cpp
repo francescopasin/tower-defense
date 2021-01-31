@@ -1,18 +1,7 @@
 #include <QApplication>
 #include <memory>
-#include <vector>
 
-#include "app/routes.h"
-#include "controller/gamecontroller.h"
-#include "controller/navigationcontroller.h"
-#include "controller/setmapcontroller.h"
 #include "view/mainwindow.h"
-#include "view/screens/gameScreen/gamescene.h"
-#include "view/screens/gameScreen/gameview.h"
-#include "view/screens/initialScreen/initialscreenscene.h"
-#include "view/screens/initialScreen/initialscreenview.h"
-#include "view/screens/setMapScreen/setmapscene.h"
-#include "view/screens/setMapScreen/setmapview.h"
 
 using std::make_shared;
 using std::vector;
@@ -24,104 +13,9 @@ int main(int argc, char *argv[]) {
     // ========================================================================
     auto model = make_shared<model::GameModel>();
 
-    // Views
-    // ========================================================================
-    auto initialScreenScene = make_shared<view::InitialScreenScene>();
-    auto initialScreenView = new view::InitialScreenView(initialScreenScene);
-
-    auto gameScene = make_shared<view::GameScene>(model);
-    auto gameView = new view::GameView(gameScene);
-
-    auto setMapScene = make_shared<view::SetMapScene>();
-    auto setMapView = new view::SetMapView(setMapScene);
-
-    vector<QWidget *> screens{initialScreenView, gameView, setMapView};
-
-    auto window = make_shared<view::MainWindow>(screens);
-
-    // Controllers
-    // ========================================================================
-    auto navigationController = new controller::NavigationController(window);
-    auto gameController = new controller::GameController(model, gameScene);
-    auto setMapController = new controller::SetMapController(model, setMapScene, gameScene);
-
-    // Views - Controllers association
-    // ========================================================================
-    QObject::connect(
-        gameScene.get(),
-        &view::GameScene::playPauseGame,
-        gameController,
-        &controller::GameController::playPause);
-
-    QObject::connect(
-        gameScene.get(),
-        &view::GameScene::returnToMenu,
-        navigationController,
-        [=]() { navigationController->navigateTo(app::Routes::InitialScreen); });
-
-    QObject::connect(
-        gameScene.get(),
-        &view::GameScene::returnToMenu,
-        gameController,
-        &controller::GameController::resetGame);
-
-    // TODO: reset game scene
-
-    QObject::connect(
-        gameScene.get(),
-        &view::GameScene::fastForwardGame,
-        gameController,
-        &controller::GameController::fastForward);
-
-    QObject::connect(
-        gameScene.get(),
-        &view::GameScene::addTurretSignal,
-        gameController,
-        &controller::GameController::addTurret);
-
-    QObject::connect(
-        gameScene.get(),
-        &view::GameScene::removeTurretSignal,
-        gameController,
-        &controller::GameController::removeTurret);
-
-    QObject::connect(
-        initialScreenScene.get(),
-        &view::InitialScreenScene::startButtonPressed,
-        gameController,
-        &controller::GameController::playPause);
-
-    QObject::connect(
-        initialScreenScene.get(),
-        &view::InitialScreenScene::startButtonPressed,
-        navigationController,
-        [=]() { navigationController->navigateTo(app::Routes::GameScreen); });
-
-    QObject::connect(
-        initialScreenScene.get(),
-        &view::InitialScreenScene::setMapButtonPressed,
-        navigationController,
-        [=]() { navigationController->navigateTo(app::Routes::SetMapScreen); });
-
-    QObject::connect(
-        setMapScene.get(),
-        &view::SetMapScene::saveButtonPressed,
-        setMapController,
-        &controller::SetMapController::saveToFile);
-
-    QObject::connect(
-        initialScreenScene.get(),
-        &view::InitialScreenScene::uploadMapButtonPressed,
-        setMapController,
-        &controller::SetMapController::uploadFromFile);
-
-    QObject::connect(
-        setMapScene.get(),
-        &view::SetMapScene::backButtonPressed,
-        navigationController,
-        [=]() { navigationController->back(); });
+    view::MainWindow window(model);
 
     // Start application
-    window->show();
+    window.show();
     return a.exec();
 }

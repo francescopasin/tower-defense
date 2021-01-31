@@ -14,7 +14,6 @@ GridField::GridField(
     setFlag(ItemHasNoContents);
 
     createGameGrid();
-    updateGrid();
 }
 
 QRectF GridField::boundingRect() const {
@@ -25,20 +24,15 @@ void GridField::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
     Q_UNUSED(painter);
-
-    updateGrid();
 }
 
-void GridField::updateGrid() {
+void GridField::createGameGrid() {
+    qreal size = _size.height() / 9;
+
     // Path Cells
     // ========================================================================
     for (auto i = _path.begin(); i != _path.end(); i++) {
         GridCell *cell;
-        for (auto j : interactiveCells) {
-            if (j->getGridPosition() == i->getPosition()) {
-                cell = j;
-            }
-        }
 
         if (i == _path.begin()) {
             // First cell
@@ -59,9 +53,7 @@ void GridField::updateGrid() {
                     break;
             }
 
-            cell->setType(GridCellType::PathStart);
-            cell->setTile(tile);
-
+            cell = new GridCell(this, i->getPosition(), size, GridCellType::PathStart, tile);
         } else if (i == _path.end() - 1) {
             // Last cell
             PathGridCellTile tile;
@@ -81,9 +73,7 @@ void GridField::updateGrid() {
                     break;
             }
 
-            cell->setType(GridCellType::PathEnd);
-            cell->setTile(tile);
-
+            cell = new GridCell(this, i->getPosition(), size, GridCellType::PathEnd, tile);
         } else {
             // Medium cell
             PathGridCellTile tile;
@@ -143,29 +133,25 @@ void GridField::updateGrid() {
                     break;
             }
 
-            cell->setType(GridCellType::Path);
-            cell->setTile(tile);
+            cell = new GridCell(this, i->getPosition(), size, GridCellType::Path, tile);
         }
+
+        cell->setPos(i->x * size, i->y * size);
     }
 
     // Blocked Cells
     // ========================================================================
     for (auto i = _blockedCells.begin(); i != _blockedCells.end(); i++) {
-        GridCell *cell;
-        for (auto j : interactiveCells) {
-            if (j->getGridPosition() == *i) {
-                cell = j;
-            }
-        }
-        cell->setType(GridCellType::Blocked);
+        GridCell *cell = new GridCell(this, *i, size, GridCellType::Blocked);
+        cell->setPos(i->x * size, i->y * size);
     }
 
     // Free Cells
     // ========================================================================
     bool isFree = true;
 
-    for (U_INT i = 0; i < 16; i++) {
-        for (U_INT j = 0; j < 9; j++) {
+    for (int i = 0; i < 16; i++) {
+        for (int j = 0; j < 9; j++) {
             isFree = true;
 
             for (auto pathCell : _path) {
@@ -182,31 +168,12 @@ void GridField::updateGrid() {
                 }
             }
 
-            GridCell *cell;
-            for (auto k : interactiveCells) {
-                if (k->getGridPosition() == model::Position{i, j}) {
-                    cell = k;
-                }
-            }
-
             if (isFree) {
-                cell->setType(GridCellType::Free);
+                GridCell *cell = new GridCell(this, model::Position{i, j}, size, GridCellType::Free);
+                interactiveCells.push_back(cell);
+                connect(cell, &GridCell::pressed, this, &GridField::selectCell);
+                cell->setPos(i * size, j * size);
             }
-        }
-    }
-}
-
-void GridField::createGameGrid() {
-    qreal size = _size.height() / 9;
-
-    // Free Cells
-    // ========================================================================
-    for (U_INT i = 0; i < 16; i++) {
-        for (U_INT j = 0; j < 9; j++) {
-            GridCell *cell = new GridCell(this, model::Position{i, j}, size, GridCellType::Free);
-            interactiveCells.push_back(cell);
-            connect(cell, &GridCell::pressed, this, &GridField::selectCell);
-            cell->setPos(i * size, j * size);
         }
     }
 }
