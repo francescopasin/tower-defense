@@ -36,7 +36,7 @@ void ErrorModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem 
 
     QFontMetrics fontMetric(font);
 
-    width = qMax(300, fontMetric.horizontalAdvance(_text));
+    width = qMax(300, fontMetric.boundingRect(_text).width());
     height = 15 + 100 + 30 + fontMetric.height() + 15;
 
     QString text = _text;
@@ -47,7 +47,7 @@ void ErrorModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem 
         list[s] += "\n";
         text = list.join(" ");
         list = text.split("\n");
-        width = qMax(fontMetric.horizontalAdvance(list[0]), fontMetric.horizontalAdvance(list[1]));
+        width = qMax(fontMetric.boundingRect(list[0]).width(), fontMetric.boundingRect(list[1]).width());
         height += fontMetric.height();
     }
 

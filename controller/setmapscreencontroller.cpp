@@ -66,6 +66,11 @@ void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) 
     if (!trovatoErrore) {
         QString fileName = QFileDialog::getSaveFileName(_view, tr("Save Game Path"), "", tr("CPP Game Path(*.cppmap)"));
 
+        QStringList list = fileName.split(".");
+        if (list[list.size() - 1] != "cppmap") {
+            fileName.append(".cppmap");
+        }
+
         if (fileName.isEmpty())
             return;
 
@@ -104,7 +109,7 @@ void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) 
 
         QDataStream out(&file);
         out.setVersion(QDataStream::Qt_4_5);
-        out << json;
+        out << json.toVariantHash();
     } else {
         view::ErrorModal* modal = new view::ErrorModal(error, _scene->width(), _scene->height());
         _scene->addItem(modal);
