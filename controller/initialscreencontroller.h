@@ -21,7 +21,7 @@ class InitialScreenController : public Controller {
     view::InitialScreenScene* _scene;
 
    public:
-    InitialScreenController(const SP<model::GameModel>& model, const QString& error = "");
+    InitialScreenController(const SP<model::GameModel>& model);
     virtual ~InitialScreenController() = default;
 
    public slots:

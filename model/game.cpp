@@ -114,9 +114,8 @@ const vector<Position>& Game::getBlockedCellsMap() const {
 void Game::setMap(vector<Position>& map, Direction first) {
     if (_currentState == State::Ready) {
         std::string error = validateMap(map);
-        if (error != "") {
+        if (error != "")
             throw new path_error(error);
-        }
 
         _map.clear();
 

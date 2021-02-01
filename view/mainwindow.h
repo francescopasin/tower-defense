@@ -26,13 +26,12 @@ class MainWindow : public QMainWindow {
     QWidget *central;
     QVBoxLayout *centralLayout;
     controller::Controller *currentViewController;
-    QString _error;
 
     void closeEvent(QCloseEvent *event) override;
     void readSettings();
 
    public:
-    MainWindow(SP<model::GameModel> model, const QString &error = "");
+    MainWindow(SP<model::GameModel> model);
 
    public slots:
     void setScreen(app::Routes route);

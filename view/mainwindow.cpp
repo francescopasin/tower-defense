@@ -11,7 +11,7 @@
 
 namespace view {
 
-MainWindow::MainWindow(SP<model::GameModel> model, const QString& error) : _model(model), central(new QWidget()), centralLayout(new QVBoxLayout()), currentViewController(nullptr), _error(error) {
+MainWindow::MainWindow(SP<model::GameModel> model) : _model(model), central(new QWidget()), centralLayout(new QVBoxLayout()), currentViewController(nullptr) {
     setWindowTitle("Tower Defense");
 
     setMinimumSize(QSize(1280, 720));
@@ -29,7 +29,6 @@ MainWindow::MainWindow(SP<model::GameModel> model, const QString& error) : _mode
     setCentralWidget(central);
 
     setScreen(app::Routes::InitialScreen);
-    _error = "";
 }
 
 void MainWindow::readSettings() {
@@ -57,7 +56,7 @@ void MainWindow::setScreen(app::Routes route) {
     switch (route) {
         default:
         case app::Routes::InitialScreen:
-            currentViewController = new controller::InitialScreenController(_model, _error);
+            currentViewController = new controller::InitialScreenController(_model);
             break;
         case app::Routes::GameScreen:
             currentViewController = new controller::GameScreenController(_model);
