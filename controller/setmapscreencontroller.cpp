@@ -1,6 +1,5 @@
 #include "controller/setmapscreencontroller.h"
 
-#include <QDebug>
 #include <QFileDialog>
 #include <QGraphicsScene>
 #include <QJsonArray>

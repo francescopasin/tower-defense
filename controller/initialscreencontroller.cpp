@@ -87,7 +87,7 @@ void InitialScreenController::uploadFromFile() {
             try {
                 _model->setMap(pathPosition, model::Direction::Left);
                 _model->setBlocked(blockedPosition);
-            } catch (std::exception* e) {
+            } catch (const std::exception* e) {
                 view::ErrorModal* modal = new view::ErrorModal(e->what(), _scene->width(), _scene->height());
                 _scene->addItem(modal);
                 connect(modal, &view::Modal::close, this, [=]() {
