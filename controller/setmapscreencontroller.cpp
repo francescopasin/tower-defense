@@ -2,15 +2,16 @@
 
 #include <QDebug>
 #include <QFileDialog>
+#include <QGraphicsScene>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-#include <QMessageBox>
 #include <exception>
 
 #include "app/routes.h"
 #include "model/gamemodel.h"
+#include "view/hud/errormodal.h"
 #include "view/hud/standardbutton.h"
 #include "view/screens/setMapScreen/setmapview.h"
 
@@ -34,72 +35,84 @@ SetMapScreenController::SetMapScreenController(const SP<model::GameModel>& model
 }
 
 void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) {
-    QString fileName = QFileDialog::getSaveFileName(nullptr, tr("Save Game Path"), "", tr("CPP Game Path(*.cppmap)"));
+    bool trovatoErrore = false;
+    vector<model::Position> mappa;
+    QString error;
 
-    if (fileName.isEmpty())
-        return;
-    else {
+    for (auto i = cells->cbegin(); i != cells->cend() && !trovatoErrore; ++i) {
+        if ((*i)->getPos().x == 0 && (*i)->getType() == view::SetMapCell::Type::Start) {
+            mappa = createPath((*i)->getPos(), cells);
+            error = QString::fromStdString(model::GameModel::validateMap(mappa));
+            trovatoErrore = error != "";
+        }
+    }
+
+    if (!trovatoErrore) {
+        int count = 0;
+        for (auto i : *cells) {
+            if (i->getType() != view::SetMapCell::Type::Blocked && i->getType() != view::SetMapCell::Type::Free) {
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            trovatoErrore = true;
+            error = "This is not a correct path, there's no cell position in your path";
+        } else if (mappa.size() != count) {
+            trovatoErrore = true;
+            error = "This is not a correct path, you have extra path cells outside your path";
+        }
+    }
+
+    if (!trovatoErrore) {
+        QString fileName = QFileDialog::getSaveFileName(_view, tr("Save Game Path"), "", tr("CPP Game Path(*.cppmap)"));
+
+        if (fileName.isEmpty())
+            return;
+
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly)) {
-            QMessageBox::information(nullptr, tr("Unable to open file"), file.errorString());  // TODO: ERROR MODAL
+            view::ErrorModal* modal = new view::ErrorModal(file.errorString(), _scene->width(), _scene->height());
+            _scene->addItem(modal);
+            connect(modal, &view::Modal::close, this, [=]() {
+                _scene->removeItem(modal);
+                delete modal;
+            });
             return;
         }
 
-        bool trovato = false;
-        vector<model::Position> mappa;
-        QString error;
-
-        for (auto i = cells->cbegin(); i != cells->cend() && !trovato; ++i) {
-            if ((*i)->getPos().x == 0 && (*i)->getType() == view::SetMapCell::Type::Start) {
-                mappa = createPath((*i)->getPos(), cells);
-                error = QString::fromStdString(model::GameModel::validateMap(mappa));
-                trovato = error == "";
-            }
-        }
-
-        if (trovato) {
-            int count = 0;
-            for (auto i : *cells) {
-                if (i->getType() != view::SetMapCell::Type::Blocked && i->getType() != view::SetMapCell::Type::Free) {
-                    count++;
-                }
-            }
-
-            if (mappa.size() != count) {
-                trovato = false;
-                error = "This is not a correct path, you have extra path cells outside your path";
-            }
-        }
-
-        if (trovato) {
-            QJsonArray blockedPositionJson;
-            for (auto i : *cells) {
-                if (i->getType() == view::SetMapCell::Type::Blocked) {
-                    QJsonObject pos;
-                    pos["x"] = i->getPos().x;
-                    pos["y"] = i->getPos().y;
-                    blockedPositionJson.push_back(pos);
-                }
-            }
-
-            QJsonArray pathPositionJson;
-            for (auto i = mappa.begin(); i != mappa.end(); i++) {
+        QJsonArray blockedPositionJson;
+        for (auto i : *cells) {
+            if (i->getType() == view::SetMapCell::Type::Blocked) {
                 QJsonObject pos;
-                pos["x"] = i->x;
-                pos["y"] = i->y;
-                pathPositionJson.push_back(pos);
+                pos["x"] = i->getPos().x;
+                pos["y"] = i->getPos().y;
+                blockedPositionJson.push_back(pos);
             }
-
-            QJsonObject json;
-            json["pathPosition"] = pathPositionJson;
-            json["blockedPosition"] = blockedPositionJson;
-
-            QDataStream out(&file);
-            out.setVersion(QDataStream::Qt_4_5);
-            out << json;
-        } else {
-            QMessageBox::information(nullptr, tr("Error"), error);  // TODO: ERROR MODAL
         }
+
+        QJsonArray pathPositionJson;
+        for (auto i = mappa.begin(); i != mappa.end(); i++) {
+            QJsonObject pos;
+            pos["x"] = i->x;
+            pos["y"] = i->y;
+            pathPositionJson.push_back(pos);
+        }
+
+        QJsonObject json;
+        json["pathPosition"] = pathPositionJson;
+        json["blockedPosition"] = blockedPositionJson;
+
+        QDataStream out(&file);
+        out.setVersion(QDataStream::Qt_4_5);
+        out << json;
+    } else {
+        view::ErrorModal* modal = new view::ErrorModal(error, _scene->width(), _scene->height());
+        _scene->addItem(modal);
+        connect(modal, &view::Modal::close, this, [=]() {
+            _scene->removeItem(modal);
+            delete modal;
+        });
     }
 }
 

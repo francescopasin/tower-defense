@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <memory>
 
+#include "model/exception.h"
 #include "view/mainwindow.h"
 
 using std::make_shared;

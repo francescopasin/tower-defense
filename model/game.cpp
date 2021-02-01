@@ -278,24 +278,28 @@ vector<SharedPtr<Turret>> Game::lastTickAttackingTurrets() const {
 std::string Game::validateMap(vector<Position>& map) {
     std::string err;
 
-    auto it = std::unique(map.begin(), map.end());
-    bool wasUnique = (it == map.end());
+    if (map.size() > 0) {
+        auto it = std::unique(map.begin(), map.end());
+        bool wasUnique = (it == map.end());
 
-    if (wasUnique) {
-        for (auto i = map.cbegin(); i != map.cend(); ++i) {
-            auto next = i + 1;
+        if (wasUnique) {
+            for (auto i = map.cbegin(); i != map.cend(); ++i) {
+                auto next = i + 1;
 
-            if (next != map.cend()) {
-                if (!(((i->x == next->x - 1) && (i->y == next->y)) ||
-                      ((i->x == next->x) && (i->y == next->y + 1)) ||
-                      ((i->x == next->x + 1) && (i->y == next->y)) ||
-                      ((i->x == next->x) && (i->y == next->y - 1)))) {
-                    err = "This is not a correct path, some cells are disconnected";
+                if (next != map.cend()) {
+                    if (!(((i->x == next->x - 1) && (i->y == next->y)) ||
+                          ((i->x == next->x) && (i->y == next->y + 1)) ||
+                          ((i->x == next->x + 1) && (i->y == next->y)) ||
+                          ((i->x == next->x) && (i->y == next->y - 1)))) {
+                        err = "This is not a correct path, some cells are disconnected";
+                    }
                 }
             }
+        } else {
+            err = "This is not a correct path, you can't go through the same cell twice";
         }
     } else {
-        err = "This is not a correct path, you can't go through the same cell twice";
+        err = "This is not a correct path, there's no cell position in your path";
     }
 
     return err;
