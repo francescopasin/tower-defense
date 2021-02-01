@@ -4,8 +4,6 @@
 #include <QFileDialog>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <QJsonDocument>
-#include <QMessageBox>
 
 #include "view/hud/errormodal.h"
 #include "view/screens/initialScreen/initialscreenview.h"
@@ -63,13 +61,12 @@ void InitialScreenController::uploadFromFile() {
 
         QDataStream in(&file);
         in.setVersion(QDataStream::Qt_4_5);
+
         QVariantHash data;
         in >> data;
 
         QJsonObject json;
         json = json.fromVariantHash(data);
-
-        // in >> json;
 
         if (json.isEmpty()) {
             view::ErrorModal* modal = new view::ErrorModal(tr("The file you are attempting to open is empity."), _scene->width(), _scene->height());
