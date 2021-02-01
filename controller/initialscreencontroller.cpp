@@ -1,10 +1,12 @@
 #include "controller/initialscreencontroller.h"
 
+#include <QCoreApplication>
 #include <QFileDialog>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QMessageBox>
 
+#include "view/hud/errormodal.h"
 #include "view/screens/initialScreen/initialscreenview.h"
 
 namespace controller {
@@ -35,7 +37,11 @@ InitialScreenController::InitialScreenController(const SP<model::GameModel>& mod
 void InitialScreenController::uploadFromFile() {
     // TODO: create level selector screen
 
-    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Load a Game Path"), "", tr("CPP Game Path(*.cppmap)"));
+    // QDir dir(QCoreApplication::applicationDirPath());
+    // QString location = dir.relativeFilePath("../../maps/");
+    // TODO: Relative Path? AppData?
+
+    QString fileName = QFileDialog::getOpenFileName(_view, tr("Load a Game Path"), "", tr("CPP Game Path(*.cppmap)"));
     vector<model::Position> pathPosition;
     vector<model::Position> blockedPosition;
 
@@ -45,7 +51,12 @@ void InitialScreenController::uploadFromFile() {
         QFile file(fileName);
 
         if (!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(nullptr, tr("Unable to open file"), file.errorString());
+            view::ErrorModal* modal = new view::ErrorModal(file.errorString(), _scene->width(), _scene->height());
+            _scene->addItem(modal);
+            connect(modal, &view::Modal::close, this, [=]() {
+                _scene->removeItem(modal);
+                delete modal;
+            });
             return;
         }
 
@@ -57,7 +68,12 @@ void InitialScreenController::uploadFromFile() {
         in >> json;
 
         if (json.isEmpty()) {
-            QMessageBox::information(nullptr, tr("No positions in file"), tr("The file you are attempting to open contains no position."));
+            view::ErrorModal* modal = new view::ErrorModal(tr("The file you are attempting to open is empity."), _scene->width(), _scene->height());
+            _scene->addItem(modal);
+            connect(modal, &view::Modal::close, this, [=]() {
+                _scene->removeItem(modal);
+                delete modal;
+            });
         } else {
             QJsonArray pathJson = json["pathPosition"].toArray();
             for (auto i : pathJson) {
@@ -71,8 +87,13 @@ void InitialScreenController::uploadFromFile() {
             try {
                 _model->setMap(pathPosition, model::Direction::Left);
                 _model->setBlocked(blockedPosition);
-            } catch (std::exception* e) {
-                QMessageBox::information(nullptr, tr("Path Error"), e->what());  // TODO: ERROR MODAL
+            } catch (const std::exception* e) {
+                view::ErrorModal* modal = new view::ErrorModal(e->what(), _scene->width(), _scene->height());
+                _scene->addItem(modal);
+                connect(modal, &view::Modal::close, this, [=]() {
+                    _scene->removeItem(modal);
+                    delete modal;
+                });
             }
         }
     }

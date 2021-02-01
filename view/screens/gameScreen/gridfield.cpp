@@ -150,8 +150,8 @@ void GridField::createGameGrid() {
     // ========================================================================
     bool isFree = true;
 
-    for (int i = 0; i < 16; i++) {
-        for (int j = 0; j < 9; j++) {
+    for (U_INT i = 0; i < 16; i++) {
+        for (U_INT j = 0; j < 9; j++) {
             isFree = true;
 
             for (auto pathCell : _path) {

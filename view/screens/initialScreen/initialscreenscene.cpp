@@ -20,9 +20,9 @@ void InitialScreenScene::drawBackground() {
 }
 
 void InitialScreenScene::createHUD() {
-    StandardButton* startButton = new StandardButton("START");
-    StandardButton* setMapButton = new StandardButton("SET MAP");
-    StandardButton* uploadMapButton = new StandardButton("UPLOAD MAP");
+    StandardButton* startButton = new StandardButton("START", 400);
+    StandardButton* setMapButton = new StandardButton("SET MAP", 400);
+    StandardButton* uploadMapButton = new StandardButton("UPLOAD MAP", 400);
 
     qreal size = startButton->boundingRect().width() + 10 + setMapButton->boundingRect().width() + 10 + uploadMapButton->boundingRect().width();
 

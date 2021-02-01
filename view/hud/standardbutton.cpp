@@ -5,12 +5,12 @@
 
 namespace view {
 
-StandardButton::StandardButton(const QString &text, QGraphicsItem *parent) : QGraphicsItem(parent), _text(text) {
+StandardButton::StandardButton(const QString &text, int width, QGraphicsItem *parent) : QGraphicsItem(parent), _text(text), _width(width) {
     setAcceptHoverEvents(true);
     //setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
-    setCursor(QCursor(pixmap.scaled(32, 32)));
+    QGraphicsItem::setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
 QRectF StandardButton::boundingRect() const {
@@ -18,11 +18,11 @@ QRectF StandardButton::boundingRect() const {
     //font.fromString("Press Start 2P, -1, 30, 5, 50, 0, 0, 0, 0, 0");
     //QFontMetrics fontMetric(font);
 
-    QFont font("Press Start 2P", 30);
-    QFontMetrics fm(font);
-    int pixelsWide = fm.horizontalAdvance(_text);
+    // QFont font("Press Start 2P", 30);
+    // QFontMetrics fm(font);
+    // int pixelsWide = fm.horizontalAdvance(_text);
 
-    return QRectF(0, 0, pixelsWide + 90, 128);  //TODO: Calculate width in abetter way
+    return QRectF(0, 0, _width, 128);  //TODO: Calculate width in abetter way
 }
 
 void StandardButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -44,11 +44,13 @@ void StandardButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     QPen pen = QPen(QColor::fromRgb(255, 255, 255));
     painter->setPen(pen);
 
-    QFontMetrics fontMetric(font);
+    // QFontMetrics fontMetric(font);
 
-    painter->drawPixmap(QRect(0, 0, fontMetric.horizontalAdvance(_text) + 90, 128), pixmap);
+    // _width = fontMetric.horizontalAdvance(_text);
 
-    painter->drawText(QRect(45, 45, fontMetric.horizontalAdvance(_text), 50), Qt::AlignCenter, _text);  // MAGIC NUMBERS
+    painter->drawPixmap(QRect(0, 0, _width, 128), pixmap);
+
+    painter->drawText(QRect(0, 45, _width, 50), Qt::AlignCenter, _text);
 }
 
 void StandardButton::mousePressEvent(QGraphicsSceneMouseEvent *event) {

@@ -10,13 +10,13 @@ class StandardButton : public QObject, public QGraphicsItem {
 
    private:
     QString _text;
-    qreal _width;
+    const int _width;
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
    public:
-    StandardButton(const QString &text, QGraphicsItem *parent = nullptr);
+    StandardButton(const QString &text, int width = 300, QGraphicsItem *parent = nullptr);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

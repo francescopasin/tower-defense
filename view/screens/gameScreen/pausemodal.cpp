@@ -9,13 +9,13 @@ namespace view {
 PauseModal::PauseModal(qreal width, qreal height) : Modal(width, height) {
     // Add external content
 
-    StandardButton *resumeButton = new StandardButton("RESUME", this);
+    StandardButton *resumeButton = new StandardButton("RESUME", 300, this);
     resumeButton->setPos(
         size.width() / 2 - resumeButton->boundingRect().width() / 2,
         size.height() / 2 - resumeButton->boundingRect().height() / 2);
     connect(resumeButton, &StandardButton::pressed, this, &Modal::close);
 
-    StandardButton *menuButton = new StandardButton("MENU", this);
+    StandardButton *menuButton = new StandardButton("MENU", 300, this);
     menuButton->setPos(
         size.width() / 2 - menuButton->boundingRect().width() / 2,
         size.height() / 2 - menuButton->boundingRect().height() / 2 + 200);
