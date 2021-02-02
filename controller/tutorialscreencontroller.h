@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_TUTORIALSCREENCONTROLLER_H_
 #define CONTROLLER_TUTORIALSCREENCONTROLLER_H_
 
+#include <QGraphicsScene>
 #include <memory>
 
 #include "controller/controller.h"
@@ -20,7 +21,8 @@ class TutorialScreenController : public Controller {
 
    public:
     TutorialScreenController(const SP<model::GameModel>& model);
-    virtual ~TutorialScreenController() = default;
+
+    virtual QGraphicsScene* getScene() const override;
 };
 
 }  // namespace controller

@@ -1,23 +1,21 @@
-#include "view/screens/setMapScreen/setmapview.h"
+#include "view/mainwindowview.h"
 
 #include <QResizeEvent>
 
 namespace view {
 
-SetMapView::SetMapView(SetMapScene* scene) : _scene(scene) {
+MainWindowView::MainWindowView() {
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    setScene(_scene);
-
     QPixmap pixmap = QPixmap(":/assets/images/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
-void SetMapView::resizeEvent(QResizeEvent* event) {
-    fitInView(_scene->sceneRect(), Qt::KeepAspectRatio);
+void MainWindowView::resizeEvent(QResizeEvent* event) {
+    fitInView(scene()->sceneRect(), Qt::KeepAspectRatio);
     QGraphicsView::resizeEvent(event);
 }
 

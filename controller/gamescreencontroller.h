@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_GAMECONTROLLER_H_
 #define CONTROLLER_GAMECONTROLLER_H_
 
+#include <QGraphicsScene>
 #include <QTimer>
 #include <memory>
 
@@ -29,7 +30,8 @@ class GameScreenController : public Controller {
 
    public:
     GameScreenController(const SP<model::GameModel>& model);
-    virtual ~GameScreenController() = default;
+
+    virtual QGraphicsScene* getScene() const override;
 
    public slots:
     void returnToMenu();
