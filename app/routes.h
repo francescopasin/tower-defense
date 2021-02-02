@@ -5,6 +5,7 @@ namespace app {
 
 enum class Routes {
     InitialScreen,
+    TutorialScreen,
     GameScreen,
     SetMapScreen
 };

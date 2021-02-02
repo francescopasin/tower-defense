@@ -33,6 +33,7 @@
         <file>assets/images/pointer-turret-remove.png</file>
         <file>assets/images/standard-button.png</file>
         <file>assets/images/standard-button-pressed.png</file>
+        <file>assets/images/missing-image.png</file>
         <file>assets/fonts/PressStart2P-Regular.ttf</file>
     </qresource>
 </RCC>

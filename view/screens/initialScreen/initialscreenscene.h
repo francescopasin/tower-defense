@@ -19,6 +19,7 @@ class InitialScreenScene : public QGraphicsScene {
     void startButtonPressed();
     void setMapButtonPressed();
     void uploadMapButtonPressed();
+    void tutorialButtonPressed();
 };
 
 }  // namespace view
