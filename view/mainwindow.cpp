@@ -8,6 +8,7 @@
 #include "controller/gamescreencontroller.h"
 #include "controller/initialscreencontroller.h"
 #include "controller/setmapscreencontroller.h"
+#include "controller/tutorialscreencontroller.h"
 
 namespace view {
 
@@ -57,6 +58,9 @@ void MainWindow::setScreen(app::Routes route) {
         default:
         case app::Routes::InitialScreen:
             currentViewController = new controller::InitialScreenController(_model);
+            break;
+        case app::Routes::TutorialScreen:
+            currentViewController = new controller::TutorialScreenController(_model);
             break;
         case app::Routes::GameScreen:
             currentViewController = new controller::GameScreenController(_model);
