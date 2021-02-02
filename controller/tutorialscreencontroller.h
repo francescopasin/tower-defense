@@ -13,6 +13,8 @@ using std::shared_ptr;
 namespace controller {
 
 class TutorialScreenController : public Controller {
+    Q_OBJECT
+
    private:
     view::TutorialScene* _scene;
 

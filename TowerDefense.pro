@@ -58,7 +58,8 @@ SOURCES += \
     view/screens/setMapScreen/cellselector.cpp \
     \
     view/screens/tutorialScreen/tutorialview.cpp \
-    view/screens/tutorialScreen/tutorialscene.cpp
+    view/screens/tutorialScreen/tutorialscene.cpp \
+    view/screens/tutorialScreen/tutorialcontent.cpp
 
 HEADERS += \
     app/routes.h \
@@ -117,7 +118,8 @@ HEADERS += \
     view/screens/setMapScreen/cellselector.h  \
     \
     view/screens/tutorialScreen/tutorialview.h \
-    view/screens/tutorialScreen/tutorialscene.h
+    view/screens/tutorialScreen/tutorialscene.h \
+    view/screens/tutorialScreen/tutorialcontent.h
 
 
 

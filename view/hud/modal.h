@@ -18,7 +18,7 @@ class Modal : public QObject, public QGraphicsItem {
     virtual void paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
 
    public:
-    Modal(qreal width, qreal height, bool closeOnClick = false);
+    Modal(qreal width, qreal height, bool closeOnClick = false);  // Pass QSize in constructor
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

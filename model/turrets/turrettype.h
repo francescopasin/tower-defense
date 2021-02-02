@@ -79,9 +79,9 @@ struct TurretStats {
 const std::unordered_map<TurretType, TurretStats> turretTypes =
     {
         {TurretType::WeakTurret, TurretStats{10, 20, 20, 1, -1}},
-        {TurretType::MitraTurret, TurretStats{25, 5, 5, 2, 0}},
+        {TurretType::MitraTurret, TurretStats{25, 5, 5, 2, 1}},
         {TurretType::GranadeTurret, TurretStats{30, 50, 60, 3, 5}},
-        {TurretType::ComboTurret, TurretStats{20, 5, 15, 2, 0}},
+        {TurretType::ComboTurret, TurretStats{20, 5, 15, 2, 1}},
         {TurretType::SplitTurret, TurretStats{20, 20, 20, 1, -1}},
 };
 
