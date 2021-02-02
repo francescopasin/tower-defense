@@ -29,6 +29,8 @@ class MainWindow : public QMainWindow {
 
     void closeEvent(QCloseEvent *event) override;
     void readSettings();
+    void setTutorialShown() const;
+    bool tutorialHasBeenShown() const;
 
    public:
     MainWindow(SP<model::GameModel> model);

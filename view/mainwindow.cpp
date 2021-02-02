@@ -47,6 +47,18 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     QMainWindow::closeEvent(event);
 }
 
+void MainWindow::setTutorialShown() const {
+    if (!tutorialHasBeenShown()) {
+        QSettings settings("TeamPlemento", "TowerDefense");
+        settings.setValue("tutorial", true);
+    }
+}
+
+bool MainWindow::tutorialHasBeenShown() const {
+    QSettings settings("TeamPlemento", "TowerDefense");
+    return settings.value("tutorial", false).toBool();
+}
+
 void MainWindow::setScreen(app::Routes route) {
     if (currentViewController) {
         centralLayout->removeWidget(currentViewController->getView());
@@ -61,9 +73,15 @@ void MainWindow::setScreen(app::Routes route) {
             break;
         case app::Routes::TutorialScreen:
             currentViewController = new controller::TutorialScreenController(_model);
+            setTutorialShown();
             break;
         case app::Routes::GameScreen:
-            currentViewController = new controller::GameScreenController(_model);
+            if (!tutorialHasBeenShown()) {
+                currentViewController = new controller::TutorialScreenController(_model);
+                setTutorialShown();
+            } else {
+                currentViewController = new controller::GameScreenController(_model);
+            }
             break;
         case app::Routes::SetMapScreen:
             currentViewController = new controller::SetMapScreenController(_model);
@@ -73,6 +91,6 @@ void MainWindow::setScreen(app::Routes route) {
     connect(currentViewController, &controller::Controller::navigateTo, this, &MainWindow::setScreen);
 
     centralLayout->addWidget(currentViewController->getView());
-}
+}  // namespace view
 
 }  // namespace view
