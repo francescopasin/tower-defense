@@ -23,26 +23,36 @@ void InitialScreenScene::createHUD() {
     StandardButton* startButton = new StandardButton("START", 400);
     StandardButton* setMapButton = new StandardButton("SET MAP", 400);
     StandardButton* uploadMapButton = new StandardButton("UPLOAD MAP", 400);
+    StandardButton* tutorialButton = new StandardButton("TUTORIAL", 400);
 
-    qreal size = startButton->boundingRect().width() + 10 + setMapButton->boundingRect().width() + 10 + uploadMapButton->boundingRect().width();
+    qreal size =
+        startButton->boundingRect().width() + 10 +
+        setMapButton->boundingRect().width() + 10 +
+        uploadMapButton->boundingRect().width() + 10 +
+        tutorialButton->boundingRect().width();
 
     startButton->setPos(
         1920 / 2 - size / 2,
         1080 / 2 - startButton->boundingRect().height() / 2);
     setMapButton->setPos(
-        1920 / 2 - (size / 2) + startButton->boundingRect().width() + 10,
+        1920 / 2 - size / 2 + startButton->boundingRect().width() + 10,
         1080 / 2 - setMapButton->boundingRect().height() / 2);
     uploadMapButton->setPos(
-        1920 / 2 + size / 2 - uploadMapButton->boundingRect().width(),
+        1920 / 2 + size / 2 - uploadMapButton->boundingRect().width() - tutorialButton->boundingRect().width() - 10,
         1080 / 2 - uploadMapButton->boundingRect().height() / 2);
+    tutorialButton->setPos(
+        1920 / 2 + size / 2 - tutorialButton->boundingRect().width(),
+        1080 / 2 - tutorialButton->boundingRect().height() / 2);
 
     addItem(startButton);
     addItem(setMapButton);
     addItem(uploadMapButton);
+    addItem(tutorialButton);
 
     connect(startButton, &StandardButton::pressed, this, &InitialScreenScene::startButtonPressed);
     connect(setMapButton, &StandardButton::pressed, this, &InitialScreenScene::setMapButtonPressed);
     connect(uploadMapButton, &StandardButton::pressed, this, &InitialScreenScene::uploadMapButtonPressed);
+    connect(tutorialButton, &StandardButton::pressed, this, &InitialScreenScene::tutorialButtonPressed);
 }
 
 }  // namespace view

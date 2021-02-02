@@ -31,6 +31,12 @@ InitialScreenController::InitialScreenController(const SP<model::GameModel>& mod
         &view::InitialScreenScene::uploadMapButtonPressed,
         this,
         &controller::InitialScreenController::uploadFromFile);
+
+    connect(
+        _scene,
+        &view::InitialScreenScene::tutorialButtonPressed,
+        this,
+        [=]() { emit navigateTo(app::Routes::TutorialScreen); });
 }
 
 void InitialScreenController::uploadFromFile() {
