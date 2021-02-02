@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_SETMAPCONTROLLER_H_
 #define CONTROLLER_SETMAPCONTROLLER_H_
 
+#include <QGraphicsScene>
 #include <memory>
 
 #include "controller/controller.h"
@@ -21,7 +22,8 @@ class SetMapScreenController : public Controller {
 
    public:
     SetMapScreenController(const SP<model::GameModel>& model);
-    virtual ~SetMapScreenController() = default;
+
+    virtual QGraphicsScene* getScene() const override;
 
    public slots:
     void saveToFile(const vector<view::SetMapCell*>* cells);

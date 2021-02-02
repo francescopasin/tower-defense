@@ -1,7 +1,7 @@
 #ifndef CONTROLLER_INITIALSCREENCONTROLLER_H_
 #define CONTROLLER_INITIALSCREENCONTROLLER_H_
 
-#include <QTimer>
+#include <QGraphicsScene>
 #include <memory>
 
 #include "controller/controller.h"
@@ -22,7 +22,8 @@ class InitialScreenController : public Controller {
 
    public:
     InitialScreenController(const SP<model::GameModel>& model);
-    virtual ~InitialScreenController() = default;
+
+    virtual QGraphicsScene* getScene() const override;
 
    public slots:
     void uploadFromFile();

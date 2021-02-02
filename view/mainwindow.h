@@ -10,6 +10,7 @@
 #include "app/routes.h"
 #include "controller/controller.h"
 #include "model/gamemodel.h"
+#include "view/mainwindowview.h"
 
 using std::shared_ptr;
 using std::vector;
@@ -23,8 +24,7 @@ class MainWindow : public QMainWindow {
 
    private:
     SP<model::GameModel> _model;
-    QWidget *central;
-    QVBoxLayout *centralLayout;
+    MainWindowView *view;
     controller::Controller *currentViewController;
 
     void closeEvent(QCloseEvent *event) override;

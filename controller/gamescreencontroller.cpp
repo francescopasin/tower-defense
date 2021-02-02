@@ -4,7 +4,6 @@
 
 #include "model/sharedptr.h"
 #include "model/turrets/turret.h"
-#include "view/screens/gameScreen/gameview.h"
 
 using std::vector;
 
@@ -13,7 +12,6 @@ namespace controller {
 GameScreenController::GameScreenController(const SP<model::GameModel>& model)
     : Controller(model), isRunning(false), isFastForward(false) {
     _scene = new view::GameScene(model);
-    _view = new view::GameView(_scene);
 
     connect(
         _scene,
@@ -46,6 +44,10 @@ GameScreenController::GameScreenController(const SP<model::GameModel>& model)
         &controller::GameScreenController::removeTurret);
 
     start();
+}
+
+QGraphicsScene* GameScreenController::getScene() const {
+    return _scene;
 }
 
 void GameScreenController::start() {

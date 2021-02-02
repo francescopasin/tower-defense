@@ -29,6 +29,7 @@ SOURCES += \
     controller/tutorialscreencontroller.cpp \
     \
     view/mainwindow.cpp \
+    view/mainwindowview.cpp \
     \
     view/hud/infobox.cpp \
     view/hud/iconbutton.cpp \
@@ -36,7 +37,6 @@ SOURCES += \
     view/hud/modal.cpp \
     view/hud/errormodal.cpp \
     \
-    view/screens/gameScreen/gameview.cpp \
     view/screens/gameScreen/gamescene.cpp \
     view/screens/gameScreen/gridcell.cpp \
     view/screens/gameScreen/enemyitem.cpp \
@@ -47,17 +47,14 @@ SOURCES += \
     view/screens/gameScreen/pausemodal.cpp \
     view/screens/gameScreen/projectile.cpp \
     \
-    view/screens/initialScreen/initialscreenview.cpp \
     view/screens/initialScreen/initialscreenscene.cpp \
     \
     view/screens/setMapScreen/setmapgrid.cpp \
-    view/screens/setMapScreen/setmapview.cpp \
     view/screens/setMapScreen/setmapscene.cpp \
     view/screens/setMapScreen/setmapcell.cpp \
     view/screens/setMapScreen/cellselectoritem.cpp \
     view/screens/setMapScreen/cellselector.cpp \
     \
-    view/screens/tutorialScreen/tutorialview.cpp \
     view/screens/tutorialScreen/tutorialscene.cpp \
     view/screens/tutorialScreen/tutorialcontent.cpp
 
@@ -88,6 +85,7 @@ HEADERS += \
     controller/tutorialscreencontroller.h \
     \
     view/mainwindow.h \
+    view/mainwindowview.h \
     \
     view/hud/infobox.h \
     view/hud/iconbutton.h \
@@ -95,7 +93,6 @@ HEADERS += \
     view/hud/modal.h \
     view/hud/errormodal.h \
     \
-    view/screens/gameScreen/gameview.h \
     view/screens/gameScreen/gamescene.h \
     view/screens/gameScreen/gridcelltype.h \
     view/screens/gameScreen/gridcell.h \  \
@@ -107,17 +104,14 @@ HEADERS += \
     view/screens/gameScreen/pausemodal.h \
     view/screens/gameScreen/projectile.h \
     \
-    view/screens/initialScreen/initialscreenview.h \
     view/screens/initialScreen/initialscreenscene.h \
     \
-    view/screens/setMapScreen/setmapview.h \
     view/screens/setMapScreen/setmapscene.h \
     view/screens/setMapScreen/setmapgrid.h \
     view/screens/setMapScreen/setmapcell.h \
     view/screens/setMapScreen/cellselectoritem.h \
     view/screens/setMapScreen/cellselector.h  \
     \
-    view/screens/tutorialScreen/tutorialview.h \
     view/screens/tutorialScreen/tutorialscene.h \
     view/screens/tutorialScreen/tutorialcontent.h
 

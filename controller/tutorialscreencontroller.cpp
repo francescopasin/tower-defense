@@ -1,13 +1,11 @@
 #include "controller/tutorialscreencontroller.h"
 
 #include "app/routes.h"
-#include "view/screens/tutorialScreen/tutorialview.h"
 
 namespace controller {
 
 TutorialScreenController::TutorialScreenController(const SP<model::GameModel>& model) : Controller(model) {
     _scene = new view::TutorialScene();
-    _view = new view::TutorialView(_scene);
 
     connect(
         _scene,
@@ -20,6 +18,10 @@ TutorialScreenController::TutorialScreenController(const SP<model::GameModel>& m
         &view::TutorialScene::returnToMenu,
         this,
         [=]() { emit navigateTo(app::Routes::InitialScreen); });
+}
+
+QGraphicsScene* TutorialScreenController::getScene() const {
+    return _scene;
 }
 
 }  // namespace controller

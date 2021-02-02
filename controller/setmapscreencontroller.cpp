@@ -12,13 +12,11 @@
 #include "model/gamemodel.h"
 #include "view/hud/errormodal.h"
 #include "view/hud/standardbutton.h"
-#include "view/screens/setMapScreen/setmapview.h"
 
 namespace controller {
 
 SetMapScreenController::SetMapScreenController(const SP<model::GameModel>& model) : Controller(model) {
     _scene = new view::SetMapScene();
-    _view = new view::SetMapView(_scene);
 
     connect(
         _scene,
@@ -31,6 +29,10 @@ SetMapScreenController::SetMapScreenController(const SP<model::GameModel>& model
         &view::SetMapScene::backButtonPressed,
         this,
         [=]() { emit navigateTo(app::Routes::InitialScreen); });
+}
+
+QGraphicsScene* SetMapScreenController::getScene() const {
+    return _scene;
 }
 
 void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) {
@@ -64,7 +66,7 @@ void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) 
     }
 
     if (!trovatoErrore) {
-        QString fileName = QFileDialog::getSaveFileName(_view, tr("Save Game Path"), "", tr("CPP Game Path(*.cppmap)"));
+        QString fileName = QFileDialog::getSaveFileName(nullptr, tr("Save Game Path"), "", tr("CPP Game Path(*.cppmap)"));
 
         QStringList list = fileName.split(".");
         if (list[list.size() - 1] != "cppmap") {

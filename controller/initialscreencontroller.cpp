@@ -6,13 +6,11 @@
 #include <QJsonObject>
 
 #include "view/hud/errormodal.h"
-#include "view/screens/initialScreen/initialscreenview.h"
 
 namespace controller {
 
 InitialScreenController::InitialScreenController(const SP<model::GameModel>& model) : Controller(model) {
     _scene = new view::InitialScreenScene();
-    _view = new view::InitialScreenView(_scene);
 
     connect(
         _scene,
@@ -39,6 +37,10 @@ InitialScreenController::InitialScreenController(const SP<model::GameModel>& mod
         [=]() { emit navigateTo(app::Routes::TutorialScreen); });
 }
 
+QGraphicsScene* InitialScreenController::getScene() const {
+    return _scene;
+}
+
 void InitialScreenController::uploadFromFile() {
     // TODO: create level selector screen
 
@@ -46,7 +48,7 @@ void InitialScreenController::uploadFromFile() {
     // QString location = dir.relativeFilePath("../../maps/");
     // TODO: Relative Path? AppData?
 
-    QString fileName = QFileDialog::getOpenFileName(_view, tr("Load a Game Path"), "", tr("CPP Game Path(*.cppmap)"));
+    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Load a Game Path"), "", tr("CPP Game Path(*.cppmap)"));
     vector<model::Position> pathPosition;
     vector<model::Position> blockedPosition;
 

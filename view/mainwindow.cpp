@@ -12,7 +12,7 @@
 
 namespace view {
 
-MainWindow::MainWindow(SP<model::GameModel> model) : _model(model), central(new QWidget()), centralLayout(new QVBoxLayout()), currentViewController(nullptr) {
+MainWindow::MainWindow(SP<model::GameModel> model) : _model(model), view(new MainWindowView()), currentViewController(nullptr) {
     setWindowTitle("Tower Defense");
 
     setMinimumSize(QSize(1280, 720));
@@ -24,10 +24,7 @@ MainWindow::MainWindow(SP<model::GameModel> model) : _model(model), central(new 
     // Add fonts
     QFontDatabase::addApplicationFont(":/assets/fonts/PressStart2P-Regular.ttf");
 
-    central->setLayout(centralLayout);
-    centralLayout->setContentsMargins(0, 0, 0, 0);
-
-    setCentralWidget(central);
+    setCentralWidget(view);
 
     setScreen(app::Routes::InitialScreen);
 }
@@ -61,7 +58,10 @@ bool MainWindow::tutorialHasBeenShown() const {
 
 void MainWindow::setScreen(app::Routes route) {
     if (currentViewController) {
-        centralLayout->removeWidget(currentViewController->getView());
+        // TODO: understand how to correctly delete the scene
+        view->scene()->setParent(nullptr);
+        delete view->scene();
+        view->setScene(nullptr);
 
         delete currentViewController;
     }
@@ -90,7 +90,7 @@ void MainWindow::setScreen(app::Routes route) {
 
     connect(currentViewController, &controller::Controller::navigateTo, this, &MainWindow::setScreen);
 
-    centralLayout->addWidget(currentViewController->getView());
+    view->setScene(currentViewController->getScene());
 }  // namespace view
 
 }  // namespace view
