@@ -1,6 +1,11 @@
 #include "model/game.h"
 
 #include "model/enemy.h"
+#include "model/turrets/comboturret.h"
+#include "model/turrets/granadeturret.h"
+#include "model/turrets/multipletargetturret.h"
+#include "model/turrets/singulartargetturret.h"
+#include "model/turrets/splitturret.h"
 
 namespace model {
 
@@ -93,7 +98,7 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
                 temp.reset(new ComboTurret(position, _enemies));
                 break;
             case TurretType::GranadeTurret:
-                temp.reset(new MultipleTargetTurret(TurretType::GranadeTurret, position, _enemies));
+                temp.reset(new GranadeTurret(position, _enemies));
                 break;
             case TurretType::MitraTurret:
                 temp.reset(new SingularTargetTurret(TurretType::MitraTurret, position, _enemies));

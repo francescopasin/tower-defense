@@ -34,7 +34,7 @@ enum class TurretType {
      * MultipleTargetTurret
      * 
      * cost = 30
-     * attackDamage = 50
+     * attackDamage = 50 (- 10 for every enemy after the one attacked)
      * attackCooldown = 60
      * attackRadius = 3
      * maxTargets = 5
