@@ -1,14 +1,9 @@
 #ifndef CONTROLLER_SETMAPCONTROLLER_H_
 #define CONTROLLER_SETMAPCONTROLLER_H_
 
-#include <QGraphicsScene>
-#include <memory>
-
+#include "app/shortcuts.h"
 #include "controller/controller.h"
 #include "view/screens/setMapScreen/setmapscene.h"
-
-using std::shared_ptr;
-#define SP shared_ptr
 
 namespace controller {
 

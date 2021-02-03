@@ -3,7 +3,7 @@
 
 #include <unordered_map>
 
-#define U_INT unsigned short int
+#include "app/shortcuts.h"
 
 namespace model {
 
