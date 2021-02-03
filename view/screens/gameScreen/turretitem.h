@@ -18,7 +18,7 @@ class TurretItem : public QObject, public QGraphicsItem {
     Q_OBJECT
 
    private:
-    model::SharedPtr<model::Turret> turretData;
+    SP<model::Turret> turretData;
     model::TurretType type;
     qreal _cellSize;
 
@@ -37,7 +37,7 @@ class TurretItem : public QObject, public QGraphicsItem {
     model::Position getGridPosition() const;
     void attack(const vector<EnemyItem *> &enemies);
 
-    bool hasTurretData(const model::SharedPtr<model::Turret> &turret) const;
+    bool hasTurretData(const SP<model::Turret> &turret) const;
 
    signals:
     void spawnProjectile(const QPointF &startingPos, const QPointF &endingPos);

@@ -12,7 +12,7 @@
 
 namespace view {
 
-MainWindow::MainWindow(SP<model::GameModel> model) : _model(model), view(new MainWindowView()), currentViewController(nullptr) {
+MainWindow::MainWindow(const SP<model::GameModel>& model) : _model(model), view(new MainWindowView()), currentViewController(nullptr) {
     setWindowTitle("Tower Defense");
 
     setMinimumSize(QSize(1280, 720));
@@ -59,9 +59,9 @@ bool MainWindow::tutorialHasBeenShown() const {
 void MainWindow::setScreen(app::Routes route) {
     if (currentViewController) {
         // TODO: understand how to correctly delete the scene
-        view->scene()->setParent(nullptr);
-        delete view->scene();
-        view->setScene(nullptr);
+        // view->scene()->setParent(nullptr);
+        // delete view->scene();
+        // view->setScene(nullptr);
 
         delete currentViewController;
     }

@@ -111,7 +111,7 @@ void TurretItem::attack(const vector<EnemyItem *> &enemies) {
     }
 }
 
-bool TurretItem::hasTurretData(const model::SharedPtr<model::Turret> &turret) const {
+bool TurretItem::hasTurretData(const SP<model::Turret> &turret) const {
     return turret == turretData;
 }
 

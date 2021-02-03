@@ -1,7 +1,7 @@
 #ifndef MODEL_SHAREDPTR_H_
 #define MODEL_SHAREDPTR_H_
 
-#define U_LINT unsigned int
+#include "app/shortcuts.h"
 
 namespace model {
 
@@ -35,10 +35,15 @@ class SharedPtr {
 
     operator bool() const;
 
-    T* get() const;
-    T& operator*() const;
-    T* operator->() const;
-    T& operator[](U_LINT index) const;
+    T* get();
+    T& operator*();
+    T* operator->();
+    T& operator[](U_LINT index);
+
+    const T* get() const;
+    const T& operator*() const;
+    const T* operator->() const;
+    const T& operator[](U_LINT index) const;
 
     void reset(T* ptr = nullptr);
 
@@ -62,7 +67,11 @@ SharedPtr<T>::SharedPtr(T* ptr) : _ptr(ptr), _counter(ptr ? new U_LINT(1) : new 
 
 template <class T>
 SharedPtr<T>::SharedPtr(const SharedPtr<T>& SharedPtr) : _ptr(SharedPtr._ptr), _counter(SharedPtr._counter) {
-    (*_counter)++;
+    if (_ptr != nullptr) {
+        (*_counter)++;
+    } else {
+        _counter = new U_LINT(0);
+    }
 }
 
 template <class T>
@@ -71,13 +80,22 @@ SharedPtr<T>& SharedPtr<T>::operator=(const SharedPtr<T>& SharedPtr) {
         if (*_counter > 0) {
             (*_counter)--;
         }
+
         if (*_counter <= 0) {
             delete _ptr;
             delete _counter;
+            _ptr = nullptr;
+            _counter = nullptr;
         }
+
         _ptr = SharedPtr._ptr;
         _counter = SharedPtr._counter;
-        (*_counter)++;
+
+        if (_ptr != nullptr) {
+            (*_counter)++;
+        } else {
+            _counter = new U_LINT(0);
+        }
     }
     return *this;
 }
@@ -100,22 +118,42 @@ SharedPtr<T>::operator bool() const {
 }
 
 template <class T>
-T* SharedPtr<T>::get() const {
+T* SharedPtr<T>::get() {
     return _ptr;
 }
 
 template <class T>
-T& SharedPtr<T>::operator*() const {
+T& SharedPtr<T>::operator*() {
     return *_ptr;
 }
 
 template <class T>
-T* SharedPtr<T>::operator->() const {
+T* SharedPtr<T>::operator->() {
     return _ptr;
 }
 
 template <class T>
-T& SharedPtr<T>::operator[](U_LINT index) const {
+T& SharedPtr<T>::operator[](U_LINT index) {
+    return _ptr[index];
+}
+
+template <class T>
+const T* SharedPtr<T>::get() const {
+    return _ptr;
+}
+
+template <class T>
+const T& SharedPtr<T>::operator*() const {
+    return *_ptr;
+}
+
+template <class T>
+const T* SharedPtr<T>::operator->() const {
+    return _ptr;
+}
+
+template <class T>
+const T& SharedPtr<T>::operator[](U_LINT index) const {
     return _ptr[index];
 }
 
@@ -127,9 +165,11 @@ void SharedPtr<T>::reset(T* ptr) {
     if (*_counter <= 0) {
         delete _ptr;
         delete _counter;
+        _ptr = nullptr;
+        _counter = nullptr;
     }
     _ptr = ptr;
-    _counter = new U_LINT(1);
+    _counter = ptr ? new U_LINT(1) : new U_LINT(0);
 }
 
 template <class T>
@@ -145,6 +185,8 @@ SharedPtr<T>::~SharedPtr() {
     if (*_counter <= 0) {
         delete _ptr;
         delete _counter;
+        _ptr = nullptr;
+        _counter = nullptr;
     }
 }
 

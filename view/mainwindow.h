@@ -30,7 +30,7 @@ class MainWindow : public QMainWindow {
     bool tutorialHasBeenShown() const;
 
    public:
-    MainWindow(SP<model::GameModel> model);
+    MainWindow(const SP<model::GameModel>& model);
 
    public slots:
     void setScreen(app::Routes route);
