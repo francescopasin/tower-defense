@@ -51,7 +51,8 @@
 			"qdebug": "cpp",
 			"qstackedwidget": "cpp",
 			"qgraphicsview": "cpp",
-			"qgraphicsscene": "cpp"
+			"qgraphicsscene": "cpp",
+			"qpainter": "cpp"
 		}
 	}
 }

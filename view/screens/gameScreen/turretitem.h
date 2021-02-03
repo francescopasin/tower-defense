@@ -4,15 +4,14 @@
 #include <QGraphicsItem>
 #include <vector>
 
+#include "app/shortcuts.h"
 #include "model/enemy.h"
 #include "model/position.h"
-#include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
 #include "view/screens/gameScreen/enemyitem.h"
 
 using std::vector;
-
 namespace view {
 
 class TurretItem : public QObject, public QGraphicsItem {
@@ -28,7 +27,7 @@ class TurretItem : public QObject, public QGraphicsItem {
    public:
     TurretItem(
         QGraphicsItem *parent,
-        const model::SharedPtr<model::Turret> &turret,
+        const SP<model::Turret> &turret,
         model::TurretType turretType,
         qreal cellSize);
 

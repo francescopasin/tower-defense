@@ -1,18 +1,15 @@
 #include "view/screens/gameScreen/turretitem.h"
 
 #include <QPainter>
-#include <memory>
 
+#include "app/shortcuts.h"
 #include "model/turrets/turrettype.h"
-
-using std::shared_ptr;
-#define SP shared_ptr
 
 namespace view {
 
 TurretItem::TurretItem(
     QGraphicsItem *parent,
-    const model::SharedPtr<model::Turret> &turret,
+    const SP<model::Turret> &turret,
     model::TurretType turretType,
     qreal cellSize)
     : QGraphicsItem(parent),

@@ -3,7 +3,7 @@
 
 #include <QGraphicsItem>
 
-#define U_INT unsigned short int
+#include "app/shortcuts.h"
 
 namespace view {
 

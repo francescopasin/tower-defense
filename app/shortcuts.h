@@ -7,6 +7,6 @@
 #endif
 
 #ifndef SP
-#define SP SharedPtr
+#define SP model::SharedPtr
 #include "model/sharedptr.h"
 #endif

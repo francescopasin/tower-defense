@@ -1,6 +1,5 @@
 #include "view/screens/gameScreen/gamescene.h"
 
-#include <QDebug>
 #include <algorithm>
 
 #include "view/hud/iconbutton.h"

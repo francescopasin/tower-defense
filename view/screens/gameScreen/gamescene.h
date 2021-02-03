@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <vector>
 
+#include "app/shortcuts.h"
 #include "model/gamemodel.h"
 #include "model/position.h"
 #include "model/sharedptr.h"
@@ -15,10 +16,7 @@
 #include "view/screens/gameScreen/gridfield.h"
 #include "view/screens/gameScreen/turretselector.h"
 
-using std::shared_ptr;
 using std::vector;
-
-#define SP shared_ptr
 
 namespace view {
 

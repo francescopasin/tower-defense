@@ -14,14 +14,6 @@ StandardButton::StandardButton(const QString &text, int width, QGraphicsItem *pa
 }
 
 QRectF StandardButton::boundingRect() const {
-    //QFont font;
-    //font.fromString("Press Start 2P, -1, 30, 5, 50, 0, 0, 0, 0, 0");
-    //QFontMetrics fontMetric(font);
-
-    // QFont font("Press Start 2P", 30);
-    // QFontMetrics fm(font);
-    // int pixelsWide = fm.horizontalAdvance(_text);
-
     return QRectF(0, 0, _width, 128);  //TODO: Calculate width in abetter way
 }
 
@@ -43,10 +35,6 @@ void StandardButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
     QPen pen = QPen(QColor::fromRgb(255, 255, 255));
     painter->setPen(pen);
-
-    // QFontMetrics fontMetric(font);
-
-    // _width = fontMetric.horizontalAdvance(_text);
 
     painter->drawPixmap(QRect(0, 0, _width, 128), pixmap);
 

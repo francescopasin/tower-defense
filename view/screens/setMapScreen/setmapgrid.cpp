@@ -1,7 +1,5 @@
 #include "setmapgrid.h"
 
-#include <QDebug>
-
 namespace view {
 
 SetMapGrid::SetMapGrid(const QSize &size) : _size(size) {

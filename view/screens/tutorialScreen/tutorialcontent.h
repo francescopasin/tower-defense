@@ -3,9 +3,8 @@
 
 #include <QGraphicsItem>
 
+#include "app/shortcuts.h"
 #include "view/hud/standardbutton.h"
-
-#define U_INT unsigned short int
 
 namespace view {
 
