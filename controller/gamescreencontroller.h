@@ -32,6 +32,7 @@ class GameScreenController : public Controller {
 
    public slots:
     void returnToMenu();
+    void restart();
 
     void gameTick();
     void viewTick();

@@ -43,6 +43,12 @@ GameScreenController::GameScreenController(const SP<model::GameModel>& model)
         this,
         &controller::GameScreenController::removeTurret);
 
+    connect(
+        _scene,
+        &view::GameScene::restart,
+        this,
+        &GameScreenController::restart);
+
     start();
 }
 
@@ -66,7 +72,13 @@ void GameScreenController::start() {
 }
 
 void GameScreenController::gameTick() {
-    _model->tick();
+    model::Game::State stato = _model->tick();
+
+    if (stato == model::Game::State::Lost || stato == model::Game::State::Won) {
+        gameTimer->stop();
+        renderTimer->stop();
+        _scene->showModal(stato);
+    }
 
     SP<model::Enemy> newEnemy = _model->lastTickSpawnedEnemy();
     vector<SP<model::Turret>> lastTickAttackingTurrets = _model->lastTickAttackingTurrets();
@@ -84,6 +96,12 @@ void GameScreenController::returnToMenu() {
     _model->reset();
 
     emit navigateTo(app::Routes::InitialScreen);
+}
+
+void GameScreenController::restart() {
+    _model->reset();
+
+    emit navigateTo(app::Routes::GameScreen);
 }
 
 void GameScreenController::viewTick() {
