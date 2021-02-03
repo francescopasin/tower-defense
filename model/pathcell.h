@@ -17,6 +17,10 @@ struct PathCell {
         Position p{x, y};
         return p;
     }
+
+    bool operator==(const PathCell& other) const {
+        return x == other.getPosition().x && y == other.getPosition().y;
+    }
 };
 
 }  // namespace model

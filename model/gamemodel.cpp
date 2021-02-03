@@ -108,7 +108,10 @@ void GameModel::reset() {
     vector<Wave> wave;
 
     // TODO: temp. only for debugging
-    wave.push_back(Wave{100, 20, 10, 10, 30, 50, 10});
+    wave.push_back(Wave{500, 60, 10, 1, 30, 50, 35});
+    wave.push_back(Wave{500, 60, 10, 1, 30, 300, 35});
+    wave.push_back(Wave{100, 20, 10, 1, 30, 100, 10});
+
     /*
     wave.push_back(Wave{100, 120, 10, 6, 15, 0});
     wave.push_back(Wave{100, 120, 10, 10, 15, 60});
