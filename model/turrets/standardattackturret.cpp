@@ -14,7 +14,7 @@ bool StandardAttackTurret::attack() {
     if (enemies.size() != 0) {
         // There is at least one enemy to attack
         if (_attackCooldownCounter == 0) {
-            for (auto& enemy : enemies) {
+            for (auto enemy : enemies) {
                 enemy->receiveAttack(_attackDamage);
             }
             // Reset cooldown
