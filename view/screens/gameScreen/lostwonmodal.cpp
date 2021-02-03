@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/lostwinmodal.h"
+#include "view/screens/gameScreen/lostwonmodal.h"
 
 #include <QPainter>
 
@@ -6,11 +6,11 @@
 
 namespace view {
 
-LostWinModal::LostWinModal(const model::Game::State &lostWon, qreal width, qreal height) : _lostWon(lostWon), Modal(width, height, false) {
+LostWonModal::LostWonModal(const model::Game::State &lostWon, qreal width, qreal height) : _lostWon(lostWon), Modal(width, height, false) {
     // Add external content
 }
 
-void LostWinModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+void LostWonModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
@@ -60,13 +60,13 @@ void LostWinModal::paintContent(QPainter *painter, const QStyleOptionGraphicsIte
     restartButtoon->setPos(
         size.width() / 2 - width / 2 + 50,
         size.height() / 2 + height / 2 - 50 - restartButtoon->boundingRect().height());
-    connect(restartButtoon, &StandardButton::pressed, this, &LostWinModal::restart);
+    connect(restartButtoon, &StandardButton::pressed, this, &LostWonModal::restart);
 
     StandardButton *menuButton = new StandardButton("MENU", 300, this);
     menuButton->setPos(
         size.width() / 2 + width / 2 - 50 - menuButton->boundingRect().width(),
         size.height() / 2 + height / 2 - 50 - menuButton->boundingRect().height());
-    connect(menuButton, &StandardButton::pressed, this, &LostWinModal::returnToMenu);
+    connect(menuButton, &StandardButton::pressed, this, &LostWonModal::returnToMenu);
 }
 
 }  // namespace view

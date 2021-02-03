@@ -6,7 +6,7 @@
 
 namespace view {
 
-class LostWinModal : public Modal {
+class LostWonModal : public Modal {
     Q_OBJECT
 
    private:
@@ -16,7 +16,7 @@ class LostWinModal : public Modal {
     virtual void paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
    public:
-    LostWinModal(const model::Game::State &lostWon, qreal width, qreal height);
+    LostWonModal(const model::Game::State &lostWon, qreal width, qreal height);
 
    signals:
     void returnToMenu();

@@ -11,7 +11,7 @@ Game::State GameModel::tick() {
 }
 
 void GameModel::reset() {
-    U_INT credits = 300;
+    U_INT credits = 60;
     float life = 50;
 
     vector<Position> map;
