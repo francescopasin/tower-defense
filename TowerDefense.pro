@@ -17,8 +17,7 @@ SOURCES += \
     model/exception.cpp \
     \
     model/turrets/turret.cpp \
-    model/turrets/singulartargetturret.cpp \
-    model/turrets/multipletargetturret.cpp \
+    model/turrets/standardattackturret.cpp \
     model/turrets/granadeturret.cpp \
     model/turrets/comboturret.cpp \
     model/turrets/splitturret.cpp \
@@ -74,8 +73,7 @@ HEADERS += \
     model/wave.h \
     \
     model/turrets/turret.h \
-    model/turrets/singulartargetturret.h \
-    model/turrets/multipletargetturret.h \
+    model/turrets/standardattackturret.h \
     model/turrets/granadeturret.h \
     model/turrets/comboturret.h \
     model/turrets/splitturret.h \

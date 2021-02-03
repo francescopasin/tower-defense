@@ -2,13 +2,13 @@
 #define MODEL_GRANADETURRET_H_
 
 #include "app/shortcuts.h"
-#include "model/turrets/multipletargetturret.h"
+#include "model/turrets/turret.h"
 
 using std::vector;
 
 namespace model {
 
-class GranadeTurret : public MultipleTargetTurret {
+class GranadeTurret : public Turret {
    private:
     SP<Enemy> _lastTargetedEnemy;
 

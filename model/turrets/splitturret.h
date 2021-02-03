@@ -2,13 +2,13 @@
 #define MODEL_SPLITTURRET_H_
 
 #include "app/shortcuts.h"
-#include "model/turrets/multipletargetturret.h"
+#include "model/turrets/standardattackturret.h"
 
 using std::vector;
 
 namespace model {
 
-class SplitTurret : public MultipleTargetTurret {
+class SplitTurret : public StandardAttackTurret {
    private:
     SP<Enemy> _lastTargetedEnemy;
 

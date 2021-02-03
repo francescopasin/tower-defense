@@ -1,27 +1,25 @@
-#include "model/turrets/granadeturret.h"
-
-#include "model/turrets/turrettype.h"
+#include "model/turrets/standardattackturret.h"
 
 namespace model {
 
-GranadeTurret::GranadeTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies)
-    : Turret(TurretType::GranadeTurret, position, enemies) {}
+StandardAttackTurret::StandardAttackTurret(
+    const TurretType& type,
+    const Position& position,
+    const SP<vector<SP<Enemy>>>& enemies)
+    : Turret(type, position, enemies) {}
 
-bool GranadeTurret::attack() {
+bool StandardAttackTurret::attack() {
     vector<SP<Enemy>> enemies = getTargetedEnemies();
 
     if (enemies.size() != 0) {
+        // There is at least one enemy to attack
         if (_attackCooldownCounter == 0) {
-            for (auto enemy : enemies) {
+            for (auto& enemy : enemies) {
                 enemy->receiveAttack(_attackDamage);
-                // Reduce damage for every enemy
-                _attackDamage -= 10;
             }
             // Reset cooldown
             _attackCooldownCounter = _attackCooldown;
             _hasAttackedLastTick = true;
-            // Restore damage
-            _attackDamage = _stats.initialAttackDamage;
 
             return true;
         } else {

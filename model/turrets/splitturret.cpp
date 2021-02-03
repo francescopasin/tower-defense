@@ -5,7 +5,7 @@
 namespace model {
 
 SplitTurret::SplitTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies)
-    : MultipleTargetTurret(TurretType::SplitTurret, position, enemies) {}
+    : StandardAttackTurret(TurretType::SplitTurret, position, enemies) {}
 
 bool SplitTurret::attack() {
     vector<SP<Enemy>> enemies = getTargetedEnemies();
@@ -13,7 +13,7 @@ bool SplitTurret::attack() {
     if (enemies.size() != 0) {
         _attackDamage = _stats.initialAttackDamage / enemies.size();
 
-        return Turret::attack();
+        return StandardAttackTurret::attack();
     }
 
     return false;

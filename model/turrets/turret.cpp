@@ -30,28 +30,23 @@ vector<SP<Enemy>> Turret::getEnemiesInRadius() const {
     return enemies;
 }
 
-// Return if the turret has attacked or not
-bool Turret::attack() {
-    vector<SP<Enemy>> enemies = getTargetedEnemies();
+vector<SP<Enemy>> Turret::getTargetedEnemies() const {
+    vector<SP<Enemy>> enemiesInRadius = getEnemiesInRadius();
+    vector<SP<Enemy>> targetedEnemies = vector<SP<Enemy>>();
 
-    if (enemies.size() != 0) {
-        // There is at least one enemy to attack
-        if (_attackCooldownCounter == 0) {
-            for (auto& enemy : enemies) {
-                enemy->receiveAttack(_attackDamage);
-            }
-            // Reset cooldown
-            _attackCooldownCounter = _attackCooldown;
-            _hasAttackedLastTick = true;
+    U_INT targetsAmount;
 
-            return true;
-        } else {
-            _attackCooldownCounter--;
-            _hasAttackedLastTick = false;
-        }
+    if (_stats.maxTargets == -1) {
+        targetsAmount = enemiesInRadius.size();
+    } else {
+        targetsAmount = _stats.maxTargets;
     }
 
-    return false;
+    for (U_INT i = 0; i < targetsAmount && i < enemiesInRadius.size(); i++) {
+        targetedEnemies.push_back(enemiesInRadius[i]);
+    }
+
+    return targetedEnemies;
 }
 
 Position Turret::getPosition() const {

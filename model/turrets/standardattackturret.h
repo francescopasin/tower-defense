@@ -1,5 +1,5 @@
-#ifndef MODEL_SINGULARTARGETTURRET_H_
-#define MODEL_SINGULARTARGETTURRET_H_
+#ifndef MODEL_STANDARDATTACKTURRET_H_
+#define MODEL_STANDARDATTACKTURRET_H_
 
 #include "app/shortcuts.h"
 #include "model/turrets/turret.h"
@@ -9,15 +9,15 @@ using std::vector;
 
 namespace model {
 
-class SingularTargetTurret : public Turret {
+class StandardAttackTurret : public Turret {
    public:
-    SingularTargetTurret(
+    StandardAttackTurret(
         const TurretType& type,
         const Position& position,
         const SP<vector<SP<Enemy>>>& enemies);
-    virtual ~SingularTargetTurret() = default;
+    virtual ~StandardAttackTurret() = default;
 
-    virtual vector<SP<Enemy>> getTargetedEnemies() const override;
+    virtual bool attack() override;
 };
 
 }  // namespace model
