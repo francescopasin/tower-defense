@@ -9,9 +9,6 @@ using std::vector;
 namespace model {
 
 class GranadeTurret : public Turret {
-   private:
-    SP<Enemy> _lastTargetedEnemy;
-
    public:
     GranadeTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies);
     virtual ~GranadeTurret() = default;

@@ -346,6 +346,44 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                     .arg(stats.initialAttackDamage)
                     .arg(stats.initialAttackCooldown));
 
+            // SLOWTIME
+            // ================================================================
+
+            pixmap = QPixmap(":/assets/images/missing-image.png");
+            painter->drawPixmap(QRect(_size.width() / 8, 650, 128, 128), pixmap);
+
+            font.setPixelSize(30);
+            painter->setFont(font);
+
+            painter->drawText(
+                QRectF(_size.width() / 8 + 200, 650, _size.width() * 3 / 4, 128),
+                Qt::AlignVCenter | Qt::TextWordWrap,
+                "SlowTime Turret");
+
+            font.setPixelSize(20);
+            painter->setFont(font);
+
+            stats = turretTypes.at(TurretType::SlowTimeTurret);
+
+            painter->drawText(
+                QRectF(_size.width() / 8 + 700, 650, _size.width() * 3 / 4, 128),
+                Qt::AlignVCenter | Qt::TextWordWrap,
+                QString("Cost: %1"
+                        "\n"
+                        "Max targets: %2"
+                        "\n"
+                        "Radius: %3")
+                    .arg(stats.cost)
+                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                    .arg(stats.attackRadius));
+
+            painter->drawText(
+                QRectF(_size.width() / 8 + 1200, 650, 400, 128),
+                Qt::AlignVCenter | Qt::TextWordWrap,
+                QString("Damage: this turret slows enemies down by 50%")
+                    .arg(stats.initialAttackDamage)
+                    .arg(stats.initialAttackCooldown));
+
             break;
         case 6:
             font.setPixelSize(50);

@@ -55,6 +55,9 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
             case model::TurretType::SplitTurret:
                 brush.setColor(QColor::fromRgb(160, 226, 60));
                 break;
+            case model::TurretType::SlowTimeTurret:
+                brush.setColor(QColor::fromRgb(70, 160, 100));
+                break;
         }
     } else {
         switch (_turretType) {
@@ -72,6 +75,9 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
                 break;
             case model::TurretType::SplitTurret:
                 brush.setColor(QColor::fromRgb(120, 186, 20));
+                break;
+            case model::TurretType::SlowTimeTurret:
+                brush.setColor(QColor::fromRgb(30, 120, 60));
                 break;
         }
     }
@@ -102,6 +108,9 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
             break;
         case model::TurretType::SplitTurret:
             painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "SPLIT");
+            break;
+        case model::TurretType::SlowTimeTurret:
+            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "TIME");
             break;
     }
 }

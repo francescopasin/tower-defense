@@ -21,12 +21,14 @@ class Enemy {
     const vector<PathCell> _path;
     U_INT _reward;
     float _initialHealth;
+    float _speedFactor;
 
    public:
     Enemy(const vector<PathCell>& path, float _health, U_INT _speed, float _attackDamage, U_INT reward);
 
     void receiveAttack(float damage);
     float move();
+    void changeSpeedNextTick(float speedFactor);
 
     PathCell getCurrentCell() const;
     float getCellPosition() const;

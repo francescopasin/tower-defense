@@ -21,6 +21,7 @@ SOURCES += \
     model/turrets/granadeturret.cpp \
     model/turrets/comboturret.cpp \
     model/turrets/splitturret.cpp \
+    model/turrets/slowtimeturret.cpp \
     \
     controller/controller.cpp \
     controller/initialscreencontroller.cpp \
@@ -78,6 +79,7 @@ HEADERS += \
     model/turrets/comboturret.h \
     model/turrets/splitturret.h \
     model/turrets/turrettype.h \
+    model/turrets/slowtimeturret.h \
     \
     controller/controller.h \
     controller/initialscreencontroller.h \

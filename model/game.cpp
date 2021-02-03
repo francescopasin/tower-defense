@@ -3,6 +3,7 @@
 #include "model/enemy.h"
 #include "model/turrets/comboturret.h"
 #include "model/turrets/granadeturret.h"
+#include "model/turrets/slowtimeturret.h"
 #include "model/turrets/splitturret.h"
 #include "model/turrets/standardattackturret.h"
 
@@ -104,6 +105,9 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
                 break;
             case TurretType::SplitTurret:
                 temp.reset(new SplitTurret(position, _enemies));
+                break;
+            case TurretType::SlowTimeTurret:
+                temp.reset(new SlowTimeTurret(position, _enemies));
                 break;
             case TurretType::WeakTurret:
             default:
