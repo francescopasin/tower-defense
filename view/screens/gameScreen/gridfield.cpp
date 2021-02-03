@@ -252,7 +252,7 @@ model::Position GridField::getSelectedCellPosition() const {
             return c->getGridPosition();
         }
     }
-
+    return model::Position{9999, 9999};
     // TODO: handle no cell selected (shouldn't happen)
 }
 

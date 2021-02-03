@@ -12,8 +12,8 @@ SetMapCell::SetMapCell(
     Type type)
     : QGraphicsItem(parent),
       _size(size),
-      _gridPos(pos),
       _type(type),
+      _gridPos(pos),
       _selected(false) {
     if (type == Type::Free) {
         setAcceptHoverEvents(true);

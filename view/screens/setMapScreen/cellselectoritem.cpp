@@ -21,6 +21,8 @@ QRectF CellSelectorItem::boundingRect() const {
 
 void CellSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(widget);
+    Q_UNUSED(option);
+
 
     QString imagePath;
 

@@ -47,7 +47,7 @@ void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) 
     }
 
     if (!trovatoErrore) {
-        int count = 0;
+        U_INT count = 0;
         for (auto i : *cells) {
             if (i->getType() != view::SetMapCell::Type::Blocked && i->getType() != view::SetMapCell::Type::Free) {
                 count++;
@@ -127,7 +127,7 @@ vector<model::Position> SetMapScreenController::createPath(model::Position start
     model::Position prev = start;
     model::Position temp;
 
-    while (current.x >= 0 && current.x < 16 && current.y >= 0 && current.y < 10) {
+    while (current.x < 16 && current.y < 10) {
         for (auto i : *cells) {
             if (i->getPos() == current) {
                 temp = current;

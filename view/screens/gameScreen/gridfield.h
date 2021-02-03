@@ -21,6 +21,7 @@ namespace view {
 
 class GridField : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     QSize _size;

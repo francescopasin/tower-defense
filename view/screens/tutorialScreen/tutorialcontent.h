@@ -10,6 +10,7 @@ namespace view {
 
 class TutorialContent : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     QSizeF _size;

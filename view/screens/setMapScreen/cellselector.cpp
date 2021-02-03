@@ -72,10 +72,13 @@ void CellSelector::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 }
 
 void CellSelector::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    Q_UNUSED(event);
+
     // To prevent clicks below
 }
 
 void CellSelector::focusOutEvent(QFocusEvent *event) {
+    Q_UNUSED(event);
     emit losedFocusSignal();
 }
 

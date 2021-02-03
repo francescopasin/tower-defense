@@ -7,6 +7,7 @@ namespace view {
 
 class IconButton : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     QString _imagePath;

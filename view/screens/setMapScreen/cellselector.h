@@ -9,6 +9,7 @@ namespace view {
 
 class CellSelector : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

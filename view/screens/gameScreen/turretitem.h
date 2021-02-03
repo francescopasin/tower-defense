@@ -16,6 +16,7 @@ namespace view {
 
 class TurretItem : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     SP<model::Turret> turretData;

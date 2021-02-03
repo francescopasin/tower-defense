@@ -10,6 +10,7 @@ namespace view {
 
 class SetMapCell : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    public:
     enum class Type {

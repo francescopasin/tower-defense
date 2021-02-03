@@ -10,6 +10,7 @@ namespace view {
 
 class TurretSelector : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     TurretSelectorItem *weakTurretSelector;

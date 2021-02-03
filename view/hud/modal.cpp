@@ -33,6 +33,8 @@ void Modal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 }
 
 void Modal::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    Q_UNUSED(event)
+
     if (_closeOnClick) {
         emit close();
     }

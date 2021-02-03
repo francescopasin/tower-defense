@@ -45,7 +45,7 @@ void SetMapGrid::selectCell(SetMapCell *cell) {
 
     if (cell != nullptr) {
         cell->setSelected(true);
-        emit cellPressed(cell->getType(), cell->pos());
+        emit cellPressed(cell->pos());
     }
 }
 

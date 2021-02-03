@@ -6,9 +6,9 @@ Turret::Turret(
     const TurretType& type,
     const Position& position,
     const SP<vector<SP<Enemy>>>& enemies)
-    : _stats(turretTypes.at(type)),
-      _position(position),
+    : _position(position),
       _enemies(enemies),
+      _stats(turretTypes.at(type)),
       _attackDamage(_stats.initialAttackDamage),
       _attackCooldown(_stats.initialAttackCooldown),
       _attackCooldownCounter(_stats.initialAttackCooldown),

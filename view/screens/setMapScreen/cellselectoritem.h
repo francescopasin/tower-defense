@@ -9,6 +9,7 @@ namespace view {
 
 class CellSelectorItem : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     SetMapCell::Type _cellType;

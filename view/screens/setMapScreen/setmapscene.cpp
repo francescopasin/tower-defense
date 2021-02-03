@@ -61,7 +61,7 @@ void SetMapScene::createHUD() {
     addItem(backButton);
 }
 
-void SetMapScene::gridCellPressed(SetMapCell::Type cellType, const QPointF& coordinates) {
+void SetMapScene::gridCellPressed(const QPointF& coordinates) {
     cellSelector->setPos(
         qMax(coordinates.x() + 48 - cellSelector->boundingRect().width() / 2 + (1920 - 96 * 16) / 2, 0.0),
         coordinates.y() - cellSelector->boundingRect().height() + 1080 - grid->boundingRect().height());  // TODO: temp

@@ -6,7 +6,7 @@
 
 namespace view {
 
-LostWonModal::LostWonModal(const model::Game::State &lostWon, qreal width, qreal height) : _lostWon(lostWon), Modal(width, height, false) {
+LostWonModal::LostWonModal(const model::Game::State &lostWon, qreal width, qreal height) : Modal(width, height, false), _lostWon(lostWon) {
     // Add external content
 }
 

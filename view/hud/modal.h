@@ -7,6 +7,7 @@ namespace view {
 
 class Modal : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     bool _closeOnClick;
