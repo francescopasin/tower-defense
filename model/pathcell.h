@@ -1,8 +1,7 @@
 #ifndef MODEL_PATHCELL_H_
 #define MODEL_PATHCELL_H_
 
-#define U_INT unsigned short int
-
+#include "app/shortcuts.h"
 #include "model/direction.h"
 #include "model/position.h"
 

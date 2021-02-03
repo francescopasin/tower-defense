@@ -2,12 +2,11 @@
 #define MODEL_GAME_H_
 
 #include <algorithm>
-#include <memory>
 #include <vector>
 
+#include "app/shortcuts.h"
 #include "model/exception.h"
 #include "model/mylist.h"
-#include "model/sharedptr.h"
 #include "model/turrets/comboturret.h"
 #include "model/turrets/multipletargetturret.h"
 #include "model/turrets/singulartargetturret.h"
@@ -15,10 +14,7 @@
 #include "model/turrets/turrettype.h"
 #include "model/wave.h"
 
-using std::shared_ptr;
 using std::vector;
-
-#define SP shared_ptr
 
 namespace model {
 

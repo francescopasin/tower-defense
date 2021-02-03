@@ -14,6 +14,9 @@ bool operator==(const SharedPtr<T>& left, const SharedPtr<T>& right);  // Dichia
 template <class T>
 bool operator!=(const SharedPtr<T>& left, const SharedPtr<T>& right);  // Dichiarazione incompleta
 
+template <class T, class... Args>
+SharedPtr<T> make_shared(Args&&... args);
+
 template <class T>
 class SharedPtr {
     friend bool operator==<T>(const SharedPtr& left, const SharedPtr& right);
@@ -55,7 +58,7 @@ bool operator!=(const SharedPtr<T>& left, const SharedPtr<T>& right) {
 }
 
 template <class T>
-SharedPtr<T>::SharedPtr(T* ptr) : _ptr(ptr), _counter(new U_LINT(0)) {}
+SharedPtr<T>::SharedPtr(T* ptr) : _ptr(ptr), _counter(ptr ? new U_LINT(1) : new U_LINT(0)) {}
 
 template <class T>
 SharedPtr<T>::SharedPtr(const SharedPtr<T>& SharedPtr) : _ptr(SharedPtr._ptr), _counter(SharedPtr._counter) {
@@ -143,6 +146,11 @@ SharedPtr<T>::~SharedPtr() {
         delete _ptr;
         delete _counter;
     }
+}
+
+template <class T, class... Args>
+SharedPtr<T> make_shared(Args&&... args) {
+    return SharedPtr<T>(new T(args...));
 }
 
 }  // namespace model

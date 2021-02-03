@@ -1,10 +1,9 @@
 #ifndef MODEL_WAVE_H_
 #define MODEL_WAVE_H_
 
+#include "app/shortcuts.h"
+
 namespace model {
-
-#define U_INT unsigned short int
-
 struct Wave {
     float enemiesHealth;
     U_INT enemiesSpeed;

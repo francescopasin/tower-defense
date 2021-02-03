@@ -1,8 +1,9 @@
 #ifndef MODEL_MYLIST_H_
 #define MODEL_MYLIST_H_
 
-#define U_INT unsigned short int
 #include <stdexcept>
+
+#include "app//shortcuts.h"
 
 namespace model {
 

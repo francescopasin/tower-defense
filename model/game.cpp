@@ -22,7 +22,7 @@ Game::Game(
     setMap(map, first);
 
     vector<SP<Enemy>> v;
-    _enemies = std::make_shared<vector<SP<Enemy>>>(v);
+    _enemies = model::make_shared<vector<SP<Enemy>>>(v);
     // TODO: controllare ?
 
     _currentWave = _waves.begin();
