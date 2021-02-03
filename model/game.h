@@ -50,6 +50,7 @@ class Game {
     void attack();
     void checkDeadEnemies();
     void checkWon();
+    void reorderEnemies();
 
    public:
     Game(U_INT credits, float life, vector<Position>& map, const vector<Position>& blockedCellsMap, const vector<Wave>& waves, Direction first);

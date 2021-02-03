@@ -27,6 +27,38 @@ Game::Game(
     _currentWave = _waves.begin();
 }
 
+void Game::reorderEnemies() {
+    std::sort(_enemies->begin(), _enemies->end(), [this](SP<Enemy> prev, SP<Enemy> next) {
+        PathCell pos_prev = prev->getCurrentCell();
+        PathCell pos_next = next->getCurrentCell();
+        int index_prev = -1;
+        int index_next = -1;
+
+        auto it = std::find_if(_map.begin(), _map.end(), [pos_prev](PathCell cell) {
+            return cell.getPosition() == pos_prev.getPosition();
+        });
+        if (it != _map.end()) {
+            index_prev = it - _map.begin();
+        }
+
+        it = std::find_if(_map.begin(), _map.end(), [pos_next](PathCell cell) {
+            return cell.getPosition() == pos_next.getPosition();
+        });
+        if (it != _map.end()) {
+            index_next = it - _map.begin();
+        }
+
+        if (index_prev < index_next) {
+            return false;
+        }
+        if (index_prev > index_next) {
+            return true;
+        }
+
+        return prev->getCellPosition() > next->getCellPosition();
+    });
+}
+
 SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
     if (_currentState == State::InExecution) {
         // Check if turret can be placed
@@ -259,6 +291,7 @@ Game::State Game::tick() {
         _tick++;
         moveEnemies();
         spawnEnemy();
+        reorderEnemies();
         attack();
         checkDeadEnemies();
         checkWon();
