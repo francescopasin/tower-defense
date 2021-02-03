@@ -3,9 +3,8 @@
 
 #include <QGraphicsItem>
 
+#include "app/shortcuts.h"
 #include "model/turrets/turrettype.h"
-
-#define U_INT unsigned short int
 
 namespace view {
 

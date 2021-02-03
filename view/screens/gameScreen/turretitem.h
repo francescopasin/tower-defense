@@ -4,22 +4,21 @@
 #include <QGraphicsItem>
 #include <vector>
 
+#include "app/shortcuts.h"
 #include "model/enemy.h"
 #include "model/position.h"
-#include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
 #include "view/screens/gameScreen/enemyitem.h"
 
 using std::vector;
-
 namespace view {
 
 class TurretItem : public QObject, public QGraphicsItem {
     Q_OBJECT
 
    private:
-    model::SharedPtr<model::Turret> turretData;
+    SP<model::Turret> turretData;
     model::TurretType type;
     qreal _cellSize;
 
@@ -28,7 +27,7 @@ class TurretItem : public QObject, public QGraphicsItem {
    public:
     TurretItem(
         QGraphicsItem *parent,
-        const model::SharedPtr<model::Turret> &turret,
+        const SP<model::Turret> &turret,
         model::TurretType turretType,
         qreal cellSize);
 
@@ -38,7 +37,7 @@ class TurretItem : public QObject, public QGraphicsItem {
     model::Position getGridPosition() const;
     void attack(const vector<EnemyItem *> &enemies);
 
-    bool hasTurretData(const model::SharedPtr<model::Turret> &turret) const;
+    bool hasTurretData(const SP<model::Turret> &turret) const;
 
    signals:
     void spawnProjectile(const QPointF &startingPos, const QPointF &endingPos);

@@ -3,15 +3,12 @@
 
 #include <QGraphicsScene>
 #include <vector>
-#include <memory>
 
-using std::shared_ptr;
 using std::vector;
 
+#include "app/shortcuts.h"
 #include "view/screens/setMapScreen/cellselector.h"
 #include "view/screens/setMapScreen/setmapgrid.h"
-
-#define SP shared_ptr
 
 namespace view {
 

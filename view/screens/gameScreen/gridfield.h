@@ -40,8 +40,8 @@ class GridField : public QObject, public QGraphicsItem {
 
     model::Position getSelectedCellPosition() const;
 
-    void turretsAttack(const vector<model::SharedPtr<model::Turret>> &attackingTurrets, const vector<EnemyItem *> &enemies);
-    void addTurretItem(const model::SharedPtr<model::Turret> &turret, model::TurretType turretType);
+    void turretsAttack(const vector<SP<model::Turret>> &attackingTurrets, const vector<EnemyItem *> &enemies);
+    void addTurretItem(const SP<model::Turret> &turret, model::TurretType turretType);
 
     void moveProjectiles();
 

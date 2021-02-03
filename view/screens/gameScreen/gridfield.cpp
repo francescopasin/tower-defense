@@ -208,7 +208,7 @@ void GridField::selectCell(GridCell *cell) {
     }
 }
 
-void GridField::turretsAttack(const vector<model::SharedPtr<model::Turret>> &attackingTurrets, const vector<EnemyItem *> &enemies) {
+void GridField::turretsAttack(const vector<SP<model::Turret>> &attackingTurrets, const vector<EnemyItem *> &enemies) {
     for (auto turret : attackingTurrets) {
         // Find associated TurretItem
         for (auto turretItem : turrets) {
@@ -220,7 +220,7 @@ void GridField::turretsAttack(const vector<model::SharedPtr<model::Turret>> &att
     }
 }
 
-void GridField::addTurretItem(const model::SharedPtr<model::Turret> &turret, model::TurretType turretType) {
+void GridField::addTurretItem(const SP<model::Turret> &turret, model::TurretType turretType) {
     // Set cell as occupied
     for (auto c : interactiveCells) {
         if (c->getGridPosition() == turret->getPosition()) {

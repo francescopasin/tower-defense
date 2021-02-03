@@ -2,13 +2,9 @@
 #define VIEW_ENEMYITEM_H_
 
 #include <QGraphicsItem>
-#include <memory>
 
+#include "app/shortcuts.h"
 #include "model/enemy.h"
-
-using std::shared_ptr;
-
-#define SP shared_ptr
 
 namespace view {
 

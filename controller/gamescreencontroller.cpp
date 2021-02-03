@@ -69,7 +69,7 @@ void GameScreenController::gameTick() {
     _model->tick();
 
     SP<model::Enemy> newEnemy = _model->lastTickSpawnedEnemy();
-    vector<model::SharedPtr<model::Turret>> lastTickAttackingTurrets = _model->lastTickAttackingTurrets();
+    vector<SP<model::Turret>> lastTickAttackingTurrets = _model->lastTickAttackingTurrets();
 
     if (newEnemy) {
         _scene->spawnEnemy(newEnemy);
@@ -118,7 +118,7 @@ void GameScreenController::fastForward() {
 }
 
 void GameScreenController::addTurret(model::Position position, model::TurretType turretType) {
-    model::SharedPtr<model::Turret> turret = _model->addTurret(turretType, position);
+    SP<model::Turret> turret = _model->addTurret(turretType, position);
 
     _scene->addTurretItem(turret, turretType);
 }

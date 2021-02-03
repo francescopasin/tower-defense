@@ -3,12 +3,11 @@
 
 #include <vector>
 
+#include "app/shortcuts.h"
 #include "model/pathcell.h"
 #include "model/position.h"
 
 using std::vector;
-
-#define U_INT unsigned short int
 
 namespace model {
 

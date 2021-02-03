@@ -4,9 +4,8 @@
 #include <QGraphicsItem>
 #include <vector>
 
+#include "app/shortcuts.h"
 #include "view/screens/setMapScreen/setmapcell.h"
-
-#define SP std::shared_ptr
 
 namespace view {
 

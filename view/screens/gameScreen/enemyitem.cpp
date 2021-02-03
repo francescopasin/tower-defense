@@ -104,13 +104,6 @@ void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     }
 
     painter->drawRect(1, 51, widthAdvance - 1, 3);
-
-    // // TODO: temp. For debugging
-    // QFont font = painter->font();
-    // font.setPixelSize(25);
-    // painter->setFont(font);
-    // painter->setPen(Qt::white);
-    // painter->drawText(QRect(0, 0, 50, 50), Qt::AlignCenter, QString::number(enemyData->getHealth()));
 }
 
 void EnemyItem::tick() {

@@ -1,10 +1,9 @@
 #include <QApplication>
-#include <memory>
 
+#include "app/shortcuts.h"
 #include "model/exception.h"
 #include "view/mainwindow.h"
 
-using std::make_shared;
 using std::vector;
 
 int main(int argc, char *argv[]) {
@@ -12,7 +11,7 @@ int main(int argc, char *argv[]) {
 
     // Model
     // ========================================================================
-    auto model = make_shared<model::GameModel>();
+    auto model = model::make_shared<model::GameModel>();
 
     view::MainWindow window(model);
 

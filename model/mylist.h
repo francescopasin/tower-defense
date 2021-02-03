@@ -1,8 +1,9 @@
 #ifndef MODEL_MYLIST_H_
 #define MODEL_MYLIST_H_
 
-#define U_INT unsigned short int
 #include <stdexcept>
+
+#include "app/shortcuts.h"
 
 namespace model {
 
@@ -19,10 +20,10 @@ class MyList {
     };
 
     Node *_first, *_last;
-    U_INT _size;
+    U_LINT _size;
 
     static Node* ricCopy(Node* from, Node* prev, Node*& last);
-    static Node* ricGet(Node* from, U_INT index, U_INT size);
+    static Node* ricGet(Node* from, U_LINT index, U_LINT size);
     static Node* ricFind(Node* from, const T& find);
     static void ricFindAll(Node* from, const T& find, MyList<T*>* list);
 
@@ -32,21 +33,21 @@ class MyList {
     MyList<T>& operator=(const MyList<T>& list);
 
     void pushBack(const T& info);
-    void insert(const T& info, U_INT index);
+    void insert(const T& info, U_LINT index);
     void pushTop(const T& info);
 
     void popTop();
-    void erase(U_INT index);
+    void erase(U_LINT index);
     void erase(const T& info);
     void popBack();
 
     T* find(const T& info) const;
     MyList<T*>& findAll(const T& info) const;
-    U_INT indexOf(const T& info) const;
+    U_LINT indexOf(const T& info) const;
 
-    T& operator[](U_INT index) const;
+    T& operator[](U_LINT index) const;
 
-    U_INT size() const;
+    U_LINT size() const;
 
     ~MyList();
 
@@ -135,7 +136,7 @@ typename MyList<T>::Node* MyList<T>::ricCopy(Node* from, Node* prev, Node*& last
 }
 
 template <class T>
-typename MyList<T>::Node* MyList<T>::ricGet(Node* from, U_INT index, U_INT size) {
+typename MyList<T>::Node* MyList<T>::ricGet(Node* from, U_LINT index, U_LINT size) {
     if (index < 0 || index > size)
         return nullptr;
     if (index == 0)
@@ -203,7 +204,7 @@ void MyList<T>::pushTop(const T& info) {
 }
 
 template <class T>
-void MyList<T>::insert(const T& info, U_INT index) {
+void MyList<T>::insert(const T& info, U_LINT index) {
     if (index == 0)
         pushTop(info);
     else if (index == _size)
@@ -242,12 +243,12 @@ void MyList<T>::popTop() {
 }
 
 template <class T>
-T& MyList<T>::operator[](U_INT index) const {
+T& MyList<T>::operator[](U_LINT index) const {
     return ricGet(_first, index, _size)->_info;
 }
 
 template <class T>
-void MyList<T>::erase(U_INT index) {
+void MyList<T>::erase(U_LINT index) {
     if (index == 0)
         popTop();
     else if (index == _size)
@@ -279,8 +280,8 @@ void MyList<T>::erase(const T& info) {
 }
 
 template <class T>
-U_INT MyList<T>::indexOf(const T& info) const {
-    U_INT index = 0;
+U_LINT MyList<T>::indexOf(const T& info) const {
+    U_LINT index = 0;
     bool trovato = false;
     for (auto i = cbegin(); i != cend() && !trovato; ++i) {
         if (*i == info) {
@@ -306,7 +307,7 @@ MyList<T*>& MyList<T>::findAll(const T& find) const {
 }
 
 template <class T>
-U_INT MyList<T>::size() const {
+U_LINT MyList<T>::size() const {
     return _size;
 }
 

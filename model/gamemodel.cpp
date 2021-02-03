@@ -11,7 +11,7 @@ Game::State GameModel::tick() {
 }
 
 void GameModel::reset() {
-    U_INT credits = 500;
+    U_INT credits = 60;
     float life = 150;
 
     vector<Position> map;
@@ -124,7 +124,7 @@ void GameModel::reset() {
     _game = new Game(credits, life, map, blockedCellsMap, wave, Direction::Left);
 }
 
-SharedPtr<Turret> GameModel::addTurret(TurretType type, Position p) {
+SP<Turret> GameModel::addTurret(TurretType type, Position p) {
     return _game->addTurret(type, p);
 }
 
@@ -136,7 +136,7 @@ SP<Enemy> GameModel::lastTickSpawnedEnemy() const {
     return _game->lastTickSpawnedEnemy();
 }
 
-vector<SharedPtr<Turret>> GameModel::lastTickAttackingTurrets() const {
+vector<SP<Turret>> GameModel::lastTickAttackingTurrets() const {
     return _game->lastTickAttackingTurrets();
 }
 

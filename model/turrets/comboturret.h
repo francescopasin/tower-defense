@@ -1,13 +1,10 @@
 #ifndef MODEL_COMBOTURRET_H_
 #define MODEL_COMBOTURRET_H_
 
+#include "app/shortcuts.h"
 #include "model/turrets/singulartargetturret.h"
 
-using std::shared_ptr;
 using std::vector;
-
-#define U_INT unsigned short int
-#define SP shared_ptr
 
 namespace model {
 

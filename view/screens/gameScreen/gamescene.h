@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <vector>
 
+#include "app/shortcuts.h"
 #include "model/gamemodel.h"
 #include "model/position.h"
 #include "model/sharedptr.h"
@@ -15,10 +16,7 @@
 #include "view/screens/gameScreen/gridfield.h"
 #include "view/screens/gameScreen/turretselector.h"
 
-using std::shared_ptr;
 using std::vector;
-
-#define SP shared_ptr
 
 namespace view {
 
@@ -26,7 +24,7 @@ class GameScene : public QGraphicsScene {
     Q_OBJECT
 
    private:
-    SP<const model::GameModel> _model;
+    const SP<model::GameModel> _model;
 
     GridField* gridField;
     InfoBox* creditsInfo;
@@ -39,12 +37,12 @@ class GameScene : public QGraphicsScene {
     void createHUD();
 
    public:
-    GameScene(const SP<const model::GameModel>& model);
+    GameScene(const SP<model::GameModel>& model);
 
     void tick();
     void spawnEnemy(const SP<model::Enemy>& enemy);
-    void turretsAttack(const vector<model::SharedPtr<model::Turret>>& attackingTurrets);
-    void addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType);
+    void turretsAttack(const vector<SP<model::Turret>>& attackingTurrets);
+    void addTurretItem(const SP<model::Turret>& turret, model::TurretType turretType);
 
    public slots:
     void gridCellPressed(GridCellType cellType, model::Position cellPosition);

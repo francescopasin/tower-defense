@@ -60,6 +60,7 @@ SOURCES += \
 
 HEADERS += \
     app/routes.h \
+    app/shortcuts.h \
     \
     model/pathcell.h \
     model/position.h \

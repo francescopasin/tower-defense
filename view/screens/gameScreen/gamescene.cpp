@@ -1,6 +1,5 @@
 #include "view/screens/gameScreen/gamescene.h"
 
-#include <QDebug>
 #include <algorithm>
 
 #include "view/hud/iconbutton.h"
@@ -11,7 +10,7 @@ using std::vector;
 
 namespace view {
 
-GameScene::GameScene(const SP<const model::GameModel>& model) : _model(model) {
+GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
     // Performance optimization
     setItemIndexMethod(QGraphicsScene::NoIndex);
 
@@ -81,11 +80,11 @@ void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {
     enemies.push_back(en);
 }
 
-void GameScene::turretsAttack(const vector<model::SharedPtr<model::Turret>>& attackingTurrets) {
+void GameScene::turretsAttack(const vector<SP<model::Turret>>& attackingTurrets) {
     gridField->turretsAttack(attackingTurrets, enemies);
 }
 
-void GameScene::addTurretItem(const model::SharedPtr<model::Turret>& turret, model::TurretType turretType) {
+void GameScene::addTurretItem(const SP<model::Turret>& turret, model::TurretType turretType) {
     closeTurretSelector();
     gridField->addTurretItem(turret, turretType);
 }

@@ -1,14 +1,13 @@
 #ifndef CONTROLLER_CONTROLLER_H_
 #define CONTROLLER_CONTROLLER_H_
 
+#include <QGraphicsView>
+// #include<memory>
 #include <QGraphicsScene>
-#include <memory>
 
 #include "app/routes.h"
+#include "app/shortcuts.h"
 #include "model/gamemodel.h"
-
-using std::shared_ptr;
-#define SP shared_ptr
 
 namespace controller {
 

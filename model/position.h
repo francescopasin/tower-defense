@@ -1,7 +1,7 @@
 #ifndef MODEL_POSITION_H_
 #define MODEL_POSITION_H_
 
-#define U_INT unsigned short int
+#include "app/shortcuts.h"
 
 namespace model {
 

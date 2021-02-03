@@ -2,14 +2,11 @@
 #define CONTROLLER_TUTORIALSCREENCONTROLLER_H_
 
 #include <QGraphicsScene>
-#include <memory>
 
+#include "app/shortcuts.h"
 #include "controller/controller.h"
 #include "model/gamemodel.h"
 #include "view/screens/tutorialScreen/tutorialscene.h"
-
-using std::shared_ptr;
-#define SP shared_ptr
 
 namespace controller {
 

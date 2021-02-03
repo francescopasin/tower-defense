@@ -1,18 +1,14 @@
 #ifndef MODEL_TURRET_H_
 #define MODEL_TURRET_H_
 
-#include <memory>
 #include <vector>
 
+#include "app/shortcuts.h"
 #include "model/enemy.h"
 #include "model/position.h"
 #include "model/turrets/turrettype.h"
 
-using std::shared_ptr;
 using std::vector;
-
-#define U_INT unsigned short int
-#define SP shared_ptr
 
 namespace model {
 
