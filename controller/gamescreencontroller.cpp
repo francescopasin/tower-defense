@@ -4,6 +4,7 @@
 
 #include "model/sharedptr.h"
 #include "model/turrets/turret.h"
+#include "view/screens/gameScreen/lostwinmodal.h"
 
 using std::vector;
 
@@ -66,7 +67,16 @@ void GameScreenController::start() {
 }
 
 void GameScreenController::gameTick() {
-    _model->tick();
+    model::Game::State stato = _model->tick();
+
+    if (stato == model::Game::State::Lost || stato == model::Game::State::Won) {
+        gameTimer->stop();
+        renderTimer->stop();
+        view::LostWinModal* modal = new view::LostWinModal(stato, _scene->width(), _scene->height());
+        _scene->addItem(modal);
+        connect(modal, &view::LostWinModal::returnToMenu, this, &GameScreenController::returnToMenu);
+        connect(modal, &view::LostWinModal::restart, this, &GameScreenController::restart);
+    }
 
     SP<model::Enemy> newEnemy = _model->lastTickSpawnedEnemy();
     vector<SP<model::Turret>> lastTickAttackingTurrets = _model->lastTickAttackingTurrets();
@@ -84,6 +94,12 @@ void GameScreenController::returnToMenu() {
     _model->reset();
 
     emit navigateTo(app::Routes::InitialScreen);
+}
+
+void GameScreenController::restart() {
+    _model->reset();
+
+    emit navigateTo(app::Routes::GameScreen);
 }
 
 void GameScreenController::viewTick() {
