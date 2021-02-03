@@ -49,9 +49,11 @@ class GameScene : public QGraphicsScene {
     void closeTurretSelector();
     void addTurret(model::TurretType turretType);
     void pauseButtonPressed();
+    void showModal(model::Game::State stato);
 
    signals:
     void playPauseGame();
+    void restart();
     void fastForwardGame();
     void addTurretSignal(model::Position position, model::TurretType turretType);
     void removeTurretSignal(model::Position position);

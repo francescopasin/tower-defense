@@ -4,6 +4,7 @@
 
 #include "view/hud/iconbutton.h"
 #include "view/screens/gameScreen/gridfield.h"
+#include "view/screens/gameScreen/lostwonmodal.h"
 #include "view/screens/gameScreen/pausemodal.h"
 
 using std::vector;
@@ -116,6 +117,13 @@ void GameScene::addTurret(model::TurretType turretType) {
     model::Position position = gridField->getSelectedCellPosition();
 
     emit addTurretSignal(position, turretType);
+}
+
+void GameScene::showModal(model::Game::State stato) {
+    view::LostWonModal* modal = new view::LostWonModal(stato, width(), height());
+    addItem(modal);
+    connect(modal, &LostWonModal::restart, this, &GameScene::restart);
+    connect(modal, &LostWonModal::returnToMenu, this, &GameScene::returnToMenu);
 }
 
 void GameScene::pauseButtonPressed() {
