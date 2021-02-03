@@ -17,6 +17,7 @@ class TurretSelector : public QObject, public QGraphicsItem {
     TurretSelectorItem *granadeTurretSelector;
     TurretSelectorItem *comboTurretSelector;
     TurretSelectorItem *splitTurretSelector;
+    TurretSelectorItem *slowTimeTurretSelector;
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

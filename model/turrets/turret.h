@@ -26,8 +26,7 @@ class Turret {
 
     bool _hasAttackedLastTick;
 
-    vector<SP<Enemy>>
-    getEnemiesInRadius() const;
+    vector<SP<Enemy>> getEnemiesInRadius() const;
 
    public:
     Turret(
@@ -36,9 +35,10 @@ class Turret {
         const SP<vector<SP<Enemy>>>& enemies);
     virtual ~Turret() = default;
 
-    virtual bool attack();
+    // Return if attacked or not
+    virtual bool attack() = 0;
 
-    virtual vector<SP<Enemy>> getTargetedEnemies() const = 0;
+    virtual vector<SP<Enemy>> getTargetedEnemies() const;
 
     Position getPosition() const;
 

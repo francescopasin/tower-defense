@@ -10,14 +10,19 @@ Enemy::Enemy(const vector<PathCell>& path, float health, U_INT speed, float atta
       _attackDamage(attackDamage),
       _path(path),
       _reward(reward),
-      _initialHealth(health) {}
+      _initialHealth(health),
+      _speedFactor(1) {}
 
 void Enemy::receiveAttack(float damage) {
     _health -= damage;
 }
 
 float Enemy::move() {
-    _cellPosition += 100 / static_cast<float>(_speed);
+    float speed = static_cast<float>(_speed) * _speedFactor;
+    // Restore speed
+    _speedFactor = 1;
+
+    _cellPosition += 100 / speed;
 
     if (_cellPosition >= 99) {
         _cellPosition = 0;
@@ -30,6 +35,10 @@ float Enemy::move() {
         return _attackDamage;
     }
     return 0;
+}
+
+void Enemy::changeSpeedNextTick(float speedFactor) {
+    _speedFactor = speedFactor;
 }
 
 PathCell Enemy::getCurrentCell() const {

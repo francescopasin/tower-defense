@@ -2,13 +2,13 @@
 #define MODEL_COMBOTURRET_H_
 
 #include "app/shortcuts.h"
-#include "model/turrets/singulartargetturret.h"
+#include "model/turrets/standardattackturret.h"
 
 using std::vector;
 
 namespace model {
 
-class ComboTurret : public SingularTargetTurret {
+class ComboTurret : public StandardAttackTurret {
    private:
     float _attackMultiplier;
     SP<Enemy> _lastTargetedEnemy;

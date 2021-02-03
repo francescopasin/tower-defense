@@ -7,10 +7,7 @@
 #include "app/shortcuts.h"
 #include "model/exception.h"
 #include "model/mylist.h"
-#include "model/turrets/comboturret.h"
-#include "model/turrets/multipletargetturret.h"
-#include "model/turrets/singulartargetturret.h"
-#include "model/turrets/splitturret.h"
+#include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
 #include "model/wave.h"
 

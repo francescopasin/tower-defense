@@ -30,10 +30,14 @@ TurretSelector::TurretSelector() {
     splitTurretSelector = new TurretSelectorItem(this, model::TurretType::SplitTurret);
     splitTurretSelector->setPos(410, 10);
     connect(splitTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SplitTurret); });
+
+    slowTimeTurretSelector = new TurretSelectorItem(this, model::TurretType::SlowTimeTurret);
+    slowTimeTurretSelector->setPos(510, 10);
+    connect(slowTimeTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SlowTimeTurret); });
 }
 
 QRectF TurretSelector::boundingRect() const {
-    return QRectF(0, 0, 500, 100);
+    return QRectF(0, 0, 600, 100);
 }
 
 void TurretSelector::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -46,7 +50,7 @@ void TurretSelector::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
     painter->setPen(pen);
     painter->setBrush(QBrush(QColor::fromRgb(70, 70, 70)));
-    painter->drawRect(0, 0, 500, 100);
+    painter->drawRect(0, 0, 600, 100);
 }
 
 void TurretSelector::mousePressEvent(QGraphicsSceneMouseEvent *event) {
@@ -61,6 +65,7 @@ void TurretSelector::added(U_INT gameCredits) {
     granadeTurretSelector->updateAvailability(gameCredits);
     comboTurretSelector->updateAvailability(gameCredits);
     splitTurretSelector->updateAvailability(gameCredits);
+    slowTimeTurretSelector->updateAvailability(gameCredits);
 }
 
 void TurretSelector::focusOutEvent(QFocusEvent *event) {
