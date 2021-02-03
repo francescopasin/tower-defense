@@ -3,6 +3,8 @@
 
 #include <QGraphicsView>
 // #include<memory>
+#include <QGraphicsScene>
+
 #include "app/routes.h"
 #include "app/shortcuts.h"
 #include "model/gamemodel.h"

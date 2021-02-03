@@ -1,6 +1,8 @@
 #ifndef CONTROLLER_INITIALSCREENCONTROLLER_H_
 #define CONTROLLER_INITIALSCREENCONTROLLER_H_
 
+#include <QGraphicsScene>
+
 #include "app/shortcuts.h"
 #include "controller/controller.h"
 #include "view/screens/initialScreen/initialscreenscene.h"

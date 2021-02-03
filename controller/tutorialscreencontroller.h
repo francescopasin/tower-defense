@@ -1,6 +1,8 @@
 #ifndef CONTROLLER_TUTORIALSCREENCONTROLLER_H_
 #define CONTROLLER_TUTORIALSCREENCONTROLLER_H_
 
+#include <QGraphicsScene>
+
 #include "app/shortcuts.h"
 #include "controller/controller.h"
 #include "model/gamemodel.h"

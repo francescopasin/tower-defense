@@ -1,6 +1,8 @@
 #ifndef CONTROLLER_SETMAPCONTROLLER_H_
 #define CONTROLLER_SETMAPCONTROLLER_H_
 
+#include <QGraphicsScene>
+
 #include "app/shortcuts.h"
 #include "controller/controller.h"
 #include "view/screens/setMapScreen/setmapscene.h"

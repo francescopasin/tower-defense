@@ -298,9 +298,9 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                     .arg(stats.attackRadius));
 
             painter->drawText(
-                QRectF(_size.width() / 8 + 1200, 350, 400, 128),
+                QRectF(_size.width() / 8 + 1200, 350, 400, 135),
                 Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Damage: %1"
+                QString("Damage: %1 (increments on every attack to the same enemy)"
                         "\n"
                         "Cooldown: %2")
                     .arg(stats.initialAttackDamage)
@@ -340,7 +340,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             painter->drawText(
                 QRectF(_size.width() / 8 + 1200, 500, 400, 128),
                 Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Damage: %1"
+                QString("Damage: %1 / number of attacked enemies"
                         "\n"
                         "Cooldown: %2")
                     .arg(stats.initialAttackDamage)
