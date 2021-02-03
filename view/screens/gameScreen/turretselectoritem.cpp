@@ -117,7 +117,6 @@ void TurretSelectorItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void TurretSelectorItem::updateAvailability(U_INT gameCredits) {
     isAvailable = gameCredits >= model::turretTypes.at(_turretType).cost;
     // TODO: add not available cursor
-    update();
 }
 
 }  // namespace view

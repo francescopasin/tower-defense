@@ -109,10 +109,6 @@ void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 void EnemyItem::tick() {
     // Update position
     setPosition();
-
-    // TODO: check health
-
-    update();
 }
 
 bool EnemyItem::isDead() const {

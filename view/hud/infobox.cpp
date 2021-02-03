@@ -32,7 +32,6 @@ void InfoBox::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
 void InfoBox::setText(const QString &text) {
     _text = text;
-    update();
 }
 
 }  // namespace view
