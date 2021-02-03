@@ -34,11 +34,16 @@ void Game::reorderEnemies() {
         int index_prev = -1;
         int index_next = -1;
 
-        auto it = std::find(_map.begin(), _map.end(), pos_prev);
+        auto it = std::find_if(_map.begin(), _map.end(), [pos_prev](PathCell cell) {
+            return cell.getPosition() == pos_prev.getPosition();
+        });
         if (it != _map.end()) {
             index_prev = it - _map.begin();
         }
-        it = std::find(_map.begin(), _map.end(), pos_next);
+
+        it = std::find_if(_map.begin(), _map.end(), [pos_next](PathCell cell) {
+            return cell.getPosition() == pos_next.getPosition();
+        });
         if (it != _map.end()) {
             index_next = it - _map.begin();
         }
