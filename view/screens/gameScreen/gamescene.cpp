@@ -74,7 +74,7 @@ void GameScene::tick() {
         }
     }
 
-    //update();
+    update();
 }
 
 void GameScene::spawnEnemy(const SP<model::Enemy>& enemy) {

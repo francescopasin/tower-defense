@@ -144,18 +144,11 @@ bool GridCell::isSelected() const {
 
 void GridCell::setSelected(bool selected) {
     _selected = selected;
-    update();
 }
 
 void GridCell::setType(GridCellType type) {
     _type = type;
     updateCursor();
-    update();
-}
-
-void GridCell::setTile(PathGridCellTile tile) {
-    _tile = tile;
-    update();
 }
 
 GridCellType GridCell::getType() const {

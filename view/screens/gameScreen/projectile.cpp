@@ -39,7 +39,6 @@ bool Projectile::move() {
 
     currentStep++;
     setPos(nextPos);
-    update();
 
     return false;
 }
