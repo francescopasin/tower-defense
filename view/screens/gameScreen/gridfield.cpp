@@ -90,6 +90,9 @@ void GridField::createGameGrid() {
                         case model::Direction::Down:
                             tile = PathGridCellTile::BottomLeft;
                             break;
+                        default:
+                            // Nope
+                            break;
                     }
                     break;
                 case model::Direction::Up:
@@ -102,6 +105,9 @@ void GridField::createGameGrid() {
                             break;
                         case model::Direction::Down:
                             tile = PathGridCellTile::Vertical;
+                            break;
+                        default:
+                            // Nope
                             break;
                     }
                     break;
@@ -116,6 +122,9 @@ void GridField::createGameGrid() {
                         case model::Direction::Down:
                             tile = PathGridCellTile::BottomRight;
                             break;
+                        default:
+                            // Nope
+                            break;
                     }
                     break;
                 case model::Direction::Down:
@@ -128,6 +137,9 @@ void GridField::createGameGrid() {
                             break;
                         case model::Direction::Right:
                             tile = PathGridCellTile::BottomRight;
+                            break;
+                        default:
+                            // Nope
                             break;
                     }
                     break;
