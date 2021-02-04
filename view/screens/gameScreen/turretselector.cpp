@@ -54,6 +54,8 @@ void TurretSelector::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 }
 
 void TurretSelector::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    Q_UNUSED(event);
+
     // To prevent clicks below
 }
 
@@ -69,6 +71,8 @@ void TurretSelector::added(U_INT gameCredits) {
 }
 
 void TurretSelector::focusOutEvent(QFocusEvent *event) {
+    Q_UNUSED(event);
+
     emit losedFocusSignal();
 }
 

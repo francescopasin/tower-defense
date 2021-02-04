@@ -6,7 +6,7 @@
 
 namespace view {
 
-ErrorModal::ErrorModal(const QString &text, qreal width, qreal height) : _text(text), Modal(width, height, true) {
+ErrorModal::ErrorModal(const QString &text, qreal width, qreal height) : Modal(width, height, true), _text(text) {
     // Add external content
 
     // StandardButton *resumeButton = new StandardButton("RESUME", 300, this);

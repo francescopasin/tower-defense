@@ -26,7 +26,7 @@ class SetMapScene : public QGraphicsScene {
     SetMapScene();
 
    public slots:
-    void gridCellPressed(SetMapCell::Type cellType, const QPointF& coordinates);
+    void gridCellPressed(const QPointF& coordinates);
     void closeCellSelector();
     void addCell(view::SetMapCell::Type cellType);
     void clearAll();

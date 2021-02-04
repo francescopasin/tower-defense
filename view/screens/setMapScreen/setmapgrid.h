@@ -11,6 +11,7 @@ namespace view {
 
 class SetMapGrid : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     QSize _size;
@@ -33,9 +34,9 @@ class SetMapGrid : public QObject, public QGraphicsItem {
     void addCell(model::Position pos, SetMapCell::Type type);
 
    signals:
-    void cellPressed(SetMapCell::Type cellType, const QPointF &coordinates);
+    void cellPressed(const QPointF &coordinates);
 };
 
-};  // namespace view
+}  // namespace view
 
 #endif  // SETMAPGRID_H

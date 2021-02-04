@@ -23,6 +23,7 @@ enum class PathGridCellTile {
 
 class GridCell : public QObject, public QGraphicsItem {
     Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
    private:
     model::Position _gridPosition;
