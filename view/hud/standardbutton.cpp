@@ -23,9 +23,9 @@ void StandardButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     QPixmap pixmap;
 
     if (option->state & QStyle::State_MouseOver) {
-        pixmap = QPixmap(":/assets/images/standard-button-pressed.png");
+        pixmap = QPixmap(":/assets/images/hud/standard-button-pressed.png");
     } else {
-        pixmap = QPixmap(":/assets/images/standard-button.png");
+        pixmap = QPixmap(":/assets/images/hud/standard-button.png");
     }
 
     QFont font = painter->font();
