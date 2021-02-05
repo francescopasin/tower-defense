@@ -142,7 +142,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
             // TODO: refactor list items to external class. add icons
 
-            pixmap = QPixmap(":/assets/images/missing-image.png");
+            pixmap = QPixmap(":/assets/images/turrets/weak-turret.png");
             painter->drawPixmap(QRect(_size.width() / 8, 350, 128, 128), pixmap);
 
             painter->drawText(
@@ -179,7 +179,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             // MITRA
             // ================================================================
 
-            pixmap = QPixmap(":/assets/images/missing-image.png");
+            pixmap = QPixmap(":/assets/images/turrets/mitra-turret.png");
             painter->drawPixmap(QRect(_size.width() / 8, 500, 128, 128), pixmap);
 
             font.setPixelSize(30);
@@ -219,7 +219,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             // GRANADE
             // ================================================================
 
-            pixmap = QPixmap(":/assets/images/missing-image.png");
+            pixmap = QPixmap(":/assets/images/turrets/granade-turret.png");
             painter->drawPixmap(QRect(_size.width() / 8, 650, 128, 128), pixmap);
 
             font.setPixelSize(30);
@@ -272,7 +272,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             // COMBO
             // ================================================================
 
-            pixmap = QPixmap(":/assets/images/missing-image.png");
+            pixmap = QPixmap(":/assets/images/turrets/combo-turret.png");
             painter->drawPixmap(QRect(_size.width() / 8, 350, 128, 128), pixmap);
 
             painter->drawText(
@@ -309,7 +309,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             // SPLIT
             // ================================================================
 
-            pixmap = QPixmap(":/assets/images/missing-image.png");
+            pixmap = QPixmap(":/assets/images/turrets/split-turret.png");
             painter->drawPixmap(QRect(_size.width() / 8, 500, 128, 128), pixmap);
 
             font.setPixelSize(30);
@@ -349,7 +349,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             // SLOWTIME
             // ================================================================
 
-            pixmap = QPixmap(":/assets/images/missing-image.png");
+            pixmap = QPixmap(":/assets/images/turrets/slowtime-turret.png");
             painter->drawPixmap(QRect(_size.width() / 8, 650, 128, 128), pixmap);
 
             font.setPixelSize(30);

@@ -21,11 +21,11 @@ TurretItem::TurretItem(
 
 void TurretItem::setPosition() {
     model::Position position = turretData->getPosition();
-    setPos(position.x * _cellSize + 5, position.y * _cellSize + 5);
+    setPos(position.x * _cellSize, position.y * _cellSize);
 }
 
 QRectF TurretItem::boundingRect() const {
-    return QRectF(0, 0, _cellSize - 10, _cellSize - 10);
+    return QRectF(0, 0, _cellSize, _cellSize);
 }
 
 void TurretItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -34,60 +34,30 @@ void TurretItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
     painter->setPen(Qt::NoPen);
 
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
+    QPixmap pixmap;
 
     switch (type) {
         case model::TurretType::WeakTurret:
-            brush.setColor(QColor::fromRgb(200, 100, 100));
+            pixmap = QPixmap(":/assets/images/turrets/weak-turret.png");
             break;
         case model::TurretType::MitraTurret:
-            brush.setColor(QColor::fromRgb(100, 200, 100));
+            pixmap = QPixmap(":/assets/images/turrets/mitra-turret.png");
             break;
         case model::TurretType::GranadeTurret:
-            brush.setColor(QColor::fromRgb(100, 100, 200));
+            pixmap = QPixmap(":/assets/images/turrets/granade-turret.png");
             break;
         case model::TurretType::ComboTurret:
-            brush.setColor(QColor::fromRgb(50, 73, 210));
+            pixmap = QPixmap(":/assets/images/turrets/combo-turret.png");
             break;
         case model::TurretType::SplitTurret:
-            brush.setColor(QColor::fromRgb(120, 186, 20));
+            pixmap = QPixmap(":/assets/images/turrets/split-turret.png");
             break;
         case model::TurretType::SlowTimeTurret:
-            brush.setColor(QColor::fromRgb(30, 120, 60));
+            pixmap = QPixmap(":/assets/images/turrets/slowtime-turret.png");
             break;
     }
 
-    painter->setBrush(brush);
-
-    painter->drawRect(0, 0, _cellSize - 10, _cellSize - 10);
-
-    // TODO: temp. For debugging
-    QFont font = painter->font();
-    font.setPixelSize(25);
-    painter->setFont(font);
-    painter->setPen(Qt::white);
-
-    switch (type) {
-        case model::TurretType::WeakTurret:
-            painter->drawText(QRect(0, 0, _cellSize - 10, _cellSize - 10), Qt::AlignCenter, "WEAK");
-            break;
-        case model::TurretType::MitraTurret:
-            painter->drawText(QRect(0, 0, _cellSize - 10, _cellSize - 10), Qt::AlignCenter, "MITRA");
-            break;
-        case model::TurretType::GranadeTurret:
-            painter->drawText(QRect(0, 0, _cellSize - 10, _cellSize - 10), Qt::AlignCenter, "GRAN");
-            break;
-        case model::TurretType::ComboTurret:
-            painter->drawText(QRect(0, 0, _cellSize - 10, _cellSize - 10), Qt::AlignCenter, "COMBO");
-            break;
-        case model::TurretType::SplitTurret:
-            painter->drawText(QRect(0, 0, _cellSize - 10, _cellSize - 10), Qt::AlignCenter, "SPLIT");
-            break;
-        case model::TurretType::SlowTimeTurret:
-            painter->drawText(QRect(0, 0, _cellSize - 10, _cellSize - 10), Qt::AlignCenter, "TIME");
-            break;
-    }
+    painter->drawPixmap(QRect(0, 0, _cellSize, _cellSize), pixmap);
 }
 
 model::Position TurretItem::getGridPosition() const {

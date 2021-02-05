@@ -27,92 +27,44 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 
     if (isAvailable) {
         painter->setPen(Qt::NoPen);
+
+        QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
+        setCursor(QCursor(pixmap.scaled(32, 32)));
     } else {
         // TODO: TEMP: find a better indicator
         QPen pen;
         pen.setColor(Qt::red);
         pen.setWidth(5);
         painter->setPen(pen);
+
+        QPixmap pixmap = QPixmap(":/assets/images/pointer-not-allowed.png");
+        setCursor(QCursor(pixmap.scaled(32, 32)));
     }
 
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-
-    if (option->state & QStyle::State_MouseOver) {
-        switch (_turretType) {
-            case model::TurretType::WeakTurret:
-                brush.setColor(QColor::fromRgb(240, 140, 140));
-                break;
-            case model::TurretType::MitraTurret:
-                brush.setColor(QColor::fromRgb(140, 240, 140));
-                break;
-            case model::TurretType::GranadeTurret:
-                brush.setColor(QColor::fromRgb(140, 140, 240));
-                break;
-            case model::TurretType::ComboTurret:
-                brush.setColor(QColor::fromRgb(90, 113, 250));
-                break;
-            case model::TurretType::SplitTurret:
-                brush.setColor(QColor::fromRgb(160, 226, 60));
-                break;
-            case model::TurretType::SlowTimeTurret:
-                brush.setColor(QColor::fromRgb(70, 160, 100));
-                break;
-        }
-    } else {
-        switch (_turretType) {
-            case model::TurretType::WeakTurret:
-                brush.setColor(QColor::fromRgb(200, 100, 100));
-                break;
-            case model::TurretType::MitraTurret:
-                brush.setColor(QColor::fromRgb(100, 200, 100));
-                break;
-            case model::TurretType::GranadeTurret:
-                brush.setColor(QColor::fromRgb(100, 100, 200));
-                break;
-            case model::TurretType::ComboTurret:
-                brush.setColor(QColor::fromRgb(50, 73, 210));
-                break;
-            case model::TurretType::SplitTurret:
-                brush.setColor(QColor::fromRgb(120, 186, 20));
-                break;
-            case model::TurretType::SlowTimeTurret:
-                brush.setColor(QColor::fromRgb(30, 120, 60));
-                break;
-        }
-    }
-
-    // TODO: add turrets images
-
-    painter->setBrush(brush);
-    painter->drawRect(0, 0, 80, 80);
-
-    // TODO: temp. For debugging
-    QFont font = painter->font();
-    font.setPixelSize(25);
-    painter->setFont(font);
-    painter->setPen(Qt::white);
+    QPixmap pixmap;
 
     switch (_turretType) {
         case model::TurretType::WeakTurret:
-            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "WEAK");
+            pixmap = QPixmap(":/assets/images/turrets/weak-turret.png");
             break;
         case model::TurretType::MitraTurret:
-            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "MITRA");
+            pixmap = QPixmap(":/assets/images/turrets/mitra-turret.png");
             break;
         case model::TurretType::GranadeTurret:
-            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "GRAN");
+            pixmap = QPixmap(":/assets/images/turrets/granade-turret.png");
             break;
         case model::TurretType::ComboTurret:
-            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "COMBO");
+            pixmap = QPixmap(":/assets/images/turrets/combo-turret.png");
             break;
         case model::TurretType::SplitTurret:
-            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "SPLIT");
+            pixmap = QPixmap(":/assets/images/turrets/split-turret.png");
             break;
         case model::TurretType::SlowTimeTurret:
-            painter->drawText(QRect(0, 0, 80, 80), Qt::AlignCenter, "TIME");
+            pixmap = QPixmap(":/assets/images/turrets/slowtime-turret.png");
             break;
     }
+
+    painter->drawPixmap(QRect(0, 0, 80, 80), pixmap);
 }
 
 void TurretSelectorItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {

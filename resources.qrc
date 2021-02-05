@@ -31,9 +31,16 @@
         <file>assets/images/pointer-interactive.png</file>
         <file>assets/images/pointer-turret-place.png</file>
         <file>assets/images/pointer-turret-remove.png</file>
+        <file>assets/images/pointer-not-allowed.png</file>
         <file>assets/images/standard-button.png</file>
         <file>assets/images/standard-button-pressed.png</file>
         <file>assets/images/missing-image.png</file>
+        <file>assets/images/turrets/weak-turret.png</file>
+        <file>assets/images/turrets/mitra-turret.png</file>
+        <file>assets/images/turrets/granade-turret.png</file>
+        <file>assets/images/turrets/combo-turret.png</file>
+        <file>assets/images/turrets/split-turret.png</file>
+        <file>assets/images/turrets/slowtime-turret.png</file>
         <file>assets/fonts/PressStart2P-Regular.ttf</file>
     </qresource>
 </RCC>
