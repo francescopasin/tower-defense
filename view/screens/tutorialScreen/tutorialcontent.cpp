@@ -93,7 +93,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 Qt::AlignCenter | Qt::TextWordWrap,
                 "The game map consists of three different cells:");
 
-            pixmap = QPixmap(":/assets/images/horizontal-tile.png");
+            pixmap = QPixmap(":/assets/images/tiles/horizontal-tile.png");
             painter->drawPixmap(QRect(_size.width() / 8, 350, 128, 128), pixmap);
 
             painter->drawText(
@@ -102,7 +102,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "Path cells:\n"
                 "the cells where the students will walk");
 
-            pixmap = QPixmap(":/assets/images/free-tile.png");
+            pixmap = QPixmap(":/assets/images/tiles/free-tile.png");
             painter->drawPixmap(QRect(_size.width() / 8, 500, 128, 128), pixmap);
 
             painter->drawText(
@@ -111,7 +111,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "Free cells:\n"
                 "the cells where you can place the turrets");
 
-            pixmap = QPixmap(":/assets/images/blocked-tile.png");
+            pixmap = QPixmap(":/assets/images/tiles/blocked-tile.png");
             painter->drawPixmap(QRect(_size.width() / 8, 650, 128, 128), pixmap);
 
             painter->drawText(

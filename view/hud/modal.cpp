@@ -13,7 +13,7 @@ Modal::Modal(qreal width, qreal height, bool closeOnClick) : _closeOnClick(close
     setZValue(9999);
     setAcceptHoverEvents(true);
 
-    QPixmap pixmap = QPixmap(":/assets/images/pointer.png");
+    QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 

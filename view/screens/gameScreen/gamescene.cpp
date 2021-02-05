@@ -35,20 +35,20 @@ void GameScene::drawBackground() {
 }
 
 void GameScene::createHUD() {
-    creditsInfo = new InfoBox(":/assets/images/coin.png", QString::number(_model->getCredits()));
+    creditsInfo = new InfoBox(":/assets/images/hud/coin.png", QString::number(_model->getCredits()));
     creditsInfo->setPos(10, 15);
     addItem(creditsInfo);
 
-    lifeInfo = new InfoBox(":/assets/images/heart.png", QString::number(_model->getLife()));
+    lifeInfo = new InfoBox(":/assets/images/hud/heart.png", QString::number(_model->getLife()));
     lifeInfo->setPos(10, 75);
     addItem(lifeInfo);
 
-    IconButton* pauseButton = new IconButton(":/assets/images/pause-button-idle.png", ":/assets/images/pause-button-pressed.png");
+    IconButton* pauseButton = new IconButton(":/assets/images/hud/pause-button-idle.png", ":/assets/images/hud/pause-button-pressed.png");
     pauseButton->setPos(1400, 25);
     addItem(pauseButton);
     connect(pauseButton, &IconButton::pressed, this, &GameScene::pauseButtonPressed);
 
-    IconButton* fastForwardButton = new IconButton(":/assets/images/fast-forward-button-idle.png", ":/assets/images/fast-forward-button-pressed.png");
+    IconButton* fastForwardButton = new IconButton(":/assets/images/hud/fast-forward-button-idle.png", ":/assets/images/hud/fast-forward-button-pressed.png");
     fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
     addItem(fastForwardButton);
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);

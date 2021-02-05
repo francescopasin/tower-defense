@@ -12,7 +12,7 @@ TurretSelectorItem::TurretSelectorItem(
     : QGraphicsItem(parent),
       _turretType(turretType),
       isAvailable(true) {
-    QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
+    QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 
     // TODO: check credits to see if the turret can be added
@@ -28,7 +28,7 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     if (isAvailable) {
         painter->setPen(Qt::NoPen);
 
-        QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
+        QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
         setCursor(QCursor(pixmap.scaled(32, 32)));
     } else {
         // TODO: TEMP: find a better indicator
@@ -37,7 +37,7 @@ void TurretSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
         pen.setWidth(5);
         painter->setPen(pen);
 
-        QPixmap pixmap = QPixmap(":/assets/images/pointer-not-allowed.png");
+        QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-not-allowed.png");
         setCursor(QCursor(pixmap.scaled(32, 32)));
     }
 

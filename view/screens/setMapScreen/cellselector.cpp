@@ -10,7 +10,7 @@ namespace view {
 CellSelector::CellSelector() {
     setFlag(QGraphicsItem::ItemIsFocusable);
 
-    QPixmap pixmap = QPixmap(":/assets/images/pointer.png");
+    QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 
     CellSelectorItem *freeCell = new CellSelectorItem(this, SetMapCell::Type::Free);

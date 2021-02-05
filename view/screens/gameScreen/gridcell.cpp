@@ -38,32 +38,32 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
     switch (_type) {
         case GridCellType::Free:
-            imagePath = ":/assets/images/free-tile.png";
+            imagePath = ":/assets/images/tiles/free-tile.png";
 
             if (option->state & QStyle::State_MouseOver || _selected) {
-                imagePath = ":/assets/images/free-tile-pressed.png";
+                imagePath = ":/assets/images/tiles/free-tile-pressed.png";
             }
             break;
         case GridCellType::Path:
             switch (_tile) {
                 case PathGridCellTile::Horizontal:
                 default:
-                    imagePath = ":/assets/images/horizontal-tile.png";
+                    imagePath = ":/assets/images/tiles/horizontal-tile.png";
                     break;
                 case PathGridCellTile::Vertical:
-                    imagePath = ":/assets/images/vertical-tile.png";
+                    imagePath = ":/assets/images/tiles/vertical-tile.png";
                     break;
                 case PathGridCellTile::TopRight:
-                    imagePath = ":/assets/images/top-right-tile.png";
+                    imagePath = ":/assets/images/tiles/top-right-tile.png";
                     break;
                 case PathGridCellTile::TopLeft:
-                    imagePath = ":/assets/images/top-left-tile.png";
+                    imagePath = ":/assets/images/tiles/top-left-tile.png";
                     break;
                 case PathGridCellTile::BottomRight:
-                    imagePath = ":/assets/images/bottom-right-tile.png";
+                    imagePath = ":/assets/images/tiles/bottom-right-tile.png";
                     break;
                 case PathGridCellTile::BottomLeft:
-                    imagePath = ":/assets/images/bottom-left-tile.png";
+                    imagePath = ":/assets/images/tiles/bottom-left-tile.png";
                     break;
             }
 
@@ -72,16 +72,16 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
             switch (_tile) {
                 case PathGridCellTile::Left:
                 default:
-                    imagePath = ":/assets/images/left-start-tile.png";
+                    imagePath = ":/assets/images/tiles/left-start-tile.png";
                     break;
                 case PathGridCellTile::Right:
-                    imagePath = ":/assets/images/right-start-tile.png";
+                    imagePath = ":/assets/images/tiles/right-start-tile.png";
                     break;
                 case PathGridCellTile::Top:
-                    imagePath = ":/assets/images/top-start-tile.png";
+                    imagePath = ":/assets/images/tiles/top-start-tile.png";
                     break;
                 case PathGridCellTile::Bottom:
-                    imagePath = ":/assets/images/bottom-start-tile.png";
+                    imagePath = ":/assets/images/tiles/bottom-start-tile.png";
                     break;
             }
             break;
@@ -89,27 +89,27 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
             switch (_tile) {
                 case PathGridCellTile::Left:
                 default:
-                    imagePath = ":/assets/images/left-end-tile.png";
+                    imagePath = ":/assets/images/tiles/left-end-tile.png";
                     break;
                 case PathGridCellTile::Right:
-                    imagePath = ":/assets/images/right-end-tile.png";
+                    imagePath = ":/assets/images/tiles/right-end-tile.png";
                     break;
                 case PathGridCellTile::Top:
-                    imagePath = ":/assets/images/top-end-tile.png";
+                    imagePath = ":/assets/images/tiles/top-end-tile.png";
                     break;
                 case PathGridCellTile::Bottom:
-                    imagePath = ":/assets/images/bottom-end-tile.png";
+                    imagePath = ":/assets/images/tiles/bottom-end-tile.png";
                     break;
             }
             break;
         case GridCellType::Blocked:
-            imagePath = ":/assets/images/blocked-tile.png";
+            imagePath = ":/assets/images/tiles/blocked-tile.png";
             break;
         case GridCellType::Occupied:
-            imagePath = ":/assets/images/occupied-tile.png";
+            imagePath = ":/assets/images/tiles/occupied-tile.png";
 
             if (option->state & QStyle::State_MouseOver || _selected) {
-                imagePath = ":/assets/images/occupied-tile-pressed.png";
+                imagePath = ":/assets/images/tiles/occupied-tile-pressed.png";
             }
             break;
     }
@@ -121,11 +121,11 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 void GridCell::updateCursor() {
     QPixmap pixmap;
     if (_type == GridCellType::Free) {
-        pixmap = QPixmap(":/assets/images/pointer-turret-place.png");
+        pixmap = QPixmap(":/assets/images/pointers/pointer-turret-place.png");
     } else if (_type == GridCellType::Occupied) {
-        pixmap = QPixmap(":/assets/images/pointer-turret-remove.png");
+        pixmap = QPixmap(":/assets/images/pointers/pointer-turret-remove.png");
     } else {
-        pixmap = QPixmap(":/assets/images/pointer.png");
+        pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     }
 
     setCursor(QCursor(pixmap.scaled(32, 32)));
