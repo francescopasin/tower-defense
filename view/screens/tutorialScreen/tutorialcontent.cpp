@@ -1,7 +1,6 @@
 #include "view/screens/tutorialScreen/tutorialcontent.h"
 
 #include <QGraphicsScene>
-#include <QPainter>
 
 #include "model/turrets/turrettype.h"
 
@@ -20,6 +19,56 @@ TutorialContent::TutorialContent(const QSizeF &size) : _size(size), currentStep(
 
 QRectF TutorialContent::boundingRect() const {
     return QRectF(0, 0, _size.width(), _size.height());
+}
+
+void TutorialContent::paintTitle(QPainter *painter, const QString &title) {
+    QFont font = painter->font();
+    font.setPixelSize(50);
+    painter->setFont(font);
+
+    painter->drawText(
+        QRectF(_size.width() / 8, 50, _size.width() * 3 / 4, 150),
+        Qt::AlignCenter | Qt::TextWordWrap,
+        title);
+
+    font.setPixelSize(30);
+    painter->setFont(font);
+}
+
+void TutorialContent::paintTurretInfo(
+    QPainter *painter,
+    const QString &image,
+    const QString &name,
+    const QString &description,
+    const QString &stats) {
+    QFont font = painter->font();
+
+    QPixmap pixmap = QPixmap(":/assets/images/turrets/" + image + ".png");
+    painter->drawPixmap(QRect(_size.width() / 8, 200, 128, 128), pixmap);
+
+    font.setPixelSize(40);
+    painter->setFont(font);
+
+    painter->drawText(
+        QRectF(_size.width() / 8 + 200, 200, _size.width() * 3 / 4 - 200, 128),
+        Qt::AlignVCenter | Qt::TextWordWrap,
+        name);
+
+    font.setPixelSize(25);
+    painter->setFont(font);
+
+    painter->drawText(
+        QRectF(_size.width() / 8, 400, _size.width() * 3 / 4, 200),
+        Qt::TextWordWrap,
+        description);
+
+    painter->drawText(
+        QRectF(_size.width() / 8, 600, _size.width() * 3 / 4, 200),
+        Qt::TextWordWrap,
+        stats);
+
+    font.setPixelSize(30);
+    painter->setFont(font);
 }
 
 void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -55,16 +104,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "You can achieve this by using some complex c++ concepts that they can't understand");
             break;
         case 2:
-            font.setPixelSize(50);
-            painter->setFont(font);
-
-            painter->drawText(
-                QRectF(_size.width() / 8, 50, _size.width() * 3 / 4, 150),
-                Qt::AlignCenter | Qt::TextWordWrap,
-                "The game rules");
-
-            font.setPixelSize(30);
-            painter->setFont(font);
+            paintTitle(painter, "The game rules");
 
             painter->drawText(
                 QRectF(_size.width() / 8, 200, _size.width() * 3 / 4, _size.height() * 3 / 4),
@@ -77,23 +117,14 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "If you manage to destroy all students you win!");
             break;
         case 3:
-            font.setPixelSize(50);
-            painter->setFont(font);
-
-            painter->drawText(
-                QRectF(_size.width() / 8, 50, _size.width() * 3 / 4, 150),
-                Qt::AlignCenter | Qt::TextWordWrap,
-                "The game field");
-
-            font.setPixelSize(30);
-            painter->setFont(font);
+            paintTitle(painter, "The game field");
 
             painter->drawText(
                 QRectF(_size.width() / 8, 200, _size.width() * 3 / 4, 100),
                 Qt::AlignCenter | Qt::TextWordWrap,
                 "The game map consists of three different cells:");
 
-            pixmap = QPixmap(":/assets/images/horizontal-tile.png");
+            pixmap = QPixmap(":/assets/images/tiles/horizontal-tile.png");
             painter->drawPixmap(QRect(_size.width() / 8, 350, 128, 128), pixmap);
 
             painter->drawText(
@@ -102,7 +133,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "Path cells:\n"
                 "the cells where the students will walk");
 
-            pixmap = QPixmap(":/assets/images/free-tile.png");
+            pixmap = QPixmap(":/assets/images/tiles/free-tile.png");
             painter->drawPixmap(QRect(_size.width() / 8, 500, 128, 128), pixmap);
 
             painter->drawText(
@@ -111,7 +142,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "Free cells:\n"
                 "the cells where you can place the turrets");
 
-            pixmap = QPixmap(":/assets/images/blocked-tile.png");
+            pixmap = QPixmap(":/assets/images/tiles/blocked-tile.png");
             painter->drawPixmap(QRect(_size.width() / 8, 650, 128, 128), pixmap);
 
             painter->drawText(
@@ -121,271 +152,151 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "the cells where you can't place any turret");
             break;
         case 4:
-            font.setPixelSize(50);
-            painter->setFont(font);
+            paintTitle(painter, "Turrets - Part 1");
 
             painter->drawText(
-                QRectF(_size.width() / 8, 50, _size.width() * 3 / 4, 150),
-                Qt::AlignCenter | Qt::TextWordWrap,
-                "Turrets - Part 1");
-
-            font.setPixelSize(30);
-            painter->setFont(font);
-
-            painter->drawText(
-                QRectF(_size.width() / 8, 200, _size.width() * 3 / 4, 100),
-                Qt::AlignCenter | Qt::TextWordWrap,
-                "The are 5 types of turrets in the game:");
-
-            // WEAK
-            // ================================================================
-
-            // TODO: refactor list items to external class. add icons
-
-            pixmap = QPixmap(":/assets/images/missing-image.png");
-            painter->drawPixmap(QRect(_size.width() / 8, 350, 128, 128), pixmap);
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 200, 350, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                "Weak Turret");
-
-            font.setPixelSize(20);
-            painter->setFont(font);
-
-            stats = turretTypes.at(TurretType::WeakTurret);
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 700, 350, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Cost: %1"
-                        "\n"
-                        "Max targets: %2"
-                        "\n"
-                        "Radius: %3")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius));
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 1200, 350, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Damage: %1"
-                        "\n"
-                        "Cooldown: %2")
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
-
-            // MITRA
-            // ================================================================
-
-            pixmap = QPixmap(":/assets/images/missing-image.png");
-            painter->drawPixmap(QRect(_size.width() / 8, 500, 128, 128), pixmap);
-
-            font.setPixelSize(30);
-            painter->setFont(font);
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 200, 500, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                "Mitra Turret");
-
-            font.setPixelSize(20);
-            painter->setFont(font);
-
-            stats = turretTypes.at(TurretType::MitraTurret);
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 700, 500, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Cost: %1"
-                        "\n"
-                        "Max targets: %2"
-                        "\n"
-                        "Radius: %3")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius));
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 1200, 500, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Damage: %1"
-                        "\n"
-                        "Cooldown: %2")
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
-
-            // GRANADE
-            // ================================================================
-
-            pixmap = QPixmap(":/assets/images/missing-image.png");
-            painter->drawPixmap(QRect(_size.width() / 8, 650, 128, 128), pixmap);
-
-            font.setPixelSize(30);
-            painter->setFont(font);
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 200, 650, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                "Granade Turret");
-
-            font.setPixelSize(20);
-            painter->setFont(font);
-
-            stats = turretTypes.at(TurretType::GranadeTurret);
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 700, 650, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Cost: %1"
-                        "\n"
-                        "Max targets: %2"
-                        "\n"
-                        "Radius: %3")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius));
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 1200, 650, 400, 135),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Damage: %1 (decrement by 10 for every enemy after the one attacked)"
-                        "\n"
-                        "Cooldown: %2")
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
+                QRectF(_size.width() / 8, 300, _size.width() * 3 / 4, _size.height() * 3 / 4),
+                Qt::AlignHCenter | Qt::TextWordWrap,
+                "The are 6 types of turrets in the game. Every turret has a specific cost and specific stats.\n"
+                "Every turret is characterised by a specific attack radius (how many cells in every side it can attack."
+                "Diagonal cells also counts).\n"
+                "Other turrets stats are: damage (how much the health of the attacked enemy decrease), cooldown "
+                "(how fast does the turret attack) and maxTargets (how many enemies are attached simultaneously)");
 
             break;
         case 5:
-            font.setPixelSize(50);
-            painter->setFont(font);
+            paintTitle(painter, "Turrets - Part 2");
 
-            painter->drawText(
-                QRectF(_size.width() / 8, 50, _size.width() * 3 / 4, 150),
-                Qt::AlignCenter | Qt::TextWordWrap,
-                "Turrets - Part 2");
+            stats = turretTypes.at(TurretType::WeakTurret);
 
-            font.setPixelSize(30);
-            painter->setFont(font);
+            paintTurretInfo(
+                painter,
+                "weak-turret",
+                "Pointers Turret",
+                "Pointers may seem difficult for a begginer, but IT students knows how to handle them.\n"
+                "So this turret don't do much damage. Indeed it's quite economic.",
+                QString(
+                    "Cost: %1\n"
+                    "Max targets: %2\n"
+                    "Radius: %3\n"
+                    "Damage: %4\n"
+                    "Cooldown: %5\n")
+                    .arg(stats.cost)
+                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                    .arg(stats.attackRadius)
+                    .arg(stats.initialAttackDamage)
+                    .arg(stats.initialAttackCooldown));
+            break;
+        case 6:
+            paintTitle(painter, "Turrets - Part 3");
 
-            // COMBO
-            // ================================================================
+            stats = turretTypes.at(TurretType::MitraTurret);
 
-            pixmap = QPixmap(":/assets/images/missing-image.png");
-            painter->drawPixmap(QRect(_size.width() / 8, 350, 128, 128), pixmap);
+            paintTurretInfo(
+                painter,
+                "mitra-turret",
+                "Template Turret",
+                "Some able students may escape the template's hell. But someone will be constantly hit by it's difficult syntax.",
+                QString(
+                    "Cost: %1\n"
+                    "Max targets: %2\n"
+                    "Radius: %3\n"
+                    "Damage: %4\n"
+                    "Cooldown: %5\n")
+                    .arg(stats.cost)
+                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                    .arg(stats.attackRadius)
+                    .arg(stats.initialAttackDamage)
+                    .arg(stats.initialAttackCooldown));
+            break;
+        case 7:
+            paintTitle(painter, "Turrets - Part 4");
 
-            painter->drawText(
-                QRectF(_size.width() / 8 + 200, 350, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                "Combo Turret");
+            stats = turretTypes.at(TurretType::GranadeTurret);
 
-            font.setPixelSize(20);
-            painter->setFont(font);
+            paintTurretInfo(
+                painter,
+                "granade-turret",
+                "Diamond Turret",
+                "A diamond problem will strike hard the poor student that encounters it. Fortunately it doesn't happen often.",
+                QString(
+                    "Cost: %1\n"
+                    "Max targets: %2\n"
+                    "Radius: %3\n"
+                    "Damage: %4 (decrement by 10 for every enemy after the one attacked)\n"
+                    "Cooldown: %5\n")
+                    .arg(stats.cost)
+                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                    .arg(stats.attackRadius)
+                    .arg(stats.initialAttackDamage)
+                    .arg(stats.initialAttackCooldown));
+            break;
+        case 8:
+            paintTitle(painter, "Turrets - Part 5");
 
             stats = turretTypes.at(TurretType::ComboTurret);
 
-            painter->drawText(
-                QRectF(_size.width() / 8 + 700, 350, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Cost: %1"
-                        "\n"
-                        "Max targets: %2"
-                        "\n"
-                        "Radius: %3")
+            paintTurretInfo(
+                painter,
+                "combo-turret",
+                "Recursive Turret",
+                "Recursive functions are a problem for a few students. But the ones that can't understand them"
+                "will be penalised more and more with each recursion.",
+                QString(
+                    "Cost: %1\n"
+                    "Max targets: %2\n"
+                    "Radius: %3\n"
+                    "Damage: %4 (increments on every attack to the same enemy)\n"
+                    "Cooldown: %5\n")
                     .arg(stats.cost)
                     .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius));
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 1200, 350, 400, 135),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Damage: %1 (increments on every attack to the same enemy)"
-                        "\n"
-                        "Cooldown: %2")
+                    .arg(stats.attackRadius)
                     .arg(stats.initialAttackDamage)
                     .arg(stats.initialAttackCooldown));
-
-            // SPLIT
-            // ================================================================
-
-            pixmap = QPixmap(":/assets/images/missing-image.png");
-            painter->drawPixmap(QRect(_size.width() / 8, 500, 128, 128), pixmap);
-
-            font.setPixelSize(30);
-            painter->setFont(font);
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 200, 500, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                "Split Turret");
-
-            font.setPixelSize(20);
-            painter->setFont(font);
+            break;
+        case 9:
+            paintTitle(painter, "Turrets - Part 6");
 
             stats = turretTypes.at(TurretType::SplitTurret);
 
-            painter->drawText(
-                QRectF(_size.width() / 8 + 700, 500, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Cost: %1"
-                        "\n"
-                        "Max targets: %2"
-                        "\n"
-                        "Radius: %3")
+            paintTurretInfo(
+                painter,
+                "split-turret",
+                "Inheritance Turret",
+                "Let's be honest: inheritance is not so hard. When students join forces there's nothing that"
+                "can stop them!",
+                QString(
+                    "Cost: %1\n"
+                    "Max targets: %2\n"
+                    "Radius: %3\n"
+                    "Damage: %4 / number of attacked enemies\n"
+                    "Cooldown: %5\n")
                     .arg(stats.cost)
                     .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius));
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 1200, 500, 400, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Damage: %1 / number of attacked enemies"
-                        "\n"
-                        "Cooldown: %2")
+                    .arg(stats.attackRadius)
                     .arg(stats.initialAttackDamage)
                     .arg(stats.initialAttackCooldown));
-
-            // SLOWTIME
-            // ================================================================
-
-            pixmap = QPixmap(":/assets/images/missing-image.png");
-            painter->drawPixmap(QRect(_size.width() / 8, 650, 128, 128), pixmap);
-
-            font.setPixelSize(30);
-            painter->setFont(font);
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 200, 650, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                "SlowTime Turret");
-
-            font.setPixelSize(20);
-            painter->setFont(font);
+            break;
+        case 10:
+            paintTitle(painter, "Turrets - Part 7");
 
             stats = turretTypes.at(TurretType::SlowTimeTurret);
 
-            painter->drawText(
-                QRectF(_size.width() / 8 + 700, 650, _size.width() * 3 / 4, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Cost: %1"
-                        "\n"
-                        "Max targets: %2"
-                        "\n"
-                        "Radius: %3")
+            paintTurretInfo(
+                painter,
+                "slowtime-turret",
+                "TODO Turret",
+                "TODO",
+                QString(
+                    "Cost: %1\n"
+                    "Max targets: %2\n"
+                    "Radius: %3\n"
+                    "Damage: this turret slows enemies down by 50%")
                     .arg(stats.cost)
                     .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
                     .arg(stats.attackRadius));
-
-            painter->drawText(
-                QRectF(_size.width() / 8 + 1200, 650, 400, 128),
-                Qt::AlignVCenter | Qt::TextWordWrap,
-                QString("Damage: this turret slows enemies down by 50%")
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
-
             break;
-        case 6:
+        case 11:
             font.setPixelSize(50);
             painter->setFont(font);
 
@@ -415,7 +326,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 void TutorialContent::nextStep() {
     currentStep++;
 
-    if (currentStep == 6) {
+    if (currentStep == 11) {
         scene()->removeItem(nextStepButton);
         delete nextStepButton;
 

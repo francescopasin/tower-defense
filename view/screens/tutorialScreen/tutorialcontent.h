@@ -2,6 +2,7 @@
 #define VIEW_TUTORIALCONTENT_H_
 
 #include <QGraphicsItem>
+#include <QPainter>
 
 #include "app/shortcuts.h"
 #include "view/hud/standardbutton.h"
@@ -17,6 +18,14 @@ class TutorialContent : public QObject, public QGraphicsItem {
     U_INT currentStep;
 
     StandardButton *nextStepButton;
+
+    void paintTitle(QPainter *painter, const QString &title);
+    void paintTurretInfo(
+        QPainter *painter,
+        const QString &image,
+        const QString &name,
+        const QString &description,
+        const QString &stats);
 
    public:
     TutorialContent(const QSizeF &size);

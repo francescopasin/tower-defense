@@ -1,39 +1,52 @@
 <RCC>
     <qresource prefix="/">
-        <file>assets/images/coin.png</file>
-        <file>assets/images/heart.png</file>
-        <file>assets/images/play-button-idle.png</file>
-        <file>assets/images/play-button-pressed.png</file>
-        <file>assets/images/pause-button-idle.png</file>
-        <file>assets/images/pause-button-pressed.png</file>
-        <file>assets/images/fast-forward-button-idle.png</file>
-        <file>assets/images/fast-forward-button-pressed.png</file>
-        <file>assets/images/horizontal-tile.png</file>
-        <file>assets/images/vertical-tile.png</file>
-        <file>assets/images/bottom-left-tile.png</file>
-        <file>assets/images/bottom-right-tile.png</file>
-        <file>assets/images/top-left-tile.png</file>
-        <file>assets/images/top-right-tile.png</file>
-        <file>assets/images/free-tile.png</file>
-        <file>assets/images/free-tile-pressed.png</file>
-        <file>assets/images/occupied-tile.png</file>
-        <file>assets/images/occupied-tile-pressed.png</file>
-        <file>assets/images/left-start-tile.png</file>
-        <file>assets/images/right-start-tile.png</file>
-        <file>assets/images/top-start-tile.png</file>
-        <file>assets/images/bottom-start-tile.png</file>
-        <file>assets/images/left-end-tile.png</file>
-        <file>assets/images/right-end-tile.png</file>
-        <file>assets/images/top-end-tile.png</file>
-        <file>assets/images/bottom-end-tile.png</file>
-        <file>assets/images/blocked-tile.png</file>
-        <file>assets/images/pointer.png</file>
-        <file>assets/images/pointer-interactive.png</file>
-        <file>assets/images/pointer-turret-place.png</file>
-        <file>assets/images/pointer-turret-remove.png</file>
-        <file>assets/images/standard-button.png</file>
-        <file>assets/images/standard-button-pressed.png</file>
+        <file>assets/images/hud/coin.png</file>
+        <file>assets/images/hud/heart.png</file>
+        <file>assets/images/hud/play-button-idle.png</file>
+        <file>assets/images/hud/play-button-pressed.png</file>
+        <file>assets/images/hud/pause-button-idle.png</file>
+        <file>assets/images/hud/pause-button-pressed.png</file>
+        <file>assets/images/hud/fast-forward-button-idle.png</file>
+        <file>assets/images/hud/fast-forward-button-pressed.png</file>
+        <file>assets/images/hud/standard-button.png</file>
+        <file>assets/images/hud/standard-button-pressed.png</file>
+
+        <file>assets/images/tiles/horizontal-tile.png</file>
+        <file>assets/images/tiles/vertical-tile.png</file>
+        <file>assets/images/tiles/bottom-left-tile.png</file>
+        <file>assets/images/tiles/bottom-right-tile.png</file>
+        <file>assets/images/tiles/top-left-tile.png</file>
+        <file>assets/images/tiles/top-right-tile.png</file>
+        <file>assets/images/tiles/free-tile.png</file>
+        <file>assets/images/tiles/free-tile-pressed.png</file>
+        <file>assets/images/tiles/occupied-tile.png</file>
+        <file>assets/images/tiles/occupied-tile-pressed.png</file>
+        <file>assets/images/tiles/left-start-tile.png</file>
+        <file>assets/images/tiles/right-start-tile.png</file>
+        <file>assets/images/tiles/top-start-tile.png</file>
+        <file>assets/images/tiles/bottom-start-tile.png</file>
+        <file>assets/images/tiles/left-end-tile.png</file>
+        <file>assets/images/tiles/right-end-tile.png</file>
+        <file>assets/images/tiles/top-end-tile.png</file>
+        <file>assets/images/tiles/bottom-end-tile.png</file>
+        <file>assets/images/tiles/blocked-tile.png</file>
+
+
+        <file>assets/images/pointers/pointer.png</file>
+        <file>assets/images/pointers/pointer-interactive.png</file>
+        <file>assets/images/pointers/pointer-turret-place.png</file>
+        <file>assets/images/pointers/pointer-turret-remove.png</file>
+        <file>assets/images/pointers/pointer-not-allowed.png</file>
+
+        <file>assets/images/turrets/weak-turret.png</file>
+        <file>assets/images/turrets/mitra-turret.png</file>
+        <file>assets/images/turrets/granade-turret.png</file>
+        <file>assets/images/turrets/combo-turret.png</file>
+        <file>assets/images/turrets/split-turret.png</file>
+        <file>assets/images/turrets/slowtime-turret.png</file>
+
         <file>assets/images/missing-image.png</file>
+
         <file>assets/fonts/PressStart2P-Regular.ttf</file>
     </qresource>
 </RCC>

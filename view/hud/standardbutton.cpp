@@ -9,7 +9,7 @@ StandardButton::StandardButton(const QString &text, int width, QGraphicsItem *pa
     setAcceptHoverEvents(true);
     //setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
-    QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
+    QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
     QGraphicsItem::setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
@@ -23,9 +23,9 @@ void StandardButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     QPixmap pixmap;
 
     if (option->state & QStyle::State_MouseOver) {
-        pixmap = QPixmap(":/assets/images/standard-button-pressed.png");
+        pixmap = QPixmap(":/assets/images/hud/standard-button-pressed.png");
     } else {
-        pixmap = QPixmap(":/assets/images/standard-button.png");
+        pixmap = QPixmap(":/assets/images/hud/standard-button.png");
     }
 
     QFont font = painter->font();

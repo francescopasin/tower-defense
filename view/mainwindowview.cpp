@@ -10,7 +10,7 @@ MainWindowView::MainWindowView() {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    QPixmap pixmap = QPixmap(":/assets/images/pointer.png");
+    QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 

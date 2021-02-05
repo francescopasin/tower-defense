@@ -9,7 +9,7 @@ IconButton::IconButton(QString imagePath, QString hoverImagePath) : _imagePath(i
     setAcceptHoverEvents(true);
     setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
-    QPixmap pixmap = QPixmap(":/assets/images/pointer-interactive.png");
+    QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
