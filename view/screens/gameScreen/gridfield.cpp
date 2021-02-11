@@ -206,6 +206,8 @@ void GridField::selectCell(GridCell *cell) {
             for (auto i = turrets.begin(); i != turrets.end(); i++) {
                 if ((*i)->getGridPosition() == cellPosition) {
                     cell->setType(GridCellType::Free);
+                    disconnect(cell, &GridCell::hoverEnter, nullptr, nullptr);
+                    disconnect(cell, &GridCell::hoverLeave, nullptr, nullptr);
                     scene()->removeItem(*i);
                     turrets.erase(i);
                     break;
@@ -234,9 +236,12 @@ void GridField::turretsAttack(const vector<SP<model::Turret>> &attackingTurrets,
 
 void GridField::addTurretItem(const SP<model::Turret> &turret, model::TurretType turretType) {
     // Set cell as occupied
-    for (auto c : interactiveCells) {
-        if (c->getGridPosition() == turret->getPosition()) {
-            c->setType(GridCellType::Occupied);
+    for (auto cell : interactiveCells) {
+        if (cell->getGridPosition() == turret->getPosition()) {
+            cell->setType(GridCellType::Occupied);
+            connect(cell, &GridCell::hoverEnter, this, [=]() { emit turretHovered(turretType); });
+            connect(cell, &GridCell::hoverLeave, this, &GridField::turretHoverLeave);
+            break;
         }
     }
 
@@ -244,6 +249,9 @@ void GridField::addTurretItem(const SP<model::Turret> &turret, model::TurretType
     TurretItem *turretItem = new TurretItem(this, turret, turretType, 96);  // TODO: fix all cell sizes (dynamics)
     turrets.push_back(turretItem);
     connect(turretItem, &TurretItem::spawnProjectile, this, &GridField::spawnProjectile);
+
+    // For hover fix
+    emit turretHoverLeave();
 }
 
 model::Position GridField::getSelectedCellPosition() const {
@@ -253,7 +261,6 @@ model::Position GridField::getSelectedCellPosition() const {
         }
     }
     return model::Position{9999, 9999};
-    // TODO: handle no cell selected (shouldn't happen)
 }
 
 void GridField::moveProjectiles() {

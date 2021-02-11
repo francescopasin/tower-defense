@@ -36,6 +36,8 @@ class GridCell : public QObject, public QGraphicsItem {
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 
    public:
     GridCell(
@@ -57,6 +59,8 @@ class GridCell : public QObject, public QGraphicsItem {
 
    signals:
     void pressed(GridCell *cell);
+    void hoverEnter();
+    void hoverLeave();
 };
 
 }  // namespace view

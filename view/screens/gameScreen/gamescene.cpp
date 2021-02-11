@@ -24,6 +24,8 @@ GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
     gridField->setPos(0, 1080 - gridField->boundingRect().height());
     addItem(gridField);
     connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
+    connect(gridField, &GridField::turretHovered, this, &GameScene::showTurretInfos);
+    connect(gridField, &GridField::turretHoverLeave, this, &GameScene::hideTurretInfos);
 
     turretSelector = new TurretSelector();
     connect(turretSelector, &TurretSelector::losedFocusSignal, this, &GameScene::closeTurretSelector);

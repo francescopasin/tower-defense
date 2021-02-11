@@ -138,6 +138,18 @@ void GridCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     }
 }
 
+void GridCell::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
+    Q_UNUSED(event);
+
+    emit hoverEnter();
+}
+
+void GridCell::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
+    Q_UNUSED(event);
+
+    emit hoverLeave();
+}
+
 bool GridCell::isSelected() const {
     return _selected;
 }
