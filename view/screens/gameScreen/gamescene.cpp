@@ -55,7 +55,9 @@ void GameScene::createHUD() {
     addItem(fastForwardButton);
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);
 
-    // TODO: add menu (or back) button/signal
+    turretInfosPanel = new TurretInfosPanel();
+    turretInfosPanel->setPos(96 * 16 + 10, 1080 - 96 * 9);
+    addItem(turretInfosPanel);
 }
 
 void GameScene::tick() {
