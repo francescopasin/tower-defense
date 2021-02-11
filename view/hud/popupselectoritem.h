@@ -17,6 +17,7 @@ class PopupSelectorItem : public QObject, public QGraphicsItem {
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
 
    public:
     PopupSelectorItem(QGraphicsItem *parent, const QString &imagePath);
@@ -28,6 +29,7 @@ class PopupSelectorItem : public QObject, public QGraphicsItem {
 
    signals:
     void pressed();
+    void hover();
 };
 
 }  // namespace view
