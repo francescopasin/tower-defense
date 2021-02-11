@@ -12,6 +12,7 @@ namespace view {
 
 class TurretInfosPanel : public QGraphicsItem {
    private:
+    bool _show;
     TurretType _turretType;
 
     void paintTitle(QPainter *painter, const QString &image, const QString &title);
@@ -24,6 +25,7 @@ class TurretInfosPanel : public QGraphicsItem {
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     void setTurretType(TurretType turretType);
+    void hideInfos();
 };
 
 }  // namespace view

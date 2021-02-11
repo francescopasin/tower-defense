@@ -18,9 +18,10 @@ class PopupSelectorItem : public QObject, public QGraphicsItem {
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 
    public:
-    PopupSelectorItem(QGraphicsItem *parent, const QString &imagePath);
+    PopupSelectorItem(QGraphicsItem *parent, const QString &imagePath, bool sendHoverEvents = false);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -29,7 +30,8 @@ class PopupSelectorItem : public QObject, public QGraphicsItem {
 
    signals:
     void pressed();
-    void hover();
+    void hoverEnter();
+    void hoverLeave();
 };
 
 }  // namespace view

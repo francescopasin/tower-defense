@@ -4,7 +4,7 @@
 
 namespace view {
 
-TurretInfosPanel::TurretInfosPanel() {}
+TurretInfosPanel::TurretInfosPanel() : _show(false) {}
 
 QRectF TurretInfosPanel::boundingRect() const {
     return QRectF(0, 0, 1920 - 96 * 16 - 10, 96 * 9);  // TODO: refactor all this numbers
@@ -57,126 +57,135 @@ void TurretInfosPanel::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     model::TurretStats stats;
 
     // Paint content
-    switch (_turretType) {
-        case model::TurretType::WeakTurret:
-            paintTitle(painter, "weak-turret", "Pointer Turret");
+    if (_show) {
+        switch (_turretType) {
+            case model::TurretType::WeakTurret:
+                paintTitle(painter, "weak-turret", "Pointer Turret");
 
-            stats = turretTypes.at(TurretType::WeakTurret);
+                stats = turretTypes.at(TurretType::WeakTurret);
 
-            paintTurretInfo(
-                painter,
-                QString(
-                    "Cost: %1\n\n"
-                    "Max targets: %2\n\n"
-                    "Radius: %3\n\n"
-                    "Damage: %4\n\n"
-                    "Cooldown: %5\n\n")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius)
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
-            break;
-        case model::TurretType::MitraTurret:
-            paintTitle(painter, "mitra-turret", "Template Turret");
+                paintTurretInfo(
+                    painter,
+                    QString(
+                        "Cost: %1\n\n"
+                        "Max targets: %2\n\n"
+                        "Radius: %3\n\n"
+                        "Damage: %4\n\n"
+                        "Cooldown: %5\n\n")
+                        .arg(stats.cost)
+                        .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                        .arg(stats.attackRadius)
+                        .arg(stats.initialAttackDamage)
+                        .arg(stats.initialAttackCooldown));
+                break;
+            case model::TurretType::MitraTurret:
+                paintTitle(painter, "mitra-turret", "Template Turret");
 
-            stats = turretTypes.at(TurretType::MitraTurret);
+                stats = turretTypes.at(TurretType::MitraTurret);
 
-            paintTurretInfo(
-                painter,
-                QString(
-                    "Cost: %1\n\n"
-                    "Max targets: %2\n\n"
-                    "Radius: %3\n\n"
-                    "Damage: %4\n\n"
-                    "Cooldown: %5\n\n")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius)
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
-            break;
-        case model::TurretType::GranadeTurret:
-            paintTitle(painter, "granade-turret", "Diamond Turret");
+                paintTurretInfo(
+                    painter,
+                    QString(
+                        "Cost: %1\n\n"
+                        "Max targets: %2\n\n"
+                        "Radius: %3\n\n"
+                        "Damage: %4\n\n"
+                        "Cooldown: %5\n\n")
+                        .arg(stats.cost)
+                        .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                        .arg(stats.attackRadius)
+                        .arg(stats.initialAttackDamage)
+                        .arg(stats.initialAttackCooldown));
+                break;
+            case model::TurretType::GranadeTurret:
+                paintTitle(painter, "granade-turret", "Diamond Turret");
 
-            stats = turretTypes.at(TurretType::GranadeTurret);
+                stats = turretTypes.at(TurretType::GranadeTurret);
 
-            paintTurretInfo(
-                painter,
-                QString(
-                    "Cost: %1\n\n"
-                    "Max targets: %2\n\n"
-                    "Radius: %3\n\n"
-                    "Damage: %4 (decrement by 10 for every enemy after the one attacked)\n\n"
-                    "Cooldown: %5\n\n")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius)
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
-            break;
-        case model::TurretType::ComboTurret:
-            paintTitle(painter, "combo-turret", "Recursive Turret");
+                paintTurretInfo(
+                    painter,
+                    QString(
+                        "Cost: %1\n\n"
+                        "Max targets: %2\n\n"
+                        "Radius: %3\n\n"
+                        "Damage: %4 (decrement by 10 for every enemy after the one attacked)\n\n"
+                        "Cooldown: %5\n\n")
+                        .arg(stats.cost)
+                        .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                        .arg(stats.attackRadius)
+                        .arg(stats.initialAttackDamage)
+                        .arg(stats.initialAttackCooldown));
+                break;
+            case model::TurretType::ComboTurret:
+                paintTitle(painter, "combo-turret", "Recursive Turret");
 
-            stats = turretTypes.at(TurretType::ComboTurret);
+                stats = turretTypes.at(TurretType::ComboTurret);
 
-            paintTurretInfo(
-                painter,
-                QString(
-                    "Cost: %1\n\n"
-                    "Max targets: %2\n\n"
-                    "Radius: %3\n\n"
-                    "Damage: %4 (increments on every attack to the same enemy)\n\n"
-                    "Cooldown: %5\n\n")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius)
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
-            break;
-        case model::TurretType::SplitTurret:
-            paintTitle(painter, "split-turret", "Inheritance Turret");
+                paintTurretInfo(
+                    painter,
+                    QString(
+                        "Cost: %1\n\n"
+                        "Max targets: %2\n\n"
+                        "Radius: %3\n\n"
+                        "Damage: %4 (increments on every attack to the same enemy)\n\n"
+                        "Cooldown: %5\n\n")
+                        .arg(stats.cost)
+                        .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                        .arg(stats.attackRadius)
+                        .arg(stats.initialAttackDamage)
+                        .arg(stats.initialAttackCooldown));
+                break;
+            case model::TurretType::SplitTurret:
+                paintTitle(painter, "split-turret", "Inheritance Turret");
 
-            stats = turretTypes.at(TurretType::SplitTurret);
+                stats = turretTypes.at(TurretType::SplitTurret);
 
-            paintTurretInfo(
-                painter,
-                QString(
-                    "Cost: %1\n\n"
-                    "Max targets: %2\n\n"
-                    "Radius: %3\n\n"
-                    "Damage: %4 / number of attacked enemies\n\n"
-                    "Cooldown: %5\n\n")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius)
-                    .arg(stats.initialAttackDamage)
-                    .arg(stats.initialAttackCooldown));
-            break;
-        case model::TurretType::SlowTimeTurret:
-            paintTitle(painter, "slowtime-turret", "TODO Turret");
+                paintTurretInfo(
+                    painter,
+                    QString(
+                        "Cost: %1\n\n"
+                        "Max targets: %2\n\n"
+                        "Radius: %3\n\n"
+                        "Damage: %4 / number of attacked enemies\n\n"
+                        "Cooldown: %5\n\n")
+                        .arg(stats.cost)
+                        .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                        .arg(stats.attackRadius)
+                        .arg(stats.initialAttackDamage)
+                        .arg(stats.initialAttackCooldown));
+                break;
+            case model::TurretType::SlowTimeTurret:
+                paintTitle(painter, "slowtime-turret", "TODO Turret");
 
-            stats = turretTypes.at(TurretType::SlowTimeTurret);
+                stats = turretTypes.at(TurretType::SlowTimeTurret);
 
-            paintTurretInfo(
-                painter,
-                QString(
-                    "Cost: %1\n\n"
-                    "Max targets: %2\n\n"
-                    "Radius: %3\n\n"
-                    "Damage: this turret slows enemies down by 50%")
-                    .arg(stats.cost)
-                    .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
-                    .arg(stats.attackRadius));
-            break;
-        default:
-            // Show something
-            break;
+                paintTurretInfo(
+                    painter,
+                    QString(
+                        "Cost: %1\n\n"
+                        "Max targets: %2\n\n"
+                        "Radius: %3\n\n"
+                        "Damage: this turret slows enemies down by 50%")
+                        .arg(stats.cost)
+                        .arg(stats.maxTargets == -1 ? "infinite" : QString::number(stats.maxTargets))
+                        .arg(stats.attackRadius));
+                break;
+        }
+    } else {
+        painter->drawText(
+            QRect(20, 20, boundingRect().width() - 40, boundingRect().height() - 40),
+            Qt::AlignCenter | Qt::TextWordWrap,
+            "Hover a turret to see its infos.");
     }
 }
 
 void TurretInfosPanel::setTurretType(model::TurretType turretType) {
     _turretType = turretType;
+    _show = true;
+}
+
+void TurretInfosPanel::hideInfos() {
+    _show = false;
 }
 
 }  // namespace view

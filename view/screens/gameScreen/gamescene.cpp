@@ -28,6 +28,7 @@ GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
     turretSelector = new TurretSelector();
     connect(turretSelector, &TurretSelector::losedFocusSignal, this, &GameScene::closeTurretSelector);
     connect(turretSelector, &TurretSelector::turretHovered, this, &GameScene::showTurretInfos);
+    connect(turretSelector, &TurretSelector::turretHoverLeave, this, &GameScene::hideTurretInfos);
     connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
 }
 
@@ -117,6 +118,10 @@ void GameScene::closeTurretSelector() {
 
 void GameScene::showTurretInfos(model::TurretType turretType) {
     turretInfosPanel->setTurretType(turretType);
+}
+
+void GameScene::hideTurretInfos() {
+    turretInfosPanel->hideInfos();
 }
 
 void GameScene::addTurret(model::TurretType turretType) {
