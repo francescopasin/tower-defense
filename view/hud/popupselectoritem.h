@@ -1,27 +1,30 @@
-#ifndef VIEW_CELLSELECTORITEM_H_
-#define VIEW_CELLSELECTORITEM_H_
+#ifndef VIEW_POPUPSELECTORITEM_H_
+#define VIEW_POPUPSELECTORITEM_H_
 
 #include <QGraphicsItem>
 
-#include "view/screens/setMapScreen/setmapcell.h"
-
 namespace view {
 
-class CellSelectorItem : public QObject, public QGraphicsItem {
+class PopupSelectorItem : public QObject, public QGraphicsItem {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
 
    private:
-    SetMapCell::Type _cellType;
+    QString _imagePath;
+    bool isAvailable;
+
+    void updateCursor();
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
    public:
-    CellSelectorItem(QGraphicsItem *parent, SetMapCell::Type cellType);
+    PopupSelectorItem(QGraphicsItem *parent, const QString &imagePath);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    void setAvailability(bool availability);
 
    signals:
     void pressed();

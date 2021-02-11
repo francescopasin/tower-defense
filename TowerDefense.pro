@@ -37,6 +37,7 @@ SOURCES += \
     view/hud/standardbutton.cpp \
     view/hud/modal.cpp \
     view/hud/errormodal.cpp \
+    view/hud/popupselectoritem.cpp \
     \
     view/screens/gameScreen/gamescene.cpp \
     view/screens/gameScreen/gridcell.cpp \
@@ -44,7 +45,6 @@ SOURCES += \
     view/screens/gameScreen/turretitem.cpp \
     view/screens/gameScreen/gridfield.cpp \
     view/screens/gameScreen/turretselector.cpp \
-    view/screens/gameScreen/turretselectoritem.cpp \
     view/screens/gameScreen/pausemodal.cpp \
     view/screens/gameScreen/projectile.cpp \
     view/screens/gameScreen/lostwonmodal.cpp \
@@ -54,7 +54,6 @@ SOURCES += \
     view/screens/setMapScreen/setmapgrid.cpp \
     view/screens/setMapScreen/setmapscene.cpp \
     view/screens/setMapScreen/setmapcell.cpp \
-    view/screens/setMapScreen/cellselectoritem.cpp \
     view/screens/setMapScreen/cellselector.cpp \
     \
     view/screens/tutorialScreen/tutorialscene.cpp \
@@ -96,6 +95,7 @@ HEADERS += \
     view/hud/standardbutton.h \
     view/hud/modal.h \
     view/hud/errormodal.h \
+    view/hud/popupselectoritem.h \
     \
     view/screens/gameScreen/gamescene.h \
     view/screens/gameScreen/gridcelltype.h \
@@ -104,7 +104,6 @@ HEADERS += \
     view/screens/gameScreen/turretitem.h \
     view/screens/gameScreen/gridfield.h \
     view/screens/gameScreen/turretselector.h \
-    view/screens/gameScreen/turretselectoritem.h \
     view/screens/gameScreen/pausemodal.h \
     view/screens/gameScreen/projectile.h \
     view/screens/gameScreen/lostwonmodal.h \
@@ -114,7 +113,6 @@ HEADERS += \
     view/screens/setMapScreen/setmapscene.h \
     view/screens/setMapScreen/setmapgrid.h \
     view/screens/setMapScreen/setmapcell.h \
-    view/screens/setMapScreen/cellselectoritem.h \
     view/screens/setMapScreen/cellselector.h  \
     \
     view/screens/tutorialScreen/tutorialscene.h \
