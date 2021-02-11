@@ -116,7 +116,7 @@ void GameScene::closeTurretSelector() {
 }
 
 void GameScene::showTurretInfos(model::TurretType turretType) {
-    // TODO
+    turretInfosPanel->setTurretType(turretType);
 }
 
 void GameScene::addTurret(model::TurretType turretType) {
