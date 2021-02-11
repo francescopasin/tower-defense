@@ -239,7 +239,7 @@ void GridField::addTurretItem(const SP<model::Turret> &turret, model::TurretType
     for (auto cell : interactiveCells) {
         if (cell->getGridPosition() == turret->getPosition()) {
             cell->setType(GridCellType::Occupied);
-            connect(cell, &GridCell::hoverEnter, this, [=]() { emit turretHovered(turretType); });
+            connect(cell, &GridCell::hoverEnter, this, [=]() { emit turretHovered(turretType, cell->getGridPosition()); });
             connect(cell, &GridCell::hoverLeave, this, &GridField::turretHoverLeave);
             break;
         }

@@ -7,6 +7,7 @@ namespace view {
 
 TurretSelector::TurretSelector() {
     setFlag(QGraphicsItem::ItemIsFocusable);
+    setZValue(100);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
