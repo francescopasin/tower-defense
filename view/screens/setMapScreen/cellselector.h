@@ -3,17 +3,13 @@
 
 #include <QGraphicsItem>
 
-#include "view/hud/popupselectoritem.h"
-#include "view/screens/gameScreen/gridcelltype.h"
-// TODO: move enum to hud
+#include "view/screens/setMapScreen/setmapcell.h"
 
 namespace view {
 
 class CellSelector : public QObject, public QGraphicsItem {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
-   private:
-    PopupSelectorItem *freeCell;
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -25,10 +21,8 @@ class CellSelector : public QObject, public QGraphicsItem {
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    void setFreeCellAvailability(bool availability);
-
    signals:
-    void cellSelected(GridCellType type);
+    void cellSelected(SetMapCell::Type type);
     void losedFocusSignal();
 };
 
