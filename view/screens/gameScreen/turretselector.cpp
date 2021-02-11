@@ -7,39 +7,46 @@ namespace view {
 
 TurretSelector::TurretSelector() {
     setFlag(QGraphicsItem::ItemIsFocusable);
+    setZValue(100);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 
-    weakTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/weak-turret.png");
+    weakTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/weak-turret.png", true);
     weakTurretSelector->setPos(10, 10);
     connect(weakTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::WeakTurret); });
-    connect(weakTurretSelector, &PopupSelectorItem::hover, this, [=]() { emit turretHovered(model::TurretType::WeakTurret); });
+    connect(weakTurretSelector, &PopupSelectorItem::hoverEnter, this, [=]() { emit turretHovered(model::TurretType::WeakTurret); });
+    connect(weakTurretSelector, &PopupSelectorItem::hoverLeave, this, &TurretSelector::turretHoverLeave);
 
-    mitraTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/mitra-turret.png");
+    mitraTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/mitra-turret.png", true);
     mitraTurretSelector->setPos(110, 10);
     connect(mitraTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::MitraTurret); });
-    connect(mitraTurretSelector, &PopupSelectorItem::hover, this, [=]() { emit turretHovered(model::TurretType::MitraTurret); });
+    connect(mitraTurretSelector, &PopupSelectorItem::hoverEnter, this, [=]() { emit turretHovered(model::TurretType::MitraTurret); });
+    connect(mitraTurretSelector, &PopupSelectorItem::hoverLeave, this, &TurretSelector::turretHoverLeave);
 
-    granadeTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/granade-turret.png");
+    granadeTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/granade-turret.png", true);
     granadeTurretSelector->setPos(210, 10);
     connect(granadeTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::GranadeTurret); });
-    connect(granadeTurretSelector, &PopupSelectorItem::hover, this, [=]() { emit turretHovered(model::TurretType::GranadeTurret); });
+    connect(granadeTurretSelector, &PopupSelectorItem::hoverEnter, this, [=]() { emit turretHovered(model::TurretType::GranadeTurret); });
+    connect(granadeTurretSelector, &PopupSelectorItem::hoverLeave, this, &TurretSelector::turretHoverLeave);
 
-    comboTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/combo-turret.png");
+    comboTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/combo-turret.png", true);
     comboTurretSelector->setPos(310, 10);
     connect(comboTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::ComboTurret); });
-    connect(comboTurretSelector, &PopupSelectorItem::hover, this, [=]() { emit turretHovered(model::TurretType::ComboTurret); });
+    connect(comboTurretSelector, &PopupSelectorItem::hoverEnter, this, [=]() { emit turretHovered(model::TurretType::ComboTurret); });
+    connect(comboTurretSelector, &PopupSelectorItem::hoverLeave, this, &TurretSelector::turretHoverLeave);
 
-    splitTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/split-turret.png");
+    splitTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/split-turret.png", true);
     splitTurretSelector->setPos(410, 10);
     connect(splitTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SplitTurret); });
-    connect(splitTurretSelector, &PopupSelectorItem::hover, this, [=]() { emit turretHovered(model::TurretType::SplitTurret); });
+    connect(splitTurretSelector, &PopupSelectorItem::hoverEnter, this, [=]() { emit turretHovered(model::TurretType::SplitTurret); });
+    connect(splitTurretSelector, &PopupSelectorItem::hoverLeave, this, &TurretSelector::turretHoverLeave);
 
-    slowTimeTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/slowtime-turret.png");
+    slowTimeTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/slowtime-turret.png", true);
     slowTimeTurretSelector->setPos(510, 10);
     connect(slowTimeTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SlowTimeTurret); });
-    connect(slowTimeTurretSelector, &PopupSelectorItem::hover, this, [=]() { emit turretHovered(model::TurretType::SlowTimeTurret); });
+    connect(slowTimeTurretSelector, &PopupSelectorItem::hoverEnter, this, [=]() { emit turretHovered(model::TurretType::SlowTimeTurret); });
+    connect(slowTimeTurretSelector, &PopupSelectorItem::hoverLeave, this, &TurretSelector::turretHoverLeave);
 }
 
 QRectF TurretSelector::boundingRect() const {

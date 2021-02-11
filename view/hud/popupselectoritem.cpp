@@ -6,9 +6,12 @@
 
 namespace view {
 
-PopupSelectorItem::PopupSelectorItem(QGraphicsItem *parent, const QString &imagePath)
+PopupSelectorItem::PopupSelectorItem(QGraphicsItem *parent, const QString &imagePath, bool sendHoverEvents)
     : QGraphicsItem(parent), _imagePath(imagePath), isAvailable(true) {
-    setAcceptHoverEvents(true);
+    if (sendHoverEvents) {
+        setAcceptHoverEvents(true);
+    }
+
     updateCursor();
 }
 
@@ -49,7 +52,13 @@ void PopupSelectorItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void PopupSelectorItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {
     Q_UNUSED(event);
 
-    emit hover();
+    emit hoverEnter();
+}
+
+void PopupSelectorItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
+    Q_UNUSED(event);
+
+    emit hoverLeave();
 }
 
 void PopupSelectorItem::setAvailability(bool availability) {

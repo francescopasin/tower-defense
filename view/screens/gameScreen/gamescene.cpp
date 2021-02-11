@@ -24,11 +24,16 @@ GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
     gridField->setPos(0, 1080 - gridField->boundingRect().height());
     addItem(gridField);
     connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
+    connect(gridField, &GridField::turretHovered, this, &GameScene::showTurretInfos);
+    connect(gridField, &GridField::turretHoverLeave, this, &GameScene::hideTurretInfos);
 
     turretSelector = new TurretSelector();
     connect(turretSelector, &TurretSelector::losedFocusSignal, this, &GameScene::closeTurretSelector);
-    connect(turretSelector, &TurretSelector::turretHovered, this, &GameScene::showTurretInfos);
+    connect(turretSelector, &TurretSelector::turretHovered, this, [=](model::TurretType type) { emit showTurretInfos(type, gridField->getSelectedCellPosition()); });
+    connect(turretSelector, &TurretSelector::turretHoverLeave, this, &GameScene::hideTurretInfos);
     connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
+
+    turretRadiusPreview = new TurretRadiusPreview();
 }
 
 void GameScene::drawBackground() {
@@ -115,8 +120,18 @@ void GameScene::closeTurretSelector() {
     gridField->selectCell(nullptr);
 }
 
-void GameScene::showTurretInfos(model::TurretType turretType) {
+void GameScene::showTurretInfos(model::TurretType turretType, model::Position cellPosition) {
     turretInfosPanel->setTurretType(turretType);
+
+    U_INT radius = model::turretTypes.at(turretType).attackRadius;
+    turretRadiusPreview->setRadius(radius);
+    turretRadiusPreview->setPos(cellPosition.x * 96 - radius * 96, cellPosition.y * 96 - radius * 96 + 1080 - gridField->boundingRect().height());
+    addItem(turretRadiusPreview);
+}
+
+void GameScene::hideTurretInfos() {
+    turretInfosPanel->hideInfos();
+    removeItem(turretRadiusPreview);
 }
 
 void GameScene::addTurret(model::TurretType turretType) {

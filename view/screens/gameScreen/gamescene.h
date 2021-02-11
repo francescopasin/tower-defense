@@ -15,6 +15,7 @@
 #include "view/screens/gameScreen/gridcelltype.h"
 #include "view/screens/gameScreen/gridfield.h"
 #include "view/screens/gameScreen/turretinfospanel.h"
+#include "view/screens/gameScreen/turretradiuspreview.h"
 #include "view/screens/gameScreen/turretselector.h"
 
 using std::vector;
@@ -30,6 +31,7 @@ class GameScene : public QGraphicsScene {
     GridField* gridField;
     InfoBox* creditsInfo;
     InfoBox* lifeInfo;
+    TurretRadiusPreview* turretRadiusPreview;
     TurretInfosPanel* turretInfosPanel;
     TurretSelector* turretSelector;
 
@@ -49,7 +51,8 @@ class GameScene : public QGraphicsScene {
    public slots:
     void gridCellPressed(GridCellType cellType, model::Position cellPosition);
     void closeTurretSelector();
-    void showTurretInfos(model::TurretType turretType);
+    void showTurretInfos(model::TurretType turretType, model::Position cellPosition);
+    void hideTurretInfos();
     void addTurret(model::TurretType turretType);
     void pauseButtonPressed();
     void showModal(model::Game::State stato);
