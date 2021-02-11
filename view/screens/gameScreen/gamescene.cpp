@@ -27,6 +27,7 @@ GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
 
     turretSelector = new TurretSelector();
     connect(turretSelector, &TurretSelector::losedFocusSignal, this, &GameScene::closeTurretSelector);
+    connect(turretSelector, &TurretSelector::turretHovered, this, &GameScene::showTurretInfos);
     connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
 }
 
@@ -54,7 +55,9 @@ void GameScene::createHUD() {
     addItem(fastForwardButton);
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);
 
-    // TODO: add menu (or back) button/signal
+    turretInfosPanel = new TurretInfosPanel();
+    turretInfosPanel->setPos(96 * 16 + 10, 1080 - 96 * 9);
+    addItem(turretInfosPanel);
 }
 
 void GameScene::tick() {
@@ -110,6 +113,10 @@ void GameScene::gridCellPressed(GridCellType cellType, model::Position cellPosit
 void GameScene::closeTurretSelector() {
     removeItem(turretSelector);
     gridField->selectCell(nullptr);
+}
+
+void GameScene::showTurretInfos(model::TurretType turretType) {
+    turretInfosPanel->setTurretType(turretType);
 }
 
 void GameScene::addTurret(model::TurretType turretType) {

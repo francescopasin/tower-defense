@@ -14,6 +14,7 @@
 #include "view/screens/gameScreen/enemyitem.h"
 #include "view/screens/gameScreen/gridcelltype.h"
 #include "view/screens/gameScreen/gridfield.h"
+#include "view/screens/gameScreen/turretinfospanel.h"
 #include "view/screens/gameScreen/turretselector.h"
 
 using std::vector;
@@ -29,6 +30,7 @@ class GameScene : public QGraphicsScene {
     GridField* gridField;
     InfoBox* creditsInfo;
     InfoBox* lifeInfo;
+    TurretInfosPanel* turretInfosPanel;
     TurretSelector* turretSelector;
 
     vector<EnemyItem*> enemies;
@@ -47,6 +49,7 @@ class GameScene : public QGraphicsScene {
    public slots:
     void gridCellPressed(GridCellType cellType, model::Position cellPosition);
     void closeTurretSelector();
+    void showTurretInfos(model::TurretType turretType);
     void addTurret(model::TurretType turretType);
     void pauseButtonPressed();
     void showModal(model::Game::State stato);
