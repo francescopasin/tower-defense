@@ -11,29 +11,29 @@ TurretSelector::TurretSelector() {
     QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
 
-    weakTurretSelector = new TurretSelectorItem(this, model::TurretType::WeakTurret);
+    weakTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/weak-turret.png");
     weakTurretSelector->setPos(10, 10);
-    connect(weakTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::WeakTurret); });
+    connect(weakTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::WeakTurret); });
 
-    mitraTurretSelector = new TurretSelectorItem(this, model::TurretType::MitraTurret);
+    mitraTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/mitra-turret.png");
     mitraTurretSelector->setPos(110, 10);
-    connect(mitraTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::MitraTurret); });
+    connect(mitraTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::MitraTurret); });
 
-    granadeTurretSelector = new TurretSelectorItem(this, model::TurretType::GranadeTurret);
+    granadeTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/granade-turret.png");
     granadeTurretSelector->setPos(210, 10);
-    connect(granadeTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::GranadeTurret); });
+    connect(granadeTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::GranadeTurret); });
 
-    comboTurretSelector = new TurretSelectorItem(this, model::TurretType::ComboTurret);
+    comboTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/combo-turret.png");
     comboTurretSelector->setPos(310, 10);
-    connect(comboTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::ComboTurret); });
+    connect(comboTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::ComboTurret); });
 
-    splitTurretSelector = new TurretSelectorItem(this, model::TurretType::SplitTurret);
+    splitTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/split-turret.png");
     splitTurretSelector->setPos(410, 10);
-    connect(splitTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SplitTurret); });
+    connect(splitTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SplitTurret); });
 
-    slowTimeTurretSelector = new TurretSelectorItem(this, model::TurretType::SlowTimeTurret);
+    slowTimeTurretSelector = new PopupSelectorItem(this, ":/assets/images/turrets/slowtime-turret.png");
     slowTimeTurretSelector->setPos(510, 10);
-    connect(slowTimeTurretSelector, &TurretSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SlowTimeTurret); });
+    connect(slowTimeTurretSelector, &PopupSelectorItem::pressed, this, [=]() { emit turretSelected(model::TurretType::SlowTimeTurret); });
 }
 
 QRectF TurretSelector::boundingRect() const {
@@ -62,12 +62,12 @@ void TurretSelector::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void TurretSelector::added(U_INT gameCredits) {
     setFocus();
 
-    weakTurretSelector->updateAvailability(gameCredits);
-    mitraTurretSelector->updateAvailability(gameCredits);
-    granadeTurretSelector->updateAvailability(gameCredits);
-    comboTurretSelector->updateAvailability(gameCredits);
-    splitTurretSelector->updateAvailability(gameCredits);
-    slowTimeTurretSelector->updateAvailability(gameCredits);
+    weakTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::WeakTurret).cost);
+    mitraTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::MitraTurret).cost);
+    granadeTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::GranadeTurret).cost);
+    comboTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::ComboTurret).cost);
+    splitTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::SplitTurret).cost);
+    slowTimeTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::SlowTimeTurret).cost);
 }
 
 void TurretSelector::focusOutEvent(QFocusEvent *event) {

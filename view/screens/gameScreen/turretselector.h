@@ -5,7 +5,8 @@
 
 #include "app/shortcuts.h"
 #include "model/turrets/turrettype.h"
-#include "view/screens/gameScreen/turretselectoritem.h"
+#include "view/hud/popupselectoritem.h"
+
 namespace view {
 
 class TurretSelector : public QObject, public QGraphicsItem {
@@ -13,12 +14,12 @@ class TurretSelector : public QObject, public QGraphicsItem {
     Q_INTERFACES(QGraphicsItem)
 
    private:
-    TurretSelectorItem *weakTurretSelector;
-    TurretSelectorItem *mitraTurretSelector;
-    TurretSelectorItem *granadeTurretSelector;
-    TurretSelectorItem *comboTurretSelector;
-    TurretSelectorItem *splitTurretSelector;
-    TurretSelectorItem *slowTimeTurretSelector;
+    PopupSelectorItem *weakTurretSelector;
+    PopupSelectorItem *mitraTurretSelector;
+    PopupSelectorItem *granadeTurretSelector;
+    PopupSelectorItem *comboTurretSelector;
+    PopupSelectorItem *splitTurretSelector;
+    PopupSelectorItem *slowTimeTurretSelector;
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
