@@ -47,6 +47,7 @@ class GameScene : public QGraphicsScene {
    public slots:
     void gridCellPressed(GridCellType cellType, model::Position cellPosition);
     void closeTurretSelector();
+    void showTurretInfos(model::TurretType turretType);
     void addTurret(model::TurretType turretType);
     void pauseButtonPressed();
     void showModal(model::Game::State stato);

@@ -27,6 +27,7 @@ GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
 
     turretSelector = new TurretSelector();
     connect(turretSelector, &TurretSelector::losedFocusSignal, this, &GameScene::closeTurretSelector);
+    connect(turretSelector, &TurretSelector::turretHovered, this, &GameScene::showTurretInfos);
     connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
 }
 
@@ -110,6 +111,10 @@ void GameScene::gridCellPressed(GridCellType cellType, model::Position cellPosit
 void GameScene::closeTurretSelector() {
     removeItem(turretSelector);
     gridField->selectCell(nullptr);
+}
+
+void GameScene::showTurretInfos(model::TurretType turretType) {
+    // TODO
 }
 
 void GameScene::addTurret(model::TurretType turretType) {

@@ -35,6 +35,7 @@ class TurretSelector : public QObject, public QGraphicsItem {
     void added(U_INT gameCredits);
 
    signals:
+    void turretHovered(model::TurretType turretType);
     void turretSelected(model::TurretType turretType);
     void losedFocusSignal();
 };
