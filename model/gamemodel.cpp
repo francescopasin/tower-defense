@@ -10,14 +10,14 @@ Game::State GameModel::tick() {
     return _game->tick();
 }
 
-void GameModel::reset() {
+void GameModel::reset(bool switchToStandardMap) {
     U_INT credits = 20;
     float life = 100;
 
     vector<Position> map;
     vector<Position> blockedCellsMap;
 
-    if (_game) {
+    if (_game && !switchToStandardMap) {
         // Get current game map
 
         // TODO: not necessary when level selection is included

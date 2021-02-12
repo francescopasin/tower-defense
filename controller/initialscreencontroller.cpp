@@ -16,7 +16,10 @@ InitialScreenController::InitialScreenController(const SP<model::GameModel>& mod
         _scene,
         &view::InitialScreenScene::startButtonPressed,
         this,
-        [=]() { emit navigateTo(app::Routes::GameScreen); });
+        [=]() {
+            _model->reset(true);
+            emit navigateTo(app::Routes::GameScreen);
+        });
 
     connect(
         _scene,
@@ -96,6 +99,9 @@ void InitialScreenController::uploadFromFile() {
             try {
                 _model->setMap(pathPosition, model::Direction::Left);
                 _model->setBlocked(blockedPosition);
+
+                // Start game
+                emit navigateTo(app::Routes::GameScreen);
             } catch (const std::exception* e) {
                 view::ErrorModal* modal = new view::ErrorModal(e->what(), _scene->width(), _scene->height());
                 _scene->addItem(modal);
