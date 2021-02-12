@@ -44,6 +44,21 @@
         <file>assets/images/enemy/side3.png</file>
         <file>assets/images/enemy/side4.png</file>
 
+        <file>assets/images/explosion/explosion1.png</file>
+        <file>assets/images/explosion/explosion2.png</file>
+        <file>assets/images/explosion/explosion3.png</file>
+        <file>assets/images/explosion/explosion4.png</file>
+        <file>assets/images/explosion/explosion5.png</file>
+        <file>assets/images/explosion/explosion6.png</file>
+        <file>assets/images/explosion/explosion7.png</file>
+        <file>assets/images/explosion/explosion8.png</file>
+        <file>assets/images/explosion/explosion9.png</file>
+        <file>assets/images/explosion/explosion10.png</file>
+        <file>assets/images/explosion/explosion11.png</file>
+        <file>assets/images/explosion/explosion12.png</file>
+        <file>assets/images/explosion/explosion13.png</file>
+        <file>assets/images/explosion/explosion14.png</file>
+
         <file>assets/images/pointers/pointer.png</file>
         <file>assets/images/pointers/pointer-interactive.png</file>
         <file>assets/images/pointers/pointer-turret-place.png</file>
