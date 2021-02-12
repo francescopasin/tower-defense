@@ -14,6 +14,7 @@ namespace view {
 
 MainWindow::MainWindow(const SP<model::GameModel>& model) : _model(model), view(new MainWindowView()), currentViewController(nullptr) {
     setWindowTitle("CPP: Crush Poor Programmers");
+    // TODO: set icon
 
     setMinimumSize(QSize(1280, 720));
     resize(QSize(1280, 720));
