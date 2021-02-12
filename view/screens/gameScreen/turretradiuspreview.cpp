@@ -11,7 +11,7 @@ TurretRadiusPreview::TurretRadiusPreview() : _radius(1) {
 
 QRectF TurretRadiusPreview::boundingRect() const {
     // Bounding rect is max radius (TEMP: 4)
-    return QRect(0, 0, 96 * 9, 96 * 9);
+    return QRectF(0, 0, 96 * 9, 96 * 9);
 }
 
 void TurretRadiusPreview::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {

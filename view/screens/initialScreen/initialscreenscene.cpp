@@ -1,5 +1,6 @@
 #include "view/screens/initialScreen/initialscreenscene.h"
 
+#include "view/hud/gametitle.h"
 #include "view/hud/standardbutton.h"
 
 namespace view {
@@ -20,6 +21,10 @@ void InitialScreenScene::drawBackground() {
 }
 
 void InitialScreenScene::createHUD() {
+    GameTitle* title = new GameTitle();
+    title->setPos(1920 / 2 - title->boundingRect().width() / 2, 200);
+    addItem(title);
+
     StandardButton* startButton = new StandardButton("START", 400);
     StandardButton* setMapButton = new StandardButton("SET MAP", 400);
     StandardButton* uploadMapButton = new StandardButton("UPLOAD MAP", 400);
@@ -33,16 +38,16 @@ void InitialScreenScene::createHUD() {
 
     startButton->setPos(
         1920 / 2 - size / 2,
-        1080 / 2 - startButton->boundingRect().height() / 2);
+        600);
     setMapButton->setPos(
         1920 / 2 - size / 2 + startButton->boundingRect().width() + 10,
-        1080 / 2 - setMapButton->boundingRect().height() / 2);
+        600);
     uploadMapButton->setPos(
         1920 / 2 + size / 2 - uploadMapButton->boundingRect().width() - tutorialButton->boundingRect().width() - 10,
-        1080 / 2 - uploadMapButton->boundingRect().height() / 2);
+        600);
     tutorialButton->setPos(
         1920 / 2 + size / 2 - tutorialButton->boundingRect().width(),
-        1080 / 2 - tutorialButton->boundingRect().height() / 2);
+        600);
 
     addItem(startButton);
     addItem(setMapButton);

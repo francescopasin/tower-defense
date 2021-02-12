@@ -18,8 +18,7 @@ GridCell::GridCell(
       _type(type),
       _tile(tile),
       _selected(false) {
-    // TODO: understand why it doesn't work
-    //setFlag(QGraphicsItem::ItemIgnoresTransformations);
+    ////setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
     if (type == GridCellType::Free) {
         setAcceptHoverEvents(true);

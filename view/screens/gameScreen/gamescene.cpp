@@ -2,6 +2,7 @@
 
 #include <algorithm>
 
+#include "view/hud/gametitle.h"
 #include "view/screens/gameScreen/gridfield.h"
 #include "view/screens/gameScreen/lostwonmodal.h"
 #include "view/screens/gameScreen/pausemodal.h"
@@ -46,22 +47,28 @@ void GameScene::createHUD() {
     addItem(creditsInfo);
 
     lifeInfo = new InfoBox(":/assets/images/hud/heart.png", QString::number(_model->getLife()));
-    lifeInfo->setPos(10, 75);
+    lifeInfo->setPos(10, 110);
     addItem(lifeInfo);
 
     pauseButton = new IconButton(":/assets/images/hud/pause-button-idle.png", ":/assets/images/hud/pause-button-pressed.png");
-    pauseButton->setPos(1400, 25);
+    pauseButton->setPos(1650, 50);
     addItem(pauseButton);
     connect(pauseButton, &IconButton::pressed, this, &GameScene::pauseButtonPressed);
 
     fastForwardButton = new IconButton(":/assets/images/hud/fast-forward-button-idle.png", ":/assets/images/hud/fast-forward-button-pressed.png");
-    fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
+    fastForwardButton->setPos(1800, 50);
     addItem(fastForwardButton);
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);
 
     turretInfosPanel = new TurretInfosPanel();
     turretInfosPanel->setPos(96 * 16 + 10, 1080 - 96 * 9);
     addItem(turretInfosPanel);
+
+    GameTitle* title = new GameTitle();
+    title->setPos(
+        1920 / 2 - title->boundingRect().width() / 2,
+        (1080 - 96 * 9) / 2 - title->boundingRect().height() / 2);
+    addItem(title);
 }
 
 void GameScene::tick() {

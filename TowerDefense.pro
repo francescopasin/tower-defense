@@ -38,6 +38,7 @@ SOURCES += \
     view/hud/modal.cpp \
     view/hud/errormodal.cpp \
     view/hud/popupselectoritem.cpp \
+    view/hud/gametitle.cpp \
     \
     view/screens/gameScreen/gamescene.cpp \
     view/screens/gameScreen/gridcell.cpp \
@@ -98,6 +99,7 @@ HEADERS += \
     view/hud/modal.h \
     view/hud/errormodal.h \
     view/hud/popupselectoritem.h \
+    view/hud/gametitle.h \
     \
     view/screens/gameScreen/gamescene.h \
     view/screens/gameScreen/gridcelltype.h \
