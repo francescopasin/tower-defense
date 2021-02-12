@@ -9,6 +9,7 @@ namespace view {
 
 CellSelector::CellSelector() {
     setFlag(QGraphicsItem::ItemIsFocusable);
+    setVisible(false);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));

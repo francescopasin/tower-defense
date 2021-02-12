@@ -32,6 +32,7 @@ GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
     connect(turretSelector, &TurretSelector::turretHovered, this, [=](model::TurretType type) { emit showTurretInfos(type, gridField->getSelectedCellPosition()); });
     connect(turretSelector, &TurretSelector::turretHoverLeave, this, &GameScene::hideTurretInfos);
     connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
+    addItem(turretSelector);
 
     turretRadiusPreview = new TurretRadiusPreview();
 }
@@ -75,6 +76,7 @@ void GameScene::tick() {
     // Update info
     creditsInfo->setText(QString::number(_model->getCredits()));
     lifeInfo->setText(QString::number(_model->getLife()));
+    turretSelector->updateAvailability(_model->getCredits());
 
     gridField->moveProjectiles();
 
@@ -113,16 +115,15 @@ void GameScene::gridCellPressed(GridCellType cellType, model::Position cellPosit
             cellPosition.y * 96 - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
 
         // TODO: set fixed cell size
-
-        addItem(turretSelector);
-        turretSelector->added(_model->getCredits());
+        turretSelector->setVisible(true);
+        turretSelector->setFocus();
     } else if (cellType == GridCellType::Occupied) {
         emit removeTurretSignal(cellPosition);
     }
 }
 
 void GameScene::closeTurretSelector() {
-    removeItem(turretSelector);
+    turretSelector->setVisible(false);
     gridField->selectCell(nullptr);
 }
 
