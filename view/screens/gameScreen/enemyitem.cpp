@@ -130,25 +130,27 @@ void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     painter->drawPixmap(QRect(0, 0, 64, 64), sprites[currentSpriteFrame]);
 
-    /*
     // Health bar
-
     float currentHealth = enemyData->getHealth();
     if (currentHealth < 0) {
         currentHealth = 0;
     }
     float initialtHealth = enemyData->getInitialHealth();
 
-    float widthAdvance = (50 * currentHealth) / initialtHealth;
-   
+    float widthAdvance = (32 * currentHealth) / initialtHealth;
+
+    painter->setPen(Qt::NoPen);
+
+    painter->setBrush(QColor::fromRgb(70, 70, 70, 200));
+    painter->drawRect(16, 61, 32, 3);
+
     if (widthAdvance <= 15) {
-        painter->setBrush(Qt::red);
+        painter->setBrush(QColor::fromRgb(255, 0, 0, 200));
     } else {
-        painter->setBrush(Qt::green);
+        painter->setBrush(QColor::fromRgb(0, 255, 0, 200));
     }
 
-    painter->drawRect(1, 51, widthAdvance - 1, 3);
-    */
+    painter->drawRect(16, 61, widthAdvance, 3);
 }
 
 void EnemyItem::tick() {
