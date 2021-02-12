@@ -31,6 +31,18 @@
         <file>assets/images/tiles/bottom-end-tile.png</file>
         <file>assets/images/tiles/blocked-tile.png</file>
 
+        <file>assets/images/enemy/front1.png</file>
+        <file>assets/images/enemy/front2.png</file>
+        <file>assets/images/enemy/front3.png</file>
+        <file>assets/images/enemy/front4.png</file>
+        <file>assets/images/enemy/back1.png</file>
+        <file>assets/images/enemy/back2.png</file>
+        <file>assets/images/enemy/back3.png</file>
+        <file>assets/images/enemy/back4.png</file>
+        <file>assets/images/enemy/side1.png</file>
+        <file>assets/images/enemy/side2.png</file>
+        <file>assets/images/enemy/side3.png</file>
+        <file>assets/images/enemy/side4.png</file>
 
         <file>assets/images/pointers/pointer.png</file>
         <file>assets/images/pointers/pointer-interactive.png</file>
