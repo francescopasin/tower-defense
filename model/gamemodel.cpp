@@ -11,8 +11,8 @@ Game::State GameModel::tick() {
 }
 
 void GameModel::reset() {
-    U_INT credits = 60;
-    float life = 50;
+    U_INT credits = 20;
+    float life = 100;
 
     vector<Position> map;
     vector<Position> blockedCellsMap;
@@ -107,16 +107,10 @@ void GameModel::reset() {
 
     vector<Wave> wave;
 
-    // TODO: temp. only for debugging
-    wave.push_back(Wave{100, 20, 10, 10, 30, 10, 10});
-
-    /*
-    wave.push_back(Wave{100, 120, 10, 6, 15, 0});
-    wave.push_back(Wave{100, 120, 10, 10, 15, 60});
-    wave.push_back(Wave{50, 30, 10, 20, 5, 60});
-    wave.push_back(Wave{200, 60, 30, 6, 15, 60});
-    wave.push_back(Wave{300, 60, 50, 8, 10, 60});
-    */
+    wave.push_back(Wave{100, 25, 10, 5, 60, 200, 5});
+    wave.push_back(Wave{70, 7, 15, 3, 20, 0, 10});
+    wave.push_back(Wave{200, 25, 10, 15, 30, 30, 5});
+    wave.push_back(Wave{750, 40, 25, 2, 30, 60, 10});
 
     if (_game) {
         delete _game;
