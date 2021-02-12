@@ -23,7 +23,7 @@ class GameModel {
     GameModel();
     Game::State tick();
 
-    void reset();
+    void reset(bool switchToStandardMap = false);
 
     SP<Turret> addTurret(TurretType type, Position p);
     void removeTurret(Position p);

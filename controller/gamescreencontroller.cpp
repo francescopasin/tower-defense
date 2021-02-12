@@ -125,7 +125,7 @@ void GameScreenController::fastForward() {
 
     if (!isFastForward) {
         // 48 ticks per second
-        gameTimer->setInterval(1 / 48.00 * 1000);
+        gameTimer->setInterval(1 / 72.00 * 1000);
     } else {
         // 24 ticks per second
         gameTimer->setInterval(1 / 24.00 * 1000);
@@ -133,6 +133,7 @@ void GameScreenController::fastForward() {
 
     isFastForward = !isFastForward;
     gameTimer->start();
+    _scene->changeFastForwardIcon(isFastForward);
 }
 
 void GameScreenController::addTurret(model::Position position, model::TurretType turretType) {

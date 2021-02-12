@@ -250,8 +250,10 @@ void Game::spawnEnemy() {
                 }
             }
         } else {
-            _currentWave++;
-            _spawnCount = 0;
+            if (_enemies->size() == 0) {
+                _currentWave++;
+                _spawnCount = 0;
+            }
 
             if (_lastTickSpawnedEnemy) {
                 _lastTickSpawnedEnemy.reset();

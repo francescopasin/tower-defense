@@ -7,7 +7,7 @@ namespace view {
 
 IconButton::IconButton(QString imagePath, QString hoverImagePath) : _imagePath(imagePath), _hoverImagePath(hoverImagePath) {
     setAcceptHoverEvents(true);
-    setFlag(QGraphicsItem::ItemIgnoresTransformations);
+    ////setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
@@ -34,6 +34,11 @@ void IconButton::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     Q_UNUSED(event);
 
     emit pressed();
+}
+
+void IconButton::changeImages(QString imagePath, QString hoverImagePath) {
+    _imagePath = imagePath;
+    _hoverImagePath = hoverImagePath;
 }
 
 }  // namespace view

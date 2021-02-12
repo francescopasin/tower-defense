@@ -29,7 +29,7 @@ void TurretInfosPanel::paintTitle(QPainter *painter, const QString &image, const
 
 void TurretInfosPanel::paintTurretInfo(QPainter *painter, const QString &stats) {
     painter->drawText(
-        QRect(20, 268, boundingRect().width() - 40, boundingRect().height() - 288),
+        QRect(20, 300, boundingRect().width() - 40, boundingRect().height() - 320),
         Qt::AlignHCenter | Qt::TextWordWrap,
         stats);
 }

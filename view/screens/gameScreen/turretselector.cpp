@@ -8,6 +8,7 @@ namespace view {
 TurretSelector::TurretSelector() {
     setFlag(QGraphicsItem::ItemIsFocusable);
     setZValue(100);
+    setVisible(false);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
@@ -72,9 +73,7 @@ void TurretSelector::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     // To prevent clicks below
 }
 
-void TurretSelector::added(U_INT gameCredits) {
-    setFocus();
-
+void TurretSelector::updateAvailability(U_INT gameCredits) {
     weakTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::WeakTurret).cost);
     mitraTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::MitraTurret).cost);
     granadeTurretSelector->setAvailability(gameCredits >= model::turretTypes.at(model::TurretType::GranadeTurret).cost);

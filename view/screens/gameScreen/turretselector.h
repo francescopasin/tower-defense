@@ -32,7 +32,7 @@ class TurretSelector : public QObject, public QGraphicsItem {
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     // Called when the item is shown, to recalculate which turrets can be added
-    void added(U_INT gameCredits);
+    void updateAvailability(U_INT gameCredits);
 
    signals:
     void turretHovered(model::TurretType turretType);

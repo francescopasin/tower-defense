@@ -18,6 +18,7 @@ class SetMapGrid : public QObject, public QGraphicsItem {
     std::vector<SetMapCell *> _cells;
 
     void createSetMapGrid();
+    void reDrawPath();
 
    public:
     SetMapGrid(const QSize &size);
@@ -28,8 +29,6 @@ class SetMapGrid : public QObject, public QGraphicsItem {
     void clearAll();
     const std::vector<SetMapCell *> *getCells() const;
 
-   public slots:
-    void reDrawPath();
     void selectCell(SetMapCell *cell);
     void addCell(model::Position pos, SetMapCell::Type type);
 

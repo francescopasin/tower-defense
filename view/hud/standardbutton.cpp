@@ -7,7 +7,7 @@ namespace view {
 
 StandardButton::StandardButton(const QString &text, int width, QGraphicsItem *parent) : QGraphicsItem(parent), _text(text), _width(width) {
     setAcceptHoverEvents(true);
-    //setFlag(QGraphicsItem::ItemIgnoresTransformations);
+    ////setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
     QGraphicsItem::setCursor(QCursor(pixmap.scaled(32, 32)));

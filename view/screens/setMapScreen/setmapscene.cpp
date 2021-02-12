@@ -28,6 +28,7 @@ SetMapScene::SetMapScene() {
     cellSelector = new CellSelector();
     connect(cellSelector, &CellSelector::losedFocusSignal, this, &SetMapScene::closeCellSelector);
     connect(cellSelector, &CellSelector::cellSelected, this, &SetMapScene::addCell);
+    addItem(cellSelector);
 
     //connect(this, &SetMapScene::addCellSignal, grid, &SetMapGrid::addCell);
 }
@@ -66,24 +67,17 @@ void SetMapScene::gridCellPressed(const QPointF& coordinates) {
         qMax(coordinates.x() + 48 - cellSelector->boundingRect().width() / 2 + (1920 - 96 * 16) / 2, 0.0),
         coordinates.y() - cellSelector->boundingRect().height() + 1080 - grid->boundingRect().height());  // TODO: temp
 
-    if (cellSelector->scene() != nullptr) {
-        removeItem(cellSelector);
-    }
-    addItem(cellSelector);
+    cellSelector->setVisible(true);
     cellSelector->setFocus();
 }
 
 void SetMapScene::closeCellSelector() {
-    if (cellSelector->scene() != nullptr) {
-        removeItem(cellSelector);
-    }
+    cellSelector->setVisible(false);
     grid->selectCell(nullptr);
-    grid->reDrawPath();
 }
 
 void SetMapScene::clearAll() {
-    removeItem(cellSelector);
-    grid->selectCell(nullptr);
+    closeCellSelector();
     grid->clearAll();
 }
 
@@ -92,11 +86,8 @@ void SetMapScene::addCell(view::SetMapCell::Type type) {
     auto pos = grid->getSelectedCellPosition();
 
     grid->addCell(pos, type);
-    grid->selectCell(nullptr);
 
-    if (cellSelector->scene() != nullptr) {
-        removeItem(cellSelector);
-    }
+    closeCellSelector();
 }
 
 }  // namespace view

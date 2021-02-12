@@ -13,7 +13,7 @@ enum class TurretType {
      * StandardAttackTurret
      * 
      * cost = 10
-     * attackDamage = 20
+     * attackDamage = 10
      * attackCooldown = 20
      * attackRadius = 1
      * maxTargets = infinite
@@ -32,7 +32,7 @@ enum class TurretType {
     /**
      * Granade
      * 
-     * cost = 30
+     * cost = 40
      * attackDamage = 50 (- 10 for every enemy after the one attacked)
      * attackCooldown = 60
      * attackRadius = 3
@@ -54,8 +54,8 @@ enum class TurretType {
      * SplitTurret
      * StandardAttackTurret
      * 
-     * cost = 20
-     * initialAttackDamage = 20
+     * cost = 30
+     * initialAttackDamage = 30
      * attackDamage = inversely proportional to targeted enemies count (equally divided between enemies)
      * attackCooldown = 20
      * attackRadius = 1
@@ -68,7 +68,7 @@ enum class TurretType {
      * cost = 50
      * attackDamage = 0
      * attackCooldown = 0
-     * attackRadius = 1
+     * attackRadius = 2
      * maxTargets = infinite
      * 
      * Slow time enemies in target by 50%
@@ -88,11 +88,11 @@ struct TurretStats {
 
 const std::unordered_map<TurretType, TurretStats> turretTypes =
     {
-        {TurretType::WeakTurret, TurretStats{10, 20, 20, 1, -1}},
+        {TurretType::WeakTurret, TurretStats{10, 10, 20, 1, -1}},
         {TurretType::MitraTurret, TurretStats{25, 5, 5, 2, 1}},
-        {TurretType::GranadeTurret, TurretStats{30, 50, 60, 3, 5}},
+        {TurretType::GranadeTurret, TurretStats{40, 50, 60, 3, 5}},
         {TurretType::ComboTurret, TurretStats{20, 5, 15, 2, 1}},
-        {TurretType::SplitTurret, TurretStats{20, 20, 20, 1, -1}},
+        {TurretType::SplitTurret, TurretStats{30, 30, 20, 2, -1}},
         {TurretType::SlowTimeTurret, TurretStats{50, 0, 0, 1, -1}},
 };
 

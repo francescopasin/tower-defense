@@ -7,7 +7,20 @@
 namespace view {
 
 LostWonModal::LostWonModal(const model::Game::State &lostWon, qreal width, qreal height) : Modal(width, height, false), _lostWon(lostWon) {
-    // Add external content
+    int h = 700;
+    int w = 900;
+
+    StandardButton *restartButtoon = new StandardButton("RESTART", 300, this);
+    restartButtoon->setPos(
+        size.width() / 2 - w / 2 + 50,
+        size.height() / 2 + h / 2 - 50 - restartButtoon->boundingRect().height());
+    connect(restartButtoon, &StandardButton::pressed, this, &LostWonModal::restart);
+
+    StandardButton *menuButton = new StandardButton("MENU", 300, this);
+    menuButton->setPos(
+        size.width() / 2 + w / 2 - 50 - menuButton->boundingRect().width(),
+        size.height() / 2 + h / 2 - 50 - menuButton->boundingRect().height());
+    connect(menuButton, &StandardButton::pressed, this, &LostWonModal::returnToMenu);
 }
 
 void LostWonModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -55,18 +68,6 @@ void LostWonModal::paintContent(QPainter *painter, const QStyleOptionGraphicsIte
     painter->setFont(font);
 
     painter->drawText(QRectF(size.width() / 2 - 450, size.height() / 2 - (height / 2) + 100, 900, 200), Qt::AlignCenter, title);
-
-    StandardButton *restartButtoon = new StandardButton("RESTART", 300, this);
-    restartButtoon->setPos(
-        size.width() / 2 - width / 2 + 50,
-        size.height() / 2 + height / 2 - 50 - restartButtoon->boundingRect().height());
-    connect(restartButtoon, &StandardButton::pressed, this, &LostWonModal::restart);
-
-    StandardButton *menuButton = new StandardButton("MENU", 300, this);
-    menuButton->setPos(
-        size.width() / 2 + width / 2 - 50 - menuButton->boundingRect().width(),
-        size.height() / 2 + height / 2 - 50 - menuButton->boundingRect().height());
-    connect(menuButton, &StandardButton::pressed, this, &LostWonModal::returnToMenu);
 }
 
 }  // namespace view

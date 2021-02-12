@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-#include "view/hud/iconbutton.h"
+#include "view/hud/gametitle.h"
 #include "view/screens/gameScreen/gridfield.h"
 #include "view/screens/gameScreen/lostwonmodal.h"
 #include "view/screens/gameScreen/pausemodal.h"
@@ -32,6 +32,7 @@ GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
     connect(turretSelector, &TurretSelector::turretHovered, this, [=](model::TurretType type) { emit showTurretInfos(type, gridField->getSelectedCellPosition()); });
     connect(turretSelector, &TurretSelector::turretHoverLeave, this, &GameScene::hideTurretInfos);
     connect(turretSelector, &TurretSelector::turretSelected, this, &GameScene::addTurret);
+    addItem(turretSelector);
 
     turretRadiusPreview = new TurretRadiusPreview();
 }
@@ -47,28 +48,35 @@ void GameScene::createHUD() {
     addItem(creditsInfo);
 
     lifeInfo = new InfoBox(":/assets/images/hud/heart.png", QString::number(_model->getLife()));
-    lifeInfo->setPos(10, 75);
+    lifeInfo->setPos(10, 110);
     addItem(lifeInfo);
 
-    IconButton* pauseButton = new IconButton(":/assets/images/hud/pause-button-idle.png", ":/assets/images/hud/pause-button-pressed.png");
-    pauseButton->setPos(1400, 25);
+    pauseButton = new IconButton(":/assets/images/hud/pause-button-idle.png", ":/assets/images/hud/pause-button-pressed.png");
+    pauseButton->setPos(1650, 50);
     addItem(pauseButton);
     connect(pauseButton, &IconButton::pressed, this, &GameScene::pauseButtonPressed);
 
-    IconButton* fastForwardButton = new IconButton(":/assets/images/hud/fast-forward-button-idle.png", ":/assets/images/hud/fast-forward-button-pressed.png");
-    fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
+    fastForwardButton = new IconButton(":/assets/images/hud/fast-forward-button-idle.png", ":/assets/images/hud/fast-forward-button-pressed.png");
+    fastForwardButton->setPos(1800, 50);
     addItem(fastForwardButton);
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);
 
     turretInfosPanel = new TurretInfosPanel();
     turretInfosPanel->setPos(96 * 16 + 10, 1080 - 96 * 9);
     addItem(turretInfosPanel);
+
+    GameTitle* title = new GameTitle();
+    title->setPos(
+        1920 / 2 - title->boundingRect().width() / 2,
+        (1080 - 96 * 9) / 2 - title->boundingRect().height() / 2);
+    addItem(title);
 }
 
 void GameScene::tick() {
     // Update info
     creditsInfo->setText(QString::number(_model->getCredits()));
     lifeInfo->setText(QString::number(_model->getLife()));
+    turretSelector->updateAvailability(_model->getCredits());
 
     gridField->moveProjectiles();
 
@@ -107,16 +115,16 @@ void GameScene::gridCellPressed(GridCellType cellType, model::Position cellPosit
             cellPosition.y * 96 - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
 
         // TODO: set fixed cell size
-
-        addItem(turretSelector);
-        turretSelector->added(_model->getCredits());
+        turretSelector->setVisible(true);
+        turretSelector->setFocus();
     } else if (cellType == GridCellType::Occupied) {
+        hideTurretInfos();
         emit removeTurretSignal(cellPosition);
     }
 }
 
 void GameScene::closeTurretSelector() {
-    removeItem(turretSelector);
+    turretSelector->setVisible(false);
     gridField->selectCell(nullptr);
 }
 
@@ -167,6 +175,18 @@ void GameScene::pauseButtonPressed() {
     });
 
     // TODO: choose if create and delete modal everytime or add and remove it
+}
+
+void GameScene::changeFastForwardIcon(bool isFastForward) {
+    if (isFastForward) {
+        fastForwardButton->changeImages(
+            ":/assets/images/hud/play-button-idle.png",
+            ":/assets/images/hud/play-button-pressed.png");
+    } else {
+        fastForwardButton->changeImages(
+            ":/assets/images/hud/fast-forward-button-idle.png",
+            ":/assets/images/hud/fast-forward-button-pressed.png");
+    }
 }
 
 }  // namespace view
