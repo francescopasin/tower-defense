@@ -144,11 +144,17 @@ void EnemyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setBrush(QColor::fromRgb(70, 70, 70, 200));
     painter->drawRect(16, 61, 32, 3);
 
-    if (widthAdvance <= 15) {
-        painter->setBrush(QColor::fromRgb(255, 0, 0, 200));
+    QColor barColor;
+
+    if (widthAdvance <= 8) {
+        barColor = QColor::fromRgb(255, 0, 0, 200);
+    } else if (widthAdvance <= 16) {
+        barColor = QColor::fromRgb(255, 150, 0, 200);
     } else {
-        painter->setBrush(QColor::fromRgb(0, 255, 0, 200));
+        barColor = QColor::fromRgb(0, 255, 0, 200);
     }
+
+    painter->setBrush(barColor);
 
     painter->drawRect(16, 61, widthAdvance, 3);
 }
