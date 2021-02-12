@@ -118,6 +118,7 @@ void GameScene::gridCellPressed(GridCellType cellType, model::Position cellPosit
         turretSelector->setVisible(true);
         turretSelector->setFocus();
     } else if (cellType == GridCellType::Occupied) {
+        hideTurretInfos();
         emit removeTurretSignal(cellPosition);
     }
 }
