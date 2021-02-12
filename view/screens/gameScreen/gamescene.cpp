@@ -2,7 +2,6 @@
 
 #include <algorithm>
 
-#include "view/hud/iconbutton.h"
 #include "view/screens/gameScreen/gridfield.h"
 #include "view/screens/gameScreen/lostwonmodal.h"
 #include "view/screens/gameScreen/pausemodal.h"
@@ -50,12 +49,12 @@ void GameScene::createHUD() {
     lifeInfo->setPos(10, 75);
     addItem(lifeInfo);
 
-    IconButton* pauseButton = new IconButton(":/assets/images/hud/pause-button-idle.png", ":/assets/images/hud/pause-button-pressed.png");
+    pauseButton = new IconButton(":/assets/images/hud/pause-button-idle.png", ":/assets/images/hud/pause-button-pressed.png");
     pauseButton->setPos(1400, 25);
     addItem(pauseButton);
     connect(pauseButton, &IconButton::pressed, this, &GameScene::pauseButtonPressed);
 
-    IconButton* fastForwardButton = new IconButton(":/assets/images/hud/fast-forward-button-idle.png", ":/assets/images/hud/fast-forward-button-pressed.png");
+    fastForwardButton = new IconButton(":/assets/images/hud/fast-forward-button-idle.png", ":/assets/images/hud/fast-forward-button-pressed.png");
     fastForwardButton->setPos(1550, 25);  // MAGIC NUMBER
     addItem(fastForwardButton);
     connect(fastForwardButton, &IconButton::pressed, this, &GameScene::fastForwardGame);
@@ -167,6 +166,18 @@ void GameScene::pauseButtonPressed() {
     });
 
     // TODO: choose if create and delete modal everytime or add and remove it
+}
+
+void GameScene::changeFastForwardIcon(bool isFastForward) {
+    if (isFastForward) {
+        fastForwardButton->changeImages(
+            ":/assets/images/hud/play-button-idle.png",
+            ":/assets/images/hud/play-button-pressed.png");
+    } else {
+        fastForwardButton->changeImages(
+            ":/assets/images/hud/fast-forward-button-idle.png",
+            ":/assets/images/hud/fast-forward-button-pressed.png");
+    }
 }
 
 }  // namespace view

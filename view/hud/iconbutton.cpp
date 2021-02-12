@@ -36,4 +36,9 @@ void IconButton::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     emit pressed();
 }
 
+void IconButton::changeImages(QString imagePath, QString hoverImagePath) {
+    _imagePath = imagePath;
+    _hoverImagePath = hoverImagePath;
+}
+
 }  // namespace view

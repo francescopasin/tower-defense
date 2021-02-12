@@ -22,6 +22,8 @@ class IconButton : public QObject, public QGraphicsItem {
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    void changeImages(QString imagePath, QString hoverImagePath);
+
    signals:
     void pressed();
 };

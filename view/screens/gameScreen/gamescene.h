@@ -10,6 +10,7 @@
 #include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
+#include "view/hud/iconbutton.h"
 #include "view/hud/infobox.h"
 #include "view/screens/gameScreen/enemyitem.h"
 #include "view/screens/gameScreen/gridcelltype.h"
@@ -31,6 +32,8 @@ class GameScene : public QGraphicsScene {
     GridField* gridField;
     InfoBox* creditsInfo;
     InfoBox* lifeInfo;
+    IconButton* pauseButton;
+    IconButton* fastForwardButton;
     TurretRadiusPreview* turretRadiusPreview;
     TurretInfosPanel* turretInfosPanel;
     TurretSelector* turretSelector;
@@ -47,6 +50,8 @@ class GameScene : public QGraphicsScene {
     void spawnEnemy(const SP<model::Enemy>& enemy);
     void turretsAttack(const vector<SP<model::Turret>>& attackingTurrets);
     void addTurretItem(const SP<model::Turret>& turret, model::TurretType turretType);
+
+    void changeFastForwardIcon(bool isFastForward);
 
    public slots:
     void gridCellPressed(GridCellType cellType, model::Position cellPosition);
