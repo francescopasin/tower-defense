@@ -80,14 +80,35 @@ void GameScene::tick() {
 
     gridField->moveProjectiles();
 
-    auto i = enemies.begin();
-    while (i != enemies.end()) {
-        if ((*i)->isDead()) {
+    // Tick explosions
+    auto i = explosions.begin();
+    while (i != explosions.end()) {
+        if ((*i)->tick()) {
             removeItem(*i);
-            i = enemies.erase(i);
+            i = explosions.erase(i);
         } else {
-            (*i)->tick();
-            ++i;
+            i++;
+        }
+    }
+
+    // Enemies tick
+    auto j = enemies.begin();
+    while (j != enemies.end()) {
+        if ((*j)->isDead()) {
+            // Spawn explosion
+
+            Explosion* explosion = new Explosion();
+            explosion->setPos(gridField->mapToScene((*j)->pos()));
+            explosions.push_back(explosion);
+            addItem(explosion);
+
+            // Delete enemy
+            removeItem(*j);
+            j = enemies.erase(j);
+
+        } else {
+            (*j)->tick();
+            ++j;
         }
     }
 
