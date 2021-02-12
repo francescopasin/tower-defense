@@ -2,9 +2,12 @@
 #define VIEW_ENEMYITEM_H_
 
 #include <QGraphicsItem>
+#include <vector>
 
 #include "app/shortcuts.h"
 #include "model/enemy.h"
+
+using std::vector;
 
 namespace view {
 
@@ -12,6 +15,10 @@ class EnemyItem : public QGraphicsItem {
    private:
     SP<model::Enemy> enemyData;
     qreal _cellSize;
+
+    U_INT spriteAnimationSpeed;
+    U_INT currentSpriteFrame;
+    vector<QPixmap> sprites;
 
     void setPosition();
 
