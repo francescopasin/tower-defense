@@ -13,6 +13,7 @@
 #include "view/hud/iconbutton.h"
 #include "view/hud/infobox.h"
 #include "view/screens/gameScreen/enemyitem.h"
+#include "view/screens/gameScreen/explosion.h"
 #include "view/screens/gameScreen/gridcelltype.h"
 #include "view/screens/gameScreen/gridfield.h"
 #include "view/screens/gameScreen/turretinfospanel.h"
@@ -39,6 +40,7 @@ class GameScene : public QGraphicsScene {
     TurretSelector* turretSelector;
 
     vector<EnemyItem*> enemies;
+    vector<Explosion*> explosions;
 
     void drawBackground();
     void createHUD();

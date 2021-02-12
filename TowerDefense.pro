@@ -51,6 +51,7 @@ SOURCES += \
     view/screens/gameScreen/lostwonmodal.cpp \
     view/screens/gameScreen/turretinfospanel.cpp \
     view/screens/gameScreen/turretradiuspreview.cpp \
+    view/screens/gameScreen/explosion.cpp \
     \
     view/screens/initialScreen/initialscreenscene.cpp \
     \
@@ -113,6 +114,7 @@ HEADERS += \
     view/screens/gameScreen/lostwonmodal.h \
     view/screens/gameScreen/turretinfospanel.h \
     view/screens/gameScreen/turretradiuspreview.h \
+    view/screens/gameScreen/explosion.h \
     \
     view/screens/initialScreen/initialscreenscene.h \
     \
