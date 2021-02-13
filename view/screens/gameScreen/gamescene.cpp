@@ -78,7 +78,7 @@ void GameScene::tick() {
     lifeInfo->setText(QString::number(_model->getLife()));
     turretSelector->updateAvailability(_model->getCredits());
 
-    gridField->moveProjectiles();
+    gridField->tick();
 
     // Tick explosions
     auto i = explosions.begin();

@@ -15,7 +15,8 @@ TurretItem::TurretItem(
     : QGraphicsItem(parent),
       turretData(turret),
       type(turretType),
-      _cellSize(cellSize) {
+      _cellSize(cellSize),
+      specialEffectCooldown(20) {
     setPosition();
 }
 
@@ -116,7 +117,14 @@ void TurretItem::attack(const vector<EnemyItem *> &enemies) {
 
         case model::TurretType::SlowTimeTurret:
             // Special effect projectile
-
+            if (specialEffectCooldown == 0) {
+                emit spawnSpecialEffect(
+                    QPointF(pos().x() + (boundingRect().width() / 2), pos().y() + (boundingRect().height() / 2)),
+                    _cellSize * model::turretTypes.at(type).attackRadius + boundingRect().width() / 2);
+                specialEffectCooldown = 20;
+            } else {
+                specialEffectCooldown--;
+            }
             break;
     }
 }

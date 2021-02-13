@@ -22,6 +22,7 @@ class TurretItem : public QObject, public QGraphicsItem {
     SP<model::Turret> turretData;
     model::TurretType type;
     qreal _cellSize;
+    U_INT specialEffectCooldown;
 
     void setPosition();
 
@@ -43,6 +44,7 @@ class TurretItem : public QObject, public QGraphicsItem {
    signals:
     void spawnBullet(const QPointF &startingPos, const QPointF &endingPos);
     void spawnGranade(const QPointF &startingPos, const QPointF &endingPos);
+    void spawnSpecialEffect(const QPointF &startingPos, qreal distance);
 };
 
 }  // namespace view

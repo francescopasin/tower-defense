@@ -253,6 +253,7 @@ void GridField::addTurretItem(const SP<model::Turret> &turret, model::TurretType
     turrets.push_back(turretItem);
     connect(turretItem, &TurretItem::spawnBullet, this, &GridField::spawnBullet);
     connect(turretItem, &TurretItem::spawnGranade, this, &GridField::spawnGranade);
+    connect(turretItem, &TurretItem::spawnSpecialEffect, this, &GridField::spawnSpecialEffect);
 
     // For hover fix
     emit turretHoverLeave();
@@ -267,7 +268,8 @@ model::Position GridField::getSelectedCellPosition() const {
     return model::Position{9999, 9999};
 }
 
-void GridField::moveProjectiles() {
+void GridField::tick() {
+    // Move projectiles
     auto i = projectiles.begin();
     while (i != projectiles.end()) {
         if ((*i)->move()) {
@@ -277,6 +279,17 @@ void GridField::moveProjectiles() {
             i = projectiles.erase(i);
         } else {
             i++;
+        }
+    }
+
+    // Tick special effects
+    auto j = specialEffects.begin();
+    while (j != specialEffects.end()) {
+        if ((*j)->tick()) {
+            scene()->removeItem(*j);
+            j = specialEffects.erase(j);
+        } else {
+            j++;
         }
     }
 }
@@ -289,6 +302,11 @@ void GridField::spawnBullet(const QPointF &startingPos, const QPointF &endingPos
 void GridField::spawnGranade(const QPointF &startingPos, const QPointF &endingPos) {
     Granade *granade = new Granade(this, startingPos, endingPos);
     projectiles.push_back(granade);
+}
+
+void GridField::spawnSpecialEffect(const QPointF &startingPos, qreal distance) {
+    SpecialEffect *specialEffect = new SpecialEffect(this, startingPos, distance);
+    specialEffects.push_back(specialEffect);
 }
 
 }  // namespace view
