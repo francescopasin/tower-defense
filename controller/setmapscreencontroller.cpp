@@ -1,7 +1,6 @@
 #include "controller/setmapscreencontroller.h"
 
 #include <QFileDialog>
-#include <QGraphicsScene>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <exception>
@@ -34,19 +33,19 @@ QGraphicsScene* SetMapScreenController::getScene() const {
 }
 
 void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) {
-    bool trovatoErrore = false;
+    bool errorFound = false;
     vector<model::Position> mappa;
     QString error;
 
-    for (auto i = cells->cbegin(); i != cells->cend() && !trovatoErrore; ++i) {
+    for (auto i = cells->cbegin(); i != cells->cend() && !errorFound; ++i) {
         if ((*i)->getPos().x == 0 && (*i)->getType() == view::SetMapCell::Type::Start) {
             mappa = createPath((*i)->getPos(), cells);
             error = QString::fromStdString(model::GameModel::validateMap(mappa));
-            trovatoErrore = error != "";
+            errorFound = error != "";
         }
     }
 
-    if (!trovatoErrore) {
+    if (!errorFound) {
         U_INT count = 0;
         for (auto i : *cells) {
             if (i->getType() != view::SetMapCell::Type::Blocked && i->getType() != view::SetMapCell::Type::Free) {
@@ -55,16 +54,16 @@ void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) 
         }
 
         if (count == 0) {
-            trovatoErrore = true;
+            errorFound = true;
             error = "This is not a correct path, there's no cell position in your path";
         } else if (mappa.size() != count) {
-            trovatoErrore = true;
+            errorFound = true;
             error = "This is not a correct path, you have extra path cells outside your path";
         }
     }
 
-    if (!trovatoErrore) {
-        QString fileName = QFileDialog::getSaveFileName(nullptr, tr("Save Game Path"), "", tr("CPP Game Path(*.cppmap)"));
+    if (!errorFound) {
+        QString fileName = QFileDialog::getSaveFileName(nullptr, "Save Game Path", "", "CPP Game Path(*.cppmap)");
 
         QStringList list = fileName.split(".");
         if (list[list.size() - 1] != "cppmap") {
@@ -120,7 +119,7 @@ void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) 
     }
 }
 
-vector<model::Position> SetMapScreenController::createPath(model::Position start, const vector<view::SetMapCell*>* cells) {
+vector<model::Position> SetMapScreenController::createPath(const model::Position& start, const vector<view::SetMapCell*>* cells) {
     vector<model::Position> vett;
 
     model::Position current = start;
@@ -141,42 +140,42 @@ vector<model::Position> SetMapScreenController::createPath(model::Position start
                         current.x++;
                         break;
                     case view::SetMapCell::Type::Vert:
-                        if (prev.y == current.y - 1) {  // arrivo dall'alto
+                        if (prev.y == current.y - 1) {  // from up
                             current.y++;
                         } else {
                             current.y--;
                         }
                         break;
                     case view::SetMapCell::Type::Orizz:
-                        if (prev.x == current.x - 1) {  // arrivo da sinistra
+                        if (prev.x == current.x - 1) {  // from left
                             current.x++;
                         } else {
                             current.x--;
                         }
                         break;
                     case view::SetMapCell::Type::SxUp:
-                        if (prev.y == current.y - 1) {  // arrivo dall'alto
+                        if (prev.y == current.y - 1) {  // from up
                             current.x--;
                         } else {
                             current.y--;
                         }
                         break;
                     case view::SetMapCell::Type::DxUp:
-                        if (prev.y == current.y - 1) {  // arrivo dall'alto
+                        if (prev.y == current.y - 1) {  // from up
                             current.x++;
                         } else {
                             current.y--;
                         }
                         break;
                     case view::SetMapCell::Type::SxDw:
-                        if (prev.y == current.y + 1) {  // arrivo dal basso
+                        if (prev.y == current.y + 1) {  // from down
                             current.x--;
                         } else {
                             current.y++;
                         }
                         break;
                     case view::SetMapCell::Type::DxDw:
-                        if (prev.y == current.y + 1) {  // arrivo dal basso
+                        if (prev.y == current.y + 1) {  // from down
                             current.x++;
                         } else {
                             current.y++;

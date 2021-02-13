@@ -1,6 +1,5 @@
 #include "controller/initialscreencontroller.h"
 
-#include <QCoreApplication>
 #include <QFileDialog>
 #include <QJsonArray>
 #include <QJsonObject>
@@ -47,11 +46,7 @@ QGraphicsScene* InitialScreenController::getScene() const {
 void InitialScreenController::uploadFromFile() {
     // TODO: create level selector screen
 
-    // QDir dir(QCoreApplication::applicationDirPath());
-    // QString location = dir.relativeFilePath("../../maps/");
-    // TODO: Relative Path? AppData?
-
-    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Load a Game Path"), "", tr("CPP Game Path(*.cppmap)"));
+    QString fileName = QFileDialog::getOpenFileName(nullptr, "Load a Game Path", "", "CPP Game Path(*.cppmap)");
     vector<model::Position> pathPosition;
     vector<model::Position> blockedPosition;
 
@@ -80,13 +75,15 @@ void InitialScreenController::uploadFromFile() {
         json = json.fromVariantHash(data);
 
         if (json.isEmpty()) {
-            view::ErrorModal* modal = new view::ErrorModal(tr("The file you are attempting to open is empity."), _scene->width(), _scene->height());
+            // Show error
+            view::ErrorModal* modal = new view::ErrorModal("The file you are attempting to open is empty.", _scene->width(), _scene->height());
             _scene->addItem(modal);
             connect(modal, &view::Modal::close, this, [=]() {
                 _scene->removeItem(modal);
                 delete modal;
             });
         } else {
+            // Load map
             QJsonArray pathJson = json["pathPosition"].toArray();
             for (auto i : pathJson) {
                 pathPosition.push_back(model::Position{static_cast<U_INT>((i.toObject())["x"].toInt()), static_cast<U_INT>((i.toObject())["y"].toInt())});
@@ -103,6 +100,7 @@ void InitialScreenController::uploadFromFile() {
                 // Start game
                 emit navigateTo(app::Routes::GameScreen);
             } catch (const std::exception* e) {
+                // Show error
                 view::ErrorModal* modal = new view::ErrorModal(e->what(), _scene->width(), _scene->height());
                 _scene->addItem(modal);
                 connect(modal, &view::Modal::close, this, [=]() {

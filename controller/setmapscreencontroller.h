@@ -15,7 +15,7 @@ class SetMapScreenController : public Controller {
    private:
     view::SetMapScene* _scene;
 
-    vector<model::Position> createPath(model::Position start, const vector<view::SetMapCell*>* cells);
+    vector<model::Position> createPath(const model::Position& start, const vector<view::SetMapCell*>* cells);
 
    public:
     SetMapScreenController(const SP<model::GameModel>& model);

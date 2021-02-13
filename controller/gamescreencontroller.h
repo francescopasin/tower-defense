@@ -40,8 +40,8 @@ class GameScreenController : public Controller {
     void playPause();
     void fastForward();
 
-    void addTurret(model::Position position, model::TurretType turretType);
-    void removeTurret(model::Position position);
+    void addTurret(const model::Position& position, model::TurretType turretType);
+    void removeTurret(const model::Position& position);
 };
 
 }  // namespace controller
