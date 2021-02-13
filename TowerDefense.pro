@@ -117,7 +117,7 @@ HEADERS += \
     \
     view/screens/gameScreen/map/gridfield.h \
     view/screens/gameScreen/map/gridcell.h \
-    view/screens/gameScreen/gridcelltype.h \
+    view/screens/gameScreen/map/gridcelltype.h \
     \
     view/screens/gameScreen/modals/pausemodal.h \
     view/screens/gameScreen/modals/lostwonmodal.h \
