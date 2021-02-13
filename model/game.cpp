@@ -12,7 +12,7 @@ namespace model {
 Game::Game(
     U_INT credits,
     float life,
-    vector<Position>& map,
+    const vector<Position>& map,
     const vector<Position>& blockedCellsMap,
     const vector<Wave>& waves,
     Direction first)
@@ -27,11 +27,11 @@ Game::Game(
     setMap(map, first);
 
     _enemies = model::make_shared<vector<SP<Enemy>>>();
-    // TODO: controllare ?
 
     _currentWave = _waves.begin();
 }
 
+/*
 void Game::reorderEnemies() {
     std::sort(_enemies->begin(), _enemies->end(), [this](SP<Enemy> prev, SP<Enemy> next) {
         PathCell pos_prev = prev->getCurrentCell();
@@ -63,8 +63,9 @@ void Game::reorderEnemies() {
         return prev->getCellPosition() > next->getCellPosition();
     });
 }
+*/
 
-SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
+SharedPtr<Turret> Game::addTurret(TurretType type, const Position& position) {
     if (_currentState == State::InExecution) {
         // Check if turret can be placed
         bool cellIsOccupied = false;
@@ -121,10 +122,11 @@ SharedPtr<Turret> Game::addTurret(TurretType type, Position position) {
 
         return temp;
     }
+
     return nullptr;
 }
 
-void Game::removeTurret(Position p) {
+void Game::removeTurret(const Position& p) {
     for (auto i = _turrets.cbegin(); i != _turrets.cend(); ++i) {
         if ((*i)->getPosition() == p) {
             _credits += (*i)->getCost() / 2;
@@ -150,7 +152,7 @@ const vector<Position>& Game::getBlockedCellsMap() const {
     return _blockedCellsMap;
 }
 
-void Game::setMap(vector<Position>& map, Direction first) {
+void Game::setMap(const vector<Position>& map, Direction first) {
     if (_currentState == State::Ready) {
         std::string error = validateMap(map);
         if (error != "")
@@ -232,6 +234,7 @@ void Game::moveEnemies() {
             ++i;
         }
     }
+
     if (_life <= 0) _currentState = State::Lost;
 }
 
@@ -289,23 +292,26 @@ void Game::checkDeadEnemies() {
 }
 
 void Game::checkWon() {
-    if (_enemies->size() == 0 && _currentWave == _waves.end())
+    if (_enemies->size() == 0 && _currentWave == _waves.end()) {
         _currentState = State::Won;
+    }
 }
 
 Game::State Game::tick() {
-    if (_currentState == State::Ready)
+    if (_currentState == State::Ready) {
         _currentState = State::InExecution;
+    }
 
     if (_currentState == State::InExecution) {
         _tick++;
         moveEnemies();
         spawnEnemy();
-        reorderEnemies();
+        ////reorderEnemies();
         attack();
         checkDeadEnemies();
         checkWon();
     }
+
     return _currentState;
 }
 
@@ -317,14 +323,21 @@ vector<SharedPtr<Turret>> Game::lastTickAttackingTurrets() const {
     return _lastTickAttackingTurrets;
 }
 
-std::string Game::validateMap(vector<Position>& map) {
+std::string Game::validateMap(const vector<Position>& map) {
     std::string err;
 
     if (map.size() > 0) {
-        auto it = std::unique(map.begin(), map.end());
-        bool wasUnique = (it == map.end());
+        bool isUnique = true;
 
-        if (wasUnique) {
+        for (auto i = map.cbegin(); i != map.cend() && isUnique; ++i) {
+            for (auto j = map.cbegin(); j != map.cend() && isUnique; ++j) {
+                if (i != j && *i == *j) {
+                    isUnique = false;
+                }
+            }
+        }
+
+        if (isUnique) {
             for (auto i = map.cbegin(); i != map.cend(); ++i) {
                 auto next = i + 1;
 
@@ -347,7 +360,7 @@ std::string Game::validateMap(vector<Position>& map) {
     return err;
 }
 
-void Game::setBlocked(vector<Position>& map) {
+void Game::setBlocked(const vector<Position>& map) {
     _blockedCellsMap = map;
 }
 
