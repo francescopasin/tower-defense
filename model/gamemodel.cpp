@@ -108,7 +108,7 @@ void GameModel::reset(bool switchToStandardMap) {
     vector<Wave> wave;
 
     wave.push_back(Wave{100, 25, 10, 5, 60, 200, 5});
-    wave.push_back(Wave{70, 7, 15, 3, 20, 0, 10});
+    wave.push_back(Wave{70, 12, 15, 3, 20, 0, 10});
     wave.push_back(Wave{200, 25, 10, 15, 30, 30, 5});
     wave.push_back(Wave{750, 40, 25, 2, 30, 60, 10});
 
