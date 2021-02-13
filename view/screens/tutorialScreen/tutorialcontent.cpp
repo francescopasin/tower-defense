@@ -157,11 +157,11 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             painter->drawText(
                 QRectF(_size.width() / 8, 300, _size.width() * 3 / 4, _size.height() * 3 / 4),
                 Qt::AlignHCenter | Qt::TextWordWrap,
-                "The are 6 types of turrets in the game. Every turret has a specific cost and specific stats,"
+                "There are 6 types of turrets in the game. Every turret has a specific cost and specific stats,"
                 "and is characterised by a specific attack radius (how many cells in every side it can attack."
                 "Diagonal cells also count).\n"
                 "Other turrets stats are: damage (how much the health of the attacked enemy decrease), cooldown "
-                "(how fast does the turret attack) and maxTargets (how many enemies are attached simultaneously).");
+                "(how fast does the turret attack) and maxTargets (how many enemies are attacked simultaneously).");
 
             break;
         case 5:
@@ -173,8 +173,8 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 painter,
                 "weak-turret",
                 "Pointers Turret",
-                "Pointers may seem difficult for a begginer, but IT students knows how to handle them.\n"
-                "So this turret don't do much damage. Indeed it's quite economic.",
+                "Pointers may seem difficult for a begginer, but IT students know how to handle them.\n"
+                "So this turret doesn't do much damage. Indeed it's quite economic.",
                 QString(
                     "Cost: %1\n"
                     "Max targets: %2\n"
@@ -241,7 +241,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "combo-turret",
                 "Recursive Turret",
                 "Recursive functions are a problem for a few students. But the ones that can't understand them"
-                "will be penalised more and more with each recursion.",
+                " will be penalised more and more with each recursion.",
                 QString(
                     "Cost: %1\n"
                     "Max targets: %2\n"
@@ -264,7 +264,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 "split-turret",
                 "Inheritance Turret",
                 "Let's be honest: inheritance is not so hard. When students join forces there's nothing that"
-                "can stop them!",
+                " can stop them!",
                 QString(
                     "Cost: %1\n"
                     "Max targets: %2\n"
