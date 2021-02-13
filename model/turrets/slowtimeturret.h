@@ -11,6 +11,7 @@ namespace model {
 class SlowTimeTurret : public Turret {
    public:
     SlowTimeTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies);
+
     virtual ~SlowTimeTurret() = default;
 
     virtual bool attack() override;

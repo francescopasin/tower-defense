@@ -30,9 +30,10 @@ class Turret {
 
    public:
     Turret(
-        const TurretType& type,
+        TurretType type,
         const Position& position,
         const SP<vector<SP<Enemy>>>& enemies);
+
     virtual ~Turret() = default;
 
     // Return if attacked or not

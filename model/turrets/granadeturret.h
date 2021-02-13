@@ -11,6 +11,7 @@ namespace model {
 class GranadeTurret : public Turret {
    public:
     GranadeTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies);
+
     virtual ~GranadeTurret() = default;
 
     virtual bool attack() override;

@@ -15,6 +15,7 @@ class ComboTurret : public StandardAttackTurret {
 
    public:
     ComboTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies);
+
     virtual ~ComboTurret() = default;
 
     virtual bool attack() override;
