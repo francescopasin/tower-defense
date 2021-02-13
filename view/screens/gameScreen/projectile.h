@@ -1,5 +1,5 @@
-#ifndef GAMESCREEN_PROJECTILE_H_
-#define GAMESCREEN_PROJECTILE_H_
+#ifndef VIEW_PROJECTILE_H_
+#define VIEW_PROJECTILE_H_
 
 #include <QGraphicsItem>
 
@@ -18,9 +18,6 @@ class Projectile : public QGraphicsItem {
 
    public:
     Projectile(QGraphicsItem *parent, const QPointF &startingPos, const QPointF &endingPos);
-
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     bool move();
 };

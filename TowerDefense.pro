@@ -48,6 +48,9 @@ SOURCES += \
     view/screens/gameScreen/turretselector.cpp \
     view/screens/gameScreen/pausemodal.cpp \
     view/screens/gameScreen/projectile.cpp \
+    view/screens/gameScreen/bullet.cpp \
+    view/screens/gameScreen/granade.cpp \
+    view/screens/gameScreen/specialeffect.cpp \
     view/screens/gameScreen/lostwonmodal.cpp \
     view/screens/gameScreen/turretinfospanel.cpp \
     view/screens/gameScreen/turretradiuspreview.cpp \
@@ -111,6 +114,9 @@ HEADERS += \
     view/screens/gameScreen/turretselector.h \
     view/screens/gameScreen/pausemodal.h \
     view/screens/gameScreen/projectile.h \
+    view/screens/gameScreen/bullet.h \
+    view/screens/gameScreen/granade.h \
+    view/screens/gameScreen/specialeffect.h \
     view/screens/gameScreen/lostwonmodal.h \
     view/screens/gameScreen/turretinfospanel.h \
     view/screens/gameScreen/turretradiuspreview.h \

@@ -2,6 +2,9 @@
 
 #include <QGraphicsScene>
 
+#include "view/screens/gameScreen/bullet.h"
+#include "view/screens/gameScreen/granade.h"
+
 namespace view {
 
 GridField::GridField(
@@ -248,7 +251,9 @@ void GridField::addTurretItem(const SP<model::Turret> &turret, model::TurretType
     // Create turret
     TurretItem *turretItem = new TurretItem(this, turret, turretType, 96);  // TODO: fix all cell sizes (dynamics)
     turrets.push_back(turretItem);
-    connect(turretItem, &TurretItem::spawnProjectile, this, &GridField::spawnProjectile);
+    connect(turretItem, &TurretItem::spawnBullet, this, &GridField::spawnBullet);
+    connect(turretItem, &TurretItem::spawnGranade, this, &GridField::spawnGranade);
+    connect(turretItem, &TurretItem::spawnSpecialEffect, this, &GridField::spawnSpecialEffect);
 
     // For hover fix
     emit turretHoverLeave();
@@ -263,21 +268,45 @@ model::Position GridField::getSelectedCellPosition() const {
     return model::Position{9999, 9999};
 }
 
-void GridField::moveProjectiles() {
+void GridField::tick() {
+    // Move projectiles
     auto i = projectiles.begin();
     while (i != projectiles.end()) {
         if ((*i)->move()) {
+            // TODO: Spawn granade explosion
+
             scene()->removeItem(*i);
             i = projectiles.erase(i);
         } else {
             i++;
         }
     }
+
+    // Tick special effects
+    auto j = specialEffects.begin();
+    while (j != specialEffects.end()) {
+        if ((*j)->tick()) {
+            scene()->removeItem(*j);
+            j = specialEffects.erase(j);
+        } else {
+            j++;
+        }
+    }
 }
 
-void GridField::spawnProjectile(const QPointF &startingPos, const QPointF &endingPos) {
-    Projectile *projectile = new Projectile(this, startingPos, endingPos);
-    projectiles.push_back(projectile);
+void GridField::spawnBullet(const QPointF &startingPos, const QPointF &endingPos) {
+    Bullet *bullet = new Bullet(this, startingPos, endingPos);
+    projectiles.push_back(bullet);
+}
+
+void GridField::spawnGranade(const QPointF &startingPos, const QPointF &endingPos) {
+    Granade *granade = new Granade(this, startingPos, endingPos);
+    projectiles.push_back(granade);
+}
+
+void GridField::spawnSpecialEffect(const QPointF &startingPos, qreal distance) {
+    SpecialEffect *specialEffect = new SpecialEffect(this, startingPos, distance);
+    specialEffects.push_back(specialEffect);
 }
 
 }  // namespace view

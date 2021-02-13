@@ -13,6 +13,7 @@
 #include "view/screens/gameScreen/gridcell.h"
 #include "view/screens/gameScreen/gridcelltype.h"
 #include "view/screens/gameScreen/projectile.h"
+#include "view/screens/gameScreen/specialeffect.h"
 #include "view/screens/gameScreen/turretitem.h"
 
 using std::vector;
@@ -30,6 +31,7 @@ class GridField : public QObject, public QGraphicsItem {
     vector<GridCell *> interactiveCells;
     vector<TurretItem *> turrets;
     vector<Projectile *> projectiles;
+    vector<SpecialEffect *> specialEffects;
 
     void createGameGrid();
 
@@ -44,11 +46,13 @@ class GridField : public QObject, public QGraphicsItem {
     void turretsAttack(const vector<SP<model::Turret>> &attackingTurrets, const vector<EnemyItem *> &enemies);
     void addTurretItem(const SP<model::Turret> &turret, model::TurretType turretType);
 
-    void moveProjectiles();
+    void tick();
 
    public slots:
     void selectCell(GridCell *cell);
-    void spawnProjectile(const QPointF &startingPos, const QPointF &endingPos);
+    void spawnBullet(const QPointF &startingPos, const QPointF &endingPos);
+    void spawnGranade(const QPointF &startingPos, const QPointF &endingPos);
+    void spawnSpecialEffect(const QPointF &startingPos, qreal distance);
 
    signals:
     void cellPressed(GridCellType cellType, model::Position cellPosition);
