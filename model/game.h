@@ -38,7 +38,7 @@ class Game {
 
     U_INT _credits;
     float _life;
-    unsigned int _tick;
+    U_LINT _tick;
     U_INT _spawnCount;
 
     void spawnEnemy();

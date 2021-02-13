@@ -113,7 +113,7 @@ void EnemyItem::setPosition() {
         }
     }
 
-    // 15 = enemy size / 2 - align to center
+    // 32 = enemy size / 2 - align to center
     x -= 32;
     y -= 32;
 

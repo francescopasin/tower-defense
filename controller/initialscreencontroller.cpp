@@ -56,7 +56,7 @@ void InitialScreenController::uploadFromFile() {
         QFile file(fileName);
 
         if (!file.open(QIODevice::ReadOnly)) {
-            view::ErrorModal* modal = new view::ErrorModal(file.errorString(), _scene->width(), _scene->height());
+            view::ErrorModal* modal = new view::ErrorModal(file.errorString(), QSize(_scene->width(), _scene->height()));
             _scene->addItem(modal);
             connect(modal, &view::Modal::close, this, [=]() {
                 _scene->removeItem(modal);
@@ -76,7 +76,7 @@ void InitialScreenController::uploadFromFile() {
 
         if (json.isEmpty()) {
             // Show error
-            view::ErrorModal* modal = new view::ErrorModal("The file you are attempting to open is empty.", _scene->width(), _scene->height());
+            view::ErrorModal* modal = new view::ErrorModal("The file you are attempting to open is empty.", QSize(_scene->width(), _scene->height()));
             _scene->addItem(modal);
             connect(modal, &view::Modal::close, this, [=]() {
                 _scene->removeItem(modal);
@@ -101,7 +101,7 @@ void InitialScreenController::uploadFromFile() {
                 emit navigateTo(app::Routes::GameScreen);
             } catch (const std::exception* e) {
                 // Show error
-                view::ErrorModal* modal = new view::ErrorModal(e->what(), _scene->width(), _scene->height());
+                view::ErrorModal* modal = new view::ErrorModal(e->what(), QSize(_scene->width(), _scene->height()));
                 _scene->addItem(modal);
                 connect(modal, &view::Modal::close, this, [=]() {
                     _scene->removeItem(modal);

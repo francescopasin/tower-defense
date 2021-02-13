@@ -14,7 +14,7 @@ class Projectile : public QGraphicsItem {
 
     U_INT currentStep;
     // TODO: globalize projectile speed to delay enemies damage animation and update
-    U_INT speed = 5;
+    U_INT speed;
 
    public:
     Projectile(QGraphicsItem *parent, const QPointF &startingPos, const QPointF &endingPos);

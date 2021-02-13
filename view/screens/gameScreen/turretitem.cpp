@@ -2,9 +2,6 @@
 
 #include <QPainter>
 
-#include "app/shortcuts.h"
-#include "model/turrets/turrettype.h"
-
 namespace view {
 
 TurretItem::TurretItem(

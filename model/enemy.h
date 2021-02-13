@@ -18,7 +18,7 @@ class Enemy {
     float _health;
     U_INT _speed;
     float _attackDamage;
-    const vector<PathCell> _path;
+    vector<PathCell> _path;
     U_INT _reward;
     float _initialHealth;
     float _speedFactor;

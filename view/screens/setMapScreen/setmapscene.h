@@ -4,11 +4,11 @@
 #include <QGraphicsScene>
 #include <vector>
 
-using std::vector;
-
 #include "app/shortcuts.h"
 #include "view/screens/setMapScreen/cellselector.h"
 #include "view/screens/setMapScreen/setmapgrid.h"
+
+using std::vector;
 
 namespace view {
 

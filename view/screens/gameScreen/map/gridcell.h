@@ -42,7 +42,7 @@ class GridCell : public QObject, public QGraphicsItem {
    public:
     GridCell(
         QGraphicsItem *parent,
-        model::Position gridPosition,
+        const model::Position &gridPosition,
         qreal size,
         GridCellType type = GridCellType::Free,
         PathGridCellTile tile = PathGridCellTile::Horizontal);
@@ -54,6 +54,7 @@ class GridCell : public QObject, public QGraphicsItem {
     void setSelected(bool selected);
 
     void setType(GridCellType type);
+
     GridCellType getType() const;
     model::Position getGridPosition() const;
 

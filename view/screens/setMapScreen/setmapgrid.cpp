@@ -61,7 +61,7 @@ model::Position SetMapGrid::getSelectedCellPosition() const {
     return p;
 }
 
-void SetMapGrid::addCell(model::Position pos, SetMapCell::Type type) {
+void SetMapGrid::addCell(const model::Position &pos, SetMapCell::Type type) {
     for (auto c : _cells) {
         if (c->getPos() == pos) {
             if ((type == SetMapCell::Type::Start && pos.x == 0) ||    // Se start solo a sinistra
@@ -76,7 +76,7 @@ void SetMapGrid::addCell(model::Position pos, SetMapCell::Type type) {
                 type == SetMapCell::Type::Blocked) {
                 c->setType(type);
             } else {
-                //TODO: ERROR MODAL
+                // Nothing to do
             }
         }
     }

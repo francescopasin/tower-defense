@@ -14,7 +14,7 @@ class SpecialEffect : public QGraphicsItem {
 
     QSize currentSize;
     U_INT currentStep;
-    U_INT speed = 30;
+    U_INT speed;
 
    public:
     SpecialEffect(QGraphicsItem *parent, const QPointF &startingPos, qreal distance);

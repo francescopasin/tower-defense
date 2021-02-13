@@ -7,6 +7,8 @@
 #include "app/shortcuts.h"
 #include "view/screens/setMapScreen/setmapcell.h"
 
+using std::vector;
+
 namespace view {
 
 class SetMapGrid : public QObject, public QGraphicsItem {
@@ -15,7 +17,7 @@ class SetMapGrid : public QObject, public QGraphicsItem {
 
    private:
     QSize _size;
-    std::vector<SetMapCell *> _cells;
+    vector<SetMapCell *> _cells;
 
     void createSetMapGrid();
     void reDrawPath();
@@ -27,10 +29,10 @@ class SetMapGrid : public QObject, public QGraphicsItem {
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     model::Position getSelectedCellPosition() const;
     void clearAll();
-    const std::vector<SetMapCell *> *getCells() const;
+    const vector<SetMapCell *> *getCells() const;
 
     void selectCell(SetMapCell *cell);
-    void addCell(model::Position pos, SetMapCell::Type type);
+    void addCell(const model::Position &pos, SetMapCell::Type type);
 
    signals:
     void cellPressed(const QPointF &coordinates);

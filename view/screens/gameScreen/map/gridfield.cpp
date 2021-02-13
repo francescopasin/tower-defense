@@ -265,6 +265,7 @@ model::Position GridField::getSelectedCellPosition() const {
             return c->getGridPosition();
         }
     }
+    // Shouldn't get here
     return model::Position{9999, 9999};
 }
 

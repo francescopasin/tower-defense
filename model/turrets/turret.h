@@ -14,11 +14,11 @@ namespace model {
 
 class Turret {
    private:
-    const Position _position;
+    Position _position;
     SP<vector<SP<Enemy>>> _enemies;
 
    protected:
-    const TurretStats _stats;
+    TurretStats _stats;
     // Attack damage and cooldown are protected in order to let child turrets do specials attack
     float _attackDamage;
     float _attackCooldown;

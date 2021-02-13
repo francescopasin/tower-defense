@@ -75,7 +75,7 @@ void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) 
 
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly)) {
-            view::ErrorModal* modal = new view::ErrorModal(file.errorString(), _scene->width(), _scene->height());
+            view::ErrorModal* modal = new view::ErrorModal(file.errorString(), QSize(_scene->width(), _scene->height()));
             _scene->addItem(modal);
             connect(modal, &view::Modal::close, this, [=]() {
                 _scene->removeItem(modal);
@@ -110,7 +110,7 @@ void SetMapScreenController::saveToFile(const vector<view::SetMapCell*>* cells) 
         out.setVersion(QDataStream::Qt_4_5);
         out << json.toVariantHash();
     } else {
-        view::ErrorModal* modal = new view::ErrorModal(error, _scene->width(), _scene->height());
+        view::ErrorModal* modal = new view::ErrorModal(error, QSize(_scene->width(), _scene->height()));
         _scene->addItem(modal);
         connect(modal, &view::Modal::close, this, [=]() {
             _scene->removeItem(modal);

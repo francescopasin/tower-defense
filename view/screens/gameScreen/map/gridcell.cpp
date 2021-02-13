@@ -8,7 +8,7 @@ namespace view {
 
 GridCell::GridCell(
     QGraphicsItem *parent,
-    model::Position gridPosition,
+    const model::Position &gridPosition,
     qreal size,
     GridCellType type,
     PathGridCellTile tile)
@@ -18,8 +18,6 @@ GridCell::GridCell(
       _type(type),
       _tile(tile),
       _selected(false) {
-    ////setFlag(QGraphicsItem::ItemIgnoresTransformations);
-
     if (type == GridCellType::Free) {
         setAcceptHoverEvents(true);
         updateCursor();
@@ -65,7 +63,6 @@ void GridCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
                     imagePath = ":/assets/images/tiles/bottom-left-tile.png";
                     break;
             }
-
             break;
         case GridCellType::PathStart:
             switch (_tile) {
@@ -132,6 +129,7 @@ void GridCell::updateCursor() {
 
 void GridCell::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     Q_UNUSED(event);
+
     if (_type == GridCellType::Free || _type == GridCellType::Occupied) {
         emit pressed(this);
     }
