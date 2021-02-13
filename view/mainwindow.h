@@ -2,9 +2,6 @@
 #define VIEW_MAINWINDOW_H_
 
 #include <QMainWindow>
-#include <QStackedWidget>
-#include <QVBoxLayout>
-#include <vector>
 
 #include "app/routes.h"
 #include "app/shortcuts.h"
@@ -25,6 +22,7 @@ class MainWindow : public QMainWindow {
     controller::Controller *currentViewController;
 
     void closeEvent(QCloseEvent *event) override;
+
     void readSettings();
     void setTutorialShown() const;
     bool tutorialHasBeenShown() const;

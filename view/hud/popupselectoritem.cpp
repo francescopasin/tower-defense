@@ -30,15 +30,17 @@ void PopupSelectorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem 
 }
 
 void PopupSelectorItem::updateCursor() {
+    QPixmap pixmap;
+
     if (isAvailable) {
-        QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
-        setCursor(QCursor(pixmap.scaled(32, 32)));
+        pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
         setOpacity(1);
     } else {
-        QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-not-allowed.png");
-        setCursor(QCursor(pixmap.scaled(32, 32)));
+        pixmap = QPixmap(":/assets/images/pointers/pointer-not-allowed.png");
         setOpacity(0.5);
     }
+
+    setCursor(QCursor(pixmap.scaled(32, 32)));
 }
 
 void PopupSelectorItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {

@@ -1,15 +1,11 @@
 #include "view/hud/modal.h"
 
 #include <QCursor>
-#include <QGraphicsScene>
 #include <QPainter>
 
 namespace view {
 
-Modal::Modal(qreal width, qreal height, bool closeOnClick) : _closeOnClick(closeOnClick) {
-    size.setWidth(width);
-    size.setHeight(height);
-
+Modal::Modal(const QSize &size, bool closeOnClick) : _closeOnClick(closeOnClick), _size(size) {
     setZValue(9999);
     setAcceptHoverEvents(true);
 
@@ -18,7 +14,7 @@ Modal::Modal(qreal width, qreal height, bool closeOnClick) : _closeOnClick(close
 }
 
 QRectF Modal::boundingRect() const {
-    return QRectF(0, 0, size.width(), size.height());
+    return QRectF(0, 0, _size.width(), _size.height());
 }
 
 void Modal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -27,7 +23,7 @@ void Modal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->setPen(Qt::NoPen);
     painter->setBrush(brush);
 
-    painter->drawRect(0, 0, size.width(), size.height());
+    painter->drawRect(0, 0, _size.width(), _size.height());
 
     paintContent(painter, option, widget);
 }
