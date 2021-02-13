@@ -41,11 +41,16 @@ class MyList {
     void erase(const T& info);
     void popBack();
 
-    T* find(const T& info) const;
-    MyList<T*>& findAll(const T& info) const;
-    U_LINT indexOf(const T& info) const;
+    T* find(const T& info);
+    const T* find(const T& info) const;
 
-    T& operator[](U_LINT index) const;
+    MyList<T*>& findAll(const T& info);
+    const MyList<T*>& findAll(const T& info) const;
+
+    T& operator[](U_LINT index);
+    const T& operator[](U_LINT index) const;
+
+    U_LINT indexOf(const T& info) const;
 
     U_LINT size() const;
 
@@ -104,8 +109,11 @@ class MyList {
         bool operator!=(const constIterator& x) const;
     };
 
-    iterator begin() const;
-    iterator end() const;
+    // Se MyList<...> c; => begin, end, cbegin, cend disponibili
+    // Se const MyList<...> c => solo cend, cbegin.
+
+    iterator begin();
+    iterator end();
 
     constIterator cbegin() const;
     constIterator cend() const;
@@ -243,7 +251,12 @@ void MyList<T>::popTop() {
 }
 
 template <class T>
-T& MyList<T>::operator[](U_LINT index) const {
+T& MyList<T>::operator[](U_LINT index) {
+    return ricGet(_first, index, _size)->_info;
+}
+
+template <class T>
+const T& MyList<T>::operator[](U_LINT index) const {
     return ricGet(_first, index, _size)->_info;
 }
 
@@ -294,13 +307,26 @@ U_LINT MyList<T>::indexOf(const T& info) const {
 }
 
 template <class T>
-T* MyList<T>::find(const T& find) const {
+T* MyList<T>::find(const T& find) {
     Node* ret = ricFind(_first, find);
     return (ret ? &ret->_info : nullptr);
 }
 
 template <class T>
-MyList<T*>& MyList<T>::findAll(const T& find) const {
+const T* MyList<T>::find(const T& find) const {
+    Node* ret = ricFind(_first, find);
+    return (ret ? &ret->_info : nullptr);
+}
+
+template <class T>
+MyList<T*>& MyList<T>::findAll(const T& find) {
+    MyList<T*>* ret = new MyList<T*>();
+    ricFindAll(_first, find, ret);
+    return *ret;
+}
+
+template <class T>
+const MyList<T*>& MyList<T>::findAll(const T& find) const {
     MyList<T*>* ret = new MyList<T*>();
     ricFindAll(_first, find, ret);
     return *ret;
@@ -365,12 +391,12 @@ bool MyList<T>::iterator::operator!=(const iterator& x) const {
 }
 
 template <class T>
-typename MyList<T>::iterator MyList<T>::begin() const {
+typename MyList<T>::iterator MyList<T>::begin() {
     return _first;
 }
 
 template <class T>
-typename MyList<T>::iterator MyList<T>::end() const {
+typename MyList<T>::iterator MyList<T>::end() {
     if (_last == nullptr)
         return nullptr;
     return iterator(_last + 1, true);
