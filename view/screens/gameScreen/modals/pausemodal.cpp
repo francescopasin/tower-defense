@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/pausemodal.h"
+#include "view/screens/gameScreen/modals/pausemodal.h"
 
 #include <QPainter>
 

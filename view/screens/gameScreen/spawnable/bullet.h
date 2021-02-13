@@ -1,7 +1,7 @@
 #ifndef VIEW_BULLET_H_
 #define VIEW_BULLET_H_
 
-#include "view/screens/gameScreen/projectile.h"
+#include "view/screens/gameScreen/spawnable/projectile.h"
 
 namespace view {
 

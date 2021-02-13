@@ -41,20 +41,23 @@ SOURCES += \
     view/hud/gametitle.cpp \
     \
     view/screens/gameScreen/gamescene.cpp \
-    view/screens/gameScreen/gridcell.cpp \
     view/screens/gameScreen/enemyitem.cpp \
     view/screens/gameScreen/turretitem.cpp \
-    view/screens/gameScreen/gridfield.cpp \
     view/screens/gameScreen/turretselector.cpp \
-    view/screens/gameScreen/pausemodal.cpp \
-    view/screens/gameScreen/projectile.cpp \
-    view/screens/gameScreen/bullet.cpp \
-    view/screens/gameScreen/granade.cpp \
-    view/screens/gameScreen/specialeffect.cpp \
-    view/screens/gameScreen/lostwonmodal.cpp \
     view/screens/gameScreen/turretinfospanel.cpp \
     view/screens/gameScreen/turretradiuspreview.cpp \
-    view/screens/gameScreen/explosion.cpp \
+    \
+    view/screens/gameScreen/map/gridfield.cpp \
+    view/screens/gameScreen/map/gridcell.cpp \
+    \
+    view/screens/gameScreen/modals/pausemodal.cpp \
+    view/screens/gameScreen/modals/lostwonmodal.cpp \
+    \
+    view/screens/gameScreen/spawnable/projectile.cpp \
+    view/screens/gameScreen/spawnable/bullet.cpp \
+    view/screens/gameScreen/spawnable/granade.cpp \
+    view/screens/gameScreen/spawnable/specialeffect.cpp \
+    view/screens/gameScreen/spawnable/explosion.cpp \
     \
     view/screens/initialScreen/initialscreenscene.cpp \
     \
@@ -106,21 +109,24 @@ HEADERS += \
     view/hud/gametitle.h \
     \
     view/screens/gameScreen/gamescene.h \
-    view/screens/gameScreen/gridcelltype.h \
-    view/screens/gameScreen/gridcell.h \  \
     view/screens/gameScreen/enemyitem.h \
     view/screens/gameScreen/turretitem.h \
-    view/screens/gameScreen/gridfield.h \
     view/screens/gameScreen/turretselector.h \
-    view/screens/gameScreen/pausemodal.h \
-    view/screens/gameScreen/projectile.h \
-    view/screens/gameScreen/bullet.h \
-    view/screens/gameScreen/granade.h \
-    view/screens/gameScreen/specialeffect.h \
-    view/screens/gameScreen/lostwonmodal.h \
     view/screens/gameScreen/turretinfospanel.h \
     view/screens/gameScreen/turretradiuspreview.h \
-    view/screens/gameScreen/explosion.h \
+    \
+    view/screens/gameScreen/map/gridfield.h \
+    view/screens/gameScreen/map/gridcell.h \
+    view/screens/gameScreen/gridcelltype.h \
+    \
+    view/screens/gameScreen/modals/pausemodal.h \
+    view/screens/gameScreen/modals/lostwonmodal.h \
+    \
+    view/screens/gameScreen/spawnable/projectile.h \
+    view/screens/gameScreen/spawnable/bullet.h \
+    view/screens/gameScreen/spawnable/granade.h \
+    view/screens/gameScreen/spawnable/specialeffect.h \
+    view/screens/gameScreen/spawnable/explosion.h \
     \
     view/screens/initialScreen/initialscreenscene.h \
     \

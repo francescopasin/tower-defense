@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/projectile.h"
+#include "view/screens/gameScreen/spawnable/projectile.h"
 
 #include <QPainter>
 

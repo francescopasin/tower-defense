@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/gridcell.h"
+#include "view/screens/gameScreen/map/gridcell.h"
 
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>

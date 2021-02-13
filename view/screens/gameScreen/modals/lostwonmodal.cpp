@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/lostwonmodal.h"
+#include "view/screens/gameScreen/modals/lostwonmodal.h"
 
 #include <QPainter>
 

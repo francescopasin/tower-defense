@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/bullet.h"
+#include "view/screens/gameScreen/spawnable/bullet.h"
 
 #include <QPainter>
 

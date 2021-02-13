@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/granade.h"
+#include "view/screens/gameScreen/spawnable/granade.h"
 
 #include <QPainter>
 
