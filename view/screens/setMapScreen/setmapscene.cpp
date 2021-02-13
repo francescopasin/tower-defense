@@ -1,11 +1,6 @@
 #include "view/screens/setMapScreen/setmapscene.h"
 
-#include <algorithm>
-
-#include "view/hud/iconbutton.h"
 #include "view/hud/standardbutton.h"
-#include "view/screens/setMapScreen/cellselector.h"
-#include "view/screens/setMapScreen/setmapgrid.h"
 
 using std::vector;
 
@@ -29,8 +24,6 @@ SetMapScene::SetMapScene() {
     connect(cellSelector, &CellSelector::losedFocusSignal, this, &SetMapScene::closeCellSelector);
     connect(cellSelector, &CellSelector::cellSelected, this, &SetMapScene::addCell);
     addItem(cellSelector);
-
-    //connect(this, &SetMapScene::addCellSignal, grid, &SetMapGrid::addCell);
 }
 
 void SetMapScene::drawBackground() {
@@ -65,7 +58,7 @@ void SetMapScene::createHUD() {
 void SetMapScene::gridCellPressed(const QPointF& coordinates) {
     cellSelector->setPos(
         qMax(coordinates.x() + 48 - cellSelector->boundingRect().width() / 2 + (1920 - 96 * 16) / 2, 0.0),
-        coordinates.y() - cellSelector->boundingRect().height() + 1080 - grid->boundingRect().height());  // TODO: temp
+        coordinates.y() - cellSelector->boundingRect().height() + 1080 - grid->boundingRect().height());
 
     cellSelector->setVisible(true);
     cellSelector->setFocus();

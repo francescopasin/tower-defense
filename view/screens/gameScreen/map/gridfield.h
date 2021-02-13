@@ -26,8 +26,8 @@ class GridField : public QObject, public QGraphicsItem {
 
    private:
     QSize _size;
-    const vector<model::PathCell> &_path;
-    const vector<model::Position> &_blockedCells;
+    vector<model::PathCell> _path;
+    vector<model::Position> _blockedCells;
     vector<GridCell *> interactiveCells;
     vector<TurretItem *> turrets;
     vector<Projectile *> projectiles;
@@ -55,8 +55,8 @@ class GridField : public QObject, public QGraphicsItem {
     void spawnSpecialEffect(const QPointF &startingPos, qreal distance);
 
    signals:
-    void cellPressed(GridCellType cellType, model::Position cellPosition);
-    void turretHovered(model::TurretType turretType, model::Position cellPosition);
+    void cellPressed(GridCellType cellType, const model::Position &cellPosition);
+    void turretHovered(model::TurretType turretType, const model::Position &cellPosition);
     void turretHoverLeave();
 };
 

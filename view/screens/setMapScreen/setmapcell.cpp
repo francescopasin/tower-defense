@@ -8,7 +8,7 @@ namespace view {
 SetMapCell::SetMapCell(
     QGraphicsItem *parent,
     qreal size,
-    model::Position pos,
+    const model::Position &pos,
     Type type)
     : QGraphicsItem(parent),
       _size(size),
@@ -86,10 +86,10 @@ void SetMapCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
             imagePath = ":/assets/images/tiles/blocked-tile.png";
             break;
     }
+
     QPixmap pixmap = QPixmap(imagePath);
     painter->drawPixmap(QRect(0, 0, _size, _size), pixmap);
-
-}  // namespace view
+}
 
 void SetMapCell::setType(Type type) {
     _type = type;

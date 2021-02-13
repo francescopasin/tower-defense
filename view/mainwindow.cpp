@@ -12,7 +12,8 @@
 
 namespace view {
 
-MainWindow::MainWindow(const SP<model::GameModel>& model) : _model(model), view(new MainWindowView()), currentViewController(nullptr) {
+MainWindow::MainWindow(const SP<model::GameModel>& model)
+    : _model(model), view(new MainWindowView()), currentViewController(nullptr) {
     setWindowTitle("CPP: Crush Poor Programmers");
     // TODO: set icon
 
@@ -59,13 +60,6 @@ bool MainWindow::tutorialHasBeenShown() const {
 
 void MainWindow::setScreen(app::Routes route) {
     if (currentViewController) {
-        // TODO: understand how to correctly delete the scene
-        /*
-        view->scene()->setParent(nullptr);
-        delete view->scene();
-        view->setScene(nullptr);
-*/
-
         delete currentViewController;
     }
 
@@ -94,6 +88,6 @@ void MainWindow::setScreen(app::Routes route) {
     connect(currentViewController, &controller::Controller::navigateTo, this, &MainWindow::setScreen);
 
     view->setScene(currentViewController->getScene());
-}  // namespace view
+}
 
 }  // namespace view

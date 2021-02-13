@@ -12,7 +12,7 @@ class PauseModal : public Modal {
     virtual void paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
    public:
-    PauseModal(qreal width, qreal height);
+    PauseModal(const QSize &size);
 
    signals:
     void returnToMenu();

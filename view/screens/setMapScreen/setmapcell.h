@@ -37,16 +37,17 @@ class SetMapCell : public QObject, public QGraphicsItem {
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
    public:
-    SetMapCell(QGraphicsItem *parent, qreal size, model::Position pos, Type type = Type::Free);
-    void setType(Type type);
+    SetMapCell(QGraphicsItem *parent, qreal size, const model::Position &pos, Type type = Type::Free);
+
     QRectF boundingRect() const override;
-    model::Position getPos() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     bool isSelected() const;
     void setSelected(bool selected);
     void setTile(const QString &path);
+    void setType(Type type);
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    model::Position getPos() const;
     Type getType() const;
 
    signals:

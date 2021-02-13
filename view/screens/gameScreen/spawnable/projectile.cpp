@@ -5,7 +5,7 @@
 namespace view {
 
 Projectile::Projectile(QGraphicsItem *parent, const QPointF &startingPos, const QPointF &endingPos)
-    : QGraphicsItem(parent), currentStep(1) {
+    : QGraphicsItem(parent), currentStep(1), speed(5) {
     QPointF realStartingPos(startingPos.x() - 5, startingPos.y() - 5);
 
     setPos(realStartingPos);

@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "model/sharedptr.h"
 #include "model/turrets/turret.h"
 
 using std::vector;
@@ -59,25 +58,24 @@ QGraphicsScene* GameScreenController::getScene() const {
 void GameScreenController::start() {
     gameTimer = new QTimer(this);
     connect(gameTimer, &QTimer::timeout, this, &GameScreenController::gameTick);
-    // 20 ticks per second
-    // TODO: safe default tick in Game?
+    // 24 ticks per second
     gameTimer->start(1 / 24.00 * 1000);
 
     renderTimer = new QTimer(this);
     connect(renderTimer, &QTimer::timeout, this, &GameScreenController::viewTick);
-    // 20 ticks per second
+    // 24 ticks per second
     renderTimer->start(1 / 24.00 * 1000);
 
     isRunning = true;
 }
 
 void GameScreenController::gameTick() {
-    model::Game::State stato = _model->tick();
+    model::Game::State state = _model->tick();
 
-    if (stato == model::Game::State::Lost || stato == model::Game::State::Won) {
+    if (state == model::Game::State::Lost || state == model::Game::State::Won) {
         gameTimer->stop();
         renderTimer->stop();
-        _scene->showModal(stato);
+        _scene->showModal(state);
     }
 
     SP<model::Enemy> newEnemy = _model->lastTickSpawnedEnemy();
@@ -124,7 +122,7 @@ void GameScreenController::fastForward() {
     gameTimer->stop();
 
     if (!isFastForward) {
-        // 48 ticks per second
+        // 72 ticks per second
         gameTimer->setInterval(1 / 72.00 * 1000);
     } else {
         // 24 ticks per second
@@ -136,13 +134,13 @@ void GameScreenController::fastForward() {
     _scene->changeFastForwardIcon(isFastForward);
 }
 
-void GameScreenController::addTurret(model::Position position, model::TurretType turretType) {
+void GameScreenController::addTurret(const model::Position& position, model::TurretType turretType) {
     SP<model::Turret> turret = _model->addTurret(turretType, position);
 
     _scene->addTurretItem(turret, turretType);
 }
 
-void GameScreenController::removeTurret(model::Position position) {
+void GameScreenController::removeTurret(const model::Position& position) {
     _model->removeTurret(position);
 }
 

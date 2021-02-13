@@ -13,13 +13,13 @@ class Modal : public QObject, public QGraphicsItem {
     bool _closeOnClick;
 
    protected:
-    QSizeF size;
+    QSizeF _size;
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     virtual void paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
 
    public:
-    Modal(qreal width, qreal height, bool closeOnClick = false);  // Pass QSize in constructor
+    Modal(const QSize &size, bool closeOnClick = false);
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

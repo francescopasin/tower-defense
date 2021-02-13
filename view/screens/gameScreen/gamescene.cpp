@@ -1,7 +1,5 @@
 #include "view/screens/gameScreen/gamescene.h"
 
-#include <algorithm>
-
 #include "view/hud/gametitle.h"
 #include "view/screens/gameScreen/modals/lostwonmodal.h"
 #include "view/screens/gameScreen/modals/pausemodal.h"
@@ -128,11 +126,11 @@ void GameScene::addTurretItem(const SP<model::Turret>& turret, model::TurretType
     gridField->addTurretItem(turret, turretType);
 }
 
-void GameScene::gridCellPressed(GridCellType cellType, model::Position cellPosition) {
+void GameScene::gridCellPressed(GridCellType cellType, const model::Position& cellPosition) {
     if (cellType == GridCellType::Free) {
         turretSelector->setPos(
             qMax(cellPosition.x * 96 + 48 - turretSelector->boundingRect().width() / 2, 0.0),
-            cellPosition.y * 96 - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());  // TODO: temp
+            cellPosition.y * 96 - turretSelector->boundingRect().height() + 1080 - gridField->boundingRect().height());
 
         // TODO: set fixed cell size
         turretSelector->setVisible(true);
@@ -148,7 +146,7 @@ void GameScene::closeTurretSelector() {
     gridField->selectCell(nullptr);
 }
 
-void GameScene::showTurretInfos(model::TurretType turretType, model::Position cellPosition) {
+void GameScene::showTurretInfos(model::TurretType turretType, const model::Position& cellPosition) {
     turretInfosPanel->setTurretType(turretType);
 
     U_INT radius = model::turretTypes.at(turretType).attackRadius;
@@ -170,7 +168,7 @@ void GameScene::addTurret(model::TurretType turretType) {
 }
 
 void GameScene::showModal(model::Game::State stato) {
-    view::LostWonModal* modal = new view::LostWonModal(stato, width(), height());
+    view::LostWonModal* modal = new view::LostWonModal(stato, QSize(width(), height()));
     addItem(modal);
     connect(modal, &LostWonModal::restart, this, &GameScene::restart);
     connect(modal, &LostWonModal::returnToMenu, this, &GameScene::returnToMenu);
@@ -179,7 +177,7 @@ void GameScene::showModal(model::Game::State stato) {
 void GameScene::pauseButtonPressed() {
     emit playPauseGame();
 
-    PauseModal* modal = new PauseModal(width(), height());
+    PauseModal* modal = new PauseModal(QSize(width(), height()));
     addItem(modal);
     connect(modal, &Modal::close, this, [=]() {
         removeItem(modal);
@@ -193,8 +191,6 @@ void GameScene::pauseButtonPressed() {
         enemies.clear();
         emit returnToMenu();
     });
-
-    // TODO: choose if create and delete modal everytime or add and remove it
 }
 
 void GameScene::changeFastForwardIcon(bool isFastForward) {

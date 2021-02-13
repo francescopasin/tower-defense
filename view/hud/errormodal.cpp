@@ -2,19 +2,9 @@
 
 #include <QPainter>
 
-#include "view/hud/standardbutton.h"
-
 namespace view {
 
-ErrorModal::ErrorModal(const QString &text, qreal width, qreal height) : Modal(width, height, true), _text(text) {
-    // Add external content
-
-    // StandardButton *resumeButton = new StandardButton("RESUME", 300, this);
-    // resumeButton->setPos(
-    //     size.width() / 2 - resumeButton->boundingRect().width() / 2,
-    //     size.height() / 2 - resumeButton->boundingRect().height() / 2);
-    // connect(resumeButton, &StandardButton::pressed, this, &Modal::close);
-}
+ErrorModal::ErrorModal(const QString &text, const QSize &size) : Modal(size, true), _text(text) {}
 
 void ErrorModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option);
@@ -52,20 +42,17 @@ void ErrorModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem 
     }
 
     painter->setBrush(Qt::black);
-    painter->drawRoundedRect(QRectF((size.width() / 2) - (width / 2 + 40), (size.height() / 2) - (height / 2), width + 80, height), 10, 10);
+    painter->drawRoundedRect(QRectF((_size.width() / 2) - (width / 2 + 40), (_size.height() / 2) - (height / 2), width + 80, height), 10, 10);
     painter->setBrush(Qt::transparent);
-
-    // p->fillPath(path, Qt::black);
-    // p->drawPath(path);
 
     pen.setColor(Qt::white);
     painter->setPen(pen);
-    painter->drawText(QRectF(size.width() / 2 - (width / 2), size.height() / 2 - (height / 2) + 45, width, height), Qt::AlignCenter, text);
+    painter->drawText(QRectF(_size.width() / 2 - (width / 2), _size.height() / 2 - (height / 2) + 45, width, height), Qt::AlignCenter, text);
 
     font.setPixelSize(50);
     painter->setFont(font);
 
-    painter->drawText(QRectF(size.width() / 2 - 150, size.height() / 2 - (height / 2) + 15, 300, 100), Qt::AlignCenter, "ERROR");
+    painter->drawText(QRectF(_size.width() / 2 - 150, _size.height() / 2 - (height / 2) + 15, 300, 100), Qt::AlignCenter, "ERROR");
 }
 
 }  // namespace view

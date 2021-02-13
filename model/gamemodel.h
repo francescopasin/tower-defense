@@ -21,25 +21,26 @@ class GameModel {
 
    public:
     GameModel();
+
     Game::State tick();
 
     void reset(bool switchToStandardMap = false);
 
-    SP<Turret> addTurret(TurretType type, Position p);
-    void removeTurret(Position p);
+    SP<Turret> addTurret(TurretType type, const Position& p);
+    void removeTurret(const Position& p);
 
     SP<Enemy> lastTickSpawnedEnemy() const;
     vector<SP<Turret>> lastTickAttackingTurrets() const;
 
-    void setMap(vector<Position>& map, Direction first);
-    void setBlocked(vector<Position>& map);
+    void setMap(const vector<Position>& map, Direction first);
+    void setBlocked(const vector<Position>& map);
 
     U_INT getCredits() const;
     float getLife() const;
     const vector<PathCell>& getMap() const;
     const vector<Position>& getBlockedCellsMap() const;
 
-    static std::string validateMap(vector<Position>& map);
+    static std::string validateMap(const vector<Position>& map);
 };
 
 }  // namespace model

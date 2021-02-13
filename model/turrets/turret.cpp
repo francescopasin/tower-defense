@@ -3,7 +3,7 @@
 namespace model {
 
 Turret::Turret(
-    const TurretType& type,
+    TurretType type,
     const Position& position,
     const SP<vector<SP<Enemy>>>& enemies)
     : _position(position),

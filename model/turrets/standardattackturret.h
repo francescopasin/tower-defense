@@ -12,9 +12,10 @@ namespace model {
 class StandardAttackTurret : public Turret {
    public:
     StandardAttackTurret(
-        const TurretType& type,
+        TurretType type,
         const Position& position,
         const SP<vector<SP<Enemy>>>& enemies);
+
     virtual ~StandardAttackTurret() = default;
 
     virtual bool attack() override;

@@ -4,6 +4,7 @@
 #include "app/shortcuts.h"
 
 namespace model {
+
 struct Wave {
     float enemiesHealth;
     U_INT enemiesSpeed;

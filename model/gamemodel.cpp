@@ -119,11 +119,11 @@ void GameModel::reset(bool switchToStandardMap) {
     _game = new Game(credits, life, map, blockedCellsMap, wave, Direction::Left);
 }
 
-SP<Turret> GameModel::addTurret(TurretType type, Position p) {
+SP<Turret> GameModel::addTurret(TurretType type, const Position& p) {
     return _game->addTurret(type, p);
 }
 
-void GameModel::removeTurret(Position p) {
+void GameModel::removeTurret(const Position& p) {
     return _game->removeTurret(p);
 }
 
@@ -151,15 +151,15 @@ const vector<Position>& GameModel::getBlockedCellsMap() const {
     return _game->getBlockedCellsMap();
 }
 
-std::string GameModel::validateMap(vector<Position>& map) {
+std::string GameModel::validateMap(const vector<Position>& map) {
     return Game::validateMap(map);
 }
 
-void GameModel::setMap(vector<Position>& map, Direction first) {
+void GameModel::setMap(const vector<Position>& map, Direction first) {
     _game->setMap(map, first);
 }
 
-void GameModel::setBlocked(vector<Position>& map) {
+void GameModel::setBlocked(const vector<Position>& map) {
     _game->setBlocked(map);
 }
 

@@ -14,6 +14,7 @@ class SplitTurret : public StandardAttackTurret {
 
    public:
     SplitTurret(const Position& position, const SP<vector<SP<Enemy>>>& enemies);
+
     virtual ~SplitTurret() = default;
 
     virtual bool attack() override;

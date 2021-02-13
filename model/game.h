@@ -1,7 +1,6 @@
 #ifndef MODEL_GAME_H_
 #define MODEL_GAME_H_
 
-#include <algorithm>
 #include <vector>
 
 #include "app/shortcuts.h"
@@ -39,7 +38,7 @@ class Game {
 
     U_INT _credits;
     float _life;
-    unsigned int _tick;
+    U_LINT _tick;
     U_INT _spawnCount;
 
     void spawnEnemy();
@@ -47,26 +46,34 @@ class Game {
     void attack();
     void checkDeadEnemies();
     void checkWon();
-    void reorderEnemies();
+    ////void reorderEnemies();
 
    public:
-    Game(U_INT credits, float life, vector<Position>& map, const vector<Position>& blockedCellsMap, const vector<Wave>& waves, Direction first);
+    Game(
+        U_INT credits,
+        float life,
+        const vector<Position>& map,
+        const vector<Position>& blockedCellsMap,
+        const vector<Wave>& waves,
+        Direction first);
+
     State tick();
-    SharedPtr<Turret> addTurret(TurretType type, Position p);
-    void removeTurret(Position p);
+
+    SharedPtr<Turret> addTurret(TurretType type, const Position& p);
+    void removeTurret(const Position& p);
 
     SP<Enemy> lastTickSpawnedEnemy() const;
     vector<SharedPtr<Turret>> lastTickAttackingTurrets() const;
 
-    void setMap(vector<Position>& map, Direction first);
-    void setBlocked(vector<Position>& map);
+    void setMap(const vector<Position>& map, Direction first);
+    void setBlocked(const vector<Position>& map);
 
     U_INT getCredits() const;
     float getLife() const;
     const vector<PathCell>& getMap() const;
     const vector<Position>& getBlockedCellsMap() const;
 
-    static std::string validateMap(vector<Position>& map);
+    static std::string validateMap(const vector<Position>& map);
 };
 
 }  // namespace model

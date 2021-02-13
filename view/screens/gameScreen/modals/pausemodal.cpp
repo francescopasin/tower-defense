@@ -6,7 +6,7 @@
 
 namespace view {
 
-PauseModal::PauseModal(qreal width, qreal height) : Modal(width, height) {
+PauseModal::PauseModal(const QSize &size) : Modal(size) {
     // Add external content
 
     StandardButton *resumeButton = new StandardButton("RESUME", 300, this);
@@ -22,8 +22,6 @@ PauseModal::PauseModal(qreal width, qreal height) : Modal(width, height) {
     connect(menuButton, &StandardButton::pressed, this, &PauseModal::returnToMenu);
 
     // TODO: add sound and music buttons
-
-    // TODO: fix buttons transforms
 }
 
 void PauseModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -36,7 +34,7 @@ void PauseModal::paintContent(QPainter *painter, const QStyleOptionGraphicsItem 
     painter->setFont(font);
     painter->setPen(Qt::white);
 
-    painter->drawText(QRectF(size.width() / 2 - 150, size.height() / 2 - 200, 300, 100), Qt::AlignCenter, "PAUSED");
+    painter->drawText(QRectF(_size.width() / 2 - 150, _size.height() / 2 - 200, 300, 100), Qt::AlignCenter, "PAUSED");
 }
 
 }  // namespace view

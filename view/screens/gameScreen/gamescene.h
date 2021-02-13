@@ -56,9 +56,9 @@ class GameScene : public QGraphicsScene {
     void changeFastForwardIcon(bool isFastForward);
 
    public slots:
-    void gridCellPressed(GridCellType cellType, model::Position cellPosition);
+    void gridCellPressed(GridCellType cellType, const model::Position& cellPosition);
     void closeTurretSelector();
-    void showTurretInfos(model::TurretType turretType, model::Position cellPosition);
+    void showTurretInfos(model::TurretType turretType, const model::Position& cellPosition);
     void hideTurretInfos();
     void addTurret(model::TurretType turretType);
     void pauseButtonPressed();
@@ -68,8 +68,8 @@ class GameScene : public QGraphicsScene {
     void playPauseGame();
     void restart();
     void fastForwardGame();
-    void addTurretSignal(model::Position position, model::TurretType turretType);
-    void removeTurretSignal(model::Position position);
+    void addTurretSignal(const model::Position& position, model::TurretType turretType);
+    void removeTurretSignal(const model::Position& position);
     void returnToMenu();
 };
 

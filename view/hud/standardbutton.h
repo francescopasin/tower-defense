@@ -11,7 +11,7 @@ class StandardButton : public QObject, public QGraphicsItem {
 
    private:
     QString _text;
-    const int _width;
+    int _width;
 
    protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

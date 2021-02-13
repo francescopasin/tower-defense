@@ -5,10 +5,8 @@
 namespace view {
 
 SpecialEffect::SpecialEffect(QGraphicsItem *parent, const QPointF &startingPos, qreal distance)
-    : QGraphicsItem(parent), _distance(distance), currentSize(QSize(0, 0)), currentStep(1) {
-    QPointF realStartingPos(startingPos.x() - distance, startingPos.y() - distance);
-
-    setPos(realStartingPos);
+    : QGraphicsItem(parent), _distance(distance), currentSize(QSize(0, 0)), currentStep(1), speed(30) {
+    setPos(startingPos.x() - distance, startingPos.y() - distance);
 
     deltaSize = 1.0 / speed * distance * 2;
 }

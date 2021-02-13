@@ -1,8 +1,6 @@
 #ifndef CONTROLLER_CONTROLLER_H_
 #define CONTROLLER_CONTROLLER_H_
 
-#include <QGraphicsView>
-// #include<memory>
 #include <QGraphicsScene>
 
 #include "app/routes.h"

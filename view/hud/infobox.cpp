@@ -4,9 +4,7 @@
 
 namespace view {
 
-InfoBox::InfoBox(const QString &imagePath, const QString &text) : _imagePath(imagePath), _text(text) {
-    ////setFlag(QGraphicsItem::ItemIgnoresTransformations);
-}
+InfoBox::InfoBox(const QString &imagePath, const QString &text) : _imagePath(imagePath), _text(text) {}
 
 QRectF InfoBox::boundingRect() const {
     return QRectF(0, 0, 250, 84);

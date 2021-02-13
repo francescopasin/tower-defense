@@ -16,7 +16,7 @@ class LostWonModal : public Modal {
     virtual void paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
    public:
-    LostWonModal(const model::Game::State &lostWon, qreal width, qreal height);
+    LostWonModal(model::Game::State lostWon, const QSize &size);
 
    signals:
     void returnToMenu();

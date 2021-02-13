@@ -5,9 +5,9 @@
 
 namespace view {
 
-IconButton::IconButton(QString imagePath, QString hoverImagePath) : _imagePath(imagePath), _hoverImagePath(hoverImagePath) {
+IconButton::IconButton(const QString &imagePath, const QString &hoverImagePath)
+    : _imagePath(imagePath), _hoverImagePath(hoverImagePath) {
     setAcceptHoverEvents(true);
-    ////setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
     QPixmap pixmap = QPixmap(":/assets/images/pointers/pointer-interactive.png");
     setCursor(QCursor(pixmap.scaled(32, 32)));
@@ -21,12 +21,11 @@ void IconButton::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     Q_UNUSED(widget);
 
     if (option->state & QStyle::State_MouseOver) {
-        // TODO: change with pixmap
-        QImage image = QImage(_hoverImagePath);
-        painter->drawImage(QRect(2, 2, 96, 96), image, QRect(0, 0, 16, 16));
+        QPixmap pixmap = QPixmap(_hoverImagePath);
+        painter->drawPixmap(QRect(2, 2, 96, 96), pixmap);
     } else {
-        QImage image = QImage(_imagePath);
-        painter->drawImage(QRect(2, 2, 96, 96), image, QRect(0, 0, 16, 16));
+        QPixmap pixmap = QPixmap(_imagePath);
+        painter->drawPixmap(QRect(2, 2, 96, 96), pixmap);
     }
 }
 
@@ -36,7 +35,7 @@ void IconButton::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     emit pressed();
 }
 
-void IconButton::changeImages(QString imagePath, QString hoverImagePath) {
+void IconButton::changeImages(const QString &imagePath, const QString &hoverImagePath) {
     _imagePath = imagePath;
     _hoverImagePath = hoverImagePath;
 }

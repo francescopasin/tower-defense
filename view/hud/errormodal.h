@@ -15,7 +15,7 @@ class ErrorModal : public Modal {
     virtual void paintContent(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
    public:
-    ErrorModal(const QString &text, qreal width, qreal height);
+    ErrorModal(const QString &text,const QSize& size);
 
    signals:
     void returnToMenu();
