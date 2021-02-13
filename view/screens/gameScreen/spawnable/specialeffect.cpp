@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/specialeffect.h"
+#include "view/screens/gameScreen/spawnable/specialeffect.h"
 
 #include <QPainter>
 

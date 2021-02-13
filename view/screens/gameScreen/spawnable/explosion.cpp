@@ -1,4 +1,4 @@
-#include "view/screens/gameScreen/explosion.h"
+#include "view/screens/gameScreen/spawnable/explosion.h"
 
 #include <QPainter>
 

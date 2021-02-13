@@ -4,7 +4,7 @@
 #include <QGraphicsItem>
 
 #include "model/position.h"
-#include "view/screens/gameScreen/gridcelltype.h"
+#include "view/screens/gameScreen/map/gridcelltype.h"
 
 namespace view {
 

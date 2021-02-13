@@ -1,9 +1,9 @@
-#include "view/screens/gameScreen/gridfield.h"
+#include "view/screens/gameScreen/map/gridfield.h"
 
 #include <QGraphicsScene>
 
-#include "view/screens/gameScreen/bullet.h"
-#include "view/screens/gameScreen/granade.h"
+#include "view/screens/gameScreen/spawnable/bullet.h"
+#include "view/screens/gameScreen/spawnable/granade.h"
 
 namespace view {
 

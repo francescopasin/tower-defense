@@ -10,10 +10,10 @@
 #include "model/turrets/turret.h"
 #include "model/turrets/turrettype.h"
 #include "view/screens/gameScreen/enemyitem.h"
-#include "view/screens/gameScreen/gridcell.h"
-#include "view/screens/gameScreen/gridcelltype.h"
-#include "view/screens/gameScreen/projectile.h"
-#include "view/screens/gameScreen/specialeffect.h"
+#include "view/screens/gameScreen/map/gridcell.h"
+#include "view/screens/gameScreen/map/gridcelltype.h"
+#include "view/screens/gameScreen/spawnable/projectile.h"
+#include "view/screens/gameScreen/spawnable/specialeffect.h"
 #include "view/screens/gameScreen/turretitem.h"
 
 using std::vector;

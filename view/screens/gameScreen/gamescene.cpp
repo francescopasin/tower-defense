@@ -3,9 +3,8 @@
 #include <algorithm>
 
 #include "view/hud/gametitle.h"
-#include "view/screens/gameScreen/gridfield.h"
-#include "view/screens/gameScreen/lostwonmodal.h"
-#include "view/screens/gameScreen/pausemodal.h"
+#include "view/screens/gameScreen/modals/lostwonmodal.h"
+#include "view/screens/gameScreen/modals/pausemodal.h"
 
 using std::vector;
 
