@@ -100,8 +100,8 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             painter->drawText(
                 QRectF(_size.width() / 6, _size.height() / 6 + 50, _size.width() * 2 / 3, _size.height() * 2 / 3),
                 Qt::AlignCenter | Qt::TextWordWrap,
-                "Your objective is to destroy all students, preventing them to reach 30 in the exam.\n"
-                "You can achieve this by using some complex c++ concepts that they can't understand");
+                "Your aim is to destroy all the students, preventing them to reach 30 in the exam.\n"
+                "You can achieve this by using some complex c++ concepts that they can't understand.");
             break;
         case 2:
             paintTitle(painter, "The game rules");
@@ -111,7 +111,7 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
                 Qt::AlignHCenter | Qt::TextWordWrap,
                 "When the game starts students begin to spawn, trying to reach the end of the path.\n"
                 "There are different students waves during a match, each one with different statistics.\n"
-                "If a student reaches the end of the path you loose life. When your life reaches 0 it's game over.\n\n"
+                "If a student reaches the end of the path you loose life. When your life reaches 0 the game is over.\n\n"
                 "You have some initial game credits. Use them to strategically place turrets in order to defeat students.\n"
                 "When a student dies you earn some credit.\n\n"
                 "If you manage to destroy all students you win!");
@@ -157,11 +157,11 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             painter->drawText(
                 QRectF(_size.width() / 8, 300, _size.width() * 3 / 4, _size.height() * 3 / 4),
                 Qt::AlignHCenter | Qt::TextWordWrap,
-                "The are 6 types of turrets in the game. Every turret has a specific cost and specific stats.\n"
-                "Every turret is characterised by a specific attack radius (how many cells in every side it can attack."
-                "Diagonal cells also counts).\n"
+                "The are 6 types of turrets in the game. Every turret has a specific cost and specific stats,"
+                "and is characterised by a specific attack radius (how many cells in every side it can attack."
+                "Diagonal cells also count).\n"
                 "Other turrets stats are: damage (how much the health of the attacked enemy decrease), cooldown "
-                "(how fast does the turret attack) and maxTargets (how many enemies are attached simultaneously)");
+                "(how fast does the turret attack) and maxTargets (how many enemies are attached simultaneously).");
 
             break;
         case 5:
@@ -285,8 +285,9 @@ void TutorialContent::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
             paintTurretInfo(
                 painter,
                 "slowtime-turret",
-                "TODO Turret",
-                "TODO",
+                "IO Turret",
+                "This turret doesn't have a standard attack. A well placed \"What does it prints?\" exercise will"
+                " waste a lot of students' time.",
                 QString(
                     "Cost: %1\n"
                     "Max targets: %2\n"

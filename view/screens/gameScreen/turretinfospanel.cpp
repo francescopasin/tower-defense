@@ -155,7 +155,7 @@ void TurretInfosPanel::paint(QPainter *painter, const QStyleOptionGraphicsItem *
                         .arg(stats.initialAttackCooldown));
                 break;
             case model::TurretType::SlowTimeTurret:
-                paintTitle(painter, "slowtime-turret", "TODO Turret");
+                paintTitle(painter, "slowtime-turret", "IO Turret");
 
                 stats = turretTypes.at(TurretType::SlowTimeTurret);
 
