@@ -48,7 +48,8 @@ class GridField : public QObject, public QGraphicsItem {
 
    public slots:
     void selectCell(GridCell *cell);
-    void spawnProjectile(const QPointF &startingPos, const QPointF &endingPos);
+    void spawnBullet(const QPointF &startingPos, const QPointF &endingPos);
+    void spawnGranade(const QPointF &startingPos, const QPointF &endingPos);
 
    signals:
     void cellPressed(GridCellType cellType, model::Position cellPosition);

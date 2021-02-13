@@ -67,23 +67,57 @@ model::Position TurretItem::getGridPosition() const {
 void TurretItem::attack(const vector<EnemyItem *> &enemies) {
     vector<SP<model::Enemy>> targetedEnemies = turretData->getTargetedEnemies();
 
-    for (auto enemy : targetedEnemies) {
-        // Find associated EnemyItem
-        for (auto enemyItem : enemies) {
-            if (enemyItem->hasEnemyData(enemy)) {
-                // Spawn projectile
+    switch (type) {
+        case model::TurretType::WeakTurret:
+        case model::TurretType::MitraTurret:
+        case model::TurretType::ComboTurret:
+        case model::TurretType::SplitTurret:
+            // Standard projectile
+            for (auto enemy : targetedEnemies) {
+                // Find associated EnemyItem
+                for (auto enemyItem : enemies) {
+                    if (enemyItem->hasEnemyData(enemy)) {
+                        // Spawn projectile
 
-                // TODO: mapFromScene not working - calculate enemy pos relative to gridfield
-                //QPointF enemyPos = mapToParent(mapFromScene(enemyItem->pos()));
+                        // TODO: mapFromScene not working - calculate enemy pos relative to gridfield
+                        //QPointF enemyPos = mapToParent(mapFromScene(enemyItem->pos()));
 
-                // TODO: TEMP
-                QPointF enemyPos(enemyItem->pos().x() + 50, enemyItem->pos().y() + 50);  // 50: MAGIC NUMBER
+                        // TODO: TEMP
+                        QPointF enemyPos(enemyItem->pos().x() + 50, enemyItem->pos().y() + 50);  // 50: MAGIC NUMBER
 
-                emit spawnProjectile(
-                    QPointF(pos().x() + ((_cellSize - 10) / 2), pos().y() + ((_cellSize - 10) / 2)),
-                    QPointF(enemyPos.x() + enemyItem->boundingRect().x() / 2, enemyPos.y() + enemyItem->boundingRect().y() / 2));
+                        emit spawnBullet(
+                            QPointF(pos().x() + ((_cellSize - 10) / 2), pos().y() + ((_cellSize - 10) / 2)),
+                            QPointF(enemyPos.x() + enemyItem->boundingRect().x() / 2, enemyPos.y() + enemyItem->boundingRect().y() / 2));
+                    }
+                }
             }
-        }
+            break;
+        case model::TurretType::GranadeTurret:
+            // Granade projectile
+            // Find associated EnemyItem
+            if (targetedEnemies.size() > 0) {
+                for (auto enemyItem : enemies) {
+                    if (enemyItem->hasEnemyData(targetedEnemies[0])) {
+                        // Spawn projectile
+
+                        // TODO: mapFromScene not working - calculate enemy pos relative to gridfield
+                        //QPointF enemyPos = mapToParent(mapFromScene(enemyItem->pos()));
+
+                        // TODO: TEMP
+                        QPointF enemyPos(enemyItem->pos().x() + 50, enemyItem->pos().y() + 50);  // 50: MAGIC NUMBER
+
+                        emit spawnGranade(
+                            QPointF(pos().x() + ((_cellSize - 10) / 2), pos().y() + ((_cellSize - 10) / 2)),
+                            QPointF(enemyPos.x() + enemyItem->boundingRect().x() / 2, enemyPos.y() + enemyItem->boundingRect().y() / 2));
+                    }
+                }
+            }
+            break;
+
+        case model::TurretType::SlowTimeTurret:
+            // Special effect projectile
+
+            break;
     }
 }
 

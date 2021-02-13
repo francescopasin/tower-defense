@@ -41,7 +41,8 @@ class TurretItem : public QObject, public QGraphicsItem {
     bool hasTurretData(const SP<model::Turret> &turret) const;
 
    signals:
-    void spawnProjectile(const QPointF &startingPos, const QPointF &endingPos);
+    void spawnBullet(const QPointF &startingPos, const QPointF &endingPos);
+    void spawnGranade(const QPointF &startingPos, const QPointF &endingPos);
 };
 
 }  // namespace view

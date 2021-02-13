@@ -14,19 +14,6 @@ Projectile::Projectile(QGraphicsItem *parent, const QPointF &startingPos, const 
     deltaY = 1.0 / speed * (endingPos.y() - realStartingPos.y());
 }
 
-QRectF Projectile::boundingRect() const {
-    return QRectF(0, 0, 10, 10);
-}
-
-void Projectile::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(Qt::red);
-    painter->drawEllipse(0, 0, 10, 10);
-}
-
 bool Projectile::move() {
     // Calculate next point
     QPointF currentPos = pos();

@@ -2,6 +2,9 @@
 
 #include <QGraphicsScene>
 
+#include "view/screens/gameScreen/bullet.h"
+#include "view/screens/gameScreen/granade.h"
+
 namespace view {
 
 GridField::GridField(
@@ -248,7 +251,8 @@ void GridField::addTurretItem(const SP<model::Turret> &turret, model::TurretType
     // Create turret
     TurretItem *turretItem = new TurretItem(this, turret, turretType, 96);  // TODO: fix all cell sizes (dynamics)
     turrets.push_back(turretItem);
-    connect(turretItem, &TurretItem::spawnProjectile, this, &GridField::spawnProjectile);
+    connect(turretItem, &TurretItem::spawnBullet, this, &GridField::spawnBullet);
+    connect(turretItem, &TurretItem::spawnGranade, this, &GridField::spawnGranade);
 
     // For hover fix
     emit turretHoverLeave();
@@ -267,6 +271,8 @@ void GridField::moveProjectiles() {
     auto i = projectiles.begin();
     while (i != projectiles.end()) {
         if ((*i)->move()) {
+            // TODO: Spawn granade explosion
+
             scene()->removeItem(*i);
             i = projectiles.erase(i);
         } else {
@@ -275,9 +281,14 @@ void GridField::moveProjectiles() {
     }
 }
 
-void GridField::spawnProjectile(const QPointF &startingPos, const QPointF &endingPos) {
-    Projectile *projectile = new Projectile(this, startingPos, endingPos);
-    projectiles.push_back(projectile);
+void GridField::spawnBullet(const QPointF &startingPos, const QPointF &endingPos) {
+    Bullet *bullet = new Bullet(this, startingPos, endingPos);
+    projectiles.push_back(bullet);
+}
+
+void GridField::spawnGranade(const QPointF &startingPos, const QPointF &endingPos) {
+    Granade *granade = new Granade(this, startingPos, endingPos);
+    projectiles.push_back(granade);
 }
 
 }  // namespace view
