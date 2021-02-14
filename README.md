@@ -2,7 +2,7 @@
 ## A c++ tower defense game
 
 OOP project for Unipd.  
-The version given to the prof is the one in the 'v1' branch
+The version given to the prof is the one in the '1.0.0' release
 
 
 QT library: https://www.qt.io/  
