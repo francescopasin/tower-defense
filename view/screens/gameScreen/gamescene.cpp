@@ -23,6 +23,7 @@ GameScene::GameScene(const SP<model::GameModel>& model) : _model(model) {
     connect(gridField, &GridField::cellPressed, this, &GameScene::gridCellPressed);
     connect(gridField, &GridField::turretHovered, this, &GameScene::showTurretInfos);
     connect(gridField, &GridField::turretHoverLeave, this, &GameScene::hideTurretInfos);
+    connect(gridField, &GridField::spawnGranadeExplosion, this, &GameScene::spawnGranadeExplosion);
 
     turretSelector = new TurretSelector();
     connect(turretSelector, &TurretSelector::losedFocusSignal, this, &GameScene::closeTurretSelector);
@@ -94,7 +95,7 @@ void GameScene::tick() {
         if ((*j)->isDead()) {
             // Spawn explosion
 
-            Explosion* explosion = new Explosion();
+            Explosion* explosion = new Explosion(ExplosionType::EnemyExplosion);
             explosion->setPos(gridField->mapToScene((*j)->pos()));
             explosions.push_back(explosion);
             addItem(explosion);
@@ -172,6 +173,14 @@ void GameScene::showModal(model::Game::State stato) {
     addItem(modal);
     connect(modal, &LostWonModal::restart, this, &GameScene::restart);
     connect(modal, &LostWonModal::returnToMenu, this, &GameScene::returnToMenu);
+}
+
+void GameScene::spawnGranadeExplosion(const QPointF& position) {
+    Explosion* explosion = new Explosion(ExplosionType::GranadeExplosion);
+    QPointF tempPos = gridField->mapToScene(position);
+    explosion->setPos(tempPos.x() - explosion->boundingRect().width() / 2, tempPos.y() - explosion->boundingRect().height() / 2);
+    explosions.push_back(explosion);
+    addItem(explosion);
 }
 
 void GameScene::pauseButtonPressed() {

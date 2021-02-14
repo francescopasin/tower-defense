@@ -44,20 +44,28 @@
         <file>assets/images/enemy/side3.png</file>
         <file>assets/images/enemy/side4.png</file>
 
-        <file>assets/images/explosion/explosion1.png</file>
-        <file>assets/images/explosion/explosion2.png</file>
-        <file>assets/images/explosion/explosion3.png</file>
-        <file>assets/images/explosion/explosion4.png</file>
-        <file>assets/images/explosion/explosion5.png</file>
-        <file>assets/images/explosion/explosion6.png</file>
-        <file>assets/images/explosion/explosion7.png</file>
-        <file>assets/images/explosion/explosion8.png</file>
-        <file>assets/images/explosion/explosion9.png</file>
-        <file>assets/images/explosion/explosion10.png</file>
-        <file>assets/images/explosion/explosion11.png</file>
-        <file>assets/images/explosion/explosion12.png</file>
-        <file>assets/images/explosion/explosion13.png</file>
-        <file>assets/images/explosion/explosion14.png</file>
+        <file>assets/images/explosion1/explosion1.png</file>
+        <file>assets/images/explosion1/explosion2.png</file>
+        <file>assets/images/explosion1/explosion3.png</file>
+        <file>assets/images/explosion1/explosion4.png</file>
+        <file>assets/images/explosion1/explosion5.png</file>
+        <file>assets/images/explosion1/explosion6.png</file>
+        <file>assets/images/explosion1/explosion7.png</file>
+        <file>assets/images/explosion1/explosion8.png</file>
+        <file>assets/images/explosion1/explosion9.png</file>
+        <file>assets/images/explosion1/explosion10.png</file>
+        <file>assets/images/explosion1/explosion11.png</file>
+        <file>assets/images/explosion1/explosion12.png</file>
+        <file>assets/images/explosion1/explosion13.png</file>
+        <file>assets/images/explosion1/explosion14.png</file>
+
+        <file>assets/images/explosion2/explosion1.png</file>
+        <file>assets/images/explosion2/explosion2.png</file>
+        <file>assets/images/explosion2/explosion3.png</file>
+        <file>assets/images/explosion2/explosion4.png</file>
+        <file>assets/images/explosion2/explosion5.png</file>
+        <file>assets/images/explosion2/explosion6.png</file>
+        <file>assets/images/explosion2/explosion7.png</file>
 
         <file>assets/images/pointers/pointer.png</file>
         <file>assets/images/pointers/pointer-interactive.png</file>

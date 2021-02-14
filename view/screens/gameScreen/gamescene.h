@@ -63,6 +63,7 @@ class GameScene : public QGraphicsScene {
     void addTurret(model::TurretType turretType);
     void pauseButtonPressed();
     void showModal(model::Game::State stato);
+    void spawnGranadeExplosion(const QPointF& position);
 
    signals:
     void playPauseGame();
