@@ -58,6 +58,7 @@ class GridField : public QObject, public QGraphicsItem {
     void cellPressed(GridCellType cellType, const model::Position &cellPosition);
     void turretHovered(model::TurretType turretType, const model::Position &cellPosition);
     void turretHoverLeave();
+    void spawnGranadeExplosion(const QPointF &position);
 };
 
 }  // namespace view

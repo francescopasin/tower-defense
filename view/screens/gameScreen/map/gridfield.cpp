@@ -274,7 +274,10 @@ void GridField::tick() {
     auto i = projectiles.begin();
     while (i != projectiles.end()) {
         if ((*i)->move()) {
-            // TODO: Spawn granade explosion
+            // Spawn granade explosion
+            if (dynamic_cast<Granade *>(*i)) {
+                emit spawnGranadeExplosion((*i)->pos());
+            }
 
             scene()->removeItem(*i);
             i = projectiles.erase(i);
