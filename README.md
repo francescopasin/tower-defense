@@ -1,7 +1,8 @@
 # CPP - Crush Poor Programmers
 ## A c++ tower defense game
 
-OOP project for Unipd.
+OOP project for Unipd.  
+The version given to the prof is the one in the 'v1' branch
 
 
 QT library: https://www.qt.io/  
