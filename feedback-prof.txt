@@ -1,0 +1,33 @@
+Valutazione progetto: ECCELLENTE
+
+Feedback professore:
+Vincoli obbligatori
++ Soddisfatti
+
+
+Orientamento ad oggetti
++ Incapsulamento
++ Modularità (modello logico e la GUI sono separati)
++ Estensibilità ed evolvibilità, polimorfismo
+
+
+Funzionalità
++ Molte funzionalità legate alle meccaniche di gioco (crediti, vita, titpi
+  di torrette, ecc)
+
+
+GUI
++ Visualizza i diversi tipi di dato in maniera opportuna
++ Usabile e intuitiva
++ Robusta, gestisce ridimensionamento
++ Utilizza molti elementi grafici
++ Utilizza uno stile ben definito
+
+
+Relazione
+- Migliorabile inserendo un diagramma di classi per la gerarchia principale
+
+
+Suggerimenti non collegati alla valutazione
+Una buona descrizione per le "Recursive Turret" potrebbe essere "In order to understand
+recursion, you have to understand recursion first"!
